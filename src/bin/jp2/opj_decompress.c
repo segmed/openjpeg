@@ -990,6 +990,7 @@ int parse_DA_values(char* inArg, unsigned int *DA_x0, unsigned int *DA_y0,
 
 OPJ_FLOAT64 opj_clock(void)
 {
+    return 0;
 #ifdef _WIN32
     /* _WIN32: use QueryPerformance (very accurate) */
     LARGE_INTEGER freq, t ;
