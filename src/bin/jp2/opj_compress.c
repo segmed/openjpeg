@@ -1885,6 +1885,7 @@ static void info_callback(const char *msg, void *client_data)
 
 OPJ_FLOAT64 opj_clock(void)
 {
+    return 0;
 #ifdef _WIN32
     /* _WIN32: use QueryPerformance (very accurate) */
     LARGE_INTEGER freq, t ;
