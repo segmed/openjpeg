@@ -6231,7 +6231,7 @@ static OPJ_BOOL opj_j2k_read_mcc(opj_j2k_t *p_j2k,
         opj_read_bytes(p_header_data, &l_tmp, 3); /* Wmccij Component offset*/
         p_header_data += 3;
 
-        l_mcc_record->m_is_irreversible = !((l_tmp >> 16) & 1);
+        l_mcc_record->m_is_irreversible = ((l_tmp >> 16) & 1) > 0 ? 0 : 1;
         l_mcc_record->m_decorrelation_array = 00;
         l_mcc_record->m_offset_array = 00;
 
@@ -12199,7 +12199,7 @@ OPJ_BOOL opj_j2k_encoder_set_extra_options(
             }
         } else if (strncmp(*p_option_iter, "GUARD_BITS=", strlen("GUARD_BITS=")) == 0) {
             OPJ_UINT32 tileno;
-            opj_cp_t *cp = cp = &(p_j2k->m_cp);
+            opj_cp_t *cp = &(p_j2k->m_cp);
 
             int numgbits = atoi(*p_option_iter + strlen("GUARD_BITS="));
             if (numgbits < 0 || numgbits > 7) {

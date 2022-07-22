@@ -41,12 +41,16 @@
 #define OPJ_SKIP_POISON
 #include "opj_includes.h"
 
-#ifdef __SSE__
-#include <xmmintrin.h>
-#endif
-#ifdef __SSE2__
-#include <emmintrin.h>
-#endif
+#undef __SSE3__
+#undef __SSE2__
+#undef __SSE__
+#undef __AVX2__
+/*#ifdef __SSE__*/
+/*#include <xmmintrin.h>*/
+/*#endif*/
+/*#ifdef __SSE2__*/
+/*#include <emmintrin.h>*/
+/*#endif*/
 
 #if defined(__GNUC__)
 #pragma GCC poison malloc calloc realloc free

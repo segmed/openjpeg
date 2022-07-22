@@ -56,6 +56,7 @@
 #include <assert.h>
 #include <limits.h>
 
+#undef OPJ_HAVE_FSEEKO
 /*
   Use fseeko() and ftello() if they are available since they use
   'off_t' rather than 'long'.  It is wrong to use fseeko() and
@@ -247,6 +248,7 @@ typedef unsigned int OPJ_BITFIELD;
 #include "opj_intmath.h"
 #include "sparse_array.h"
 
+#undef USE_JPIP
 #ifdef USE_JPIP
 #include "cidx_manager.h"
 #include "indexbox_manager.h"

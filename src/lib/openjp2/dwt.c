@@ -42,19 +42,24 @@
 
 #define OPJ_SKIP_POISON
 #include "opj_includes.h"
+#define STANDARD_SLOW_VERSION 1
 
-#ifdef __SSE__
-#include <xmmintrin.h>
-#endif
-#ifdef __SSE2__
-#include <emmintrin.h>
-#endif
-#ifdef __SSSE3__
-#include <tmmintrin.h>
-#endif
-#ifdef __AVX2__
-#include <immintrin.h>
-#endif
+#undef __SSE3__
+#undef __SSE2__
+#undef __SSE__
+#undef __AVX2__
+/*#ifdef __SSE__*/
+/*#include <xmmintrin.h>*/
+/*#endif*/
+/*#ifdef __SSE2__*/
+/*#include <emmintrin.h>*/
+/*#endif*/
+/*#ifdef __SSSE3__*/
+/*#include <tmmintrin.h>*/
+/*#endif*/
+/*#ifdef __AVX2__*/
+/*#include <immintrin.h>*/
+/*#endif*/
 
 #if defined(__GNUC__)
 #pragma GCC poison malloc calloc realloc free
@@ -525,7 +530,7 @@ static void opj_idwt53_h(const opj_dwt_t *dwt,
 #define SUB(x,y)    _mm256_sub_epi32((x),(y))
 #define SAR(x,y)    _mm256_srai_epi32((x),(y))
 #else
-#define VREG        __m128i
+#define VREG        int[4]
 #define LOAD_CST(x) _mm_set1_epi32(x)
 #define LOAD(x)     _mm_load_si128((const VREG*)(x))
 #define LOADU(x)    _mm_loadu_si128((const VREG*)(x))

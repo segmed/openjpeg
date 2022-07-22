@@ -37,15 +37,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef __SSE__
-#include <xmmintrin.h>
-#endif
-#ifdef __SSE2__
-#include <emmintrin.h>
-#endif
-#ifdef __SSE4_1__
-#include <smmintrin.h>
-#endif
+#undef __SSE3__
+#undef __SSE2__
+#undef __SSE__
+#undef __AVX2__
+/*#ifdef __SSE__*/
+/*#include <xmmintrin.h>*/
+/*#endif*/
+/*#ifdef __SSE2__*/
+/*#include <emmintrin.h>*/
+/*#endif*/
+/*#ifdef __SSE4_1__*/
+/*#include <smmintrin.h>*/
+/*#endif*/
 
 #include "opj_includes.h"
 
