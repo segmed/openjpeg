@@ -1235,6 +1235,9 @@ OPJ_API void OPJ_CALLCONV opj_stream_set_seek_function(opj_stream_t* p_stream,
 OPJ_API void OPJ_CALLCONV opj_stream_set_user_data(opj_stream_t* p_stream,
         void * p_data, opj_stream_free_user_data_fn p_function);
 
+OPJ_API void OPJ_CALLCONV opj_stream_set_current_data(opj_stream_t* p_stream,
+        void * p_data, OPJ_SIZE_T p_size);
+
 /**
  * Sets the length of the user data for the stream.
  *

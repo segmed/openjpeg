@@ -32,6 +32,7 @@
  */
 #ifndef OPJ_INCLUDES_H
 #define OPJ_INCLUDES_H
+#define OPJ_SKIP_POISON
 
 /*
  * This must be included before any system headers,
