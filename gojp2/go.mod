@@ -1,4 +1,4 @@
-module github.com/luongthanhlam/openjpeg/gojp2
+module github.com/segmed/openjpeg/gojp2
 
 go 1.17
 
