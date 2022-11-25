@@ -1601,7 +1601,7 @@ type S_IO_FILE = struct {
 	F_old_offset     T__off_t
 	F_cur_column     uint16
 	F_vtable_offset  int8
-	F_shortbuf       [1]int8
+	F_shortbuf       [1]uint8
 	F__ccgo_pad2     [4]byte
 	F_lock           uintptr
 	F_offset         T__off64_t
@@ -1611,7 +1611,7 @@ type S_IO_FILE = struct {
 	F_freeres_buf    uintptr
 	F__pad5          Tsize_t
 	F_mode           int32
-	F_unused2        [20]int8
+	F_unused2        [20]uint8
 } /* __FILE.h:4:1 */
 
 type T__FILE = S_IO_FILE /* __FILE.h:5:25 */
@@ -2737,14 +2737,14 @@ type Tpthread_t = uint64 /* pthreadtypes.h:27:27 */
 //    type is not exposed on purpose.
 type Tpthread_mutexattr_t = struct {
 	F__ccgo_pad1 [0]uint32
-	F__size      [4]int8
+	F__size      [4]uint8
 } /* pthreadtypes.h:36:3 */
 
 // Data structure for condition variable handling.  The structure of
 //    the attribute type is not exposed on purpose.
 type Tpthread_condattr_t = struct {
 	F__ccgo_pad1 [0]uint32
-	F__size      [4]int8
+	F__size      [4]uint8
 } /* pthreadtypes.h:45:3 */
 
 // Keys for thread-specific data
@@ -2755,7 +2755,7 @@ type Tpthread_once_t = int32 /* pthreadtypes.h:53:30 */
 
 type Spthread_attr_t = struct {
 	F__ccgo_pad1 [0]uint64
-	F__size      [56]int8
+	F__size      [56]uint8
 } /* pthreadtypes.h:56:1 */
 
 type Tpthread_attr_t = Spthread_attr_t /* pthreadtypes.h:62:30 */
@@ -2770,7 +2770,7 @@ type Tpthread_rwlock_t = struct{ F__data S__pthread_rwlock_arch_t } /* pthreadty
 
 type Tpthread_rwlockattr_t = struct {
 	F__ccgo_pad1 [0]uint64
-	F__size      [8]int8
+	F__size      [8]uint8
 } /* pthreadtypes.h:97:3 */
 
 // POSIX spinlock data type.
@@ -2780,12 +2780,12 @@ type Tpthread_spinlock_t = int32 /* pthreadtypes.h:103:22 */
 //    deliberately not exposed.
 type Tpthread_barrier_t = struct {
 	F__ccgo_pad1 [0]uint64
-	F__size      [32]int8
+	F__size      [32]uint8
 } /* pthreadtypes.h:112:3 */
 
 type Tpthread_barrierattr_t = struct {
 	F__ccgo_pad1 [0]uint32
-	F__size      [4]int8
+	F__size      [4]uint8
 } /* pthreadtypes.h:118:3 */
 
 // Reentrant versions of the `random' family of functions.
@@ -3151,7 +3151,7 @@ type Tdouble_t = float64 /* math.h:150:16 */
 
 type TOPJ_BOOL = int32 /* openjpeg.h:116:13 */
 
-type TOPJ_CHAR = int8       /* openjpeg.h:120:23 */
+type TOPJ_CHAR = uint8      /* openjpeg.h:120:23 */
 type TOPJ_FLOAT32 = float32 /* openjpeg.h:121:23 */
 type TOPJ_FLOAT64 = float64 /* openjpeg.h:122:23 */
 type TOPJ_BYTE = uint8      /* openjpeg.h:123:23 */
@@ -3665,10 +3665,10 @@ type Sopj_cparameters = struct {
 	Fres_spec              int32
 	Fprcw_init             [33]int32
 	Fprch_init             [33]int32
-	Finfile                [4096]int8
-	Foutfile               [4096]int8
+	Finfile                [4096]uint8
+	Foutfile               [4096]uint8
 	Findex_on              int32
-	Findex                 [4096]int8
+	Findex                 [4096]uint8
 	Fimage_offset_x0       int32
 	Fimage_offset_y0       int32
 	Fsubsampling_dx        int32
@@ -3691,9 +3691,9 @@ type Sopj_cparameters = struct {
 	Fcp_cinema             TOPJ_CINEMA_MODE
 	Fmax_comp_size         int32
 	Fcp_rsiz               TOPJ_RSIZ_CAPABILITIES
-	Ftp_on                 int8
-	Ftp_flag               int8
-	Ftcp_mct               int8
+	Ftp_on                 uint8
+	Ftp_flag               uint8
+	Ftcp_mct               uint8
 	F__ccgo_pad1           [1]byte
 	Fjpip_on               TOPJ_BOOL
 	Fmct_data              uintptr
@@ -3713,8 +3713,8 @@ type Topj_cparameters_t = Sopj_cparameters /* openjpeg.h:544:3 */
 type Sopj_dparameters = struct {
 	Fcp_reduce         TOPJ_UINT32
 	Fcp_layer          TOPJ_UINT32
-	Finfile            [4096]int8
-	Foutfile           [4096]int8
+	Finfile            [4096]uint8
+	Foutfile           [4096]uint8
 	Fdecod_format      int32
 	Fcod_format        int32
 	FDA_x0             TOPJ_UINT32
@@ -7548,7 +7548,7 @@ func opj_int_ceildiv(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* 
 	return TOPJ_INT32((TOPJ_INT64(a) + TOPJ_INT64(b) - int64(1)) / TOPJ_INT64(b))
 }
 
-var __func__279 = *(*[16]int8)(unsafe.Pointer(ts + 188)) /* opj_intmath.h:161:1 */
+var __func__279 = *(*[16]uint8)(unsafe.Pointer(ts + 188)) /* opj_intmath.h:161:1 */
 
 //*
 // Divide an integer and round upwards
@@ -7561,7 +7561,7 @@ func opj_uint_ceildiv(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 {
 	return TOPJ_UINT32((TOPJ_UINT64(a) + TOPJ_UINT64(b) - uint64(1)) / TOPJ_UINT64(b))
 }
 
-var __func__280 = *(*[17]int8)(unsafe.Pointer(ts + 204)) /* opj_intmath.h:171:1 */
+var __func__280 = *(*[17]uint8)(unsafe.Pointer(ts + 204)) /* opj_intmath.h:171:1 */
 
 //*
 // Divide an integer by a power of 2 and round upwards
@@ -7641,7 +7641,7 @@ func opj_int_fix_mul(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* 
 	return TOPJ_INT32(temp >> 13)
 }
 
-var __func__281 = *(*[16]int8)(unsafe.Pointer(ts + 315)) /* opj_intmath.h:253:1 */
+var __func__281 = *(*[16]uint8)(unsafe.Pointer(ts + 315)) /* opj_intmath.h:253:1 */
 
 //*
 // Addition two signed integers with a wrap-around behaviour.
@@ -8097,7 +8097,7 @@ func Xopj_bio_write(tls *libc.TLS, bio uintptr, v TOPJ_UINT32, n TOPJ_UINT32) { 
 	}
 }
 
-var __func__4 = *(*[14]int8)(unsafe.Pointer(ts + 379)) /* bio.c:166:1 */
+var __func__4 = *(*[14]uint8)(unsafe.Pointer(ts + 379)) /* bio.c:166:1 */
 
 func Xopj_bio_read(tls *libc.TLS, bio uintptr, n TOPJ_UINT32) TOPJ_UINT32 { /* bio.c:175:12: */
 	var i TOPJ_INT32
@@ -8114,7 +8114,7 @@ func Xopj_bio_read(tls *libc.TLS, bio uintptr, n TOPJ_UINT32) TOPJ_UINT32 { /* b
 	return v
 }
 
-var __func__5 = *(*[13]int8)(unsafe.Pointer(ts + 402)) /* bio.c:176:1 */
+var __func__5 = *(*[13]uint8)(unsafe.Pointer(ts + 402)) /* bio.c:176:1 */
 
 func Xopj_bio_flush(tls *libc.TLS, bio uintptr) TOPJ_BOOL { /* bio.c:195:10: */
 	if !(opj_bio_byteout(tls, bio) != 0) {
@@ -8157,7 +8157,7 @@ func Xopj_write_bytes_BE(tls *libc.TLS, p_buffer uintptr, p_value TOPJ_UINT32, p
 	libc.Xmemcpy(tls, p_buffer, l_data_ptr, uint64(p_nb_bytes))
 }
 
-var __func__10 = *(*[19]int8)(unsafe.Pointer(ts + 491)) /* cio.c:49:1 */
+var __func__10 = *(*[19]uint8)(unsafe.Pointer(ts + 491)) /* cio.c:49:1 */
 
 func Xopj_write_bytes_LE(tls *libc.TLS, p_buffer uintptr, p_value TOPJ_UINT32, p_nb_bytes TOPJ_UINT32) { /* cio.c:58:6: */
 	bp := tls.Alloc(4)
@@ -8177,7 +8177,7 @@ func Xopj_write_bytes_LE(tls *libc.TLS, p_buffer uintptr, p_value TOPJ_UINT32, p
 	}
 }
 
-var __func__11 = *(*[19]int8)(unsafe.Pointer(ts + 510)) /* cio.c:60:1 */
+var __func__11 = *(*[19]uint8)(unsafe.Pointer(ts + 510)) /* cio.c:60:1 */
 
 func Xopj_read_bytes_BE(tls *libc.TLS, p_buffer uintptr, p_value uintptr, p_nb_bytes TOPJ_UINT32) { /* cio.c:71:6: */
 	var l_data_ptr uintptr = p_value
@@ -8191,7 +8191,7 @@ func Xopj_read_bytes_BE(tls *libc.TLS, p_buffer uintptr, p_value uintptr, p_nb_b
 	libc.Xmemcpy(tls, l_data_ptr+uintptr(uint64(unsafe.Sizeof(TOPJ_UINT32(0))))-uintptr(p_nb_bytes), p_buffer, uint64(p_nb_bytes))
 }
 
-var __func__12 = *(*[18]int8)(unsafe.Pointer(ts + 529)) /* cio.c:73:1 */
+var __func__12 = *(*[18]uint8)(unsafe.Pointer(ts + 529)) /* cio.c:73:1 */
 
 func Xopj_read_bytes_LE(tls *libc.TLS, p_buffer uintptr, p_value uintptr, p_nb_bytes TOPJ_UINT32) { /* cio.c:82:6: */
 	var l_data_ptr uintptr = p_value + uintptr(p_nb_bytes) - uintptr(1)
@@ -8208,7 +8208,7 @@ func Xopj_read_bytes_LE(tls *libc.TLS, p_buffer uintptr, p_value uintptr, p_nb_b
 	}
 }
 
-var __func__13 = *(*[18]int8)(unsafe.Pointer(ts + 547)) /* cio.c:84:1 */
+var __func__13 = *(*[18]uint8)(unsafe.Pointer(ts + 547)) /* cio.c:84:1 */
 
 func Xopj_write_double_BE(tls *libc.TLS, p_buffer uintptr, p_value TOPJ_FLOAT64) { /* cio.c:96:6: */
 	bp := tls.Alloc(8)
@@ -8687,7 +8687,7 @@ func Xopj_stream_read_skip(tls *libc.TLS, p_stream uintptr, p_size TOPJ_OFF_T, p
 	return l_skip_nb_bytes
 }
 
-var __func__14 = *(*[21]int8)(unsafe.Pointer(ts + 629)) /* cio.c:477:1 */
+var __func__14 = *(*[21]uint8)(unsafe.Pointer(ts + 629)) /* cio.c:477:1 */
 
 func Xopj_stream_write_skip(tls *libc.TLS, p_stream uintptr, p_size TOPJ_OFF_T, p_event_mgr uintptr) TOPJ_OFF_T { /* cio.c:550:11: */
 	var l_is_written TOPJ_BOOL = 0
@@ -8752,7 +8752,7 @@ func Xopj_stream_get_number_byte_left(tls *libc.TLS, p_stream uintptr) TOPJ_OFF_
 	return int64(0)
 }
 
-var __func__15 = *(*[32]int8)(unsafe.Pointer(ts + 762)) /* cio.c:597:1 */
+var __func__15 = *(*[32]uint8)(unsafe.Pointer(ts + 762)) /* cio.c:597:1 */
 
 func Xopj_stream_skip(tls *libc.TLS, p_stream uintptr, p_size TOPJ_OFF_T, p_event_mgr uintptr) TOPJ_OFF_T { /* cio.c:605:11: */
 	if p_size >= int64(0) {
@@ -8764,7 +8764,7 @@ func Xopj_stream_skip(tls *libc.TLS, p_stream uintptr, p_size TOPJ_OFF_T, p_even
 	})(unsafe.Pointer(&struct{ uintptr }{(*Topj_stream_private_t)(unsafe.Pointer(p_stream)).Fm_opj_skip})).f(tls, p_stream, p_size, p_event_mgr)
 }
 
-var __func__16 = *(*[16]int8)(unsafe.Pointer(ts + 794)) /* cio.c:607:1 */
+var __func__16 = *(*[16]uint8)(unsafe.Pointer(ts + 794)) /* cio.c:607:1 */
 
 func Xopj_stream_read_seek(tls *libc.TLS, p_stream uintptr, p_size TOPJ_OFF_T, p_event_mgr uintptr) TOPJ_BOOL { /* cio.c:612:10: */
 	_ = p_event_mgr
@@ -8817,7 +8817,7 @@ func Xopj_stream_seek(tls *libc.TLS, p_stream uintptr, p_size TOPJ_OFF_T, p_even
 	})(unsafe.Pointer(&struct{ uintptr }{(*Topj_stream_private_t)(unsafe.Pointer(p_stream)).Fm_opj_seek})).f(tls, p_stream, p_size, p_event_mgr)
 }
 
-var __func__17 = *(*[16]int8)(unsafe.Pointer(ts + 810)) /* cio.c:655:1 */
+var __func__17 = *(*[16]uint8)(unsafe.Pointer(ts + 810)) /* cio.c:655:1 */
 
 func Xopj_stream_has_seek(tls *libc.TLS, p_stream uintptr) TOPJ_BOOL { /* cio.c:660:10: */
 	return libc.Bool32((*Topj_stream_private_t)(unsafe.Pointer(p_stream)).Fm_seek_fn != *(*uintptr)(unsafe.Pointer(&struct {
@@ -9218,7 +9218,7 @@ func opj_dwt_encode_step1_combined(tls *libc.TLS, fw uintptr, iters_c1 TOPJ_UINT
 	}
 }
 
-var __func__22 = *(*[30]int8)(unsafe.Pointer(ts + 941)) /* dwt.c:981:1 */
+var __func__22 = *(*[30]uint8)(unsafe.Pointer(ts + 941)) /* dwt.c:981:1 */
 
 func opj_dwt_encode_step2(tls *libc.TLS, fl uintptr, fw uintptr, end TOPJ_UINT32, m TOPJ_UINT32, c TOPJ_FLOAT32) { /* dwt.c:1017:13: */
 	var i TOPJ_UINT32
@@ -9248,7 +9248,7 @@ func opj_dwt_encode_step2(tls *libc.TLS, fl uintptr, fw uintptr, end TOPJ_UINT32
 	}
 }
 
-var __func__23 = *(*[21]int8)(unsafe.Pointer(ts + 984)) /* dwt.c:1021:1 */
+var __func__23 = *(*[21]uint8)(unsafe.Pointer(ts + 984)) /* dwt.c:1021:1 */
 
 func opj_dwt_encode_1_real(tls *libc.TLS, aIn uintptr, dn TOPJ_INT32, sn TOPJ_INT32, cas TOPJ_INT32) { /* dwt.c:1046:13: */
 	var w uintptr = aIn
@@ -9296,7 +9296,7 @@ func opj_dwt_encode_1_real(tls *libc.TLS, aIn uintptr, dn TOPJ_INT32, sn TOPJ_IN
 	}
 }
 
-var __func__24 = *(*[22]int8)(unsafe.Pointer(ts + 1017)) /* dwt.c:1048:1 */
+var __func__24 = *(*[22]uint8)(unsafe.Pointer(ts + 1017)) /* dwt.c:1048:1 */
 
 func opj_dwt_encode_stepsize(tls *libc.TLS, stepsize TOPJ_INT32, numbps TOPJ_INT32, bandno_stepsize uintptr) { /* dwt.c:1097:13: */
 	var p TOPJ_INT32
@@ -9692,7 +9692,7 @@ func opj_v8dwt_encode_step2(tls *libc.TLS, fl uintptr, fw uintptr, end TOPJ_UINT
 	}
 }
 
-var __func__25 = *(*[23]int8)(unsafe.Pointer(ts + 1039)) /* dwt.c:1602:1 */
+var __func__25 = *(*[23]uint8)(unsafe.Pointer(ts + 1039)) /* dwt.c:1602:1 */
 
 // Forward 9-7 transform, for the vertical pass, processing cols columns
 // where cols <= NB_ELTS_V8
@@ -10340,7 +10340,7 @@ func opj_dwt_interleave_partial_h(tls *libc.TLS, dest uintptr, cas TOPJ_INT32, s
 	_ = ret
 }
 
-var __func__26 = *(*[29]int8)(unsafe.Pointer(ts + 1066)) /* dwt.c:2243:1 */
+var __func__26 = *(*[29]uint8)(unsafe.Pointer(ts + 1066)) /* dwt.c:2243:1 */
 
 func opj_dwt_interleave_partial_v(tls *libc.TLS, dest uintptr, cas TOPJ_INT32, sa uintptr, sa_col TOPJ_UINT32, nb_cols TOPJ_UINT32, sn TOPJ_UINT32, win_l_y0 TOPJ_UINT32, win_l_y1 TOPJ_UINT32, win_h_y0 TOPJ_UINT32, win_h_y1 TOPJ_UINT32) { /* dwt.c:2261:13: */
 	var ret TOPJ_BOOL
@@ -10366,7 +10366,7 @@ func opj_dwt_interleave_partial_v(tls *libc.TLS, dest uintptr, cas TOPJ_INT32, s
 	_ = ret
 }
 
-var __func__27 = *(*[29]int8)(unsafe.Pointer(ts + 1095)) /* dwt.c:2271:1 */
+var __func__27 = *(*[29]uint8)(unsafe.Pointer(ts + 1095)) /* dwt.c:2271:1 */
 
 func opj_dwt_decode_partial_1(tls *libc.TLS, a uintptr, dn TOPJ_INT32, sn TOPJ_INT32, cas TOPJ_INT32, win_l_x0 TOPJ_INT32, win_l_x1 TOPJ_INT32, win_h_x0 TOPJ_INT32, win_h_x1 TOPJ_INT32) { /* dwt.c:2288:13: */
 	var i TOPJ_INT32
@@ -11134,7 +11134,7 @@ func opj_dwt_decode_partial_tile(tls *libc.TLS, tilec uintptr, numres TOPJ_UINT3
 	return DOPJ_TRUE
 }
 
-var __func__28 = *(*[28]int8)(unsafe.Pointer(ts + 1124)) /* dwt.c:2627:1 */
+var __func__28 = *(*[28]uint8)(unsafe.Pointer(ts + 1124)) /* dwt.c:2627:1 */
 
 func opj_v8dwt_interleave_h(tls *libc.TLS, dwt uintptr, a uintptr, width TOPJ_UINT32, remaining_height TOPJ_UINT32) { /* dwt.c:2870:13: */
 	var bi uintptr = (*Topj_v8dwt_t)(unsafe.Pointer(dwt)).Fwavelet + uintptr((*Topj_v8dwt_t)(unsafe.Pointer(dwt)).Fcas)*32
@@ -11245,7 +11245,7 @@ func opj_v8dwt_interleave_partial_h(tls *libc.TLS, dwt uintptr, sa uintptr, sa_l
 	}
 }
 
-var __func__29 = *(*[31]int8)(unsafe.Pointer(ts + 1152)) /* dwt.c:2958:1 */
+var __func__29 = *(*[31]uint8)(unsafe.Pointer(ts + 1152)) /* dwt.c:2958:1 */
 
 func opj_v8dwt_interleave_v(tls *libc.TLS, dwt uintptr, a uintptr, width TOPJ_UINT32, nb_elts_read TOPJ_UINT32) { /* dwt.c:2980:20: */
 	var bi uintptr = (*Topj_v8dwt_t)(unsafe.Pointer(dwt)).Fwavelet + uintptr((*Topj_v8dwt_t)(unsafe.Pointer(dwt)).Fcas)*32
@@ -11289,7 +11289,7 @@ func opj_v8dwt_interleave_partial_v(tls *libc.TLS, dwt uintptr, sa uintptr, sa_c
 	_ = ret
 }
 
-var __func__30 = *(*[31]int8)(unsafe.Pointer(ts + 1183)) /* dwt.c:3006:1 */
+var __func__30 = *(*[31]uint8)(unsafe.Pointer(ts + 1183)) /* dwt.c:3006:1 */
 
 func opj_v8dwt_decode_step1(tls *libc.TLS, w uintptr, start TOPJ_UINT32, end TOPJ_UINT32, c TOPJ_FLOAT32) { /* dwt.c:3080:13: */
 	var fw uintptr = w
@@ -11346,7 +11346,7 @@ func opj_v8dwt_decode_step2(tls *libc.TLS, l uintptr, w uintptr, start TOPJ_UINT
 	}
 }
 
-var __func__31 = *(*[23]int8)(unsafe.Pointer(ts + 1214)) /* dwt.c:3105:1 */
+var __func__31 = *(*[23]uint8)(unsafe.Pointer(ts + 1214)) /* dwt.c:3105:1 */
 
 // <summary>
 // Inverse 9-7 wavelet transform in 1-D.
@@ -11448,7 +11448,7 @@ func opj_dwt97_decode_h_func(tls *libc.TLS, user_data uintptr, tls1 uintptr) { /
 	Xopj_free(tls, job)
 }
 
-var __func__32 = *(*[24]int8)(unsafe.Pointer(ts + 1270)) /* dwt.c:3224:1 */
+var __func__32 = *(*[24]uint8)(unsafe.Pointer(ts + 1270)) /* dwt.c:3224:1 */
 
 type Topj_dwt97_decode_v_job_t = struct {
 	Fv           Topj_v8dwt_t
@@ -11490,7 +11490,7 @@ func opj_dwt97_decode_v_func(tls *libc.TLS, user_data uintptr, tls1 uintptr) { /
 	Xopj_free(tls, job)
 }
 
-var __func__33 = *(*[24]int8)(unsafe.Pointer(ts + 1330)) /* dwt.c:3273:1 */
+var __func__33 = *(*[24]uint8)(unsafe.Pointer(ts + 1330)) /* dwt.c:3273:1 */
 
 // <summary>
 // Inverse 9-7 wavelet transform in 2-D.
@@ -11980,7 +11980,7 @@ func opj_dwt_decode_partial_97(tls *libc.TLS, tilec uintptr, numres TOPJ_UINT32)
 	return DOPJ_TRUE
 }
 
-var __func__34 = *(*[26]int8)(unsafe.Pointer(ts + 1354)) /* dwt.c:3531:1 */
+var __func__34 = *(*[26]uint8)(unsafe.Pointer(ts + 1354)) /* dwt.c:3531:1 */
 
 func Xopj_dwt_decode_real(tls *libc.TLS, p_tcd uintptr, tilec uintptr, numres TOPJ_UINT32) TOPJ_BOOL { /* dwt.c:3763:10: */
 	if (*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fwhole_tile_decoding != 0 {
@@ -12044,7 +12044,7 @@ func Xopj_event_msg(tls *libc.TLS, p_event_mgr uintptr, event_type TOPJ_INT32, f
 	if fmt != uintptr(00) && p_event_mgr != uintptr(00) {
 		var arg Tva_list
 		_ = arg
-		// var message [512]int8 at bp, 512
+		// var message [512]uint8 at bp, 512
 
 		libc.Xmemset(tls, bp, 0, uint64(DOPJ_MSG_SIZE))
 		// initialize the optional parameter list
@@ -12052,7 +12052,7 @@ func Xopj_event_msg(tls *libc.TLS, p_event_mgr uintptr, event_type TOPJ_INT32, f
 		// parse the format string and put the result in 'message'
 		libc.Xvsnprintf(tls, bp, uint64(DOPJ_MSG_SIZE), fmt, arg)
 		// force zero termination for Windows _vsnprintf() of old MSVC
-		*(*int8)(unsafe.Pointer(bp + 511)) = int8(0)
+		*(*uint8)(unsafe.Pointer(bp + 511)) = uint8(0)
 		// deinitialize the optional parameter list
 		_ = arg
 
@@ -12143,7 +12143,7 @@ func Xopj_procedure_list_add_procedure(tls *libc.TLS, p_validation_list uintptr,
 	return DOPJ_TRUE
 }
 
-var __func__43 = *(*[33]int8)(unsafe.Pointer(ts + 1486)) /* function_list.c:72:1 */
+var __func__43 = *(*[33]uint8)(unsafe.Pointer(ts + 1486)) /* function_list.c:72:1 */
 
 func Xopj_procedure_list_get_nb_procedures(tls *libc.TLS, p_validation_list uintptr) TOPJ_UINT32 { /* function_list.c:102:12: */
 	return (*Topj_procedure_list_t)(unsafe.Pointer(p_validation_list)).Fm_nb_procedures
@@ -12199,11 +12199,11 @@ type Topj_precision = Sopj_prec /* helper.c:51:3 */
 
 type Sopj_decompress_params = struct {
 	Fcore              Topj_dparameters_t
-	Finfile            [4096]int8
-	Foutfile           [4096]int8
+	Finfile            [4096]uint8
+	Foutfile           [4096]uint8
 	Fdecod_format      int32
 	Fcod_format        int32
-	Findexfilename     [4096]int8
+	Findexfilename     [4096]uint8
 	FDA_x0             TOPJ_UINT32
 	FDA_x1             TOPJ_UINT32
 	FDA_y0             TOPJ_UINT32
@@ -12839,7 +12839,7 @@ func mel_init(tls *libc.TLS, melp uintptr, bbuf uintptr, lcup int32, scup int32)
 	// is the MSB
 }
 
-var __func__52 = *(*[9]int8)(unsafe.Pointer(ts + 1866)) /* ht_dec.c:298:1 */
+var __func__52 = *(*[9]uint8)(unsafe.Pointer(ts + 1866)) /* ht_dec.c:298:1 */
 
 //************************************************************************/
 // * @brief Retrieves one run from dec_mel_t; if there are no runs stored
@@ -13057,7 +13057,7 @@ func rev_advance(tls *libc.TLS, vlcp uintptr, num_bits TOPJ_UINT32) TOPJ_UINT32 
 	return TOPJ_UINT32((*Trev_struct_t)(unsafe.Pointer(vlcp)).Ftmp)
 }
 
-var __func__53 = *(*[12]int8)(unsafe.Pointer(ts + 1898)) /* ht_dec.c:524:1 */
+var __func__53 = *(*[12]uint8)(unsafe.Pointer(ts + 1898)) /* ht_dec.c:524:1 */
 
 //************************************************************************/
 // * @brief Reads and unstuffs from rev_struct
@@ -13224,7 +13224,7 @@ func rev_advance_mrp(tls *libc.TLS, mrp uintptr, num_bits TOPJ_UINT32) TOPJ_UINT
 	return TOPJ_UINT32((*Trev_struct_t)(unsafe.Pointer(mrp)).Ftmp) // return data after consumption
 }
 
-var __func__54 = *(*[16]int8)(unsafe.Pointer(ts + 1932)) /* ht_dec.c:669:1 */
+var __func__54 = *(*[16]uint8)(unsafe.Pointer(ts + 1932)) /* ht_dec.c:669:1 */
 
 //************************************************************************/
 // * @brief Decode initial UVLC to get the u value (or u_q)
@@ -13532,7 +13532,7 @@ func frwd_read(tls *libc.TLS, msp uintptr) { /* ht_dec.c:897:6: */
 	*(*TOPJ_UINT32)(unsafe.Pointer(msp + 16)) += bits
 }
 
-var __func__55 = *(*[10]int8)(unsafe.Pointer(ts + 1964)) /* ht_dec.c:898:1 */
+var __func__55 = *(*[10]uint8)(unsafe.Pointer(ts + 1964)) /* ht_dec.c:898:1 */
 
 //************************************************************************/
 // * @brief Initialize frwd_struct_t struct and reads some bytes
@@ -13582,7 +13582,7 @@ func frwd_init(tls *libc.TLS, msp uintptr, data uintptr, size int32, X TOPJ_UINT
 	frwd_read(tls, msp) // read 32 bits more
 }
 
-var __func__56 = *(*[10]int8)(unsafe.Pointer(ts + 2004)) /* ht_dec.c:958:1 */
+var __func__56 = *(*[10]uint8)(unsafe.Pointer(ts + 2004)) /* ht_dec.c:958:1 */
 
 //************************************************************************/
 // * @brief Consume num_bits bits from the bitstream of frwd_struct_t
@@ -13598,7 +13598,7 @@ func frwd_advance(tls *libc.TLS, msp uintptr, num_bits TOPJ_UINT32) { /* ht_dec.
 	*(*TOPJ_UINT32)(unsafe.Pointer(msp + 16)) -= num_bits
 }
 
-var __func__57 = *(*[13]int8)(unsafe.Pointer(ts + 2036)) /* ht_dec.c:993:1 */
+var __func__57 = *(*[13]uint8)(unsafe.Pointer(ts + 2036)) /* ht_dec.c:993:1 */
 
 //************************************************************************/
 // * @brief Fetches 32 bits from the frwd_struct_t bitstream
@@ -13686,7 +13686,7 @@ func opj_t1_allocate_buffers(tls *libc.TLS, t1 uintptr, w TOPJ_UINT32, h TOPJ_UI
 	return DOPJ_TRUE
 }
 
-var __func__58 = *(*[24]int8)(unsafe.Pointer(ts + 2083)) /* ht_dec.c:1027:1 */
+var __func__58 = *(*[24]uint8)(unsafe.Pointer(ts + 2083)) /* ht_dec.c:1027:1 */
 
 //************************************************************************/
 // * @brief Decodes one codeblock, processing the cleanup, siginificance
@@ -15740,7 +15740,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 	return DOPJ_TRUE
 }
 
-var __func__59 = *(*[22]int8)(unsafe.Pointer(ts + 3438)) /* ht_dec.c:1104:1 */
+var __func__59 = *(*[22]uint8)(unsafe.Pointer(ts + 3438)) /* ht_dec.c:1104:1 */
 
 func Xopj_image_create0(tls *libc.TLS) uintptr { /* image.c:34:12: */
 	var image uintptr = Xopj_calloc(tls, uint64(1), uint64(unsafe.Sizeof(Topj_image_t{})))
@@ -15935,7 +15935,7 @@ func Xopj_copy_image_header(tls *libc.TLS, p_image_src uintptr, p_image_dest uin
 	return
 }
 
-var __func__64 = *(*[22]int8)(unsafe.Pointer(ts + 3524)) /* image.c:166:1 */
+var __func__64 = *(*[22]uint8)(unsafe.Pointer(ts + 3524)) /* image.c:166:1 */
 
 func Xopj_image_tile_create(tls *libc.TLS, numcmpts TOPJ_UINT32, cmptparms uintptr, clrspc TOPJ_COLOR_SPACE) uintptr { /* image.c:227:12: */
 	var compno TOPJ_UINT32
@@ -16174,7 +16174,7 @@ func opj_lupSolve(tls *libc.TLS, pResult uintptr, pMatrix uintptr, pVector uintp
 	}
 }
 
-var __func__69 = *(*[13]int8)(unsafe.Pointer(ts + 3588)) /* invert.c:213:1 */
+var __func__69 = *(*[13]uint8)(unsafe.Pointer(ts + 3588)) /* invert.c:213:1 */
 
 func opj_lupInvert(tls *libc.TLS, pSrcMatrix uintptr, pDestMatrix uintptr, nb_compo TOPJ_UINT32, pPermutations uintptr, p_src_temp uintptr, p_dest_temp uintptr, p_swap_area uintptr) { /* invert.c:269:13: */
 	var j TOPJ_UINT32
@@ -16232,7 +16232,7 @@ func opj_j2k_update_tlm(tls *libc.TLS, p_j2k uintptr, p_tile_part_size TOPJ_UINT
 // -----------------------------------------------------------------------
 type Sj2k_prog_order = struct {
 	Fenum_prog   TOPJ_PROG_ORDER
-	Fstr_prog    [5]int8
+	Fstr_prog    [5]uint8
 	F__ccgo_pad1 [3]byte
 } /* j2k.c:1347:9 */
 
@@ -16244,12 +16244,12 @@ type Sj2k_prog_order = struct {
 type Tj2k_prog_order_t = Sj2k_prog_order /* j2k.c:1350:3 */
 
 var j2k_prog_order_list = [6]Tj2k_prog_order_t{
-	{Fenum_prog: OPJ_CPRL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3601))},
-	{Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3606))},
-	{Fenum_prog: OPJ_PCRL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3611))},
-	{Fenum_prog: OPJ_RLCP, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3616))},
-	{Fenum_prog: OPJ_RPCL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3621))},
-	{Fenum_prog: -1, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3626))},
+	{Fenum_prog: OPJ_CPRL, Fstr_prog: *(*[5]uint8)(unsafe.Pointer(ts + 3601))},
+	{Fstr_prog: *(*[5]uint8)(unsafe.Pointer(ts + 3606))},
+	{Fenum_prog: OPJ_PCRL, Fstr_prog: *(*[5]uint8)(unsafe.Pointer(ts + 3611))},
+	{Fenum_prog: OPJ_RLCP, Fstr_prog: *(*[5]uint8)(unsafe.Pointer(ts + 3616))},
+	{Fenum_prog: OPJ_RPCL, Fstr_prog: *(*[5]uint8)(unsafe.Pointer(ts + 3621))},
+	{Fenum_prog: -1, Fstr_prog: *(*[5]uint8)(unsafe.Pointer(ts + 3626))},
 } /* j2k.c:1352:31 */
 
 // *
@@ -16600,7 +16600,7 @@ func opj_j2k_check_poc_val(tls *libc.TLS, p_pocs uintptr, tileno TOPJ_UINT32, p_
 	return libc.BoolInt32(!(loss != 0))
 }
 
-var __func__74 = *(*[22]int8)(unsafe.Pointer(ts + 3757)) /* j2k.c:1669:1 */
+var __func__74 = *(*[22]uint8)(unsafe.Pointer(ts + 3757)) /* j2k.c:1669:1 */
 
 // -----------------------------------------------------------------------
 
@@ -16677,7 +16677,7 @@ func opj_j2k_get_num_tp(tls *libc.TLS, cp uintptr, pino TOPJ_UINT32, tileno TOPJ
 	return tpnum
 }
 
-var __func__75 = *(*[19]int8)(unsafe.Pointer(ts + 3890)) /* j2k.c:1751:1 */
+var __func__75 = *(*[19]uint8)(unsafe.Pointer(ts + 3890)) /* j2k.c:1751:1 */
 
 func opj_j2k_calculate_tp(tls *libc.TLS, p_j2k uintptr, cp uintptr, p_nb_tiles uintptr, image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:1806:17: */
 	var pino TOPJ_UINT32
@@ -16771,7 +16771,7 @@ func opj_j2k_calculate_tp(tls *libc.TLS, p_j2k uintptr, cp uintptr, p_nb_tiles u
 	return DOPJ_TRUE
 }
 
-var __func__76 = *(*[21]int8)(unsafe.Pointer(ts + 3975)) /* j2k.c:1812:1 */
+var __func__76 = *(*[21]uint8)(unsafe.Pointer(ts + 3975)) /* j2k.c:1812:1 */
 
 func opj_j2k_write_soc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:1887:17: */
 	// 2 bytes will be written
@@ -16806,7 +16806,7 @@ func opj_j2k_write_soc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__77 = *(*[18]int8)(unsafe.Pointer(ts + 4011)) /* j2k.c:1890:1 */
+var __func__77 = *(*[18]uint8)(unsafe.Pointer(ts + 4011)) /* j2k.c:1890:1 */
 
 // *
 // Reads a SOC marker (Start of Codestream)
@@ -16863,7 +16863,7 @@ func opj_j2k_read_soc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 	return DOPJ_TRUE
 }
 
-var __func__78 = *(*[17]int8)(unsafe.Pointer(ts + 4103)) /* j2k.c:1931:1 */
+var __func__78 = *(*[17]uint8)(unsafe.Pointer(ts + 4103)) /* j2k.c:1931:1 */
 
 func opj_j2k_write_siz(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:1968:17: */
 	var i TOPJ_UINT32
@@ -16970,7 +16970,7 @@ func opj_j2k_write_siz(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__79 = *(*[18]int8)(unsafe.Pointer(ts + 4158)) /* j2k.c:1971:1 */
+var __func__79 = *(*[18]uint8)(unsafe.Pointer(ts + 4158)) /* j2k.c:1971:1 */
 
 // *
 // Reads a SIZ marker (image and tile size)
@@ -17270,7 +17270,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__80 = *(*[17]int8)(unsafe.Pointer(ts + 5143)) /* j2k.c:2079:1 */
+var __func__80 = *(*[17]uint8)(unsafe.Pointer(ts + 5143)) /* j2k.c:2079:1 */
 
 func opj_j2k_write_com(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2495:17: */
 	var l_comment_size TOPJ_UINT32
@@ -17334,7 +17334,7 @@ func opj_j2k_write_com(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__81 = *(*[18]int8)(unsafe.Pointer(ts + 5203)) /* j2k.c:2499:1 */
+var __func__81 = *(*[18]uint8)(unsafe.Pointer(ts + 5203)) /* j2k.c:2499:1 */
 
 // *
 // Reads a COM marker (comments)
@@ -17365,7 +17365,7 @@ func opj_j2k_read_com(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__82 = *(*[17]int8)(unsafe.Pointer(ts + 5221)) /* j2k.c:2565:1 */
+var __func__82 = *(*[17]uint8)(unsafe.Pointer(ts + 5221)) /* j2k.c:2565:1 */
 
 func opj_j2k_write_cod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2579:17: */
 	bp := tls.Alloc(4)
@@ -17454,7 +17454,7 @@ func opj_j2k_write_cod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__83 = *(*[18]int8)(unsafe.Pointer(ts + 5303)) /* j2k.c:2582:1 */
+var __func__83 = *(*[18]uint8)(unsafe.Pointer(ts + 5303)) /* j2k.c:2582:1 */
 
 // *
 // Reads a COD marker (Coding style defaults)
@@ -17573,7 +17573,7 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__84 = *(*[17]int8)(unsafe.Pointer(ts + 5533)) /* j2k.c:2667:1 */
+var __func__84 = *(*[17]uint8)(unsafe.Pointer(ts + 5533)) /* j2k.c:2667:1 */
 
 func opj_j2k_write_coc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2789:17: */
 	bp := tls.Alloc(4)
@@ -17640,7 +17640,7 @@ func opj_j2k_write_coc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_st
 	return DOPJ_TRUE
 }
 
-var __func__85 = *(*[18]int8)(unsafe.Pointer(ts + 5589)) /* j2k.c:2793:1 */
+var __func__85 = *(*[18]uint8)(unsafe.Pointer(ts + 5589)) /* j2k.c:2793:1 */
 
 func opj_j2k_compare_coc(tls *libc.TLS, p_j2k uintptr, p_first_comp_no TOPJ_UINT32, p_second_comp_no TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:2840:17: */
 	var l_cp uintptr = uintptr(0)
@@ -17663,7 +17663,7 @@ func opj_j2k_compare_coc(tls *libc.TLS, p_j2k uintptr, p_first_comp_no TOPJ_UINT
 		p_first_comp_no, p_second_comp_no)
 }
 
-var __func__86 = *(*[20]int8)(unsafe.Pointer(ts + 5607)) /* j2k.c:2842:1 */
+var __func__86 = *(*[20]uint8)(unsafe.Pointer(ts + 5607)) /* j2k.c:2842:1 */
 
 func opj_j2k_write_coc_in_memory(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_data uintptr, p_data_written uintptr, p_manager uintptr) { /* j2k.c:2861:13: */
 	bp := tls.Alloc(4)
@@ -17724,7 +17724,7 @@ func opj_j2k_write_coc_in_memory(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UI
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_data_written)) = l_coc_size
 }
 
-var __func__87 = *(*[28]int8)(unsafe.Pointer(ts + 5627)) /* j2k.c:2867:1 */
+var __func__87 = *(*[28]uint8)(unsafe.Pointer(ts + 5627)) /* j2k.c:2867:1 */
 
 func opj_j2k_get_max_coc_size(tls *libc.TLS, p_j2k uintptr) TOPJ_UINT32 { /* j2k.c:2911:19: */
 	var i TOPJ_UINT32
@@ -17825,7 +17825,7 @@ func opj_j2k_read_coc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__88 = *(*[17]int8)(unsafe.Pointer(ts + 5734)) /* j2k.c:2944:1 */
+var __func__88 = *(*[17]uint8)(unsafe.Pointer(ts + 5734)) /* j2k.c:2944:1 */
 
 func opj_j2k_write_qcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2998:17: */
 	bp := tls.Alloc(4)
@@ -17898,7 +17898,7 @@ func opj_j2k_write_qcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__89 = *(*[18]int8)(unsafe.Pointer(ts + 5816)) /* j2k.c:3002:1 */
+var __func__89 = *(*[18]uint8)(unsafe.Pointer(ts + 5816)) /* j2k.c:3002:1 */
 
 // *
 // Reads a QCD marker (Quantization defaults)
@@ -17942,7 +17942,7 @@ func opj_j2k_read_qcd(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__90 = *(*[17]int8)(unsafe.Pointer(ts + 5860)) /* j2k.c:3071:1 */
+var __func__90 = *(*[17]uint8)(unsafe.Pointer(ts + 5860)) /* j2k.c:3071:1 */
 
 func opj_j2k_write_qcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:3094:17: */
 	bp := tls.Alloc(4)
@@ -18002,7 +18002,7 @@ func opj_j2k_write_qcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_st
 	return DOPJ_TRUE
 }
 
-var __func__91 = *(*[18]int8)(unsafe.Pointer(ts + 5916)) /* j2k.c:3099:1 */
+var __func__91 = *(*[18]uint8)(unsafe.Pointer(ts + 5916)) /* j2k.c:3099:1 */
 
 func opj_j2k_compare_qcc(tls *libc.TLS, p_j2k uintptr, p_first_comp_no TOPJ_UINT32, p_second_comp_no TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:3139:17: */
 	return opj_j2k_compare_SQcd_SQcc(tls, p_j2k, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number,
@@ -18064,7 +18064,7 @@ func opj_j2k_write_qcc_in_memory(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UI
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_data_written)) = l_qcc_size
 }
 
-var __func__92 = *(*[28]int8)(unsafe.Pointer(ts + 5934)) /* j2k.c:3152:1 */
+var __func__92 = *(*[28]uint8)(unsafe.Pointer(ts + 5934)) /* j2k.c:3152:1 */
 
 func opj_j2k_get_max_qcc_size(tls *libc.TLS, p_j2k uintptr) TOPJ_UINT32 { /* j2k.c:3196:19: */
 	return opj_j2k_get_max_coc_size(tls, p_j2k)
@@ -18139,7 +18139,7 @@ func opj_j2k_read_qcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__93 = *(*[17]int8)(unsafe.Pointer(ts + 6057)) /* j2k.c:3213:1 */
+var __func__93 = *(*[17]uint8)(unsafe.Pointer(ts + 6057)) /* j2k.c:3213:1 */
 
 func opj_j2k_write_poc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:3288:17: */
 	bp := tls.Alloc(4)
@@ -18204,7 +18204,7 @@ func opj_j2k_write_poc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__94 = *(*[18]int8)(unsafe.Pointer(ts + 6113)) /* j2k.c:3292:1 */
+var __func__94 = *(*[18]uint8)(unsafe.Pointer(ts + 6113)) /* j2k.c:3292:1 */
 
 func opj_j2k_write_poc_in_memory(tls *libc.TLS, p_j2k uintptr, p_data uintptr, p_data_written uintptr, p_manager uintptr) { /* j2k.c:3343:13: */
 	var i TOPJ_UINT32
@@ -18291,7 +18291,7 @@ func opj_j2k_write_poc_in_memory(tls *libc.TLS, p_j2k uintptr, p_data uintptr, p
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_data_written)) = l_poc_size
 }
 
-var __func__95 = *(*[28]int8)(unsafe.Pointer(ts + 6131)) /* j2k.c:3348:1 */
+var __func__95 = *(*[28]uint8)(unsafe.Pointer(ts + 6131)) /* j2k.c:3348:1 */
 
 func opj_j2k_get_max_poc_size(tls *libc.TLS, p_j2k uintptr) TOPJ_UINT32 { /* j2k.c:3430:19: */
 	var l_tcp uintptr = uintptr(00)
@@ -18483,7 +18483,7 @@ func opj_j2k_read_poc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__96 = *(*[17]int8)(unsafe.Pointer(ts + 6203)) /* j2k.c:3528:1 */
+var __func__96 = *(*[17]uint8)(unsafe.Pointer(ts + 6203)) /* j2k.c:3528:1 */
 
 // *
 // Reads a CRG marker (Component registration)
@@ -18530,7 +18530,7 @@ func opj_j2k_read_crg(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__97 = *(*[17]int8)(unsafe.Pointer(ts + 6246)) /* j2k.c:3619:1 */
+var __func__97 = *(*[17]uint8)(unsafe.Pointer(ts + 6246)) /* j2k.c:3619:1 */
 
 // *
 // Reads a TLM marker (Tile Length Marker)
@@ -18606,7 +18606,7 @@ func opj_j2k_read_tlm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__98 = *(*[17]int8)(unsafe.Pointer(ts + 6289)) /* j2k.c:3661:1 */
+var __func__98 = *(*[17]uint8)(unsafe.Pointer(ts + 6289)) /* j2k.c:3661:1 */
 
 // *
 // Reads a PLM marker (Packet length, main header marker)
@@ -18684,7 +18684,7 @@ func opj_j2k_read_plm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__99 = *(*[17]int8)(unsafe.Pointer(ts + 6332)) /* j2k.c:3722:1 */
+var __func__99 = *(*[17]uint8)(unsafe.Pointer(ts + 6332)) /* j2k.c:3722:1 */
 
 // *
 // Reads a PLT marker (Packet length, tile-part header)
@@ -18750,7 +18750,7 @@ func opj_j2k_read_plt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__100 = *(*[17]int8)(unsafe.Pointer(ts + 6375)) /* j2k.c:3795:1 */
+var __func__100 = *(*[17]uint8)(unsafe.Pointer(ts + 6375)) /* j2k.c:3795:1 */
 
 // *
 // Reads a PPM marker (Packed packet headers, main header)
@@ -18842,7 +18842,7 @@ func opj_j2k_read_ppm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__101 = *(*[17]int8)(unsafe.Pointer(ts + 6508)) /* j2k.c:3849:1 */
+var __func__101 = *(*[17]uint8)(unsafe.Pointer(ts + 6508)) /* j2k.c:3849:1 */
 
 // *
 // Merges all PPM markers read (Packed headers, main header)
@@ -18993,7 +18993,7 @@ func opj_j2k_merge_ppm(tls *libc.TLS, p_cp uintptr, p_manager uintptr) TOPJ_BOOL
 	return DOPJ_TRUE
 }
 
-var __func__102 = *(*[18]int8)(unsafe.Pointer(ts + 6615)) /* j2k.c:3923:1 */
+var __func__102 = *(*[18]uint8)(unsafe.Pointer(ts + 6615)) /* j2k.c:3923:1 */
 
 // *
 // Reads a PPT marker (Packed packet headers, tile-part header)
@@ -19091,7 +19091,7 @@ func opj_j2k_read_ppt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__103 = *(*[17]int8)(unsafe.Pointer(ts + 6851)) /* j2k.c:4067:1 */
+var __func__103 = *(*[17]uint8)(unsafe.Pointer(ts + 6851)) /* j2k.c:4067:1 */
 
 // *
 // Merges all PPT markers read (Packed packet headers, tile-part header)
@@ -19154,7 +19154,7 @@ func opj_j2k_merge_ppt(tls *libc.TLS, p_tcp uintptr, p_manager uintptr) TOPJ_BOO
 	return DOPJ_TRUE
 }
 
-var __func__104 = *(*[18]int8)(unsafe.Pointer(ts + 6925)) /* j2k.c:4148:1 */
+var __func__104 = *(*[18]uint8)(unsafe.Pointer(ts + 6925)) /* j2k.c:4148:1 */
 
 func opj_j2k_write_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4200:17: */
 	var l_current_data uintptr = uintptr(00)
@@ -19250,7 +19250,7 @@ func opj_j2k_write_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__105 = *(*[18]int8)(unsafe.Pointer(ts + 7061)) /* j2k.c:4204:1 */
+var __func__105 = *(*[18]uint8)(unsafe.Pointer(ts + 7061)) /* j2k.c:4204:1 */
 
 func opj_j2k_write_sot(tls *libc.TLS, p_j2k uintptr, p_data uintptr, total_data_size TOPJ_UINT32, p_data_written uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4285:17: */
 	// preconditions
@@ -19307,7 +19307,7 @@ func opj_j2k_write_sot(tls *libc.TLS, p_j2k uintptr, p_data uintptr, total_data_
 	return DOPJ_TRUE
 }
 
-var __func__106 = *(*[18]int8)(unsafe.Pointer(ts + 7134)) /* j2k.c:4292:1 */
+var __func__106 = *(*[18]uint8)(unsafe.Pointer(ts + 7134)) /* j2k.c:4292:1 */
 
 func opj_j2k_get_sot_values(tls *libc.TLS, p_header_data uintptr, p_header_size TOPJ_UINT32, p_tile_no uintptr, p_tot_len uintptr, p_current_part uintptr, p_num_parts uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4345:17: */
 	// preconditions
@@ -19337,7 +19337,7 @@ func opj_j2k_get_sot_values(tls *libc.TLS, p_header_data uintptr, p_header_size 
 	return DOPJ_TRUE
 }
 
-var __func__107 = *(*[23]int8)(unsafe.Pointer(ts + 7178)) /* j2k.c:4352:1 */
+var __func__107 = *(*[23]uint8)(unsafe.Pointer(ts + 7178)) /* j2k.c:4352:1 */
 
 func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4374:17: */
 	bp := tls.Alloc(108)
@@ -19600,7 +19600,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__108 = *(*[17]int8)(unsafe.Pointer(ts + 7967)) /* j2k.c:4378:1 */
+var __func__108 = *(*[17]uint8)(unsafe.Pointer(ts + 7967)) /* j2k.c:4378:1 */
 
 // *
 // Write one or more PLT markers in the provided buffer
@@ -19822,7 +19822,7 @@ func opj_j2k_write_sod(tls *libc.TLS, p_j2k uintptr, p_tile_coder uintptr, p_dat
 	return DOPJ_TRUE
 }
 
-var __func__109 = *(*[18]int8)(unsafe.Pointer(ts + 8288)) /* j2k.c:4788:1 */
+var __func__109 = *(*[18]uint8)(unsafe.Pointer(ts + 8288)) /* j2k.c:4788:1 */
 
 func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4923:17: */
 	var l_current_read_size TOPJ_SIZE_T
@@ -19966,7 +19966,7 @@ func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 	return DOPJ_TRUE
 }
 
-var __func__110 = *(*[17]int8)(unsafe.Pointer(ts + 8619)) /* j2k.c:4927:1 */
+var __func__110 = *(*[17]uint8)(unsafe.Pointer(ts + 8619)) /* j2k.c:4927:1 */
 
 func opj_j2k_write_rgn(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_comp_no TOPJ_UINT32, nb_comps TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5071:17: */
 	var l_current_data uintptr = uintptr(00)
@@ -20033,7 +20033,7 @@ func opj_j2k_write_rgn(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_co
 	return DOPJ_TRUE
 }
 
-var __func__111 = *(*[18]int8)(unsafe.Pointer(ts + 8636)) /* j2k.c:5078:1 */
+var __func__111 = *(*[18]uint8)(unsafe.Pointer(ts + 8636)) /* j2k.c:5078:1 */
 
 func opj_j2k_write_eoc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5134:17: */
 	// preconditions
@@ -20067,7 +20067,7 @@ func opj_j2k_write_eoc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__112 = *(*[18]int8)(unsafe.Pointer(ts + 8654)) /* j2k.c:5138:1 */
+var __func__112 = *(*[18]uint8)(unsafe.Pointer(ts + 8654)) /* j2k.c:5138:1 */
 
 // *
 // Reads a RGN marker (Region Of Interest)
@@ -20147,7 +20147,7 @@ func opj_j2k_read_rgn(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 }
 
-var __func__113 = *(*[17]int8)(unsafe.Pointer(ts + 8755)) /* j2k.c:5180:1 */
+var __func__113 = *(*[17]uint8)(unsafe.Pointer(ts + 8755)) /* j2k.c:5180:1 */
 
 func opj_j2k_get_tp_stride(tls *libc.TLS, p_tcp uintptr) TOPJ_FLOAT32 { /* j2k.c:5249:20: */
 	return TOPJ_FLOAT32(((*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fm_nb_tile_parts - TOPJ_UINT32(1)) * TOPJ_UINT32(14))
@@ -20342,7 +20342,7 @@ func opj_j2k_update_rates(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 	return DOPJ_TRUE
 }
 
-var __func__114 = *(*[21]int8)(unsafe.Pointer(ts + 8839)) /* j2k.c:5263:1 */
+var __func__114 = *(*[21]uint8)(unsafe.Pointer(ts + 8839)) /* j2k.c:5263:1 */
 
 func opj_j2k_get_end_header(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5487:17: */
 	// preconditions
@@ -20366,7 +20366,7 @@ func opj_j2k_get_end_header(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_ma
 	return DOPJ_TRUE
 }
 
-var __func__115 = *(*[23]int8)(unsafe.Pointer(ts + 8860)) /* j2k.c:5490:1 */
+var __func__115 = *(*[23]uint8)(unsafe.Pointer(ts + 8860)) /* j2k.c:5490:1 */
 
 func opj_j2k_write_mct_data_group(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5503:17: */
 	var i TOPJ_UINT32
@@ -20422,7 +20422,7 @@ func opj_j2k_write_mct_data_group(tls *libc.TLS, p_j2k uintptr, p_stream uintptr
 	return DOPJ_TRUE
 }
 
-var __func__116 = *(*[29]int8)(unsafe.Pointer(ts + 8883)) /* j2k.c:5506:1 */
+var __func__116 = *(*[29]uint8)(unsafe.Pointer(ts + 8883)) /* j2k.c:5506:1 */
 
 func opj_j2k_write_all_coc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5551:17: */
 	var compno TOPJ_UINT32
@@ -20453,7 +20453,7 @@ func opj_j2k_write_all_coc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_man
 	return DOPJ_TRUE
 }
 
-var __func__117 = *(*[22]int8)(unsafe.Pointer(ts + 8912)) /* j2k.c:5555:1 */
+var __func__117 = *(*[22]uint8)(unsafe.Pointer(ts + 8912)) /* j2k.c:5555:1 */
 
 func opj_j2k_write_all_qcc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5575:17: */
 	var compno TOPJ_UINT32
@@ -20483,7 +20483,7 @@ func opj_j2k_write_all_qcc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_man
 	return DOPJ_TRUE
 }
 
-var __func__118 = *(*[22]int8)(unsafe.Pointer(ts + 8934)) /* j2k.c:5579:1 */
+var __func__118 = *(*[22]uint8)(unsafe.Pointer(ts + 8934)) /* j2k.c:5579:1 */
 
 func opj_j2k_write_regions(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5598:17: */
 	var compno TOPJ_UINT32
@@ -20520,7 +20520,7 @@ func opj_j2k_write_regions(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_man
 	return DOPJ_TRUE
 }
 
-var __func__119 = *(*[22]int8)(unsafe.Pointer(ts + 8956)) /* j2k.c:5601:1 */
+var __func__119 = *(*[22]uint8)(unsafe.Pointer(ts + 8956)) /* j2k.c:5601:1 */
 
 func opj_j2k_write_epc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5627:17: */
 	var l_cstr_index uintptr = uintptr(00)
@@ -20555,7 +20555,7 @@ func opj_j2k_write_epc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__120 = *(*[18]int8)(unsafe.Pointer(ts + 8978)) /* j2k.c:5630:1 */
+var __func__120 = *(*[18]uint8)(unsafe.Pointer(ts + 8978)) /* j2k.c:5630:1 */
 
 func opj_j2k_read_unk(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, output_marker uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5667:17: */
 	bp := tls.Alloc(4)
@@ -20628,7 +20628,7 @@ func opj_j2k_read_unk(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, output_mar
 	return DOPJ_TRUE
 }
 
-var __func__121 = *(*[17]int8)(unsafe.Pointer(ts + 9073)) /* j2k.c:5672:1 */
+var __func__121 = *(*[17]uint8)(unsafe.Pointer(ts + 9073)) /* j2k.c:5672:1 */
 
 func opj_j2k_write_mct_record(tls *libc.TLS, p_j2k uintptr, p_mct_record uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5730:17: */
 	var l_mct_size TOPJ_UINT32
@@ -20700,7 +20700,7 @@ func opj_j2k_write_mct_record(tls *libc.TLS, p_j2k uintptr, p_mct_record uintptr
 	return DOPJ_TRUE
 }
 
-var __func__122 = *(*[25]int8)(unsafe.Pointer(ts + 9129)) /* j2k.c:5734:1 */
+var __func__122 = *(*[25]uint8)(unsafe.Pointer(ts + 9129)) /* j2k.c:5734:1 */
 
 // *
 // Reads a MCT marker (Multiple Component Transform)
@@ -20841,7 +20841,7 @@ func opj_j2k_read_mct(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__123 = *(*[17]int8)(unsafe.Pointer(ts + 9322)) /* j2k.c:5809:1 */
+var __func__123 = *(*[17]uint8)(unsafe.Pointer(ts + 9322)) /* j2k.c:5809:1 */
 
 func opj_j2k_write_mcc_record(tls *libc.TLS, p_j2k uintptr, p_mcc_record uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5937:17: */
 	var i TOPJ_UINT32
@@ -20963,7 +20963,7 @@ func opj_j2k_write_mcc_record(tls *libc.TLS, p_j2k uintptr, p_mcc_record uintptr
 	return DOPJ_TRUE
 }
 
-var __func__124 = *(*[25]int8)(unsafe.Pointer(ts + 9378)) /* j2k.c:5941:1 */
+var __func__124 = *(*[25]uint8)(unsafe.Pointer(ts + 9378)) /* j2k.c:5941:1 */
 
 func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* j2k.c:6052:17: */
 	bp := tls.Alloc(16)
@@ -21217,7 +21217,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__125 = *(*[17]int8)(unsafe.Pointer(ts + 9743)) /* j2k.c:6056:1 */
+var __func__125 = *(*[17]uint8)(unsafe.Pointer(ts + 9743)) /* j2k.c:6056:1 */
 
 func opj_j2k_write_mco(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:6285:17: */
 	var l_current_data uintptr = uintptr(00)
@@ -21286,7 +21286,7 @@ func opj_j2k_write_mco(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__126 = *(*[18]int8)(unsafe.Pointer(ts + 9799)) /* j2k.c:6289:1 */
+var __func__126 = *(*[18]uint8)(unsafe.Pointer(ts + 9799)) /* j2k.c:6289:1 */
 
 // *
 // Reads a MCO marker (Multiple Component Transform Ordering)
@@ -21373,7 +21373,7 @@ func opj_j2k_read_mco(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__127 = *(*[17]int8)(unsafe.Pointer(ts + 9898)) /* j2k.c:6361:1 */
+var __func__127 = *(*[17]uint8)(unsafe.Pointer(ts + 9898)) /* j2k.c:6361:1 */
 
 func opj_j2k_add_mct(tls *libc.TLS, p_tcp uintptr, p_image uintptr, p_index TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:6422:17: */
 	var i TOPJ_UINT32
@@ -21470,7 +21470,7 @@ func opj_j2k_add_mct(tls *libc.TLS, p_tcp uintptr, p_image uintptr, p_index TOPJ
 	return DOPJ_TRUE
 }
 
-var __func__128 = *(*[16]int8)(unsafe.Pointer(ts + 9915)) /* j2k.c:6424:1 */
+var __func__128 = *(*[16]uint8)(unsafe.Pointer(ts + 9915)) /* j2k.c:6424:1 */
 
 func opj_j2k_write_cbd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:6509:17: */
 	var i TOPJ_UINT32
@@ -21540,7 +21540,7 @@ func opj_j2k_write_cbd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__129 = *(*[18]int8)(unsafe.Pointer(ts + 9970)) /* j2k.c:6512:1 */
+var __func__129 = *(*[18]uint8)(unsafe.Pointer(ts + 9970)) /* j2k.c:6512:1 */
 
 // *
 // Reads a CBD marker (Component bit depth definition)
@@ -21610,7 +21610,7 @@ func opj_j2k_read_cbd(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__130 = *(*[17]int8)(unsafe.Pointer(ts + 10014)) /* j2k.c:6583:1 */
+var __func__130 = *(*[17]uint8)(unsafe.Pointer(ts + 10014)) /* j2k.c:6583:1 */
 
 // *
 // Reads a CAP marker (extended capabilities definition). Empty implementation.
@@ -21643,7 +21643,7 @@ func opj_j2k_read_cap(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__131 = *(*[17]int8)(unsafe.Pointer(ts + 10031)) /* j2k.c:6644:1 */
+var __func__131 = *(*[17]uint8)(unsafe.Pointer(ts + 10031)) /* j2k.c:6644:1 */
 
 // *
 // Reads a CPF marker (corresponding profile). Empty implementation. Found in HTJ2K files
@@ -21674,7 +21674,7 @@ func opj_j2k_read_cpf(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__132 = *(*[17]int8)(unsafe.Pointer(ts + 10048)) /* j2k.c:6670:1 */
+var __func__132 = *(*[17]uint8)(unsafe.Pointer(ts + 10048)) /* j2k.c:6670:1 */
 
 // -----------------------------------------------------------------------
 // J2K / JPT decoder interface
@@ -21816,8 +21816,8 @@ func opj_j2k_set_cinema_parameters(tls *libc.TLS, parameters uintptr, image uint
 	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tdy = 1
 
 	// One tile part for each component
-	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_flag = int8('C')
-	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_on = int8(1)
+	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_flag = uint8('C')
+	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_on = uint8(1)
 
 	// Tile and Image shall be at (0,0)
 	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tx0 = 0
@@ -21958,8 +21958,8 @@ func opj_j2k_is_cinema_compliant(tls *libc.TLS, image uintptr, rsiz TOPJ_UINT16,
 	// Bitdepth
 	for i = TOPJ_UINT32(0); i < (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps; i++ {
 		if TOPJ_UINT32(libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fprec != TOPJ_UINT32(12)))|(*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fsgnd != 0 {
-			*(*[7]int8)(unsafe.Pointer(bp + 64 /* signed_str */)) = *(*[7]int8)(unsafe.Pointer(ts + 11527))
-			*(*[9]int8)(unsafe.Pointer(bp + 71 /* unsigned_str */)) = *(*[9]int8)(unsafe.Pointer(ts + 11534))
+			*(*[7]uint8)(unsafe.Pointer(bp + 64 /* signed_str */)) = *(*[7]uint8)(unsafe.Pointer(ts + 11527))
+			*(*[9]uint8)(unsafe.Pointer(bp + 71 /* unsigned_str */)) = *(*[9]uint8)(unsafe.Pointer(ts + 11534))
 			var tmp_str uintptr
 			if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fsgnd != 0 {
 				tmp_str = bp + 64 /* signed_str */
@@ -22073,8 +22073,8 @@ func opj_j2k_set_imf_parameters(tls *libc.TLS, parameters uintptr, image uintptr
 	}
 
 	// One tile part for each component
-	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_flag = int8('C')
-	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_on = int8(1)
+	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_flag = uint8('C')
+	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_on = uint8(1)
 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fprog_order == OPJ_LRCP {
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fprog_order = OPJ_CPRL
@@ -22244,8 +22244,8 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	// Bitdepth
 	for i = TOPJ_UINT32(0); i < (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps; i++ {
 		if !((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fprec >= TOPJ_UINT32(8) && (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fprec <= TOPJ_UINT32(16)) || (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fsgnd != 0 {
-			*(*[7]int8)(unsafe.Pointer(bp + 392 /* signed_str */)) = *(*[7]int8)(unsafe.Pointer(ts + 11527))
-			*(*[9]int8)(unsafe.Pointer(bp + 399 /* unsigned_str */)) = *(*[9]int8)(unsafe.Pointer(ts + 11534))
+			*(*[7]uint8)(unsafe.Pointer(bp + 392 /* signed_str */)) = *(*[7]uint8)(unsafe.Pointer(ts + 11527))
+			*(*[9]uint8)(unsafe.Pointer(bp + 399 /* unsigned_str */)) = *(*[9]uint8)(unsafe.Pointer(ts + 11534))
 			var tmp_str uintptr
 			if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fsgnd != 0 {
 				tmp_str = bp + 392 /* signed_str */
@@ -22548,7 +22548,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	return ret
 }
 
-var __func__133 = *(*[25]int8)(unsafe.Pointer(ts + 16869)) /* j2k.c:7178:1 */
+var __func__133 = *(*[25]uint8)(unsafe.Pointer(ts + 16869)) /* j2k.c:7178:1 */
 
 func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:7616:10: */
 	bp := tls.Alloc(309)
@@ -22851,7 +22851,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		libc.Xstrcpy(tls, (*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_comment)
 	} else {
 		// Create default comment for codestream
-		*(*[29]int8)(unsafe.Pointer(bp + 280 /* comment */)) = *(*[29]int8)(unsafe.Pointer(ts + 18242))
+		*(*[29]uint8)(unsafe.Pointer(bp + 280 /* comment */)) = *(*[29]uint8)(unsafe.Pointer(ts + 18242))
 		var clen Tsize_t = libc.Xstrlen(tls, bp+280)
 		var version uintptr = Xopj_version(tls)
 
@@ -23159,7 +23159,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 	return DOPJ_TRUE
 }
 
-var __func__134 = *(*[22]int8)(unsafe.Pointer(ts + 18911)) /* j2k.c:7620:1 */
+var __func__134 = *(*[22]uint8)(unsafe.Pointer(ts + 18911)) /* j2k.c:7620:1 */
 
 func opj_j2k_add_mhmarker(tls *libc.TLS, cstr_index uintptr, type1 TOPJ_UINT32, pos TOPJ_OFF_T, len TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:8295:17: */
 	if cstr_index != uintptr(00) {
@@ -23192,7 +23192,7 @@ func opj_j2k_add_mhmarker(tls *libc.TLS, cstr_index uintptr, type1 TOPJ_UINT32, 
 	return DOPJ_TRUE
 }
 
-var __func__135 = *(*[21]int8)(unsafe.Pointer(ts + 18950)) /* j2k.c:8297:1 */
+var __func__135 = *(*[21]uint8)(unsafe.Pointer(ts + 18950)) /* j2k.c:8297:1 */
 
 func opj_j2k_add_tlmarker(tls *libc.TLS, tileno TOPJ_UINT32, cstr_index uintptr, type1 TOPJ_UINT32, pos TOPJ_OFF_T, len TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:8326:17: */
 	if cstr_index != uintptr(00) {
@@ -23239,7 +23239,7 @@ func opj_j2k_add_tlmarker(tls *libc.TLS, tileno TOPJ_UINT32, cstr_index uintptr,
 	return DOPJ_TRUE
 }
 
-var __func__136 = *(*[21]int8)(unsafe.Pointer(ts + 19000)) /* j2k.c:8329:1 */
+var __func__136 = *(*[21]uint8)(unsafe.Pointer(ts + 19000)) /* j2k.c:8329:1 */
 
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
@@ -23319,7 +23319,7 @@ func Xopj_j2k_read_header(tls *libc.TLS, p_stream uintptr, p_j2k uintptr, p_imag
 	return DOPJ_TRUE
 }
 
-var __func__137 = *(*[20]int8)(unsafe.Pointer(ts + 19021)) /* j2k.c:8394:1 */
+var __func__137 = *(*[20]uint8)(unsafe.Pointer(ts + 19021)) /* j2k.c:8394:1 */
 
 func opj_j2k_setup_header_reading(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8452:17: */
 	// preconditions
@@ -23350,7 +23350,7 @@ func opj_j2k_setup_header_reading(tls *libc.TLS, p_j2k uintptr, p_manager uintpt
 	return DOPJ_TRUE
 }
 
-var __func__138 = *(*[29]int8)(unsafe.Pointer(ts + 19041)) /* j2k.c:8454:1 */
+var __func__138 = *(*[29]uint8)(unsafe.Pointer(ts + 19041)) /* j2k.c:8454:1 */
 
 func opj_j2k_setup_decoding_validation(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8473:17: */
 	// preconditions
@@ -23380,7 +23380,7 @@ func opj_j2k_setup_decoding_validation(tls *libc.TLS, p_j2k uintptr, p_manager u
 	return DOPJ_TRUE
 }
 
-var __func__139 = *(*[34]int8)(unsafe.Pointer(ts + 19070)) /* j2k.c:8475:1 */
+var __func__139 = *(*[34]uint8)(unsafe.Pointer(ts + 19070)) /* j2k.c:8475:1 */
 
 func opj_j2k_mct_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8493:17: */
 	var l_is_valid TOPJ_BOOL = DOPJ_TRUE
@@ -23425,7 +23425,7 @@ func opj_j2k_mct_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_ma
 	return l_is_valid
 }
 
-var __func__140 = *(*[23]int8)(unsafe.Pointer(ts + 19104)) /* j2k.c:8496:1 */
+var __func__140 = *(*[23]uint8)(unsafe.Pointer(ts + 19104)) /* j2k.c:8496:1 */
 
 func Xopj_j2k_setup_mct_encoding(tls *libc.TLS, p_tcp uintptr, p_image uintptr) TOPJ_BOOL { /* j2k.c:8529:10: */
 	var i TOPJ_UINT32
@@ -23595,7 +23595,7 @@ func Xopj_j2k_setup_mct_encoding(tls *libc.TLS, p_tcp uintptr, p_image uintptr) 
 	return DOPJ_TRUE
 }
 
-var __func__141 = *(*[27]int8)(unsafe.Pointer(ts + 19127)) /* j2k.c:8530:1 */
+var __func__141 = *(*[27]uint8)(unsafe.Pointer(ts + 19127)) /* j2k.c:8530:1 */
 
 func opj_j2k_build_decoder(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8692:17: */
 	// add here initialization of cp
@@ -23669,7 +23669,7 @@ func opj_j2k_encoding_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr,
 	return l_is_valid
 }
 
-var __func__142 = *(*[28]int8)(unsafe.Pointer(ts + 19224)) /* j2k.c:8719:1 */
+var __func__142 = *(*[28]uint8)(unsafe.Pointer(ts + 19224)) /* j2k.c:8719:1 */
 
 func opj_j2k_decoding_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8767:17: */
 	var l_is_valid TOPJ_BOOL = DOPJ_TRUE
@@ -23706,7 +23706,7 @@ func opj_j2k_decoding_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr,
 	return l_is_valid
 }
 
-var __func__143 = *(*[28]int8)(unsafe.Pointer(ts + 19252)) /* j2k.c:8771:1 */
+var __func__143 = *(*[28]uint8)(unsafe.Pointer(ts + 19252)) /* j2k.c:8771:1 */
 
 func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8800:17: */
 	bp := tls.Alloc(16)
@@ -23906,7 +23906,7 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 	return DOPJ_TRUE
 }
 
-var __func__144 = *(*[30]int8)(unsafe.Pointer(ts + 19729)) /* j2k.c:8803:1 */
+var __func__144 = *(*[30]uint8)(unsafe.Pointer(ts + 19729)) /* j2k.c:8803:1 */
 
 func opj_j2k_exec(tls *libc.TLS, p_j2k uintptr, p_procedure_list uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8985:17: */
 	var l_procedure uintptr = uintptr(00)
@@ -23947,7 +23947,7 @@ func opj_j2k_exec(tls *libc.TLS, p_j2k uintptr, p_procedure_list uintptr, p_stre
 	return l_result
 }
 
-var __func__145 = *(*[13]int8)(unsafe.Pointer(ts + 19782)) /* j2k.c:8989:1 */
+var __func__145 = *(*[13]uint8)(unsafe.Pointer(ts + 19782)) /* j2k.c:8989:1 */
 
 // FIXME DOC
 func opj_j2k_copy_default_tcp_and_create_tcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:9016:17: */
@@ -24104,7 +24104,7 @@ func opj_j2k_copy_default_tcp_and_create_tcd(tls *libc.TLS, p_j2k uintptr, p_str
 	return DOPJ_TRUE
 }
 
-var __func__146 = *(*[40]int8)(unsafe.Pointer(ts + 19829)) /* j2k.c:9020:1 */
+var __func__146 = *(*[40]uint8)(unsafe.Pointer(ts + 19829)) /* j2k.c:9020:1 */
 
 func opj_j2k_get_marker_handler(tls *libc.TLS, p_id TOPJ_UINT32) uintptr { /* j2k.c:9166:46: */
 	var e uintptr
@@ -24766,7 +24766,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 	return DOPJ_TRUE
 }
 
-var __func__147 = *(*[25]int8)(unsafe.Pointer(ts + 20265)) /* j2k.c:9527:1 */
+var __func__147 = *(*[25]uint8)(unsafe.Pointer(ts + 20265)) /* j2k.c:9527:1 */
 
 func Xopj_j2k_decode_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32, p_data uintptr, p_data_size TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:9827:10: */
 	bp := tls.Alloc(8)
@@ -24887,7 +24887,7 @@ func Xopj_j2k_decode_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32
 	return DOPJ_TRUE
 }
 
-var __func__148 = *(*[20]int8)(unsafe.Pointer(ts + 20371)) /* j2k.c:9833:1 */
+var __func__148 = *(*[20]uint8)(unsafe.Pointer(ts + 20371)) /* j2k.c:9833:1 */
 
 func opj_j2k_update_image_data(tls *libc.TLS, p_tcd uintptr, p_output_image uintptr) TOPJ_BOOL { /* j2k.c:9927:17: */
 	var i TOPJ_UINT32
@@ -25122,7 +25122,7 @@ __3:
 	return DOPJ_TRUE
 }
 
-var __func__149 = *(*[26]int8)(unsafe.Pointer(ts + 20415)) /* j2k.c:9929:1 */
+var __func__149 = *(*[26]uint8)(unsafe.Pointer(ts + 20415)) /* j2k.c:9929:1 */
 
 func opj_j2k_update_image_dimensions(tls *libc.TLS, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10144:17: */
 	bp := tls.Alloc(32)
@@ -25501,7 +25501,7 @@ func opj_j2k_get_SPCod_SPCoc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_U
 	return TOPJ_UINT32(0)
 }
 
-var __func__150 = *(*[29]int8)(unsafe.Pointer(ts + 22003)) /* j2k.c:10510:1 */
+var __func__150 = *(*[29]uint8)(unsafe.Pointer(ts + 22003)) /* j2k.c:10510:1 */
 
 func opj_j2k_compare_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_first_comp_no TOPJ_UINT32, p_second_comp_no TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:10533:17: */
 	var i TOPJ_UINT32
@@ -25551,7 +25551,7 @@ func opj_j2k_compare_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UI
 	return DOPJ_TRUE
 }
 
-var __func__151 = *(*[28]int8)(unsafe.Pointer(ts + 22032)) /* j2k.c:10535:1 */
+var __func__151 = *(*[28]uint8)(unsafe.Pointer(ts + 22032)) /* j2k.c:10535:1 */
 
 func opj_j2k_write_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_comp_no TOPJ_UINT32, p_data uintptr, p_header_size uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10580:17: */
 	var i TOPJ_UINT32
@@ -25634,7 +25634,7 @@ func opj_j2k_write_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT
 	return DOPJ_TRUE
 }
 
-var __func__152 = *(*[26]int8)(unsafe.Pointer(ts + 22175)) /* j2k.c:10586:1 */
+var __func__152 = *(*[26]uint8)(unsafe.Pointer(ts + 22175)) /* j2k.c:10586:1 */
 
 func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, p_header_data uintptr, p_header_size uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10649:17: */
 	bp := tls.Alloc(44)
@@ -25775,7 +25775,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 	return DOPJ_TRUE
 }
 
-var __func__153 = *(*[25]int8)(unsafe.Pointer(ts + 22769)) /* j2k.c:10654:1 */
+var __func__153 = *(*[25]uint8)(unsafe.Pointer(ts + 22769)) /* j2k.c:10654:1 */
 
 func opj_j2k_copy_tile_component_parameters(tls *libc.TLS, p_j2k uintptr) { /* j2k.c:10801:13: */
 	// loop
@@ -25815,7 +25815,7 @@ func opj_j2k_copy_tile_component_parameters(tls *libc.TLS, p_j2k uintptr) { /* j
 	}
 }
 
-var __func__154 = *(*[39]int8)(unsafe.Pointer(ts + 22794)) /* j2k.c:10802:1 */
+var __func__154 = *(*[39]uint8)(unsafe.Pointer(ts + 22794)) /* j2k.c:10802:1 */
 
 func opj_j2k_get_SQcd_SQcc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_comp_no TOPJ_UINT32) TOPJ_UINT32 { /* j2k.c:10835:19: */
 	var l_num_bands TOPJ_UINT32
@@ -25858,7 +25858,7 @@ func opj_j2k_get_SQcd_SQcc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UIN
 	return TOPJ_UINT32(0)
 }
 
-var __func__155 = *(*[27]int8)(unsafe.Pointer(ts + 22865)) /* j2k.c:10838:1 */
+var __func__155 = *(*[27]uint8)(unsafe.Pointer(ts + 22865)) /* j2k.c:10838:1 */
 
 func opj_j2k_compare_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_first_comp_no TOPJ_UINT32, p_second_comp_no TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:10866:17: */
 	var l_cp uintptr = uintptr(0)
@@ -25909,7 +25909,7 @@ func opj_j2k_compare_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT
 	return DOPJ_TRUE
 }
 
-var __func__156 = *(*[26]int8)(unsafe.Pointer(ts + 22892)) /* j2k.c:10868:1 */
+var __func__156 = *(*[26]uint8)(unsafe.Pointer(ts + 22892)) /* j2k.c:10868:1 */
 
 func opj_j2k_write_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_comp_no TOPJ_UINT32, p_data uintptr, p_header_size uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10914:17: */
 	var l_header_size TOPJ_UINT32
@@ -26003,7 +26003,7 @@ func opj_j2k_write_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32
 	return DOPJ_TRUE
 }
 
-var __func__157 = *(*[24]int8)(unsafe.Pointer(ts + 22951)) /* j2k.c:10920:1 */
+var __func__157 = *(*[24]uint8)(unsafe.Pointer(ts + 22951)) /* j2k.c:10920:1 */
 
 func opj_j2k_read_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_header_data uintptr, p_header_size uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10989:17: */
 	bp := tls.Alloc(28)
@@ -26117,7 +26117,7 @@ func opj_j2k_read_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32,
 	return DOPJ_TRUE
 }
 
-var __func__158 = *(*[23]int8)(unsafe.Pointer(ts + 23227)) /* j2k.c:10995:1 */
+var __func__158 = *(*[23]uint8)(unsafe.Pointer(ts + 23227)) /* j2k.c:10995:1 */
 
 func opj_j2k_copy_tile_quantization_parameters(tls *libc.TLS, p_j2k uintptr) { /* j2k.c:11108:13: */
 	var i TOPJ_UINT32
@@ -26152,7 +26152,7 @@ func opj_j2k_copy_tile_quantization_parameters(tls *libc.TLS, p_j2k uintptr) { /
 	}
 }
 
-var __func__159 = *(*[42]int8)(unsafe.Pointer(ts + 23250)) /* j2k.c:11109:1 */
+var __func__159 = *(*[42]uint8)(unsafe.Pointer(ts + 23250)) /* j2k.c:11109:1 */
 
 func opj_j2k_dump_tile_info(tls *libc.TLS, l_default_tile uintptr, numcomps TOPJ_INT32, out_stream uintptr) { /* j2k.c:11137:13: */
 	bp := tls.Alloc(144)
@@ -26354,15 +26354,15 @@ func Xj2k_dump_image_header(tls *libc.TLS, img_header uintptr, dev_dump_flag TOP
 	bp := tls.Alloc(90)
 	defer tls.Free(90)
 
-	// var tab [2]int8 at bp+88, 2
+	// var tab [2]uint8 at bp+88, 2
 
 	if dev_dump_flag != 0 {
 		libc.Xfprintf(tls, libc.Xstdout, ts+23965, 0)
-		*(*int8)(unsafe.Pointer(bp + 88)) = int8(0)
+		*(*uint8)(unsafe.Pointer(bp + 88)) = uint8(0)
 	} else {
 		libc.Xfprintf(tls, out_stream, ts+24002, 0)
-		*(*int8)(unsafe.Pointer(bp + 88)) = int8('\t')
-		*(*int8)(unsafe.Pointer(bp + 88 + 1)) = int8(0)
+		*(*uint8)(unsafe.Pointer(bp + 88)) = uint8('\t')
+		*(*uint8)(unsafe.Pointer(bp + 88 + 1)) = uint8(0)
 	}
 
 	libc.Xfprintf(tls, out_stream, ts+24016, libc.VaList(bp, bp+88, (*Topj_image_t)(unsafe.Pointer(img_header)).Fx0, (*Topj_image_t)(unsafe.Pointer(img_header)).Fy0))
@@ -26387,15 +26387,15 @@ func Xj2k_dump_image_comp_header(tls *libc.TLS, comp_header uintptr, dev_dump_fl
 	bp := tls.Alloc(59)
 	defer tls.Free(59)
 
-	// var tab [3]int8 at bp+56, 3
+	// var tab [3]uint8 at bp+56, 3
 
 	if dev_dump_flag != 0 {
 		libc.Xfprintf(tls, libc.Xstdout, ts+24091, 0)
-		*(*int8)(unsafe.Pointer(bp + 56)) = int8(0)
+		*(*uint8)(unsafe.Pointer(bp + 56)) = uint8(0)
 	} else {
-		*(*int8)(unsafe.Pointer(bp + 56)) = int8('\t')
-		*(*int8)(unsafe.Pointer(bp + 56 + 1)) = int8('\t')
-		*(*int8)(unsafe.Pointer(bp + 56 + 2)) = int8(0)
+		*(*uint8)(unsafe.Pointer(bp + 56)) = uint8('\t')
+		*(*uint8)(unsafe.Pointer(bp + 56 + 1)) = uint8('\t')
+		*(*uint8)(unsafe.Pointer(bp + 56 + 2)) = uint8(0)
 	}
 
 	libc.Xfprintf(tls, out_stream, ts+24133, libc.VaList(bp, bp+56, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fdx, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fdy))
@@ -26788,7 +26788,7 @@ func opj_j2k_setup_decoding(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOP
 	return DOPJ_TRUE
 }
 
-var __func__160 = *(*[23]int8)(unsafe.Pointer(ts + 24373)) /* j2k.c:11756:1 */
+var __func__160 = *(*[23]uint8)(unsafe.Pointer(ts + 24373)) /* j2k.c:11756:1 */
 
 // Read and decode one tile.
 func opj_j2k_decode_one_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:11773:17: */
@@ -26934,7 +26934,7 @@ func opj_j2k_setup_decoding_tile(tls *libc.TLS, p_j2k uintptr, p_manager uintptr
 	return DOPJ_TRUE
 }
 
-var __func__161 = *(*[28]int8)(unsafe.Pointer(ts + 24491)) /* j2k.c:11888:1 */
+var __func__161 = *(*[28]uint8)(unsafe.Pointer(ts + 24491)) /* j2k.c:11888:1 */
 
 func opj_j2k_move_data_from_codec_to_output_image(tls *libc.TLS, p_j2k uintptr, p_image uintptr) TOPJ_BOOL { /* j2k.c:11902:17: */
 	var compno TOPJ_UINT32
@@ -26983,7 +26983,7 @@ func opj_j2k_move_data_from_codec_to_output_image(tls *libc.TLS, p_j2k uintptr, 
 	return DOPJ_TRUE
 }
 
-var __func__162 = *(*[45]int8)(unsafe.Pointer(ts + 24569)) /* j2k.c:11904:1 */
+var __func__162 = *(*[45]uint8)(unsafe.Pointer(ts + 24569)) /* j2k.c:11904:1 */
 
 func Xopj_j2k_decode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:11962:10: */
 	if !(p_image != 0) {
@@ -27352,7 +27352,7 @@ func Xopj_j2k_encode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager u
 	return DOPJ_TRUE
 }
 
-var __func__163 = *(*[15]int8)(unsafe.Pointer(ts + 25111)) /* j2k.c:12234:1 */
+var __func__163 = *(*[15]uint8)(unsafe.Pointer(ts + 25111)) /* j2k.c:12234:1 */
 
 func Xopj_j2k_end_compress(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12339:10: */
 	// customization of the encoding
@@ -27424,7 +27424,7 @@ func Xopj_j2k_start_compress(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_i
 	return DOPJ_TRUE
 }
 
-var __func__164 = *(*[23]int8)(unsafe.Pointer(ts + 25159)) /* j2k.c:12359:1 */
+var __func__164 = *(*[23]uint8)(unsafe.Pointer(ts + 25159)) /* j2k.c:12359:1 */
 
 func opj_j2k_pre_write_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12407:17: */
 	bp := tls.Alloc(16)
@@ -27635,7 +27635,7 @@ func opj_j2k_post_write_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_m
 	return DOPJ_TRUE
 }
 
-var __func__165 = *(*[24]int8)(unsafe.Pointer(ts + 25294)) /* j2k.c:12562:1 */
+var __func__165 = *(*[24]uint8)(unsafe.Pointer(ts + 25294)) /* j2k.c:12562:1 */
 
 func opj_j2k_setup_end_compress(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12603:17: */
 	// preconditions
@@ -27686,7 +27686,7 @@ func opj_j2k_setup_end_compress(tls *libc.TLS, p_j2k uintptr, p_manager uintptr)
 	return DOPJ_TRUE
 }
 
-var __func__166 = *(*[27]int8)(unsafe.Pointer(ts + 25318)) /* j2k.c:12605:1 */
+var __func__166 = *(*[27]uint8)(unsafe.Pointer(ts + 25318)) /* j2k.c:12605:1 */
 
 func opj_j2k_setup_encoding_validation(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12638:17: */
 	// preconditions
@@ -27723,7 +27723,7 @@ func opj_j2k_setup_encoding_validation(tls *libc.TLS, p_j2k uintptr, p_manager u
 	return DOPJ_TRUE
 }
 
-var __func__167 = *(*[34]int8)(unsafe.Pointer(ts + 25345)) /* j2k.c:12640:1 */
+var __func__167 = *(*[34]uint8)(unsafe.Pointer(ts + 25345)) /* j2k.c:12640:1 */
 
 func opj_j2k_setup_header_writing(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12663:17: */
 	// preconditions
@@ -27849,7 +27849,7 @@ func opj_j2k_setup_header_writing(tls *libc.TLS, p_j2k uintptr, p_manager uintpt
 	return DOPJ_TRUE
 }
 
-var __func__168 = *(*[29]int8)(unsafe.Pointer(ts + 25379)) /* j2k.c:12665:1 */
+var __func__168 = *(*[29]uint8)(unsafe.Pointer(ts + 25379)) /* j2k.c:12665:1 */
 
 func opj_j2k_write_first_tile_part(tls *libc.TLS, p_j2k uintptr, p_data uintptr, p_data_written uintptr, total_data_size TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12754:17: */
 	bp := tls.Alloc(4)
@@ -28081,7 +28081,7 @@ func opj_j2k_write_updated_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__169 = *(*[26]int8)(unsafe.Pointer(ts + 25408)) /* j2k.c:12964:1 */
+var __func__169 = *(*[26]uint8)(unsafe.Pointer(ts + 25408)) /* j2k.c:12964:1 */
 
 func opj_j2k_end_encoding(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12997:17: */
 	// preconditions
@@ -28120,7 +28120,7 @@ func opj_j2k_end_encoding(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 	return DOPJ_TRUE
 }
 
-var __func__170 = *(*[21]int8)(unsafe.Pointer(ts + 25434)) /* j2k.c:13000:1 */
+var __func__170 = *(*[21]uint8)(unsafe.Pointer(ts + 25434)) /* j2k.c:13000:1 */
 
 // *
 // Destroys the memory associated with the decoding of headers.
@@ -28152,7 +28152,7 @@ func opj_j2k_destroy_header_memory(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 	return DOPJ_TRUE
 }
 
-var __func__171 = *(*[30]int8)(unsafe.Pointer(ts + 25455)) /* j2k.c:13035:1 */
+var __func__171 = *(*[30]uint8)(unsafe.Pointer(ts + 25455)) /* j2k.c:13035:1 */
 
 func opj_j2k_init_info(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:13054:17: */
 	var l_cstr_info uintptr = uintptr(00)
@@ -28219,7 +28219,7 @@ func opj_j2k_init_info(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 		p_manager)
 }
 
-var __func__172 = *(*[18]int8)(unsafe.Pointer(ts + 25485)) /* j2k.c:13057:1 */
+var __func__172 = *(*[18]uint8)(unsafe.Pointer(ts + 25485)) /* j2k.c:13057:1 */
 
 // *
 // Creates a tile-coder encoder.
@@ -28261,7 +28261,7 @@ func opj_j2k_create_tcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manage
 	return DOPJ_TRUE
 }
 
-var __func__173 = *(*[19]int8)(unsafe.Pointer(ts + 25543)) /* j2k.c:13123:1 */
+var __func__173 = *(*[19]uint8)(unsafe.Pointer(ts + 25543)) /* j2k.c:13123:1 */
 
 func Xopj_j2k_write_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32, p_data uintptr, p_data_size TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:13148:10: */
 	bp := tls.Alloc(16)
@@ -28392,7 +28392,7 @@ func opj_jp2_read_boxhdr(tls *libc.TLS, box uintptr, p_number_bytes_read uintptr
 	return DOPJ_TRUE
 }
 
-var __func__178 = *(*[20]int8)(unsafe.Pointer(ts + 25826)) /* jp2.c:477:1 */
+var __func__178 = *(*[20]uint8)(unsafe.Pointer(ts + 25826)) /* jp2.c:477:1 */
 
 func opj_jp2_read_ihdr(tls *libc.TLS, jp2 uintptr, p_image_header_data uintptr, p_image_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:561:17: */
 	bp := tls.Alloc(32)
@@ -28476,7 +28476,7 @@ func opj_jp2_read_ihdr(tls *libc.TLS, jp2 uintptr, p_image_header_data uintptr, 
 	return DOPJ_TRUE
 }
 
-var __func__179 = *(*[18]int8)(unsafe.Pointer(ts + 26190)) /* jp2.c:565:1 */
+var __func__179 = *(*[18]uint8)(unsafe.Pointer(ts + 26190)) /* jp2.c:565:1 */
 
 func opj_jp2_write_ihdr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) uintptr { /* jp2.c:636:17: */
 	var l_ihdr_data uintptr
@@ -28534,7 +28534,7 @@ func opj_jp2_write_ihdr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 	return l_ihdr_data
 }
 
-var __func__180 = *(*[19]int8)(unsafe.Pointer(ts + 26233)) /* jp2.c:639:1 */
+var __func__180 = *(*[19]uint8)(unsafe.Pointer(ts + 26233)) /* jp2.c:639:1 */
 
 func opj_jp2_write_bpcc(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) uintptr { /* jp2.c:688:17: */
 	var i TOPJ_UINT32
@@ -28579,7 +28579,7 @@ func opj_jp2_write_bpcc(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 	return l_bpcc_data
 }
 
-var __func__181 = *(*[19]int8)(unsafe.Pointer(ts + 26252)) /* jp2.c:691:1 */
+var __func__181 = *(*[19]uint8)(unsafe.Pointer(ts + 26252)) /* jp2.c:691:1 */
 
 func opj_jp2_read_bpcc(tls *libc.TLS, jp2 uintptr, p_bpc_header_data uintptr, p_bpc_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:727:17: */
 	bp := tls.Alloc(8)
@@ -28623,7 +28623,7 @@ func opj_jp2_read_bpcc(tls *libc.TLS, jp2 uintptr, p_bpc_header_data uintptr, p_
 	return DOPJ_TRUE
 }
 
-var __func__182 = *(*[18]int8)(unsafe.Pointer(ts + 26441)) /* jp2.c:732:1 */
+var __func__182 = *(*[18]uint8)(unsafe.Pointer(ts + 26441)) /* jp2.c:732:1 */
 
 func opj_jp2_write_cdef(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) uintptr { /* jp2.c:762:17: */
 	// room for 8 bytes for box, 2 for n
@@ -28690,7 +28690,7 @@ func opj_jp2_write_cdef(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 	return l_cdef_data
 }
 
-var __func__183 = *(*[19]int8)(unsafe.Pointer(ts + 26545)) /* jp2.c:764:1 */
+var __func__183 = *(*[19]uint8)(unsafe.Pointer(ts + 26545)) /* jp2.c:764:1 */
 
 func opj_jp2_write_colr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) uintptr { /* jp2.c:813:17: */
 	// room for 8 bytes for box 3 for common data and variable upon profile
@@ -28767,7 +28767,7 @@ func opj_jp2_write_colr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 	return l_colr_data
 }
 
-var __func__184 = *(*[19]int8)(unsafe.Pointer(ts + 26624)) /* jp2.c:816:1 */
+var __func__184 = *(*[19]uint8)(unsafe.Pointer(ts + 26624)) /* jp2.c:816:1 */
 
 func opj_jp2_free_pclr(tls *libc.TLS, color uintptr) { /* jp2.c:880:13: */
 	Xopj_free(tls, (*Topj_jp2_pclr_t)(unsafe.Pointer((*Topj_jp2_color_t)(unsafe.Pointer(color)).Fjp2_pclr)).Fchannel_sign)
@@ -29064,7 +29064,7 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 	return DOPJ_TRUE
 }
 
-var __func__185 = *(*[19]int8)(unsafe.Pointer(ts + 27218)) /* jp2.c:1039:1 */
+var __func__185 = *(*[19]uint8)(unsafe.Pointer(ts + 27218)) /* jp2.c:1039:1 */
 
 // apply_pclr()
 
@@ -29196,7 +29196,7 @@ func opj_jp2_read_pclr(tls *libc.TLS, jp2 uintptr, p_pclr_header_data uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__186 = *(*[18]int8)(unsafe.Pointer(ts + 27345)) /* jp2.c:1157:1 */
+var __func__186 = *(*[18]uint8)(unsafe.Pointer(ts + 27345)) /* jp2.c:1157:1 */
 
 func opj_jp2_read_cmap(tls *libc.TLS, jp2 uintptr, p_cmap_header_data uintptr, p_cmap_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1266:17: */
 	bp := tls.Alloc(4)
@@ -29266,7 +29266,7 @@ func opj_jp2_read_cmap(tls *libc.TLS, jp2 uintptr, p_cmap_header_data uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__187 = *(*[18]int8)(unsafe.Pointer(ts + 27498)) /* jp2.c:1271:1 */
+var __func__187 = *(*[18]uint8)(unsafe.Pointer(ts + 27498)) /* jp2.c:1271:1 */
 
 func opj_jp2_apply_cdef(tls *libc.TLS, image uintptr, color uintptr, manager uintptr) { /* jp2.c:1329:13: */
 	bp := tls.Alloc(96)
@@ -29417,7 +29417,7 @@ func opj_jp2_read_cdef(tls *libc.TLS, jp2 uintptr, p_cdef_header_data uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__188 = *(*[18]int8)(unsafe.Pointer(ts + 27716)) /* jp2.c:1397:1 */
+var __func__188 = *(*[18]uint8)(unsafe.Pointer(ts + 27716)) /* jp2.c:1397:1 */
 
 func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p_colr_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1464:17: */
 	bp := tls.Alloc(64)
@@ -29569,7 +29569,7 @@ func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__189 = *(*[18]int8)(unsafe.Pointer(ts + 28116)) /* jp2.c:1469:1 */
+var __func__189 = *(*[18]uint8)(unsafe.Pointer(ts + 28116)) /* jp2.c:1469:1 */
 
 func Xopj_jp2_decode(tls *libc.TLS, jp2 uintptr, p_stream uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1597:10: */
 	if !(p_image != 0) {
@@ -29764,7 +29764,7 @@ func opj_jp2_write_jp2h(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager ui
 	return l_result
 }
 
-var __func__190 = *(*[19]int8)(unsafe.Pointer(ts + 28282)) /* jp2.c:1668:1 */
+var __func__190 = *(*[19]uint8)(unsafe.Pointer(ts + 28282)) /* jp2.c:1668:1 */
 
 func opj_jp2_write_ftyp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1771:17: */
 	var i TOPJ_UINT32
@@ -29825,7 +29825,7 @@ func opj_jp2_write_ftyp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintp
 	return l_result
 }
 
-var __func__191 = *(*[19]int8)(unsafe.Pointer(ts + 28381)) /* jp2.c:1774:1 */
+var __func__191 = *(*[19]uint8)(unsafe.Pointer(ts + 28381)) /* jp2.c:1774:1 */
 
 func opj_jp2_write_jp2c(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1823:17: */
 	bp := tls.Alloc(8)
@@ -29877,7 +29877,7 @@ func opj_jp2_write_jp2c(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintp
 	return DOPJ_TRUE
 }
 
-var __func__192 = *(*[19]int8)(unsafe.Pointer(ts + 28456)) /* jp2.c:1826:1 */
+var __func__192 = *(*[19]uint8)(unsafe.Pointer(ts + 28456)) /* jp2.c:1826:1 */
 
 func opj_jp2_write_jp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1861:17: */
 	bp := tls.Alloc(12)
@@ -29916,7 +29916,7 @@ func opj_jp2_write_jp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr
 	return DOPJ_TRUE
 }
 
-var __func__193 = *(*[17]int8)(unsafe.Pointer(ts + 28475)) /* jp2.c:1864:1 */
+var __func__193 = *(*[17]uint8)(unsafe.Pointer(ts + 28475)) /* jp2.c:1864:1 */
 
 // -----------------------------------------------------------------------
 // JP2 decoder interface
@@ -30153,7 +30153,7 @@ func Xopj_jp2_end_decompress(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager 
 	return Xopj_j2k_end_decompress(tls, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fj2k, cio, p_manager)
 }
 
-var __func__194 = *(*[23]int8)(unsafe.Pointer(ts + 28966)) /* jp2.c:2116:1 */
+var __func__194 = *(*[23]uint8)(unsafe.Pointer(ts + 28966)) /* jp2.c:2116:1 */
 
 func Xopj_jp2_end_compress(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2135:10: */
 	// preconditions
@@ -30183,7 +30183,7 @@ func Xopj_jp2_end_compress(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager ui
 	return opj_jp2_exec(tls, jp2, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fm_procedure_list, cio, p_manager)
 }
 
-var __func__195 = *(*[21]int8)(unsafe.Pointer(ts + 28989)) /* jp2.c:2139:1 */
+var __func__195 = *(*[21]uint8)(unsafe.Pointer(ts + 28989)) /* jp2.c:2139:1 */
 
 func opj_jp2_setup_end_header_writing(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2158:17: */
 	// preconditions
@@ -30206,7 +30206,7 @@ func opj_jp2_setup_end_header_writing(tls *libc.TLS, jp2 uintptr, p_manager uint
 	return DOPJ_TRUE
 }
 
-var __func__196 = *(*[33]int8)(unsafe.Pointer(ts + 29010)) /* jp2.c:2160:1 */
+var __func__196 = *(*[33]uint8)(unsafe.Pointer(ts + 29010)) /* jp2.c:2160:1 */
 
 func opj_jp2_setup_end_header_reading(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2193:17: */
 	// preconditions
@@ -30230,7 +30230,7 @@ func opj_jp2_setup_end_header_reading(tls *libc.TLS, jp2 uintptr, p_manager uint
 	return DOPJ_TRUE
 }
 
-var __func__197 = *(*[33]int8)(unsafe.Pointer(ts + 29043)) /* jp2.c:2195:1 */
+var __func__197 = *(*[33]uint8)(unsafe.Pointer(ts + 29043)) /* jp2.c:2195:1 */
 
 func opj_jp2_default_validation(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2209:17: */
 	var l_is_valid TOPJ_BOOL = DOPJ_TRUE
@@ -30293,7 +30293,7 @@ func opj_jp2_default_validation(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manag
 	return l_is_valid
 }
 
-var __func__198 = *(*[27]int8)(unsafe.Pointer(ts + 29076)) /* jp2.c:2213:1 */
+var __func__198 = *(*[27]uint8)(unsafe.Pointer(ts + 29076)) /* jp2.c:2213:1 */
 
 func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2266:17: */
 	bp := tls.Alloc(152)
@@ -30460,7 +30460,7 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__199 = *(*[30]int8)(unsafe.Pointer(ts + 29710)) /* jp2.c:2270:1 */
+var __func__199 = *(*[30]uint8)(unsafe.Pointer(ts + 29710)) /* jp2.c:2270:1 */
 
 // *
 // Executes the given procedures on the given codec.
@@ -30510,7 +30510,7 @@ func opj_jp2_exec(tls *libc.TLS, jp2 uintptr, p_procedure_list uintptr, stream u
 	return l_result
 }
 
-var __func__200 = *(*[13]int8)(unsafe.Pointer(ts + 29740)) /* jp2.c:2437:1 */
+var __func__200 = *(*[13]uint8)(unsafe.Pointer(ts + 29740)) /* jp2.c:2437:1 */
 
 func Xopj_jp2_start_compress(tls *libc.TLS, jp2 uintptr, stream uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2463:10: */
 	// preconditions
@@ -30550,7 +30550,7 @@ func Xopj_jp2_start_compress(tls *libc.TLS, jp2 uintptr, stream uintptr, p_image
 	return Xopj_j2k_start_compress(tls, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fj2k, stream, p_image, p_manager)
 }
 
-var __func__201 = *(*[23]int8)(unsafe.Pointer(ts + 29753)) /* jp2.c:2468:1 */
+var __func__201 = *(*[23]uint8)(unsafe.Pointer(ts + 29753)) /* jp2.c:2468:1 */
 
 func opj_jp2_find_handler(tls *libc.TLS, p_id TOPJ_UINT32) uintptr { /* jp2.c:2497:39: */
 	var i TOPJ_UINT32
@@ -30636,7 +30636,7 @@ func opj_jp2_read_jp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_header
 	return DOPJ_TRUE
 }
 
-var __func__202 = *(*[16]int8)(unsafe.Pointer(ts + 29908)) /* jp2.c:2547:1 */
+var __func__202 = *(*[16]uint8)(unsafe.Pointer(ts + 29908)) /* jp2.c:2547:1 */
 
 // *
 // Reads a a FTYP box - File type box
@@ -30711,7 +30711,7 @@ func opj_jp2_read_ftyp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 	return DOPJ_TRUE
 }
 
-var __func__203 = *(*[18]int8)(unsafe.Pointer(ts + 30043)) /* jp2.c:2595:1 */
+var __func__203 = *(*[18]uint8)(unsafe.Pointer(ts + 30043)) /* jp2.c:2595:1 */
 
 func opj_jp2_skip_jp2c(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2649:17: */
 	// preconditions
@@ -30737,7 +30737,7 @@ func opj_jp2_skip_jp2c(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uin
 	return DOPJ_TRUE
 }
 
-var __func__204 = *(*[18]int8)(unsafe.Pointer(ts + 30061)) /* jp2.c:2652:1 */
+var __func__204 = *(*[18]uint8)(unsafe.Pointer(ts + 30061)) /* jp2.c:2652:1 */
 
 func opj_jpip_skip_iptr(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2667:17: */
 	// preconditions
@@ -30763,7 +30763,7 @@ func opj_jpip_skip_iptr(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager ui
 	return DOPJ_TRUE
 }
 
-var __func__205 = *(*[19]int8)(unsafe.Pointer(ts + 30079)) /* jp2.c:2670:1 */
+var __func__205 = *(*[19]uint8)(unsafe.Pointer(ts + 30079)) /* jp2.c:2670:1 */
 
 // *
 // Reads the Jpeg2000 file Header box - JP2 Header box (warning, this is a super box).
@@ -30859,7 +30859,7 @@ func opj_jp2_read_jp2h(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 	return DOPJ_TRUE
 }
 
-var __func__206 = *(*[18]int8)(unsafe.Pointer(ts + 30317)) /* jp2.c:2700:1 */
+var __func__206 = *(*[18]uint8)(unsafe.Pointer(ts + 30317)) /* jp2.c:2700:1 */
 
 func opj_jp2_read_boxhdr_char(tls *libc.TLS, box uintptr, p_data uintptr, p_number_bytes_read uintptr, p_box_max_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2769:17: */
 	bp := tls.Alloc(8)
@@ -30941,7 +30941,7 @@ func opj_jp2_read_boxhdr_char(tls *libc.TLS, box uintptr, p_data uintptr, p_numb
 	return DOPJ_TRUE
 }
 
-var __func__207 = *(*[25]int8)(unsafe.Pointer(ts + 30448)) /* jp2.c:2775:1 */
+var __func__207 = *(*[25]uint8)(unsafe.Pointer(ts + 30448)) /* jp2.c:2775:1 */
 
 func Xopj_jp2_read_header(tls *libc.TLS, p_stream uintptr, jp2 uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2840:10: */
 	// preconditions
@@ -30992,7 +30992,7 @@ func Xopj_jp2_read_header(tls *libc.TLS, p_stream uintptr, jp2 uintptr, p_image 
 		p_manager)
 }
 
-var __func__208 = *(*[20]int8)(unsafe.Pointer(ts + 30531)) /* jp2.c:2845:1 */
+var __func__208 = *(*[20]uint8)(unsafe.Pointer(ts + 30531)) /* jp2.c:2845:1 */
 
 func opj_jp2_setup_encoding_validation(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2885:17: */
 	// preconditions
@@ -31016,7 +31016,7 @@ func opj_jp2_setup_encoding_validation(tls *libc.TLS, jp2 uintptr, p_manager uin
 	return DOPJ_TRUE
 }
 
-var __func__209 = *(*[34]int8)(unsafe.Pointer(ts + 30551)) /* jp2.c:2887:1 */
+var __func__209 = *(*[34]uint8)(unsafe.Pointer(ts + 30551)) /* jp2.c:2887:1 */
 
 func opj_jp2_setup_decoding_validation(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2901:17: */
 	// preconditions
@@ -31037,7 +31037,7 @@ func opj_jp2_setup_decoding_validation(tls *libc.TLS, jp2 uintptr, p_manager uin
 	return DOPJ_TRUE
 }
 
-var __func__210 = *(*[34]int8)(unsafe.Pointer(ts + 30585)) /* jp2.c:2903:1 */
+var __func__210 = *(*[34]uint8)(unsafe.Pointer(ts + 30585)) /* jp2.c:2903:1 */
 
 func opj_jp2_setup_header_writing(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2916:17: */
 	// preconditions
@@ -31088,7 +31088,7 @@ func opj_jp2_setup_header_writing(tls *libc.TLS, jp2 uintptr, p_manager uintptr)
 	return DOPJ_TRUE
 }
 
-var __func__211 = *(*[29]int8)(unsafe.Pointer(ts + 30619)) /* jp2.c:2918:1 */
+var __func__211 = *(*[29]uint8)(unsafe.Pointer(ts + 30619)) /* jp2.c:2918:1 */
 
 func opj_jp2_setup_header_reading(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2951:17: */
 	// preconditions
@@ -31113,7 +31113,7 @@ func opj_jp2_setup_header_reading(tls *libc.TLS, jp2 uintptr, p_manager uintptr)
 	return DOPJ_TRUE
 }
 
-var __func__212 = *(*[29]int8)(unsafe.Pointer(ts + 30648)) /* jp2.c:2953:1 */
+var __func__212 = *(*[29]uint8)(unsafe.Pointer(ts + 30648)) /* jp2.c:2953:1 */
 
 func Xopj_jp2_read_tile_header(tls *libc.TLS, p_jp2 uintptr, p_tile_index uintptr, p_data_size uintptr, p_tile_x0 uintptr, p_tile_y0 uintptr, p_tile_x1 uintptr, p_tile_y1 uintptr, p_nb_comps uintptr, p_go_on uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2968:10: */
 	return Xopj_j2k_read_tile_header(tls, (*Topj_jp2_t)(unsafe.Pointer(p_jp2)).Fj2k,
@@ -31335,7 +31335,7 @@ func Xjp2_dump(tls *libc.TLS, p_jp2 uintptr, flag TOPJ_INT32, out_stream uintptr
 		out_stream)
 }
 
-var __func__213 = *(*[9]int8)(unsafe.Pointer(ts + 30764)) /* jp2.c:3222:1 */
+var __func__213 = *(*[9]uint8)(unsafe.Pointer(ts + 30764)) /* jp2.c:3222:1 */
 
 func Xjp2_get_cstr_index(tls *libc.TLS, p_jp2 uintptr) uintptr { /* jp2.c:3231:23: */
 	return Xj2k_get_cstr_index(tls, (*Topj_jp2_t)(unsafe.Pointer(p_jp2)).Fj2k)
@@ -31720,7 +31720,7 @@ func Xopj_mqc_init_enc(tls *libc.TLS, mqc uintptr, bp uintptr) { /* mqc.c:188:6:
 	(*Topj_mqc_t)(unsafe.Pointer(mqc)).Fend_of_byte_stream_counter = TOPJ_UINT32(0)
 }
 
-var __func__222 = *(*[17]int8)(unsafe.Pointer(ts + 30817)) /* mqc.c:189:1 */
+var __func__222 = *(*[17]uint8)(unsafe.Pointer(ts + 30817)) /* mqc.c:189:1 */
 
 func Xopj_mqc_flush(tls *libc.TLS, mqc uintptr) { /* mqc.c:212:6: */
 	// C.2.9 Termination of coding (FLUSH)
@@ -31761,7 +31761,7 @@ func Xopj_mqc_bypass_init_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:229:6: */
 	}
 }
 
-var __func__223 = *(*[24]int8)(unsafe.Pointer(ts + 30876)) /* mqc.c:230:1 */
+var __func__223 = *(*[24]uint8)(unsafe.Pointer(ts + 30876)) /* mqc.c:230:1 */
 
 func Xopj_mqc_bypass_enc(tls *libc.TLS, mqc uintptr, d TOPJ_UINT32) { /* mqc.c:247:6: */
 	if (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fct == DBYPASS_CT_INIT {
@@ -31830,7 +31830,7 @@ func Xopj_mqc_bypass_flush_enc(tls *libc.TLS, mqc uintptr, erterm TOPJ_BOOL) { /
 	}
 }
 
-var __func__224 = *(*[25]int8)(unsafe.Pointer(ts + 30908)) /* mqc.c:273:1 */
+var __func__224 = *(*[25]uint8)(unsafe.Pointer(ts + 30908)) /* mqc.c:273:1 */
 
 func Xopj_mqc_reset_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:310:6: */
 	Xopj_mqc_resetstates(tls, mqc)
@@ -31864,7 +31864,7 @@ func Xopj_mqc_restart_init_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:337:6: */
 	}
 }
 
-var __func__225 = *(*[25]int8)(unsafe.Pointer(ts + 30976)) /* mqc.c:338:1 */
+var __func__225 = *(*[25]uint8)(unsafe.Pointer(ts + 30976)) /* mqc.c:338:1 */
 
 func Xopj_mqc_erterm_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:357:6: */
 	var k TOPJ_INT32 = TOPJ_INT32(TOPJ_UINT32(11) - (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fct + TOPJ_UINT32(1))
@@ -31984,7 +31984,7 @@ func opj_mqc_init_dec_common(tls *libc.TLS, mqc uintptr, bp uintptr, len TOPJ_UI
 	(*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp = bp
 }
 
-var __func__226 = *(*[24]int8)(unsafe.Pointer(ts + 31052)) /* mqc.c:424:1 */
+var __func__226 = *(*[24]uint8)(unsafe.Pointer(ts + 31052)) /* mqc.c:424:1 */
 
 func Xopj_mqc_init_dec(tls *libc.TLS, mqc uintptr, bp uintptr, len TOPJ_UINT32, extra_writable_bytes TOPJ_UINT32) { /* mqc.c:439:6: */
 	// Implements ISO 15444-1 C.3.5 Initialization of the decoder (INITDEC)
@@ -32065,7 +32065,7 @@ func Xopj_mqc_byteout(tls *libc.TLS, mqc uintptr) { /* mqc.c:492:6: */
 	}
 }
 
-var __func__227 = *(*[16]int8)(unsafe.Pointer(ts + 31076)) /* mqc.c:493:1 */
+var __func__227 = *(*[16]uint8)(unsafe.Pointer(ts + 31076)) /* mqc.c:493:1 */
 
 // ----------------------------------------------------------------------
 // Functions to set the message handlers
@@ -32698,7 +32698,7 @@ func Xopj_set_default_encoder_parameters(tls *libc.TLS, parameters uintptr) { /*
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Froi_compno = -1 // no ROI
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fsubsampling_dx = 1
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fsubsampling_dy = 1
-		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_on = int8(0)
+		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftp_on = uint8(0)
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fdecod_format = -1
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcod_format = -1
 		*(*float32)(unsafe.Pointer(parameters + 4800)) = float32(0)
@@ -32837,7 +32837,7 @@ func Xopj_set_MCT(tls *libc.TLS, parameters uintptr, pEncodingMatrix uintptr, p_
 	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Firreversible = 1
 
 	// use array based MCT
-	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_mct = int8(2)
+	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_mct = uint8(2)
 	(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmct_data = Xopj_malloc(tls, uint64(l_mct_total_size))
 	if !(int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmct_data) != 0) {
 		return DOPJ_FALSE
@@ -33071,7 +33071,7 @@ func opj_aligned_alloc_n(tls *libc.TLS, alignment Tsize_t, size Tsize_t) uintptr
 	return ptr
 }
 
-var __func__236 = *(*[20]int8)(unsafe.Pointer(ts + 31682)) /* opj_malloc.c:48:1 */
+var __func__236 = *(*[20]uint8)(unsafe.Pointer(ts + 31682)) /* opj_malloc.c:48:1 */
 
 func opj_aligned_realloc_n(tls *libc.TLS, ptr uintptr, alignment Tsize_t, new_size Tsize_t) uintptr { /* opj_malloc.c:111:20: */
 	var r_ptr uintptr
@@ -33143,7 +33143,7 @@ func opj_aligned_realloc_n(tls *libc.TLS, ptr uintptr, alignment Tsize_t, new_si
 	return r_ptr
 }
 
-var __func__237 = *(*[22]int8)(unsafe.Pointer(ts + 31702)) /* opj_malloc.c:113:1 */
+var __func__237 = *(*[22]uint8)(unsafe.Pointer(ts + 31702)) /* opj_malloc.c:113:1 */
 
 func Xopj_malloc(tls *libc.TLS, size Tsize_t) uintptr { /* opj_malloc.c:195:6: */
 	if size == uint64(0) { // prevent implementation defined behavior of realloc
@@ -34418,7 +34418,7 @@ func opj_get_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uintptr, p
 	}
 }
 
-var __func__242 = *(*[28]int8)(unsafe.Pointer(ts + 32048)) /* pi.c:773:1 */
+var __func__242 = *(*[28]uint8)(unsafe.Pointer(ts + 32048)) /* pi.c:773:1 */
 
 func opj_get_all_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uintptr, tileno TOPJ_UINT32, p_tx0 uintptr, p_tx1 uintptr, p_ty0 uintptr, p_ty1 uintptr, p_dx_min uintptr, p_dy_min uintptr, p_max_prec uintptr, p_max_res uintptr, p_resolutions uintptr) { /* pi.c:883:13: */
 	// loop
@@ -34577,7 +34577,7 @@ func opj_get_all_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uintpt
 	}
 }
 
-var __func__243 = *(*[32]int8)(unsafe.Pointer(ts + 32105)) /* pi.c:895:1 */
+var __func__243 = *(*[32]uint8)(unsafe.Pointer(ts + 32105)) /* pi.c:895:1 */
 
 func opj_pi_create(tls *libc.TLS, image uintptr, cp uintptr, tileno TOPJ_UINT32, manager uintptr) uintptr { /* pi.c:1019:26: */
 	// loop
@@ -34652,7 +34652,7 @@ func opj_pi_create(tls *libc.TLS, image uintptr, cp uintptr, tileno TOPJ_UINT32,
 	return l_pi
 }
 
-var __func__244 = *(*[14]int8)(unsafe.Pointer(ts + 32162)) /* pi.c:1023:1 */
+var __func__244 = *(*[14]uint8)(unsafe.Pointer(ts + 32162)) /* pi.c:1023:1 */
 
 func opj_pi_update_encode_poc_and_final(tls *libc.TLS, p_cp uintptr, p_tileno TOPJ_UINT32, p_tx0 TOPJ_UINT32, p_tx1 TOPJ_UINT32, p_ty0 TOPJ_UINT32, p_ty1 TOPJ_UINT32, p_max_prec TOPJ_UINT32, p_max_res TOPJ_UINT32, p_dx_min TOPJ_UINT32, p_dy_min TOPJ_UINT32) { /* pi.c:1086:13: */
 	// loop
@@ -34733,7 +34733,7 @@ func opj_pi_update_encode_poc_and_final(tls *libc.TLS, p_cp uintptr, p_tileno TO
 	}
 }
 
-var __func__245 = *(*[35]int8)(unsafe.Pointer(ts + 32176)) /* pi.c:1096:1 */
+var __func__245 = *(*[35]uint8)(unsafe.Pointer(ts + 32176)) /* pi.c:1096:1 */
 
 func opj_pi_update_encode_not_poc(tls *libc.TLS, p_cp uintptr, p_num_comps TOPJ_UINT32, p_tileno TOPJ_UINT32, p_tx0 TOPJ_UINT32, p_tx1 TOPJ_UINT32, p_ty0 TOPJ_UINT32, p_ty1 TOPJ_UINT32, p_max_prec TOPJ_UINT32, p_max_res TOPJ_UINT32, p_dx_min TOPJ_UINT32, p_dy_min TOPJ_UINT32) { /* pi.c:1165:13: */
 	// loop
@@ -34785,7 +34785,7 @@ func opj_pi_update_encode_not_poc(tls *libc.TLS, p_cp uintptr, p_num_comps TOPJ_
 	}
 }
 
-var __func__246 = *(*[29]int8)(unsafe.Pointer(ts + 32211)) /* pi.c:1176:1 */
+var __func__246 = *(*[29]uint8)(unsafe.Pointer(ts + 32211)) /* pi.c:1176:1 */
 
 func opj_pi_update_decode_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_max_precision TOPJ_UINT32, p_max_res TOPJ_UINT32) { /* pi.c:1220:13: */
 	// loop
@@ -34832,7 +34832,7 @@ func opj_pi_update_decode_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_max_
 	}
 }
 
-var __func__247 = *(*[25]int8)(unsafe.Pointer(ts + 32251)) /* pi.c:1224:1 */
+var __func__247 = *(*[25]uint8)(unsafe.Pointer(ts + 32251)) /* pi.c:1224:1 */
 
 func opj_pi_update_decode_not_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_max_precision TOPJ_UINT32, p_max_res TOPJ_UINT32) { /* pi.c:1267:13: */
 	// loop
@@ -34871,7 +34871,7 @@ func opj_pi_update_decode_not_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_
 	}
 }
 
-var __func__248 = *(*[29]int8)(unsafe.Pointer(ts + 32276)) /* pi.c:1271:1 */
+var __func__248 = *(*[29]uint8)(unsafe.Pointer(ts + 32276)) /* pi.c:1271:1 */
 
 func opj_pi_check_next_level(tls *libc.TLS, pos TOPJ_INT32, cp uintptr, tileno TOPJ_UINT32, pino TOPJ_UINT32, prog uintptr) TOPJ_BOOL { /* pi.c:1304:17: */
 	var i TOPJ_INT32
@@ -35174,7 +35174,7 @@ func Xopj_pi_create_decode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_tile_
 	return l_pi
 }
 
-var __func__249 = *(*[21]int8)(unsafe.Pointer(ts + 32337)) /* pi.c:1397:1 */
+var __func__249 = *(*[21]uint8)(unsafe.Pointer(ts + 32337)) /* pi.c:1397:1 */
 
 func Xopj_get_encoding_packet_count(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_tile_no TOPJ_UINT32) TOPJ_UINT32 { /* pi.c:1592:12: */
 	bp := tls.Alloc(32)
@@ -35217,7 +35217,7 @@ func Xopj_get_encoding_packet_count(tls *libc.TLS, p_image uintptr, p_cp uintptr
 	return (*Topj_tcp_t)(unsafe.Pointer((*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftcps+uintptr(p_tile_no)*5696)).Fnumlayers * *(*TOPJ_UINT32)(unsafe.Pointer(bp + 24)) * (*Topj_image_t)(unsafe.Pointer(p_image)).Fnumcomps * *(*TOPJ_UINT32)(unsafe.Pointer(bp + 28))
 }
 
-var __func__250 = *(*[30]int8)(unsafe.Pointer(ts + 32358)) /* pi.c:1595:1 */
+var __func__250 = *(*[30]uint8)(unsafe.Pointer(ts + 32358)) /* pi.c:1595:1 */
 
 func Xopj_pi_initialise_encode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_tile_no TOPJ_UINT32, p_t2_mode TJ2K_T2_MODE, manager uintptr) uintptr { /* pi.c:1615:19: */
 	bp := tls.Alloc(32)
@@ -35435,7 +35435,7 @@ func Xopj_pi_initialise_encode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_t
 	return l_pi
 }
 
-var __func__251 = *(*[25]int8)(unsafe.Pointer(ts + 32388)) /* pi.c:1620:1 */
+var __func__251 = *(*[25]uint8)(unsafe.Pointer(ts + 32388)) /* pi.c:1620:1 */
 
 func Xopj_pi_create_encode(tls *libc.TLS, pi uintptr, cp uintptr, tileno TOPJ_UINT32, pino TOPJ_UINT32, tpnum TOPJ_UINT32, tppos TOPJ_INT32, t2_mode TJ2K_T2_MODE) { /* pi.c:1808:6: */
 	var prog uintptr
@@ -35794,7 +35794,7 @@ func Xopj_pi_update_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uin
 	}
 }
 
-var __func__252 = *(*[34]int8)(unsafe.Pointer(ts + 32413)) /* pi.c:2106:1 */
+var __func__252 = *(*[34]uint8)(unsafe.Pointer(ts + 32413)) /* pi.c:2106:1 */
 
 func Xopj_pi_next(tls *libc.TLS, pi uintptr) TOPJ_BOOL { /* pi.c:2136:10: */
 	switch (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fpoc.Fprg {
@@ -53050,7 +53050,7 @@ func opj_t1_allocate_buffers1(tls *libc.TLS, t1 uintptr, w TOPJ_UINT32, h TOPJ_U
 	return DOPJ_TRUE
 }
 
-var __func__261 = *(*[24]int8)(unsafe.Pointer(ts + 2083)) /* t1.c:1457:1 */
+var __func__261 = *(*[24]uint8)(unsafe.Pointer(ts + 2083)) /* t1.c:1457:1 */
 
 // -----------------------------------------------------------------------
 
@@ -53336,7 +53336,7 @@ func opj_t1_clbl_decode_processor(tls *libc.TLS, user_data uintptr, tls1 uintptr
 	Xopj_free(tls, job)
 }
 
-var __func__262 = *(*[29]int8)(unsafe.Pointer(ts + 32624)) /* t1.c:1613:1 */
+var __func__262 = *(*[29]uint8)(unsafe.Pointer(ts + 32624)) /* t1.c:1613:1 */
 
 func Xopj_t1_decode_cblks(tls *libc.TLS, tcd uintptr, pret uintptr, tilec uintptr, tccp uintptr, p_manager uintptr, p_manager_mutex uintptr, check_pterm TOPJ_BOOL) { /* t1.c:1840:6: */
 	var tp uintptr = (*Topj_tcd_t)(unsafe.Pointer(tcd)).Fthread_pool
@@ -54124,7 +54124,7 @@ func opj_t1_encode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ_UIN
 	return cumwmsedec
 }
 
-var __func__263 = *(*[19]int8)(unsafe.Pointer(ts + 32853)) /* t1.c:2420:1 */
+var __func__263 = *(*[19]uint8)(unsafe.Pointer(ts + 32853)) /* t1.c:2420:1 */
 
 //@}
 
@@ -54348,7 +54348,7 @@ func Xopj_t2_encode_packets(tls *libc.TLS, p_t2 uintptr, p_tile_no TOPJ_UINT32, 
 	return DOPJ_TRUE
 }
 
-var __func__268 = *(*[22]int8)(unsafe.Pointer(ts + 32966)) /* t2.c:233:1 */
+var __func__268 = *(*[22]uint8)(unsafe.Pointer(ts + 32966)) /* t2.c:233:1 */
 
 // see issue 80
 // issue 290
@@ -54900,7 +54900,7 @@ __9:
 	return DOPJ_TRUE
 }
 
-var __func__269 = *(*[21]int8)(unsafe.Pointer(ts + 33205)) /* t2.c:672:1 */
+var __func__269 = *(*[21]uint8)(unsafe.Pointer(ts + 33205)) /* t2.c:672:1 */
 
 func opj_t2_skip_packet(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_tcp uintptr, p_pi uintptr, p_src uintptr, p_data_read uintptr, p_max_length TOPJ_UINT32, p_pack_info uintptr, p_manager uintptr) TOPJ_BOOL { /* t2.c:1006:17: */
 	bp := tls.Alloc(8)
@@ -57608,7 +57608,7 @@ __3:
 	return DOPJ_TRUE
 }
 
-var __func__274 = *(*[30]int8)(unsafe.Pointer(ts + 34401)) /* tcd.c:2198:1 */
+var __func__274 = *(*[30]uint8)(unsafe.Pointer(ts + 34401)) /* tcd.c:2198:1 */
 
 // *
 // Deallocates the encoding data of the given precinct.
@@ -58770,7 +58770,7 @@ func opj_thread_pool_setup(tls *libc.TLS, tp uintptr, num_threads int32) TOPJ_BO
 	return bRet
 }
 
-var __func__283 = *(*[22]int8)(unsafe.Pointer(ts + 34605)) /* thread.c:685:1 */
+var __func__283 = *(*[22]uint8)(unsafe.Pointer(ts + 34605)) /* thread.c:685:1 */
 
 //
 // void opj_waiting()
@@ -58848,7 +58848,7 @@ func opj_thread_pool_get_next_job(tls *libc.TLS, tp uintptr, worker_thread uintp
 	return uintptr(0)
 }
 
-var __func__284 = *(*[29]int8)(unsafe.Pointer(ts + 34687)) /* thread.c:761:1 */
+var __func__284 = *(*[29]uint8)(unsafe.Pointer(ts + 34687)) /* thread.c:761:1 */
 
 func Xopj_thread_pool_submit_job(tls *libc.TLS, tp uintptr, job_fn Topj_job_fn, user_data uintptr) TOPJ_BOOL { /* thread.c:827:10: */
 	var job uintptr
@@ -58919,7 +58919,7 @@ func Xopj_thread_pool_submit_job(tls *libc.TLS, tp uintptr, job_fn Topj_job_fn, 
 	return DOPJ_TRUE
 }
 
-var __func__285 = *(*[27]int8)(unsafe.Pointer(ts + 34749)) /* thread.c:830:1 */
+var __func__285 = *(*[27]uint8)(unsafe.Pointer(ts + 34749)) /* thread.c:830:1 */
 
 func Xopj_thread_pool_wait_completion(tls *libc.TLS, tp uintptr, max_remaining_jobs int32) { /* thread.c:894:6: */
 	if (*Topj_thread_pool_t)(unsafe.Pointer(tp)).Fmutex == uintptr(0) {
