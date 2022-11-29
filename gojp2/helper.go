@@ -1,6 +1,5 @@
 package gojp2
 
-import "C"
 import (
 	"fmt"
 	"image"
@@ -59,7 +58,10 @@ func GoImageToNativeData(img image.Image, bitsPerSample, samples, rows, cols int
 func DecodeJ2KImage(data []byte) (int, int, [][]int, error) {
 	tls := libc.NewTLS()
 	defer tls.Close()
-	var opjImage uintptr = Xdecode_j2k(tls, uintptr(C.CBytes(data)), uint64(len(data)))
+	if data == nil {
+		return 0, 0, nil, fmt.Errorf("data is empty")
+	}
+	var opjImage uintptr = Xdecode_j2k(tls, uintptr(unsafe.Pointer(&data[0])), uint64(len(data)))
 	if (*Topj_image_t)(unsafe.Pointer(opjImage)) == nil {
 		return 0, 0, nil, fmt.Errorf("openjpeg: failed to decode image")
 	}
