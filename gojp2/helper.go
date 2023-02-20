@@ -62,6 +62,7 @@ func DecodeJ2KImage(data []byte) (int, int, [][]int, error) {
 		return 0, 0, nil, fmt.Errorf("data is empty")
 	}
 	var opjImage uintptr = Xdecode_j2k(tls, uintptr(unsafe.Pointer(&data[0])), uint64(len(data)))
+	defer Xopj_image_destroy(tls, opjImage)
 	if (*Topj_image_t)(unsafe.Pointer(opjImage)) == nil {
 		return 0, 0, nil, fmt.Errorf("openjpeg: failed to decode image")
 	}

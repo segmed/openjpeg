@@ -1,6 +1,64 @@
 #include "opj_includes.h"
+#include "openjpeg.h"
 #include "format_defs.h"
 #include "color.h"
+
+typedef struct myfile
+{
+  char *mem;
+  char *cur;
+  size_t len;
+} myfile;
+
+OPJ_SIZE_T opj_read_from_memory(void * p_buffer, OPJ_SIZE_T p_nb_bytes, myfile* p_file)
+{
+  OPJ_SIZE_T l_nb_read;
+  if( p_file->cur + p_nb_bytes <= p_file->mem + p_file->len )
+    {
+        l_nb_read = 1*p_nb_bytes;
+    }
+  else
+    {
+        l_nb_read = (OPJ_SIZE_T)(p_file->mem + p_file->len - p_file->cur);
+    }
+  memcpy(p_buffer,p_file->cur,l_nb_read);
+  p_file->cur += l_nb_read;
+  return l_nb_read ? l_nb_read : ((OPJ_SIZE_T)-1);
+}
+
+OPJ_SIZE_T opj_write_from_memory (void * p_buffer, OPJ_SIZE_T p_nb_bytes, myfile* p_file)
+{
+  OPJ_SIZE_T l_nb_write;
+  l_nb_write = 1*p_nb_bytes;
+  memcpy(p_file->cur,p_buffer,l_nb_write);
+  p_file->cur += l_nb_write;
+  p_file->len += l_nb_write;
+  return l_nb_write;
+}
+
+OPJ_OFF_T opj_skip_from_memory (OPJ_OFF_T p_nb_bytes, myfile * p_file)
+{
+  if( p_file->cur + p_nb_bytes <= p_file->mem + p_file->len )
+    {
+    p_file->cur += p_nb_bytes;
+    return p_nb_bytes;
+    }
+
+  p_file->cur = p_file->mem + p_file->len;
+  return -1;
+}
+
+OPJ_BOOL opj_seek_from_memory (OPJ_OFF_T p_nb_bytes, myfile * p_file)
+{
+  if( (size_t)p_nb_bytes <= p_file->len )
+    {
+    p_file->cur = p_file->mem + p_nb_bytes;
+    return OPJ_TRUE;
+    }
+
+  p_file->cur = p_file->mem + p_file->len;
+  return OPJ_FALSE;
+}
 
 opj_stream_t* OPJ_CALLCONV opj_stream_create_buffer_stream(
     char *buf,
@@ -9,16 +67,9 @@ opj_stream_t* OPJ_CALLCONV opj_stream_create_buffer_stream(
     OPJ_BOOL p_is_read_stream)
 {
     opj_stream_t* l_stream = 00;
-    const char *mode;
 
     if (! buf) {
         return NULL;
-    }
-
-    if (p_is_read_stream) {
-        mode = "rb";
-    } else {
-        mode = "wb";
     }
 
     l_stream = opj_stream_create(p_size, p_is_read_stream);
@@ -26,9 +77,20 @@ opj_stream_t* OPJ_CALLCONV opj_stream_create_buffer_stream(
         return NULL;
     }
 
-    opj_stream_set_user_data(l_stream, NULL, NULL);
+    struct myfile mysrc;
+    struct myfile *fsrc = &mysrc;
+    char *buffer_j2k = malloc( buf_size * 2 * sizeof(char) ); // overallocated for weird case
+    fsrc->mem = fsrc->cur = buffer_j2k;
+    fsrc->len = 0; //inputlength;
+
+    opj_stream_set_user_data(l_stream, fsrc, NULL);
     opj_stream_set_user_data_length(l_stream, buf_size);
-    opj_stream_set_current_data(l_stream, buf, buf_size);
+    // opj_stream_set_current_data(l_stream, buf, buf_size);
+
+    opj_stream_set_read_function(l_stream, (opj_stream_read_fn) opj_read_from_memory);
+    opj_stream_set_write_function(l_stream, (opj_stream_write_fn) opj_write_from_memory);
+    opj_stream_set_skip_function(l_stream, (opj_stream_skip_fn) opj_skip_from_memory);
+    opj_stream_set_seek_function(l_stream, (opj_stream_seek_fn) opj_seek_from_memory);
     return l_stream;
 }
 
@@ -136,11 +198,21 @@ opj_image_t* opj_decompress(
         fprintf(stderr, "ERROR -> failed to create the stream from buffer\n");
         return 0;
     }
-
+    /* get a decoder handle */
+    switch(decod_format)
+    {
+    case J2K_CFMT:
+        l_codec = opj_create_decompress(OPJ_CODEC_J2K);
+        break;
+    case JP2_CFMT:
+        l_codec = opj_create_decompress(OPJ_CODEC_JP2);
+        break;
+    default:
+        fprintf(stderr, "Impossible happen" );
+        return 0;
+    }
     /* decode the JPEG2000 stream */
     /* ---------------------- */
-
-    l_codec = opj_create_decompress(OPJ_CODEC_J2K);
     if (!opj_setup_decoder(l_codec, &(parameters.core))) {
         fprintf(stderr, "ERROR -> opj_decompress: failed to setup the decoder\n");
         opj_stream_destroy(l_stream);
@@ -197,6 +269,7 @@ opj_image_t* opj_decompress(
     /* free remaining structures */
     if (l_codec) {
         opj_destroy_codec(l_codec);
+        opj_stream_destroy(l_stream);
     }
     return image;
 }
@@ -206,5 +279,36 @@ opj_image_t* decode_j2k(
     size_t buf_size
     )
 {
-    return opj_decompress(buf, buf_size, J2K_CFMT, PXM_DFMT);
+    int decod_format;
+    unsigned char *src = (unsigned char*)buf;
+    // 32bits truncation should be ok since DICOM cannot have larger than 2Gb image
+    uint32_t file_length = (uint32_t)buf_size;
+    // WARNING: OpenJPEG is very picky when there is a trailing 00 at the end of the JPC
+    // so we need to make sure to remove it.
+    // Marker 0xffd9 EOI End of Image (JPEG 2000 EOC End of codestream)
+    // gdcmData/D_CLUNIE_CT1_J2KR.dcm contains a trailing 0xFF which apparently is ok...
+    // Ref: https://github.com/malaterre/GDCM/blob/master/Source/MediaStorageAndFileFormat/gdcmJPEG2000Codec.cxx#L637
+    while( file_length > 0 && src[file_length-1] != 0xd9 )
+    {
+        file_length--;
+    }
+    // what if 0xd9 is never found ?
+    if( !( file_length > 0 && src[file_length-1] == 0xd9 ) )
+    {
+        return 0;
+    }
+    // https://github.com/malaterre/GDCM/blob/master/Source/MediaStorageAndFileFormat/gdcmJPEG2000Codec.cxx#L656
+    const char jp2magic[] = "\x00\x00\x00\x0C\x6A\x50\x20\x20\x0D\x0A\x87\x0A";
+    if( memcmp( src, jp2magic, sizeof(jp2magic) ) == 0 )
+    {
+        /* JPEG-2000 compressed image data ... sigh */
+        fprintf(stderr, "J2K start like JPEG-2000 compressed image data instead of codestream" );
+        decod_format = JP2_CFMT;
+    }
+    else
+    {
+        /* JPEG-2000 codestream */
+        decod_format = J2K_CFMT;
+    }
+    return opj_decompress(src, file_length, decod_format, PXM_DFMT);
 }
