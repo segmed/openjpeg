@@ -26,6 +26,7 @@ var CAPI = map[string]struct{}{
 	"__sincospi":                              {},
 	"__sincospif":                             {},
 	"__wcwidth":                               {},
+	"bytestoimage":                            {},
 	"color_cmyk_to_rgb":                       {},
 	"color_esycc_to_rgb":                      {},
 	"color_sycc_to_rgb":                       {},

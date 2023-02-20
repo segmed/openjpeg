@@ -79,9 +79,8 @@ opj_stream_t* OPJ_CALLCONV opj_stream_create_buffer_stream(
 
     struct myfile mysrc;
     struct myfile *fsrc = &mysrc;
-    char *buffer_j2k = malloc( buf_size * 2 * sizeof(char) ); // overallocated for weird case
-    fsrc->mem = fsrc->cur = buffer_j2k;
-    fsrc->len = 0; //inputlength;
+    fsrc->mem = fsrc->cur = (char*)buf;
+    fsrc->len = buf_size; //inputlength;
 
     opj_stream_set_user_data(l_stream, fsrc, NULL);
     opj_stream_set_user_data_length(l_stream, buf_size);
@@ -311,4 +310,68 @@ opj_image_t* decode_j2k(
         decod_format = J2K_CFMT;
     }
     return opj_decompress(src, file_length, decod_format, PXM_DFMT);
+}
+
+// Encode RGB bytes array to an OPJ_IMAGE
+opj_image_t* bytestoimage(char *buf, int w, int h, int prec, int numcomps)
+{
+    /* decode the source image */
+    /* ----------------------- */
+    opj_cparameters_t parameters;   /* compression parameters */
+
+    /* set encoding parameters to default values */
+    opj_set_default_encoder_parameters(&parameters);
+
+    int subsampling_dx = parameters.subsampling_dx;
+    int subsampling_dy = parameters.subsampling_dy;
+
+    int i, compno;
+    OPJ_COLOR_SPACE color_space;
+    opj_image_cmptparm_t cmptparm[4]; /* RGBA: max. 4 components */
+    opj_image_t * image = NULL;
+
+    if (numcomps < 3) {
+        color_space = OPJ_CLRSPC_GRAY;    /* GRAY, GRAYA */
+    } else {
+        color_space = OPJ_CLRSPC_SRGB;    /* RGB, RGBA */
+    }
+
+    if (prec < 8) {
+        prec = 8;
+    }
+
+    subsampling_dx = parameters.subsampling_dx;
+    subsampling_dy = parameters.subsampling_dy;
+
+    memset(&cmptparm[0], 0, (size_t)numcomps * sizeof(opj_image_cmptparm_t));
+
+    for (i = 0; i < numcomps; i++) {
+        cmptparm[i].prec = (OPJ_UINT32)prec;
+        cmptparm[i].sgnd = 0;
+        cmptparm[i].dx = (OPJ_UINT32)subsampling_dx;
+        cmptparm[i].dy = (OPJ_UINT32)subsampling_dy;
+        cmptparm[i].w = (OPJ_UINT32)w;
+        cmptparm[i].h = (OPJ_UINT32)h;
+    }
+    image = opj_image_create((OPJ_UINT32)numcomps, &cmptparm[0], color_space);
+
+    if (!image) {
+        fprintf(stderr, "failed to create image: opj_image_create\n");
+        return NULL;
+    }
+
+    /* set image offset and reference grid */
+    image->x0 = (OPJ_UINT32)parameters.image_offset_x0;
+    image->y0 = (OPJ_UINT32)parameters.image_offset_y0;
+    image->x1 = (OPJ_UINT32)(parameters.image_offset_x0 + (w - 1) * subsampling_dx
+                             + 1);
+    image->y1 = (OPJ_UINT32)(parameters.image_offset_y0 + (h - 1) * subsampling_dy
+                             + 1);
+
+    for (i = 0; i < w * h; i++) {
+        for (compno = 0; compno < numcomps; compno++) {
+            image->comps[compno].data[i] = buf[i];
+        }
+    }
+    return image;
 }
