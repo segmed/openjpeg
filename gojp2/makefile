@@ -1,4 +1,4 @@
-all: darwin linux windows
+all: build
 
 CMD=ccgo  -pkgname gojp2  -trace-translation-units -export-externs X -export-defines D -export-fields F -export-structs S -export-typedefs T -I../src/lib/openjp2/ -I../src/bin/common/ ../src/bin/common/color.c ../src/lib/openjp2/*.c
 

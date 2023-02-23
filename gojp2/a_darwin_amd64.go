@@ -219,9 +219,6 @@ const (
 	DOPJ_EXTENSION_NONE                         = 0x0000                                 // openjpeg.h:222:1:
 	DOPJ_FALSE                                  = 0                                      // openjpeg.h:118:1:
 	DOPJ_HAVE_INTTYPES_H                        = 1                                      // opj_config_private.h:2:1:
-	DOPJ_HAVE_MALLOC_H                          = 0                                      // opj_config_private.h:21:1:
-	DOPJ_HAVE_MEMALIGN                          = 0                                      // opj_config_private.h:27:1:
-	DOPJ_HAVE_POSIX_MEMALIGN                    = 0                                      // opj_config_private.h:29:1:
 	DOPJ_HAVE_STDINT_H                          = 1                                      // opj_config.h:2:1:
 	DOPJ_IMF_MAINLEVEL_10_MSAMPLESEC            = 19200                                  // openjpeg.h:250:1:
 	DOPJ_IMF_MAINLEVEL_11_MSAMPLESEC            = 38400                                  // openjpeg.h:251:1:
@@ -495,7 +492,6 @@ const (
 	D_OS__OSBYTEORDERI386_H                     = 0                                      // _OSByteOrder.h:30:1:
 	D_OS__OSBYTEORDER_H                         = 0                                      // _OSByteOrder.h:30:1:
 	D_PID_T                                     = 0                                      // _pid_t.h:29:1:
-	D_POSIX_C_SOURCE                            = 200112                                 // opj_config_private.h:34:1:
 	D_PTHREAD_ATTR_T                            = 0                                      // _pthread_attr_t.h:29:1:
 	D_QUAD_HIGHWORD                             = 1                                      // endian.h:80:1:
 	D_QUAD_LOWWORD                              = 0                                      // endian.h:81:1:
@@ -718,7 +714,6 @@ const (
 	DSCNxPTR                                    = "lx"                                   // inttypes.h:215:1:
 	DSHRT_MAX                                   = 32767                                  // limits.h:45:1:
 	DSHRT_MIN                                   = -32768                                 // limits.h:50:1:
-	DSIGPOLL                                    = 7                                      // signal.h:91:1:
 	DT1_CHI_0                                   = 262144                                 // t1.h:110:1:
 	DT1_CHI_0_I                                 = 18                                     // t1.h:111:1:
 	DT1_CHI_1                                   = 524288                                 // t1.h:112:1:
@@ -833,6 +828,7 @@ const (
 	D_TIME_H_                                   = 0                                      // time.h:64:1:
 	D_TIME_T                                    = 0                                      // _time_t.h:29:1:
 	D_VA_LIST                                   = 0                                      // stdarg.h:15:1:
+	D_WINT_T                                    = 0                                      // _wint_t.h:30:1:
 	DNB_ELTS_V8                                 = 8                                      // dwt.c:95:1:
 	DPARALLEL_COLS_53                           = 8                                      // dwt.c:83:1:
 	DSTANDARD_SLOW_VERSION                      = 1                                      // dwt.c:45:1:
@@ -856,7 +852,7 @@ const (
 	DOPJ_BOX_SIZE                               = 1024                                   // jp2.c:45:1:
 )
 
-const ( /* helper.c:43:1: */
+const ( /* helper.c:104:1: */
 	OPJ_PREC_MODE_CLIP  = 0
 	OPJ_PREC_MODE_SCALE = 1
 )
@@ -924,6 +920,7 @@ const ( /* helper.c:43:1: */
 // *
 // Values that specify the status of the decoding process when decoding the main header.
 // These values may be combined with a | operator.
+//
 const ( /* j2k.h:122:1: */
 	J2K_STATE_NONE   = 0   //*< a SOC marker is expected
 	J2K_STATE_MHSOC  = 1   //*< a SOC marker is expected
@@ -958,7 +955,7 @@ const ( /* j2k.h:150:1: */
 
 // -----------------------------------------------------------------------
 
-// *
+//*
 // T2 encoding mode
 const ( /* j2k.h:161:1: */
 	THRESH_CALC = 0 //* Function called in Rate allocation process
@@ -1087,6 +1084,7 @@ const ( /* jp2.h:84:1: */
 // *
 // DEPRECATED: use RSIZ, OPJ_PROFILE_* and OPJ_EXTENSION_* instead
 // Rsiz Capabilities
+//
 const ( /* openjpeg.h:282:1: */
 	OPJ_STD_RSIZ = 0 //* Standard JPEG2000 profile
 	OPJ_CINEMA2K = 3 //* Profile name for a 2K image
@@ -1097,6 +1095,7 @@ const ( /* openjpeg.h:282:1: */
 // *
 // DEPRECATED: use RSIZ, OPJ_PROFILE_* and OPJ_EXTENSION_* instead
 // Digital cinema operation mode
+//
 const ( /* openjpeg.h:293:1: */
 	OPJ_OFF         = 0 //* Not Digital Cinema
 	OPJ_CINEMA2K_24 = 1 //* 2K Digital Cinema at 24 fps
@@ -1106,6 +1105,7 @@ const ( /* openjpeg.h:293:1: */
 
 // *
 // Progression order
+//
 const ( /* openjpeg.h:303:1: */
 	OPJ_PROG_UNKNOWN = -1 //*< place-holder
 	OPJ_LRCP         = 0  //*< layer-resolution-component-precinct order
@@ -1798,10 +1798,14 @@ const ( /* wait.h:79:1: */
 )
 
 const ( /* time.h:153:1: */
-	_CLOCK_REALTIME           = 0
-	_CLOCK_MONOTONIC          = 6
-	_CLOCK_PROCESS_CPUTIME_ID = 12
-	_CLOCK_THREAD_CPUTIME_ID  = 16
+	_CLOCK_REALTIME             = 0
+	_CLOCK_MONOTONIC            = 6
+	_CLOCK_MONOTONIC_RAW        = 4
+	_CLOCK_MONOTONIC_RAW_APPROX = 5
+	_CLOCK_UPTIME_RAW           = 8
+	_CLOCK_UPTIME_RAW_APPROX    = 9
+	_CLOCK_PROCESS_CPUTIME_ID   = 12
+	_CLOCK_THREAD_CPUTIME_ID    = 16
 )
 
 type Tptrdiff_t = int64 /* <builtin>:3:26 */
@@ -7886,6 +7890,63 @@ type Stimeval = struct {
 // Resource limit type (low 63 bits, excluding the sign bit)
 type Trlim_t = T__uint64_t /* resource.h:89:25 */
 
+// ****
+//
+// PRIORITY
+
+// Possible values of the first parameter to getpriority()/setpriority(),
+// used to indicate the type of the second parameter.
+
+// Range limitations for the value of the third parameter to setpriority().
+
+// use PRIO_DARWIN_BG to set the current thread into "background" state
+// which lowers CPU, disk IO, and networking priorites until thread terminates
+// or "background" state is revoked
+
+// use PRIO_DARWIN_NONUI to restrict a process's ability to make calls to
+// the GPU. (deprecated)
+
+// ****
+//
+// RESOURCE USAGE
+
+// Possible values of the first parameter to getrusage(), used to indicate
+// the scope of the information to be returned.
+
+// A structure representing an accounting of resource utilization.  The
+// address of an instance of this structure is the second parameter to
+// getrusage().
+//
+// Note: All values other than ru_utime and ru_stime are implementaiton
+//       defined and subject to change in a future release.  Their use
+//       is discouraged for standards compliant programs.
+type Srusage = struct {
+	Fru_utime struct {
+		Ftv_sec      T__darwin_time_t
+		Ftv_usec     T__darwin_suseconds_t
+		F__ccgo_pad1 [4]byte
+	}
+	Fru_stime struct {
+		Ftv_sec      T__darwin_time_t
+		Ftv_usec     T__darwin_suseconds_t
+		F__ccgo_pad1 [4]byte
+	}
+	Fru_maxrss   int64
+	Fru_ixrss    int64
+	Fru_idrss    int64
+	Fru_isrss    int64
+	Fru_minflt   int64
+	Fru_majflt   int64
+	Fru_nswap    int64
+	Fru_inblock  int64
+	Fru_oublock  int64
+	Fru_msgsnd   int64
+	Fru_msgrcv   int64
+	Fru_nsignals int64
+	Fru_nvcsw    int64
+	Fru_nivcsw   int64
+} /* resource.h:152:1 */
+
 // Flavors for proc_pid_rusage().
 
 // Flags for RUSAGE_INFO_V5
@@ -8492,11 +8553,10 @@ type Tmode_t = T__darwin_mode_t /* _mode_t.h:31:33 */ // getsubopt(3) external v
 // Floating point data types                                                  *
 //
 
-// Define float_t and double_t per C standard, ISO/IEC 9899:2011 7.12 2,
-//
-//	taking advantage of GCC's __FLT_EVAL_METHOD__ (which a compiler may
-//	define anytime and GCC does) that shadows FLT_EVAL_METHOD (which a
-//	compiler must define only in float.h).
+//  Define float_t and double_t per C standard, ISO/IEC 9899:2011 7.12 2,
+//     taking advantage of GCC's __FLT_EVAL_METHOD__ (which a compiler may
+//     define anytime and GCC does) that shadows FLT_EVAL_METHOD (which a
+//     compiler must define only in float.h).
 type Tfloat_t = float32  /* math.h:44:19 */
 type Tdouble_t = float64 /* math.h:45:20 */
 
@@ -8578,12 +8638,11 @@ func X__inline_isnormall(tls *libc.TLS, __x float64) int32 { /* math.h:249:28: *
 	return libc.Bool32(X__inline_isfinitel(tls, __x) != 0 && libc.X__builtin_fabsl(tls, __x) >= 3.36210314311209350626e-4932)
 }
 
-// Implementation details of __sincos and __sincospi allowing them to return
-//
-//	two results while allowing the compiler to optimize away unnecessary load-
-//	store traffic.  Although these interfaces are exposed in the math.h header
-//	to allow compilers to generate better code, users should call __sincos[f]
-//	and __sincospi[f] instead and allow the compiler to emit these calls.
+//  Implementation details of __sincos and __sincospi allowing them to return
+//     two results while allowing the compiler to optimize away unnecessary load-
+//     store traffic.  Although these interfaces are exposed in the math.h header
+//     to allow compilers to generate better code, users should call __sincos[f]
+//     and __sincospi[f] instead and allow the compiler to emit these calls.
 type S__float2 = struct {
 	F__sinval float32
 	F__cosval float32
@@ -8643,16 +8702,25 @@ type Sexception = struct {
 // #undef _LARGEFILE_SOURCE
 // #undef _LARGE_FILES
 // #undef _FILE_OFFSET_BITS
+//#define OPJ_HAVE_FSEEKO ON
 
 // find whether or not have <malloc.h>
+//#define OPJ_HAVE_MALLOC_H
 // check if function `aligned_alloc` exists
 // #undef OPJ_HAVE_ALIGNED_ALLOC
 // check if function `_aligned_malloc` exists
 // #undef OPJ_HAVE__ALIGNED_MALLOC
 // check if function `memalign` exists
+//#define OPJ_HAVE_MEMALIGN
 // check if function `posix_memalign` exists
+//#define OPJ_HAVE_POSIX_MEMALIGN
 
+//#if !defined(_POSIX_C_SOURCE)
+//#if defined(OPJ_HAVE_FSEEKO) || defined(OPJ_HAVE_POSIX_MEMALIGN)
 // Get declarations of fseeko, ftello, posix_memalign.
+//#define _POSIX_C_SOURCE 200112L
+//#endif
+//#endif
 
 // Byte order.
 // All compilers that support Mac OS X define either __BIG_ENDIAN__ or
@@ -8661,6 +8729,11 @@ type Sexception = struct {
 // machine doing the building. In order to support Universal Binaries on
 // Mac OS X, we prefer those defines to decide the endianness.
 // On other platforms we use the result of the TRY_RUN.
+//#if !defined(__APPLE__)
+//[> #undef OPJ_BIG_ENDIAN <]
+//#elif defined(__BIG_ENDIAN__)
+//# define OPJ_BIG_ENDIAN
+//#endif
 
 // create opj_apps_config.h for CMake
 
@@ -8900,15 +8973,18 @@ type TOPJ_SIZE_T = Tsize_t /* openjpeg.h:139:18 */
 // *
 // DEPRECATED: use RSIZ, OPJ_PROFILE_* and OPJ_EXTENSION_* instead
 // Rsiz Capabilities
+//
 type TOPJ_RSIZ_CAPABILITIES = uint32 /* openjpeg.h:287:3 */
 
 // *
 // DEPRECATED: use RSIZ, OPJ_PROFILE_* and OPJ_EXTENSION_* instead
 // Digital cinema operation mode
+//
 type TOPJ_CINEMA_MODE = uint32 /* openjpeg.h:298:3 */
 
 // *
 // Progression order
+//
 type TOPJ_PROG_ORDER = int32 /* openjpeg.h:310:3 */
 
 // *
@@ -8928,6 +9004,7 @@ type TOPJ_CODEC_FORMAT = int32 /* openjpeg.h:335:3 */
 // Callback function prototype for events
 // @param msg               Event message
 // @param client_data       Client object where will be return the event message
+//
 type Topj_msg_callback = uintptr /* openjpeg.h:349:14 */
 
 //
@@ -8937,6 +9014,7 @@ type Topj_msg_callback = uintptr /* openjpeg.h:349:14 */
 
 // *
 // Progression order changes
+//
 type Topj_poc_t = struct {
 	Fresno0      TOPJ_UINT32
 	Fcompno0     TOPJ_UINT32
@@ -8979,6 +9057,7 @@ type Topj_poc_t = struct {
 
 // *
 // Compression parameters
+//
 type Sopj_cparameters = struct {
 	Ftile_size_on          TOPJ_BOOL
 	Fcp_tx0                int32
@@ -9046,10 +9125,12 @@ type Sopj_cparameters = struct {
 
 // *
 // Compression parameters
+//
 type Topj_cparameters_t = Sopj_cparameters /* openjpeg.h:544:3 */
 
 // *
 // Decompression parameters
+//
 type Sopj_dparameters = struct {
 	Fcp_reduce         TOPJ_UINT32
 	Fcp_layer          TOPJ_UINT32
@@ -9072,10 +9153,12 @@ type Sopj_dparameters = struct {
 
 // *
 // Decompression parameters
+//
 type Topj_dparameters_t = Sopj_dparameters /* openjpeg.h:612:3 */
 
 // *
 // JPEG2000 codec V2.
+//
 type Topj_codec_t = uintptr /* openjpeg.h:618:14 */
 
 //
@@ -9114,6 +9197,7 @@ type Topj_stream_t = uintptr /* openjpeg.h:666:14 */
 
 // *
 // Defines a single image component
+//
 type Sopj_image_comp = struct {
 	Fdx            TOPJ_UINT32
 	Fdy            TOPJ_UINT32
@@ -9139,10 +9223,12 @@ type Sopj_image_comp = struct {
 
 // *
 // Defines a single image component
+//
 type Topj_image_comp_t = Sopj_image_comp /* openjpeg.h:704:3 */
 
 // *
 // Defines image data and characteristics
+//
 type Sopj_image = struct {
 	Fx0              TOPJ_UINT32
 	Fy0              TOPJ_UINT32
@@ -9158,10 +9244,12 @@ type Sopj_image = struct {
 
 // *
 // Defines image data and characteristics
+//
 type Topj_image_t = Sopj_image /* openjpeg.h:728:3 */
 
 // *
 // Component parameters structure used by the opj_image_create function
+//
 type Sopj_image_comptparm = struct {
 	Fdx   TOPJ_UINT32
 	Fdy   TOPJ_UINT32
@@ -9176,6 +9264,7 @@ type Sopj_image_comptparm = struct {
 
 // *
 // Component parameters structure used by the opj_image_create function
+//
 type Topj_image_cmptparm_t = Sopj_image_comptparm /* openjpeg.h:753:3 */
 
 //
@@ -9186,6 +9275,7 @@ type Topj_image_cmptparm_t = Sopj_image_comptparm /* openjpeg.h:753:3 */
 
 // *
 // Index structure : Information concerning a packet inside tile
+//
 type Sopj_packet_info = struct {
 	Fstart_pos  TOPJ_OFF_T
 	Fend_ph_pos TOPJ_OFF_T
@@ -9201,11 +9291,13 @@ type Sopj_packet_info = struct {
 
 // *
 // Index structure : Information concerning a packet inside tile
+//
 type Topj_packet_info_t = Sopj_packet_info /* openjpeg.h:775:3 */
 
 // UniPG>>
 // *
 // Marker structure
+//
 type Sopj_marker_info = struct {
 	Ftype        uint16
 	F__ccgo_pad1 [6]byte
@@ -9217,6 +9309,7 @@ type Sopj_marker_info = struct {
 // UniPG>>
 // *
 // Marker structure
+//
 type Topj_marker_info_t = Sopj_marker_info /* openjpeg.h:789:3 */
 // <<UniPG
 
@@ -9444,7 +9537,7 @@ type Sopj_jp2_index = struct{ Fnot_used TOPJ_INT32 } /* openjpeg.h:1083:9 */
 // EXPERIMENTAL FOR THE MOMENT
 type Topj_jp2_index_t = Sopj_jp2_index /* openjpeg.h:1087:3 */
 
-// --------------------------------------------------------
+//--------------------------------------------------------
 // Matrix for sYCC, Amendment 1 to IEC 61966-2-1
 //
 // Y :   0.299   0.587    0.114   :R
@@ -10121,18 +10214,6 @@ func Xcolor_esycc_to_rgb(tls *libc.TLS, image uintptr) { /* color.c:1070:6: */
 
 } // color_esycc_to_rgb()
 
-//  Even though these might be more useful as long doubles, POSIX requires
-//     that they be double-precision literals.
-
-//  Long-double versions of M_E, etc for convenience on Intel where long-
-//     double is not the same as double.  Define __MATH_LONG_DOUBLE_CONSTANTS
-//     to make these constants available.
-
-// *****************************************************************************
-//
-//  Legacy BSD extensions to the C standard                                   *
-//
-
 // ===---- float.h - Characteristics of floating point types ----------------===
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -10788,6 +10869,162 @@ type T__gnuc_va_list = T__builtin_va_list /* stdarg.h:32:27 */
 //
 // @APPLE_LICENSE_HEADER_END@
 
+// Copyright (c) 2003-2012 Apple Inc. All rights reserved.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_START@
+//
+// This file contains Original Code and/or Modifications of Original Code
+// as defined in and that are subject to the Apple Public Source License
+// Version 2.0 (the 'License'). You may not use this file except in
+// compliance with the License. The rights granted to you under the License
+// may not be used to create, or enable the creation or redistribution of,
+// unlawful or unlicensed copies of an Apple operating system, or to
+// circumvent, violate, or enable the circumvention or violation of, any
+// terms of an Apple operating system software license agreement.
+//
+// Please obtain a copy of the License at
+// http://www.opensource.apple.com/apsl/ and read it before using this file.
+//
+// The Original Code and all software distributed under the License are
+// distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+// EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+// INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+// Please see the License for the specific language governing rights and
+// limitations under the License.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_END@
+// Copyright (c) 2012 Apple Inc. All rights reserved.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_START@
+//
+// This file contains Original Code and/or Modifications of Original Code
+// as defined in and that are subject to the Apple Public Source License
+// Version 2.0 (the 'License'). You may not use this file except in
+// compliance with the License. The rights granted to you under the License
+// may not be used to create, or enable the creation or redistribution of,
+// unlawful or unlicensed copies of an Apple operating system, or to
+// circumvent, violate, or enable the circumvention or violation of, any
+// terms of an Apple operating system software license agreement.
+//
+// Please obtain a copy of the License at
+// http://www.opensource.apple.com/apsl/ and read it before using this file.
+//
+// The Original Code and all software distributed under the License are
+// distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+// EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+// INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+// Please see the License for the specific language governing rights and
+// limitations under the License.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_END@
+
+// Copyright (c) 2012 Apple Inc. All rights reserved.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_START@
+//
+// This file contains Original Code and/or Modifications of Original Code
+// as defined in and that are subject to the Apple Public Source License
+// Version 2.0 (the 'License'). You may not use this file except in
+// compliance with the License. The rights granted to you under the License
+// may not be used to create, or enable the creation or redistribution of,
+// unlawful or unlicensed copies of an Apple operating system, or to
+// circumvent, violate, or enable the circumvention or violation of, any
+// terms of an Apple operating system software license agreement.
+//
+// Please obtain a copy of the License at
+// http://www.opensource.apple.com/apsl/ and read it before using this file.
+//
+// The Original Code and all software distributed under the License are
+// distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+// EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+// INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+// Please see the License for the specific language governing rights and
+// limitations under the License.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_END@
+// Copyright (c) 2012 Apple Inc. All rights reserved.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_START@
+//
+// This file contains Original Code and/or Modifications of Original Code
+// as defined in and that are subject to the Apple Public Source License
+// Version 2.0 (the 'License'). You may not use this file except in
+// compliance with the License. The rights granted to you under the License
+// may not be used to create, or enable the creation or redistribution of,
+// unlawful or unlicensed copies of an Apple operating system, or to
+// circumvent, violate, or enable the circumvention or violation of, any
+// terms of an Apple operating system software license agreement.
+//
+// Please obtain a copy of the License at
+// http://www.opensource.apple.com/apsl/ and read it before using this file.
+//
+// The Original Code and all software distributed under the License are
+// distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+// EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+// INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+// Please see the License for the specific language governing rights and
+// limitations under the License.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_END@
+
+// wchar_t is a built-in type in C++
+// Copyright (c) 2012 Apple Inc. All rights reserved.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_START@
+//
+// This file contains Original Code and/or Modifications of Original Code
+// as defined in and that are subject to the Apple Public Source License
+// Version 2.0 (the 'License'). You may not use this file except in
+// compliance with the License. The rights granted to you under the License
+// may not be used to create, or enable the creation or redistribution of,
+// unlawful or unlicensed copies of an Apple operating system, or to
+// circumvent, violate, or enable the circumvention or violation of, any
+// terms of an Apple operating system software license agreement.
+//
+// Please obtain a copy of the License at
+// http://www.opensource.apple.com/apsl/ and read it before using this file.
+//
+// The Original Code and all software distributed under the License are
+// distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+// EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+// INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+// Please see the License for the specific language governing rights and
+// limitations under the License.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_END@
+
+// Copyright (c) 2003-2007 Apple Inc. All rights reserved.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_START@
+//
+// This file contains Original Code and/or Modifications of Original Code
+// as defined in and that are subject to the Apple Public Source License
+// Version 2.0 (the 'License'). You may not use this file except in
+// compliance with the License. The rights granted to you under the License
+// may not be used to create, or enable the creation or redistribution of,
+// unlawful or unlicensed copies of an Apple operating system, or to
+// circumvent, violate, or enable the circumvention or violation of, any
+// terms of an Apple operating system software license agreement.
+//
+// Please obtain a copy of the License at
+// http://www.opensource.apple.com/apsl/ and read it before using this file.
+//
+// The Original Code and all software distributed under the License are
+// distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+// EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+// INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+// Please see the License for the specific language governing rights and
+// limitations under the License.
+//
+// @APPLE_OSREFERENCE_LICENSE_HEADER_END@
+type Twint_t = T__darwin_wint_t /* _wint_t.h:32:25 */
+
 // The lower 8 bits of runetype[] contain the digit value of the rune.
 type T_RuneEntry = struct {
 	F__min       T__darwin_rune_t
@@ -10928,6 +11165,34 @@ func Xtoupper(tls *libc.TLS, _c int32) int32 { /* _ctype.h:298:1: */
 	return libc.X__toupper(tls, _c)
 }
 
+func Xdigittoint(tls *libc.TLS, _c int32) int32 { /* _ctype.h:305:1: */
+	return libc.X__maskrune(tls, _c, uint64(0x0F))
+}
+
+func Xishexnumber(tls *libc.TLS, _c int32) int32 { /* _ctype.h:311:1: */
+	return X__istype(tls, _c, uint64(D_CTYPE_X))
+}
+
+func Xisideogram(tls *libc.TLS, _c int32) int32 { /* _ctype.h:317:1: */
+	return X__istype(tls, _c, uint64(D_CTYPE_I))
+}
+
+func Xisnumber(tls *libc.TLS, _c int32) int32 { /* _ctype.h:323:1: */
+	return X__istype(tls, _c, uint64(D_CTYPE_D))
+}
+
+func Xisphonogram(tls *libc.TLS, _c int32) int32 { /* _ctype.h:329:1: */
+	return X__istype(tls, _c, uint64(D_CTYPE_Q))
+}
+
+func Xisrune(tls *libc.TLS, _c int32) int32 { /* _ctype.h:335:1: */
+	return X__istype(tls, _c, uint64(0xFFFFFFF0))
+}
+
+func Xisspecial(tls *libc.TLS, _c int32) int32 { /* _ctype.h:341:1: */
+	return X__istype(tls, _c, uint64(D_CTYPE_T))
+}
+
 //
 //  ==========================================================
 //    OpenJPEG modules
@@ -10989,11 +11254,11 @@ type Tmax_align_t = float64 /* __stddef_max_align_t.h:16:21 */
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
 // are met:
-//  1. Redistributions of source code must retain the above copyright
-//     notice, this list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright
-//     notice, this list of conditions and the following disclaimer in the
-//     documentation and/or other materials provided with the distribution.
+// 1. Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS `AS IS'
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -11006,12 +11271,12 @@ type Tmax_align_t = float64 /* __stddef_max_align_t.h:16:21 */
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-// *
+//*
 // @file event.h
 // @brief Implementation of a event callback system
 //
 // The functions in EVENT.C have for goal to send output messages (errors, warnings, debug) to the user.
-// *
+//*
 // Message handler object
 // used for
 // <ul>
@@ -11046,11 +11311,11 @@ type Sopj_event_mgr = struct {
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
 // are met:
-//  1. Redistributions of source code must retain the above copyright
-//     notice, this list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright
-//     notice, this list of conditions and the following disclaimer in the
-//     documentation and/or other materials provided with the distribution.
+// 1. Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS `AS IS'
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -11063,12 +11328,12 @@ type Sopj_event_mgr = struct {
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-// *
+//*
 // @file event.h
 // @brief Implementation of a event callback system
 //
 // The functions in EVENT.C have for goal to send output messages (errors, warnings, debug) to the user.
-// *
+//*
 // Message handler object
 // used for
 // <ul>
@@ -11199,7 +11464,7 @@ type Topj_procedure_list_t = Sopj_procedure_list /* function_list.h:71:3 */
 //* @defgroup BIO BIO - Individual bit input-output stream
 //@{
 
-// *
+//*
 // Individual bit input-output stream (BIO)
 type Sopj_bio = struct {
 	Fstart uintptr
@@ -11263,7 +11528,7 @@ type Sopj_bio = struct {
 //* @defgroup BIO BIO - Individual bit input-output stream
 //@{
 
-// *
+//*
 // Individual bit input-output stream (BIO)
 type Topj_bio_t = Sopj_bio /* bio.h:67:3 */
 // -----------------------------------------------------------------------
@@ -11331,14 +11596,25 @@ type Topj_bio_t = Sopj_bio /* bio.h:67:3 */
 // #undef _LARGEFILE_SOURCE
 // #undef _LARGE_FILES
 // #undef _FILE_OFFSET_BITS
+//#define OPJ_HAVE_FSEEKO ON
 
 // find whether or not have <malloc.h>
+//#define OPJ_HAVE_MALLOC_H
 // check if function `aligned_alloc` exists
 // #undef OPJ_HAVE_ALIGNED_ALLOC
 // check if function `_aligned_malloc` exists
 // #undef OPJ_HAVE__ALIGNED_MALLOC
 // check if function `memalign` exists
+//#define OPJ_HAVE_MEMALIGN
 // check if function `posix_memalign` exists
+//#define OPJ_HAVE_POSIX_MEMALIGN
+
+//#if !defined(_POSIX_C_SOURCE)
+//#if defined(OPJ_HAVE_FSEEKO) || defined(OPJ_HAVE_POSIX_MEMALIGN)
+// Get declarations of fseeko, ftello, posix_memalign.
+//#define _POSIX_C_SOURCE 200112L
+//#endif
+//#endif
 
 // Byte order.
 // All compilers that support Mac OS X define either __BIG_ENDIAN__ or
@@ -11347,10 +11623,15 @@ type Topj_bio_t = Sopj_bio /* bio.h:67:3 */
 // machine doing the building. In order to support Universal Binaries on
 // Mac OS X, we prefer those defines to decide the endianness.
 // On other platforms we use the result of the TRY_RUN.
+//#if !defined(__APPLE__)
+//[> #undef OPJ_BIG_ENDIAN <]
+//#elif defined(__BIG_ENDIAN__)
+//# define OPJ_BIG_ENDIAN
+//#endif
 
 // -----------------------------------------------------------------------
 
-// *
+//*
 // Byte input-output stream.
 type Sopj_stream_private = struct {
 	Fm_user_data         uintptr
@@ -11436,14 +11717,25 @@ type Sopj_stream_private = struct {
 // #undef _LARGEFILE_SOURCE
 // #undef _LARGE_FILES
 // #undef _FILE_OFFSET_BITS
+//#define OPJ_HAVE_FSEEKO ON
 
 // find whether or not have <malloc.h>
+//#define OPJ_HAVE_MALLOC_H
 // check if function `aligned_alloc` exists
 // #undef OPJ_HAVE_ALIGNED_ALLOC
 // check if function `_aligned_malloc` exists
 // #undef OPJ_HAVE__ALIGNED_MALLOC
 // check if function `memalign` exists
+//#define OPJ_HAVE_MEMALIGN
 // check if function `posix_memalign` exists
+//#define OPJ_HAVE_POSIX_MEMALIGN
+
+//#if !defined(_POSIX_C_SOURCE)
+//#if defined(OPJ_HAVE_FSEEKO) || defined(OPJ_HAVE_POSIX_MEMALIGN)
+// Get declarations of fseeko, ftello, posix_memalign.
+//#define _POSIX_C_SOURCE 200112L
+//#endif
+//#endif
 
 // Byte order.
 // All compilers that support Mac OS X define either __BIG_ENDIAN__ or
@@ -11452,10 +11744,15 @@ type Sopj_stream_private = struct {
 // machine doing the building. In order to support Universal Binaries on
 // Mac OS X, we prefer those defines to decide the endianness.
 // On other platforms we use the result of the TRY_RUN.
+//#if !defined(__APPLE__)
+//[> #undef OPJ_BIG_ENDIAN <]
+//#elif defined(__BIG_ENDIAN__)
+//# define OPJ_BIG_ENDIAN
+//#endif
 
 // -----------------------------------------------------------------------
 
-// *
+//*
 // Byte input-output stream.
 type Topj_stream_private_t = Sopj_stream_private /* cio.h:165:1 */
 
@@ -11465,16 +11762,16 @@ type Topj_thread_fn = uintptr /* thread.h:146:14 */
 
 //@}
 
-// * @name Thread local storage
-// @{
-// * Opaque type for a thread local storage
+//* @name Thread local storage
+//@{
+//* Opaque type for a thread local storage
 type Sopj_tls_t = struct {
 	Fkey_val       uintptr
 	Fkey_val_count int32
 	F__ccgo_pad1   [4]byte
 } /* thread.h:167:9 */
 
-// * Type of the function used to free a TLS value
+//* Type of the function used to free a TLS value
 type Topj_tls_free_func = uintptr /* thread.h:177:14 */
 
 //@}
@@ -11482,7 +11779,7 @@ type Topj_tls_free_func = uintptr /* thread.h:177:14 */
 //* @name Thread pool
 //@{
 
-// * Opaque type for a thread pool
+//* Opaque type for a thread pool
 type Sopj_thread_pool_t = struct {
 	Fworker_threads              uintptr
 	Fworker_threads_count        int32
@@ -11604,6 +11901,7 @@ type Sopj_cp = struct {
 // *
 // Values that specify the status of the decoding process when decoding the main header.
 // These values may be combined with a | operator.
+//
 type TJ2K_STATUS = uint32 /* j2k.h:135:3 */
 
 // *
@@ -11616,7 +11914,7 @@ type TJ2K_MCT_ARRAY_TYPE = uint32 /* j2k.h:154:3 */
 
 // -----------------------------------------------------------------------
 
-// *
+//*
 // T2 encoding mode
 type TJ2K_T2_MODE = uint32 /* j2k.h:164:3 */
 
@@ -11631,7 +11929,7 @@ type Sopj_stepsize = struct {
 // Quantization stepsize
 type Topj_stepsize_t = Sopj_stepsize /* j2k.h:174:3 */
 
-// *
+//*
 // Tile-component coding parameters
 type Sopj_tccp = struct {
 	Fcsty             TOPJ_UINT32
@@ -11649,7 +11947,7 @@ type Sopj_tccp = struct {
 	Fm_dc_level_shift TOPJ_INT32
 } /* image.h:41:1 */
 
-// *
+//*
 // Tile-component coding parameters
 type Topj_tccp_t = Sopj_tccp /* j2k.h:207:1 */
 
@@ -11692,7 +11990,7 @@ type Sopj_ppx_struct = struct {
 
 type Topj_ppx = Sopj_ppx_struct /* j2k.h:238:3 */
 
-// *
+//*
 // Tile coding parameters :
 // this structure is used to store coding/decoding parameters common to all
 // tiles (information like COD, COC in main header)
@@ -11732,7 +12030,7 @@ type Sopj_tcp = struct {
 	F__ccgo_pad3                [7]byte
 } /* image.h:41:1 */
 
-// *
+//*
 // Tile coding parameters :
 // this structure is used to store coding/decoding parameters common to all
 // tiles (information like COD, COC in main header)
@@ -11830,7 +12128,7 @@ type Sopj_tcd = struct {
 	Fused_component      uintptr
 } /* j2k.h:562:1 */
 
-// *
+//*
 // JPEG-2000 codestream reader/writer
 type Sopj_j2k = struct {
 	Fm_is_decoder          TOPJ_BOOL
@@ -11852,7 +12150,7 @@ type Sopj_j2k = struct {
 	F__ccgo_pad3           [4]byte
 } /* j2k.h:566:9 */
 
-// *
+//*
 // JPEG-2000 codestream reader/writer
 type Topj_j2k_t = Sopj_j2k /* j2k.h:613:1 */
 
@@ -11913,7 +12211,7 @@ type TJP2_STATE = uint32 /* jp2.h:82:1 */
 
 type TJP2_IMG_STATE = uint32 /* jp2.h:88:1 */
 
-// *
+//*
 // Channel description: channel index, type, association
 type Sopj_jp2_cdef_info = struct {
 	Fcn   TOPJ_UINT16
@@ -11921,11 +12219,11 @@ type Sopj_jp2_cdef_info = struct {
 	Fasoc TOPJ_UINT16
 } /* jp2.h:93:9 */
 
-// *
+//*
 // Channel description: channel index, type, association
 type Topj_jp2_cdef_info_t = Sopj_jp2_cdef_info /* jp2.h:95:3 */
 
-// *
+//*
 // Channel descriptions and number of descriptions
 type Sopj_jp2_cdef = struct {
 	Finfo        uintptr
@@ -11933,11 +12231,11 @@ type Sopj_jp2_cdef = struct {
 	F__ccgo_pad1 [6]byte
 } /* jp2.h:100:9 */
 
-// *
+//*
 // Channel descriptions and number of descriptions
 type Topj_jp2_cdef_t = Sopj_jp2_cdef /* jp2.h:103:3 */
 
-// *
+//*
 // Component mappings: channel index, mapping type, palette index
 type Sopj_jp2_cmap_comp = struct {
 	Fcmp  TOPJ_UINT16
@@ -11945,11 +12243,11 @@ type Sopj_jp2_cmap_comp = struct {
 	Fpcol TOPJ_BYTE
 } /* jp2.h:108:9 */
 
-// *
+//*
 // Component mappings: channel index, mapping type, palette index
 type Topj_jp2_cmap_comp_t = Sopj_jp2_cmap_comp /* jp2.h:111:3 */
 
-// *
+//*
 // Palette data: table entries, palette columns
 type Sopj_jp2_pclr = struct {
 	Fentries      uintptr
@@ -11961,11 +12259,11 @@ type Sopj_jp2_pclr = struct {
 	F__ccgo_pad1  [5]byte
 } /* jp2.h:116:9 */
 
-// *
+//*
 // Palette data: table entries, palette columns
 type Topj_jp2_pclr_t = Sopj_jp2_pclr /* jp2.h:123:3 */
 
-// *
+//*
 // Collector for ICC profile, palette, component mapping, channel description
 type Sopj_jp2_color = struct {
 	Ficc_profile_buf uintptr
@@ -11977,11 +12275,11 @@ type Sopj_jp2_color = struct {
 	F__ccgo_pad2     [7]byte
 } /* jp2.h:128:9 */
 
-// *
+//*
 // Collector for ICC profile, palette, component mapping, channel description
 type Topj_jp2_color_t = Sopj_jp2_color /* jp2.h:135:3 */
 
-// *
+//*
 // JP2 component
 type Sopj_jp2_comps = struct {
 	Fdepth TOPJ_UINT32
@@ -11989,11 +12287,11 @@ type Sopj_jp2_comps = struct {
 	Fbpcc  TOPJ_UINT32
 } /* jp2.h:140:9 */
 
-// *
+//*
 // JP2 component
 type Topj_jp2_comps_t = Sopj_jp2_comps /* jp2.h:144:3 */
 
-// *
+//*
 // JPEG-2000 file format reader/writer
 type Sopj_jp2 = struct {
 	Fj2k                   uintptr
@@ -12028,11 +12326,11 @@ type Sopj_jp2 = struct {
 	F__ccgo_pad2           [2]byte
 } /* jp2.h:149:9 */
 
-// *
+//*
 // JPEG-2000 file format reader/writer
 type Topj_jp2_t = Sopj_jp2 /* jp2.h:193:1 */
 
-// *
+//*
 // JP2 Box
 type Sopj_jp2_box = struct {
 	Flength   TOPJ_UINT32
@@ -12040,7 +12338,7 @@ type Sopj_jp2_box = struct {
 	Finit_pos TOPJ_INT32
 } /* jp2.h:198:9 */
 
-// *
+//*
 // JP2 Box
 type Topj_jp2_box_t = Sopj_jp2_box /* jp2.h:202:3 */
 
@@ -12145,7 +12443,7 @@ type Topj_jp2_img_header_writer_handler_t = Sopj_jp2_img_header_writer_handler /
 //* @defgroup MQC MQC - Implementation of an MQ-Coder
 //@{
 
-// *
+//*
 // This struct defines the state of a context.
 type Sopj_mqc_state = struct {
 	Fqeval TOPJ_UINT32
@@ -12238,11 +12536,11 @@ type Sopj_mqc_state = struct {
 //* @defgroup MQC MQC - Implementation of an MQ-Coder
 //@{
 
-// *
+//*
 // This struct defines the state of a context.
 type Topj_mqc_state_t = Sopj_mqc_state /* mqc.h:67:3 */
 
-// *
+//*
 // MQ coder
 type Sopj_mqc = struct {
 	Fc                          TOPJ_UINT32
@@ -12259,7 +12557,7 @@ type Sopj_mqc = struct {
 	F__ccgo_pad1                [6]byte
 } /* mqc.h:74:9 */
 
-// *
+//*
 // MQ coder
 type Topj_mqc_t = Sopj_mqc /* mqc.h:97:3 */
 
@@ -12303,7 +12601,7 @@ type Topj_mqc_t = Sopj_mqc /* mqc.h:97:3 */
 
 // For internal use of opj_mqc_decode_macro()
 
-// *
+//*
 // Decode a symbol using raw-decoder. Cfr p.506 TAUBMAN
 // @param mqc MQC handle
 // @return Returns the decoded symbol (0 or 1)
@@ -12335,7 +12633,7 @@ func opj_mqc_raw_decode(tls *libc.TLS, mqc uintptr) TOPJ_UINT32 { /* mqc_inl.h:7
 
 // For internal use of opj_mqc_decode_macro()
 
-// *
+//*
 // Input a byte
 // @param mqc MQC handle
 func opj_mqc_bytein(tls *libc.TLS, mqc uintptr) { /* mqc_inl.h:175:20: */
@@ -12452,7 +12750,7 @@ func opj_mqc_bytein(tls *libc.TLS, mqc uintptr) { /* mqc_inl.h:175:20: */
 //* @defgroup PI PI - Implementation of a packet iterator
 //@{
 
-// *
+//*
 // FIXME DOC
 type Sopj_pi_resolution = struct {
 	Fpdx TOPJ_UINT32
@@ -12552,11 +12850,11 @@ type Sopj_pi_resolution = struct {
 //* @defgroup PI PI - Implementation of a packet iterator
 //@{
 
-// *
+//*
 // FIXME DOC
 type Topj_pi_resolution_t = Sopj_pi_resolution /* pi.h:58:3 */
 
-// *
+//*
 // FIXME DOC
 type Sopj_pi_comp = struct {
 	Fdx             TOPJ_UINT32
@@ -12566,11 +12864,11 @@ type Sopj_pi_comp = struct {
 	Fresolutions    uintptr
 } /* pi.h:63:9 */
 
-// *
+//*
 // FIXME DOC
 type Topj_pi_comp_t = Sopj_pi_comp /* pi.h:68:3 */
 
-// *
+//*
 // Packet iterator
 type Topj_pi_iterator_t = struct {
 	Ftp_on        TOPJ_BYTE
@@ -12653,7 +12951,7 @@ type Topj_pi_iterator_t = struct {
 //* @defgroup TGT TGT - Implementation of a tag-tree coder
 //@{
 
-// *
+//*
 // Tag node
 type Sopj_tgt_node = struct {
 	Fparent      uintptr
@@ -12716,11 +13014,11 @@ type Sopj_tgt_node = struct {
 //* @defgroup TGT TGT - Implementation of a tag-tree coder
 //@{
 
-// *
+//*
 // Tag node
 type Topj_tgt_node_t = Sopj_tgt_node /* tgt.h:62:3 */
 
-// *
+//*
 // Tag tree
 type Sopj_tgt_tree = struct {
 	Fnumleafsh   TOPJ_UINT32
@@ -12732,7 +13030,7 @@ type Sopj_tgt_tree = struct {
 	F__ccgo_pad2 [4]byte
 } /* j2k.h:562:1 */
 
-// *
+//*
 // Tag tree
 type Topj_tgt_tree_t = Sopj_tgt_tree /* tgt.h:73:3 */
 // -----------------------------------------------------------------------
@@ -12787,7 +13085,7 @@ type Topj_tgt_tree_t = Sopj_tgt_tree /* tgt.h:73:3 */
 //* @defgroup TCD TCD - Implementation of a tile coder/decoder
 //@{
 
-// *
+//*
 // FIXME DOC
 type Sopj_tcd_pass = struct {
 	Frate          TOPJ_UINT32
@@ -12850,11 +13148,11 @@ type Sopj_tcd_pass = struct {
 //* @defgroup TCD TCD - Implementation of a tile coder/decoder
 //@{
 
-// *
+//*
 // FIXME DOC
 type Topj_tcd_pass_t = Sopj_tcd_pass /* tcd.h:62:3 */
 
-// *
+//*
 // FIXME DOC
 type Sopj_tcd_layer = struct {
 	Fnumpasses TOPJ_UINT32
@@ -12863,11 +13161,11 @@ type Sopj_tcd_layer = struct {
 	Fdata      uintptr
 } /* tcd.h:67:9 */
 
-// *
+//*
 // FIXME DOC
 type Topj_tcd_layer_t = Sopj_tcd_layer /* tcd.h:72:3 */
 
-// *
+//*
 // FIXME DOC
 type Sopj_tcd_cblk_enc = struct {
 	Fdata              uintptr
@@ -12885,18 +13183,18 @@ type Sopj_tcd_cblk_enc = struct {
 	Ftotalpasses       TOPJ_UINT32
 } /* tcd.h:77:9 */
 
-// *
+//*
 // FIXME DOC
 type Topj_tcd_cblk_enc_t = Sopj_tcd_cblk_enc /* tcd.h:90:3 */
 
-// * Chunk of codestream data that is part of a code block
+//* Chunk of codestream data that is part of a code block
 type Sopj_tcd_seg_data_chunk = struct {
 	Fdata        uintptr
 	Flen         TOPJ_UINT32
 	F__ccgo_pad1 [4]byte
 } /* tcd.h:94:9 */
 
-// * Chunk of codestream data that is part of a code block
+//* Chunk of codestream data that is part of a code block
 type Topj_tcd_seg_data_chunk_t = Sopj_tcd_seg_data_chunk /* tcd.h:100:3 */
 
 // * Segment of a code-block.
@@ -12916,7 +13214,7 @@ type Sopj_tcd_seg = struct {
 // of MQC or RAW between them.
 type Topj_tcd_seg_t = Sopj_tcd_seg /* tcd.h:117:3 */
 
-// * Code-block for decoding
+//* Code-block for decoding
 type Sopj_tcd_cblk_dec = struct {
 	Fsegs               uintptr
 	Fchunks             uintptr
@@ -12937,10 +13235,10 @@ type Sopj_tcd_cblk_dec = struct {
 	Fdecoded_data       uintptr
 } /* tcd.h:120:9 */
 
-// * Code-block for decoding
+//* Code-block for decoding
 type Topj_tcd_cblk_dec_t = Sopj_tcd_cblk_dec /* tcd.h:144:3 */
 
-// * Precinct structure
+//* Precinct structure
 type Sopj_tcd_precinct = struct {
 	Fx0          TOPJ_INT32
 	Fy0          TOPJ_INT32
@@ -12955,10 +13253,10 @@ type Sopj_tcd_precinct = struct {
 	Fimsbtree    uintptr
 } /* j2k.h:562:1 */
 
-// * Precinct structure
+//* Precinct structure
 type Topj_tcd_precinct_t = Sopj_tcd_precinct /* tcd.h:159:3 */
 
-// * Sub-band structure
+//* Sub-band structure
 type Sopj_tcd_band = struct {
 	Fx0                  TOPJ_INT32
 	Fy0                  TOPJ_INT32
@@ -12973,10 +13271,10 @@ type Sopj_tcd_band = struct {
 	F__ccgo_pad2         [4]byte
 } /* j2k.h:562:1 */
 
-// * Sub-band structure
+//* Sub-band structure
 type Topj_tcd_band_t = Sopj_tcd_band /* tcd.h:173:3 */
 
-// * Tile-component resolution structure
+//* Tile-component resolution structure
 type Sopj_tcd_resolution = struct {
 	Fx0          TOPJ_INT32
 	Fy0          TOPJ_INT32
@@ -12993,10 +13291,10 @@ type Sopj_tcd_resolution = struct {
 	Fwin_y1      TOPJ_UINT32
 } /* j2k.h:562:1 */
 
-// * Tile-component resolution structure
+//* Tile-component resolution structure
 type Topj_tcd_resolution_t = Sopj_tcd_resolution /* tcd.h:191:3 */
 
-// * Tile-component structure
+//* Tile-component structure
 type Sopj_tcd_tilecomp = struct {
 	Fx0                      TOPJ_INT32
 	Fy0                      TOPJ_INT32
@@ -13023,10 +13321,10 @@ type Sopj_tcd_tilecomp = struct {
 	F__ccgo_pad4             [4]byte
 } /* j2k.h:562:1 */
 
-// * Tile-component structure
+//* Tile-component structure
 type Topj_tcd_tilecomp_t = Sopj_tcd_tilecomp /* tcd.h:227:3 */
 
-// *
+//*
 // FIXME DOC
 type Sopj_tcd_tile = struct {
 	Fx0          TOPJ_INT32
@@ -13044,19 +13342,19 @@ type Sopj_tcd_tile = struct {
 	F__ccgo_pad3 [4]byte
 } /* j2k.h:562:1 */
 
-// *
+//*
 // FIXME DOC
 type Topj_tcd_tile_t = Sopj_tcd_tile /* tcd.h:242:3 */
 
-// *
+//*
 // FIXME DOC
 type Sopj_tcd_image = struct{ Ftiles uintptr } /* j2k.h:562:1 */
 
-// *
+//*
 // FIXME DOC
 type Topj_tcd_image_t = Sopj_tcd_image /* tcd.h:250:1 */
 
-// *
+//*
 // Tile coder/decoder
 type Topj_tcd_t = Sopj_tcd /* tcd.h:290:3 */
 
@@ -13166,10 +13464,10 @@ type Topj_tcd_marker_info_t = Sopj_tcd_marker_info /* tcd.h:306:3 */
 
 // -----------------------------------------------------------------------
 
-// * Flags for 4 consecutive rows of a column
+//* Flags for 4 consecutive rows of a column
 type Topj_flag_t = TOPJ_UINT32 /* t1.h:179:20 */
 
-// *
+//*
 // Tier-1 coding (coding of code-block coefficients)
 type Sopj_t1 = struct {
 	Fmqc                    Topj_mqc_t
@@ -13186,7 +13484,7 @@ type Sopj_t1 = struct {
 	F__ccgo_pad1            [4]byte
 } /* t1.h:184:9 */
 
-// *
+//*
 // Tier-1 coding (coding of code-block coefficients)
 type Topj_t1_t = Sopj_t1 /* t1.h:210:3 */
 // -----------------------------------------------------------------------
@@ -13239,7 +13537,7 @@ type Topj_t1_t = Sopj_t1 /* t1.h:210:3 */
 //* @defgroup T2 T2 - Implementation of a tier-2 coding
 //@{
 
-// *
+//*
 // Tier-2 coding
 type Sopj_t2 = struct {
 	Fimage uintptr
@@ -13296,7 +13594,7 @@ type Sopj_t2 = struct {
 //* @defgroup T2 T2 - Implementation of a tier-2 coding
 //@{
 
-// *
+//*
 // Tier-2 coding
 type Topj_t2_t = Sopj_t2 /* t2.h:60:3 */
 
@@ -13348,10 +13646,10 @@ type Topj_t2_t = Sopj_t2 /* t2.h:60:3 */
 //* @defgroup OPJ_INTMATH OPJ_INTMATH - Implementation of operations on integers
 //@{
 
-// * @name Exported functions (see also openjpeg.h)
-// @{
+//* @name Exported functions (see also openjpeg.h)
+//@{
 // -----------------------------------------------------------------------
-// *
+//*
 // Get the minimum of two integers
 // @return Returns a if a < b else b
 func opj_int_min(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:56:25: */
@@ -13361,7 +13659,7 @@ func opj_int_min(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* opj_
 	return b
 }
 
-// *
+//*
 // Get the minimum of two integers
 // @return Returns a if a < b else b
 func opj_uint_min(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* opj_intmath.h:65:26: */
@@ -13371,7 +13669,7 @@ func opj_uint_min(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* 
 	return b
 }
 
-// *
+//*
 // Get the maximum of two integers
 // @return Returns a if a > b else b
 func opj_int_max(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:74:25: */
@@ -13381,7 +13679,7 @@ func opj_int_max(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* opj_
 	return b
 }
 
-// *
+//*
 // Get the maximum of two integers
 // @return Returns a if a > b else b
 func opj_uint_max(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* opj_intmath.h:83:26: */
@@ -13391,19 +13689,19 @@ func opj_uint_max(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* 
 	return b
 }
 
-// *
+//*
+//  Get the saturated sum of two unsigned integers
+//  @return Returns saturated sum of a+b
 //
-//	Get the saturated sum of two unsigned integers
-//	@return Returns saturated sum of a+b
 func opj_uint_adds(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* opj_intmath.h:92:26: */
 	var sum TOPJ_UINT64 = TOPJ_UINT64(a) + TOPJ_UINT64(b)
 	return TOPJ_UINT32(-TOPJ_INT32(sum>>32)) | TOPJ_UINT32(sum)
 }
 
-// *
+//*
+//  Get the saturated difference of two unsigned integers
+//  @return Returns saturated sum of a-b
 //
-//	Get the saturated difference of two unsigned integers
-//	@return Returns saturated sum of a-b
 func opj_uint_subs(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* opj_intmath.h:102:26: */
 	if a >= b {
 		return a - b
@@ -13411,7 +13709,7 @@ func opj_uint_subs(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /*
 	return uint32(0)
 }
 
-// *
+//*
 // Clamp an integer inside an interval
 // @return
 // <ul>
@@ -13429,7 +13727,7 @@ func opj_int_clamp(tls *libc.TLS, a TOPJ_INT32, min TOPJ_INT32, max TOPJ_INT32) 
 	return a
 }
 
-// *
+//*
 // Clamp an integer inside an interval
 // @return
 // <ul>
@@ -13447,7 +13745,7 @@ func opj_int64_clamp(tls *libc.TLS, a TOPJ_INT64, min TOPJ_INT64, max TOPJ_INT64
 	return a
 }
 
-// *
+//*
 // @return Get absolute value of integer
 func opj_int_abs(tls *libc.TLS, a TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:152:25: */
 	if a < 0 {
@@ -13456,7 +13754,7 @@ func opj_int_abs(tls *libc.TLS, a TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:152:
 	return a
 }
 
-// *
+//*
 // Divide an integer and round upwards
 // @return Returns a divided by b
 func opj_int_ceildiv(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:160:25: */
@@ -13469,7 +13767,7 @@ func opj_int_ceildiv(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* 
 
 var __func__279 = *(*[16]int8)(unsafe.Pointer(ts + 188)) /* opj_intmath.h:161:1 */
 
-// *
+//*
 // Divide an integer and round upwards
 // @return Returns a divided by b
 func opj_uint_ceildiv(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* opj_intmath.h:170:27: */
@@ -13482,44 +13780,44 @@ func opj_uint_ceildiv(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 {
 
 var __func__280 = *(*[17]int8)(unsafe.Pointer(ts + 204)) /* opj_intmath.h:171:1 */
 
-// *
+//*
 // Divide an integer by a power of 2 and round upwards
 // @return Returns a divided by 2^b
 func opj_int_ceildivpow2(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:180:25: */
 	return TOPJ_INT32((TOPJ_INT64(a) + TOPJ_INT64(int64(1))<<b - int64(1)) >> b)
 }
 
-// *
+//*
+//  Divide a 64bits integer by a power of 2 and round upwards
+//  @return Returns a divided by 2^b
 //
-//	Divide a 64bits integer by a power of 2 and round upwards
-//	@return Returns a divided by 2^b
 func opj_int64_ceildivpow2(tls *libc.TLS, a TOPJ_INT64, b TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:189:25: */
 	return TOPJ_INT32((a + TOPJ_INT64(int64(1))<<b - int64(1)) >> b)
 }
 
-// *
+//*
+//  Divide an integer by a power of 2 and round upwards
+//  @return Returns a divided by 2^b
 //
-//	Divide an integer by a power of 2 and round upwards
-//	@return Returns a divided by 2^b
 func opj_uint_ceildivpow2(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* opj_intmath.h:198:26: */
 	return TOPJ_UINT32((TOPJ_UINT64(a) + TOPJ_UINT64(uint64(1))<<b - uint64(1)) >> b)
 }
 
-// *
+//*
 // Divide an integer by a power of 2 and round downwards
 // @return Returns a divided by 2^b
 func opj_int_floordivpow2(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:207:25: */
 	return a >> b
 }
 
-// *
+//*
 // Divide an integer by a power of 2 and round downwards
 // @return Returns a divided by 2^b
 func opj_uint_floordivpow2(tls *libc.TLS, a TOPJ_UINT32, b TOPJ_UINT32) TOPJ_UINT32 { /* opj_intmath.h:216:26: */
 	return a >> b
 }
 
-// *
+//*
 // Get logarithm of an integer and round downwards
 // @return Returns log2(a)
 func opj_int_floorlog2(tls *libc.TLS, a TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.h:225:25: */
@@ -13530,7 +13828,7 @@ func opj_int_floorlog2(tls *libc.TLS, a TOPJ_INT32) TOPJ_INT32 { /* opj_intmath.
 	return l
 }
 
-// *
+//*
 // Get logarithm of an integer and round downwards
 // @return Returns log2(a)
 func opj_uint_floorlog2(tls *libc.TLS, a TOPJ_UINT32) TOPJ_UINT32 { /* opj_intmath.h:237:27: */
@@ -13541,7 +13839,7 @@ func opj_uint_floorlog2(tls *libc.TLS, a TOPJ_UINT32) TOPJ_UINT32 { /* opj_intma
 	return l
 }
 
-// *
+//*
 // Multiply two fixed-precision rational numbers.
 // @param a
 // @param b
@@ -13562,7 +13860,7 @@ func opj_int_fix_mul(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT32 { /* 
 
 var __func__281 = *(*[16]int8)(unsafe.Pointer(ts + 315)) /* opj_intmath.h:253:1 */
 
-// *
+//*
 // Addition two signed integers with a wrap-around behaviour.
 // Assumes complement-to-two signed integers.
 // @param a
@@ -13584,7 +13882,7 @@ func opj_int_add_no_overflow(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT
 	return *(*TOPJ_INT32)(unsafe.Pointer(ipres))
 }
 
-// *
+//*
 // Subtract two signed integers with a wrap-around behaviour.
 // Assumes complement-to-two signed integers.
 // @param a
@@ -13686,7 +13984,7 @@ func opj_int_sub_no_overflow(tls *libc.TLS, a TOPJ_INT32, b TOPJ_INT32) TOPJ_INT
 //* @defgroup SPARSE_ARRAY SPARSE ARRAYS - Sparse arrays
 //@{
 
-// * Opaque type for sparse arrays that contain int32 values
+//* Opaque type for sparse arrays that contain int32 values
 type Sopj_sparse_array_int32 = struct {
 	Fwidth           TOPJ_UINT32
 	Fheight          TOPJ_UINT32
@@ -15236,7 +15534,7 @@ func opj_dwt_encode_stepsize(tls *libc.TLS, stepsize TOPJ_INT32, numbps TOPJ_INT
 //    DWT interface
 // ==========================================================
 
-// * Process one line for the horizontal pass of the 5x3 forward transform
+//* Process one line for the horizontal pass of the 5x3 forward transform
 func opj_dwt_encode_and_deinterleave_h_one_row(tls *libc.TLS, rowIn uintptr, tmpIn uintptr, width TOPJ_UINT32, even TOPJ_BOOL) { /* dwt.c:1115:6: */
 	var row uintptr = rowIn
 	var tmp uintptr = tmpIn
@@ -15290,7 +15588,7 @@ func opj_dwt_encode_and_deinterleave_h_one_row(tls *libc.TLS, rowIn uintptr, tmp
 	}
 }
 
-// * Process one line for the horizontal pass of the 9x7 forward transform
+//* Process one line for the horizontal pass of the 9x7 forward transform
 func opj_dwt_encode_and_deinterleave_h_one_row_real(tls *libc.TLS, rowIn uintptr, tmpIn uintptr, width TOPJ_UINT32, even TOPJ_BOOL) { /* dwt.c:1169:6: */
 	var row uintptr = rowIn
 	var tmp uintptr = tmpIn
@@ -15395,7 +15693,7 @@ func opj_dwt_encode_v_func(tls *libc.TLS, user_data uintptr, tls1 uintptr) { /* 
 	Xopj_free(tls, job)
 }
 
-// * Fetch up to cols <= NB_ELTS_V8 for each line, and put them in tmpOut
+//* Fetch up to cols <= NB_ELTS_V8 for each line, and put them in tmpOut
 // that has a NB_ELTS_V8 interleave factor.
 func opj_dwt_fetch_cols_vertical_pass(tls *libc.TLS, arrayIn uintptr, tmpOut uintptr, height TOPJ_UINT32, stride_width TOPJ_UINT32, cols TOPJ_UINT32) { /* dwt.c:1255:13: */
 	var array uintptr = arrayIn
@@ -18075,45 +18373,110 @@ func Xopj_procedure_list_clear(tls *libc.TLS, p_validation_list uintptr) { /* fu
 	(*Topj_procedure_list_t)(unsafe.Pointer(p_validation_list)).Fm_nb_procedures = TOPJ_UINT32(0)
 }
 
-func Xopj_stream_create_buffer_stream(tls *libc.TLS, buf uintptr, buf_size TOPJ_SIZE_T, p_size TOPJ_SIZE_T, p_is_read_stream TOPJ_BOOL) uintptr { /* helper.c:5:13: */
+type Smyfile = struct {
+	Fmem uintptr
+	Fcur uintptr
+	Flen Tsize_t
+} /* helper.c:6:9 */
+
+type Tmyfile = Smyfile /* helper.c:11:3 */
+
+func Xopj_read_from_memory(tls *libc.TLS, p_buffer uintptr, p_nb_bytes TOPJ_SIZE_T, p_file uintptr) TOPJ_SIZE_T { /* helper.c:13:12: */
+	var l_nb_read TOPJ_SIZE_T
+	if (*Tmyfile)(unsafe.Pointer(p_file)).Fcur+uintptr(p_nb_bytes) <= (*Tmyfile)(unsafe.Pointer(p_file)).Fmem+uintptr((*Tmyfile)(unsafe.Pointer(p_file)).Flen) {
+		l_nb_read = uint64(1) * p_nb_bytes
+	} else {
+		l_nb_read = TOPJ_SIZE_T((int64((*Tmyfile)(unsafe.Pointer(p_file)).Fmem+uintptr((*Tmyfile)(unsafe.Pointer(p_file)).Flen)) - int64((*Tmyfile)(unsafe.Pointer(p_file)).Fcur)) / 1)
+	}
+	libc.X__builtin___memcpy_chk(tls, p_buffer, (*Tmyfile)(unsafe.Pointer(p_file)).Fcur, l_nb_read, libc.X__builtin_object_size(tls, p_buffer, 0))
+	*(*uintptr)(unsafe.Pointer(p_file + 8)) += uintptr(l_nb_read)
+	if l_nb_read != 0 {
+		return l_nb_read
+	}
+	return libc.Uint64(libc.Uint64FromInt32(-1))
+}
+
+func Xopj_write_from_memory(tls *libc.TLS, p_buffer uintptr, p_nb_bytes TOPJ_SIZE_T, p_file uintptr) TOPJ_SIZE_T { /* helper.c:29:12: */
+	var l_nb_write TOPJ_SIZE_T
+	l_nb_write = uint64(1) * p_nb_bytes
+	libc.X__builtin___memcpy_chk(tls, (*Tmyfile)(unsafe.Pointer(p_file)).Fcur, p_buffer, l_nb_write, libc.X__builtin_object_size(tls, (*Tmyfile)(unsafe.Pointer(p_file)).Fcur, 0))
+	*(*uintptr)(unsafe.Pointer(p_file + 8)) += uintptr(l_nb_write)
+	*(*Tsize_t)(unsafe.Pointer(p_file + 16)) += l_nb_write
+	return l_nb_write
+}
+
+func Xopj_skip_from_memory(tls *libc.TLS, p_nb_bytes TOPJ_OFF_T, p_file uintptr) TOPJ_OFF_T { /* helper.c:39:11: */
+	if (*Tmyfile)(unsafe.Pointer(p_file)).Fcur+uintptr(p_nb_bytes) <= (*Tmyfile)(unsafe.Pointer(p_file)).Fmem+uintptr((*Tmyfile)(unsafe.Pointer(p_file)).Flen) {
+		*(*uintptr)(unsafe.Pointer(p_file + 8)) += uintptr(p_nb_bytes)
+		return p_nb_bytes
+	}
+
+	(*Tmyfile)(unsafe.Pointer(p_file)).Fcur = (*Tmyfile)(unsafe.Pointer(p_file)).Fmem + uintptr((*Tmyfile)(unsafe.Pointer(p_file)).Flen)
+	return int64(-1)
+}
+
+func Xopj_seek_from_memory(tls *libc.TLS, p_nb_bytes TOPJ_OFF_T, p_file uintptr) TOPJ_BOOL { /* helper.c:51:10: */
+	if Tsize_t(p_nb_bytes) <= (*Tmyfile)(unsafe.Pointer(p_file)).Flen {
+		(*Tmyfile)(unsafe.Pointer(p_file)).Fcur = (*Tmyfile)(unsafe.Pointer(p_file)).Fmem + uintptr(p_nb_bytes)
+		return DOPJ_TRUE
+	}
+
+	(*Tmyfile)(unsafe.Pointer(p_file)).Fcur = (*Tmyfile)(unsafe.Pointer(p_file)).Fmem + uintptr((*Tmyfile)(unsafe.Pointer(p_file)).Flen)
+	return DOPJ_FALSE
+}
+
+func Xopj_stream_create_buffer_stream(tls *libc.TLS, buf uintptr, buf_size TOPJ_SIZE_T, p_size TOPJ_SIZE_T, p_is_read_stream TOPJ_BOOL) uintptr { /* helper.c:63:13: */
+	bp := tls.Alloc(24)
+	defer tls.Free(24)
+
 	var l_stream uintptr = uintptr(00)
-	var mode uintptr
-	_ = mode
 
 	if !(buf != 0) {
 		return uintptr(0)
-	}
-
-	if p_is_read_stream != 0 {
-		mode = ts + 1519 /* "rb" */
-	} else {
-		mode = ts + 1522 /* "wb" */
 	}
 
 	l_stream = Xopj_stream_create(tls, p_size, p_is_read_stream)
 	if !(l_stream != 0) {
 		return uintptr(0)
 	}
+	// var mysrc Smyfile at bp, 24
 
-	Xopj_stream_set_user_data(tls, l_stream, uintptr(0), uintptr(0))
+	var fsrc uintptr = bp /* &mysrc */
+	(*Smyfile)(unsafe.Pointer(fsrc)).Fmem = libc.AssignPtrUintptr(fsrc+8, buf)
+	(*Smyfile)(unsafe.Pointer(fsrc)).Flen = buf_size //inputlength;
+
+	Xopj_stream_set_user_data(tls, l_stream, fsrc, uintptr(0))
 	Xopj_stream_set_user_data_length(tls, l_stream, uint64(buf_size))
-	Xopj_stream_set_current_data(tls, l_stream, buf, buf_size)
+	// opj_stream_set_current_data(l_stream, buf, buf_size);
+
+	Xopj_stream_set_read_function(tls, l_stream, *(*uintptr)(unsafe.Pointer(&struct {
+		f func(*libc.TLS, uintptr, TOPJ_SIZE_T, uintptr) TOPJ_SIZE_T
+	}{Xopj_read_from_memory})))
+	Xopj_stream_set_write_function(tls, l_stream, *(*uintptr)(unsafe.Pointer(&struct {
+		f func(*libc.TLS, uintptr, TOPJ_SIZE_T, uintptr) TOPJ_SIZE_T
+	}{Xopj_write_from_memory})))
+	Xopj_stream_set_skip_function(tls, l_stream, *(*uintptr)(unsafe.Pointer(&struct {
+		f func(*libc.TLS, TOPJ_OFF_T, uintptr) TOPJ_OFF_T
+	}{Xopj_skip_from_memory})))
+	Xopj_stream_set_seek_function(tls, l_stream, *(*uintptr)(unsafe.Pointer(&struct {
+		f func(*libc.TLS, TOPJ_OFF_T, uintptr) TOPJ_BOOL
+	}{Xopj_seek_from_memory})))
 	return l_stream
 }
 
-func Xopj_stream_create_default_buffer_stream(tls *libc.TLS, buf uintptr, buf_size TOPJ_SIZE_T, p_is_read_stream TOPJ_BOOL) uintptr { /* helper.c:35:13: */
+func Xopj_stream_create_default_buffer_stream(tls *libc.TLS, buf uintptr, buf_size TOPJ_SIZE_T, p_is_read_stream TOPJ_BOOL) uintptr { /* helper.c:96:13: */
 	return Xopj_stream_create_buffer_stream(tls, buf, buf_size, uint64(DOPJ_J2K_STREAM_CHUNK_SIZE),
 		p_is_read_stream)
 }
 
-type Topj_precision_mode = uint32 /* helper.c:46:3 */
+type Topj_precision_mode = uint32 /* helper.c:107:3 */
 
 type Sopj_prec = struct {
 	Fprec TOPJ_UINT32
 	Fmode Topj_precision_mode
-} /* helper.c:48:9 */
+} /* helper.c:109:9 */
 
-type Topj_precision = Sopj_prec /* helper.c:51:3 */
+type Topj_precision = Sopj_prec /* helper.c:112:3 */
 
 type Sopj_decompress_params = struct {
 	Fcore              Topj_dparameters_t
@@ -18139,11 +18502,11 @@ type Sopj_decompress_params = struct {
 	Fallow_partial     int32
 	Fnumcomps          TOPJ_UINT32
 	Fcomps_indices     uintptr
-} /* helper.c:53:9 */
+} /* helper.c:114:9 */
 
-type Topj_decompress_parameters = Sopj_decompress_params /* helper.c:103:3 */
+type Topj_decompress_parameters = Sopj_decompress_params /* helper.c:164:3 */
 
-func set_default_parameters(tls *libc.TLS, parameters uintptr) { /* helper.c:105:13: */
+func set_default_parameters(tls *libc.TLS, parameters uintptr) { /* helper.c:166:13: */
 	if parameters != 0 {
 		libc.X__builtin___memset_chk(tls, parameters, 0, uint64(unsafe.Sizeof(Topj_decompress_parameters{})), libc.X__builtin_object_size(tls, parameters, 0))
 
@@ -18156,7 +18519,7 @@ func set_default_parameters(tls *libc.TLS, parameters uintptr) { /* helper.c:105
 	}
 }
 
-func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format int32, cod_format int32) uintptr { /* helper.c:119:12: */
+func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format int32, cod_format int32) uintptr { /* helper.c:180:12: */
 	bp := tls.Alloc(20632)
 	defer tls.Free(20632)
 
@@ -18171,16 +18534,25 @@ func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format 
 
 	l_stream = Xopj_stream_create_default_buffer_stream(tls, buf, buf_size, 1)
 	if !(l_stream != 0) {
-		libc.Xfprintf(tls, libc.X__stderrp, ts+1525, 0)
+		libc.Xfprintf(tls, libc.X__stderrp, ts+1519, 0)
 		return uintptr(0)
 	}
-
+	// get a decoder handle
+	switch decod_format {
+	case DJ2K_CFMT:
+		l_codec = Xopj_create_decompress(tls, OPJ_CODEC_J2K)
+		break
+	case DJP2_CFMT:
+		l_codec = Xopj_create_decompress(tls, OPJ_CODEC_JP2)
+		break
+	default:
+		libc.Xfprintf(tls, libc.X__stderrp, ts+1569, 0)
+		return uintptr(0)
+	}
 	// decode the JPEG2000 stream
 	// ----------------------
-
-	l_codec = Xopj_create_decompress(tls, OPJ_CODEC_J2K)
 	if !(Xopj_setup_decoder(tls, l_codec, bp) != 0) {
-		libc.Xfprintf(tls, libc.X__stderrp, ts+1575, 0)
+		libc.Xfprintf(tls, libc.X__stderrp, ts+1587, 0)
 		Xopj_stream_destroy(tls, l_stream)
 		Xopj_destroy_codec(tls, l_codec)
 		return uintptr(0)
@@ -18188,7 +18560,7 @@ func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format 
 
 	// Read the main header of the codestream and if necessary the JP2 boxes
 	if !(Xopj_read_header(tls, l_stream, l_codec, bp+20624) != 0) {
-		libc.Xfprintf(tls, libc.X__stderrp, ts+1629, 0)
+		libc.Xfprintf(tls, libc.X__stderrp, ts+1641, 0)
 		Xopj_stream_destroy(tls, l_stream)
 		Xopj_destroy_codec(tls, l_codec)
 		Xopj_image_destroy(tls, *(*uintptr)(unsafe.Pointer(bp + 20624 /* image */)))
@@ -18198,7 +18570,7 @@ func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format 
 	if !(Xopj_set_decode_area(tls, l_codec, *(*uintptr)(unsafe.Pointer(bp + 20624)), 0,
 		0, 0,
 		0) != 0) {
-		libc.Xfprintf(tls, libc.X__stderrp, ts+1679, 0)
+		libc.Xfprintf(tls, libc.X__stderrp, ts+1691, 0)
 		Xopj_stream_destroy(tls, l_stream)
 		Xopj_destroy_codec(tls, l_codec)
 		Xopj_image_destroy(tls, *(*uintptr)(unsafe.Pointer(bp + 20624 /* image */)))
@@ -18207,7 +18579,7 @@ func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format 
 
 	// Get the decoded image
 	if !(Xopj_decode(tls, l_codec, l_stream, *(*uintptr)(unsafe.Pointer(bp + 20624))) != 0 && Xopj_end_decompress(tls, l_codec, l_stream) != 0) {
-		libc.Xfprintf(tls, libc.X__stderrp, ts+1736, 0)
+		libc.Xfprintf(tls, libc.X__stderrp, ts+1748, 0)
 		Xopj_destroy_codec(tls, l_codec)
 		Xopj_stream_destroy(tls, l_stream)
 		Xopj_image_destroy(tls, *(*uintptr)(unsafe.Pointer(bp + 20624 /* image */)))
@@ -18233,12 +18605,110 @@ func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format 
 	// free remaining structures
 	if l_codec != 0 {
 		Xopj_destroy_codec(tls, l_codec)
+		Xopj_stream_destroy(tls, l_stream)
 	}
 	return *(*uintptr)(unsafe.Pointer(bp + 20624 /* image */))
 }
 
-func Xdecode_j2k(tls *libc.TLS, buf uintptr, buf_size Tsize_t) uintptr { /* helper.c:204:12: */
-	return Xopj_decompress(tls, buf, buf_size, DJ2K_CFMT, DPXM_DFMT)
+func Xdecode_j2k(tls *libc.TLS, buf uintptr, buf_size Tsize_t) uintptr { /* helper.c:276:12: */
+	bp := tls.Alloc(13)
+	defer tls.Free(13)
+
+	var decod_format int32
+	var src uintptr = buf
+	// 32bits truncation should be ok since DICOM cannot have larger than 2Gb image
+	var file_length Tuint32_t = Tuint32_t(buf_size)
+	// WARNING: OpenJPEG is very picky when there is a trailing 00 at the end of the JPC
+	// so we need to make sure to remove it.
+	// Marker 0xffd9 EOI End of Image (JPEG 2000 EOC End of codestream)
+	// gdcmData/D_CLUNIE_CT1_J2KR.dcm contains a trailing 0xFF which apparently is ok...
+	// Ref: https://github.com/malaterre/GDCM/blob/master/Source/MediaStorageAndFileFormat/gdcmJPEG2000Codec.cxx#L637
+	for file_length > Tuint32_t(0) && int32(*(*uint8)(unsafe.Pointer(src + uintptr(file_length-Tuint32_t(1))))) != 0xd9 {
+		file_length--
+	}
+	// what if 0xd9 is never found ?
+	if !(file_length > Tuint32_t(0) && int32(*(*uint8)(unsafe.Pointer(src + uintptr(file_length-Tuint32_t(1))))) == 0xd9) {
+		return uintptr(0)
+	}
+	// https://github.com/malaterre/GDCM/blob/master/Source/MediaStorageAndFileFormat/gdcmJPEG2000Codec.cxx#L656
+	*(*[13]int8)(unsafe.Pointer(bp /* jp2magic */)) = *(*[13]int8)(unsafe.Pointer(ts + 1798))
+	if libc.Xmemcmp(tls, src, bp, uint64(unsafe.Sizeof([13]int8{}))) == 0 {
+		// JPEG-2000 compressed image data ... sigh
+		libc.Xfprintf(tls, libc.X__stderrp, ts+1811, 0)
+		decod_format = DJP2_CFMT
+	} else {
+		// JPEG-2000 codestream
+		decod_format = DJ2K_CFMT
+	}
+	return Xopj_decompress(tls, src, uint64(file_length), decod_format, DPXM_DFMT)
+}
+
+// Encode RGB bytes array to an OPJ_IMAGE
+func Xbytestoimage(tls *libc.TLS, buf uintptr, w int32, h int32, prec int32, numcomps int32) uintptr { /* helper.c:316:12: */
+	bp := tls.Alloc(18864)
+	defer tls.Free(18864)
+
+	// decode the source image
+	// -----------------------
+	// var parameters Topj_cparameters_t at bp, 18720
+	// compression parameters
+
+	// set encoding parameters to default values
+	Xopj_set_default_encoder_parameters(tls, bp)
+
+	var subsampling_dx int32 = (*Topj_cparameters_t)(unsafe.Pointer(bp /* &parameters */)).Fsubsampling_dx
+	var subsampling_dy int32 = (*Topj_cparameters_t)(unsafe.Pointer(bp /* &parameters */)).Fsubsampling_dy
+	var i int32
+	var compno int32
+	var color_space TOPJ_COLOR_SPACE
+	// var cmptparm [4]Topj_image_cmptparm_t at bp+18720, 144
+	// RGBA: max. 4 components
+	var image uintptr = uintptr(0)
+
+	if numcomps < 3 {
+		color_space = OPJ_CLRSPC_GRAY // GRAY, GRAYA
+	} else {
+		color_space = OPJ_CLRSPC_SRGB // RGB, RGBA
+	}
+
+	if prec < 8 {
+		prec = 8
+	}
+
+	subsampling_dx = (*Topj_cparameters_t)(unsafe.Pointer(bp /* &parameters */)).Fsubsampling_dx
+	subsampling_dy = (*Topj_cparameters_t)(unsafe.Pointer(bp /* &parameters */)).Fsubsampling_dy
+
+	libc.X__builtin___memset_chk(tls, bp+18720, 0, Tsize_t(numcomps)*Tsize_t(unsafe.Sizeof(Topj_image_cmptparm_t{})), libc.X__builtin_object_size(tls, bp+18720, 0))
+
+	for i = 0; i < numcomps; i++ {
+		(*Topj_image_cmptparm_t)(unsafe.Pointer(bp + 18720 + uintptr(i)*36)).Fprec = TOPJ_UINT32(prec)
+		(*Topj_image_cmptparm_t)(unsafe.Pointer(bp + 18720 + uintptr(i)*36)).Fsgnd = TOPJ_UINT32(0)
+		(*Topj_image_cmptparm_t)(unsafe.Pointer(bp + 18720 + uintptr(i)*36)).Fdx = TOPJ_UINT32(subsampling_dx)
+		(*Topj_image_cmptparm_t)(unsafe.Pointer(bp + 18720 + uintptr(i)*36)).Fdy = TOPJ_UINT32(subsampling_dy)
+		(*Topj_image_cmptparm_t)(unsafe.Pointer(bp + 18720 + uintptr(i)*36)).Fw = TOPJ_UINT32(w)
+		(*Topj_image_cmptparm_t)(unsafe.Pointer(bp + 18720 + uintptr(i)*36)).Fh = TOPJ_UINT32(h)
+	}
+	image = Xopj_image_create(tls, TOPJ_UINT32(numcomps), bp+18720, color_space)
+
+	if !(image != 0) {
+		libc.Xfprintf(tls, libc.X__stderrp, ts+1880, 0)
+		return uintptr(0)
+	}
+
+	// set image offset and reference grid
+	(*Topj_image_t)(unsafe.Pointer(image)).Fx0 = TOPJ_UINT32((*Topj_cparameters_t)(unsafe.Pointer(bp /* &parameters */)).Fimage_offset_x0)
+	(*Topj_image_t)(unsafe.Pointer(image)).Fy0 = TOPJ_UINT32((*Topj_cparameters_t)(unsafe.Pointer(bp /* &parameters */)).Fimage_offset_y0)
+	(*Topj_image_t)(unsafe.Pointer(image)).Fx1 = TOPJ_UINT32((*Topj_cparameters_t)(unsafe.Pointer(bp)).Fimage_offset_x0 + (w-1)*subsampling_dx +
+		1)
+	(*Topj_image_t)(unsafe.Pointer(image)).Fy1 = TOPJ_UINT32((*Topj_cparameters_t)(unsafe.Pointer(bp)).Fimage_offset_y0 + (h-1)*subsampling_dy +
+		1)
+
+	for i = 0; i < w*h; i++ {
+		for compno = 0; compno < numcomps; compno++ {
+			*(*TOPJ_INT32)(unsafe.Pointer((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(compno)*64)).Fdata + uintptr(i)*4)) = TOPJ_INT32(*(*int8)(unsafe.Pointer(buf + uintptr(i))))
+		}
+	}
+	return image
 }
 
 var vlc_tbl0 = [1024]TOPJ_UINT16{
@@ -18507,41 +18977,41 @@ var vlc_tbl1 = [1024]TOPJ_UINT16{
 // compiler detection
 /////////////////////////////////////////////////////////////////////////////
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Displays the error message for disabling the decoding of SPP and
 // MRP passes
 var only_cleanup_pass_is_decoded TOPJ_BOOL = DOPJ_FALSE /* ht_dec.c:62:17 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Generates population count (i.e., the number of set bits)
 //
-//	@param [in]  val is the value for which population count is sought
+//   @param [in]  val is the value for which population count is sought
 func population_count(tls *libc.TLS, val TOPJ_UINT32) TOPJ_UINT32 { /* ht_dec.c:70:12: */
 	return TOPJ_UINT32(libc.X__builtin_popcount(tls, val))
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Counts the number of leading zeros
 //
-//	@param [in]  val is the value for which leading zero count is sought
+//   @param [in]  val is the value for which leading zero count is sought
 func count_leading_zeros(tls *libc.TLS, val TOPJ_UINT32) TOPJ_UINT32 { /* ht_dec.c:95:12: */
 	return TOPJ_UINT32(libc.X__builtin_clz(tls, val))
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Read a little-endian serialized UINT32.
 //
-//	@param [in]  dataIn pointer to byte stream to read from
+//   @param [in]  dataIn pointer to byte stream to read from
 func read_le_uint32(tls *libc.TLS, dataIn uintptr) TOPJ_UINT32 { /* ht_dec.c:118:26: */
 	return *(*TOPJ_UINT32)(unsafe.Pointer(dataIn))
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief MEL state structure for reading and decoding the MEL bitstream
 //
-//	A number of events is decoded from the MEL bitstream ahead of time
-//	and stored in run/num_runs.
-//	Each run represents the number of zero events before a one event.
+//  A number of events is decoded from the MEL bitstream ahead of time
+//  and stored in run/num_runs.
+//  Each run represents the number of zero events before a one event.
 type Sdec_mel = struct {
 	Fdata        uintptr
 	Ftmp         TOPJ_UINT64
@@ -18554,25 +19024,25 @@ type Sdec_mel = struct {
 	Fruns        TOPJ_UINT64
 } /* ht_dec.c:138:9 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief MEL state structure for reading and decoding the MEL bitstream
 //
-//	A number of events is decoded from the MEL bitstream ahead of time
-//	and stored in run/num_runs.
-//	Each run represents the number of zero events before a one event.
+//  A number of events is decoded from the MEL bitstream ahead of time
+//  and stored in run/num_runs.
+//  Each run represents the number of zero events before a one event.
 type Tdec_mel_t = Sdec_mel /* ht_dec.c:150:3 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Reads and unstuffs the MEL bitstream
 //
-//	This design needs more bytes in the codeblock buffer than the length
-//	of the cleanup pass by up to 2 bytes.
+//  This design needs more bytes in the codeblock buffer than the length
+//  of the cleanup pass by up to 2 bytes.
 //
-//	Unstuffing removes the MSB of the byte following a byte whose
-//	value is 0xFF; this prevents sequences larger than 0xFF7F in value
-//	from appearing the bitstream.
+//  Unstuffing removes the MSB of the byte following a byte whose
+//  value is 0xFF; this prevents sequences larger than 0xFF7F in value
+//  from appearing the bitstream.
 //
-//	@param [in]  melp is a pointer to dec_mel_t structure
+//  @param [in]  melp is a pointer to dec_mel_t structure
 func mel_read(tls *libc.TLS, melp uintptr) { /* ht_dec.c:165:6: */
 	var val TOPJ_UINT32
 	var bits int32
@@ -18639,20 +19109,20 @@ func mel_read(tls *libc.TLS, melp uintptr) { /* ht_dec.c:165:6: */
 	*(*int32)(unsafe.Pointer(melp + 16)) += bits //increment the number of bits in tmp
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Decodes unstuffed MEL segment bits stored in tmp to runs
 //
-//	Runs are stored in "runs" and the number of runs in "num_runs".
-//	Each run represents a number of zero events that may or may not
-//	terminate in a 1 event.
-//	Each run is stored in 7 bits.  The LSB is 1 if the run terminates in
-//	a 1 event, 0 otherwise.  The next 6 bits, for the case terminating
-//	with 1, contain the number of consecutive 0 zero events * 2; for the
-//	case terminating with 0, they store (number of consecutive 0 zero
-//	events - 1) * 2.
-//	A total of 6 bits (made up of 1 + 5) should have been enough.
+//  Runs are stored in "runs" and the number of runs in "num_runs".
+//  Each run represents a number of zero events that may or may not
+//  terminate in a 1 event.
+//  Each run is stored in 7 bits.  The LSB is 1 if the run terminates in
+//  a 1 event, 0 otherwise.  The next 6 bits, for the case terminating
+//  with 1, contain the number of consecutive 0 zero events * 2; for the
+//  case terminating with 0, they store (number of consecutive 0 zero
+//  events - 1) * 2.
+//  A total of 6 bits (made up of 1 + 5) should have been enough.
 //
-//	@param [in]  melp is a pointer to dec_mel_t structure
+//  @param [in]  melp is a pointer to dec_mel_t structure
 func mel_decode(tls *libc.TLS, melp uintptr) { /* ht_dec.c:247:6: */
 
 	if (*Tdec_mel_t)(unsafe.Pointer(melp)).Fbits < 6 { // if there are less than 6 bits in tmp
@@ -18702,16 +19172,15 @@ var mel_exp = [13]int32{ //MEL exponents
 	0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 4, 5,
 } /* ht_dec.c:249:22 */
 
-// ************************************************************************/
+//************************************************************************/
+// * @brief Initiates a dec_mel_t structure for MEL decoding and reads
+//         some bytes in order to get the read address to a multiple
+//         of 4
 //
-//   - @brief Initiates a dec_mel_t structure for MEL decoding and reads
-//     some bytes in order to get the read address to a multiple
-//     of 4
-//
-//     @param [in]  melp is a pointer to dec_mel_t structure
-//     @param [in]  bbuf is a pointer to byte buffer
-//     @param [in]  lcup is the length of MagSgn+MEL+VLC segments
-//     @param [in]  scup is the length of MEL+VLC segments
+//  @param [in]  melp is a pointer to dec_mel_t structure
+//  @param [in]  bbuf is a pointer to byte buffer
+//  @param [in]  lcup is the length of MagSgn+MEL+VLC segments
+//  @param [in]  scup is the length of MEL+VLC segments
 func mel_init(tls *libc.TLS, melp uintptr, bbuf uintptr, lcup int32, scup int32) { /* ht_dec.c:297:6: */
 	var num int32
 	var i int32
@@ -18734,7 +19203,7 @@ func mel_init(tls *libc.TLS, melp uintptr, bbuf uintptr, lcup int32, scup int32)
 		var d_bits int32
 
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Tdec_mel_t)(unsafe.Pointer(melp)).Funstuff == DOPJ_FALSE || int32(*(*TOPJ_UINT8)(unsafe.Pointer((*Tdec_mel_t)(unsafe.Pointer(melp)).Fdata))) <= 0x8F)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__52)), ts+1786, 319, ts+1814)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__52)), ts+1922, 319, ts+1950)
 		} else {
 		}
 		if (*Tdec_mel_t)(unsafe.Pointer(melp)).Fsize > 0 {
@@ -18758,11 +19227,11 @@ func mel_init(tls *libc.TLS, melp uintptr, bbuf uintptr, lcup int32, scup int32)
 	// is the MSB
 }
 
-var __func__52 = *(*[9]int8)(unsafe.Pointer(ts + 1866)) /* ht_dec.c:298:1 */
+var __func__52 = *(*[9]int8)(unsafe.Pointer(ts + 2002)) /* ht_dec.c:298:1 */
 
-// ************************************************************************/
-//   - @brief Retrieves one run from dec_mel_t; if there are no runs stored
-//     MEL segment is decoded
+//************************************************************************/
+// * @brief Retrieves one run from dec_mel_t; if there are no runs stored
+//         MEL segment is decoded
 //
 // @param [in]  melp is a pointer to dec_mel_t structure
 func mel_get_run(tls *libc.TLS, melp uintptr) int32 { /* ht_dec.c:344:5: */
@@ -18777,9 +19246,9 @@ func mel_get_run(tls *libc.TLS, melp uintptr) int32 { /* ht_dec.c:344:5: */
 	return t // return run
 }
 
-// ************************************************************************/
-//   - @brief A structure for reading and unstuffing a segment that grows
-//     backward, such as VLC and MRP
+//************************************************************************/
+// * @brief A structure for reading and unstuffing a segment that grows
+//         backward, such as VLC and MRP
 type Srev_struct = struct {
 	Fdata        uintptr
 	Ftmp         TOPJ_UINT64
@@ -18789,30 +19258,30 @@ type Srev_struct = struct {
 	F__ccgo_pad1 [4]byte
 } /* ht_dec.c:361:9 */
 
-// ************************************************************************/
-//   - @brief A structure for reading and unstuffing a segment that grows
-//     backward, such as VLC and MRP
+//************************************************************************/
+// * @brief A structure for reading and unstuffing a segment that grows
+//         backward, such as VLC and MRP
 type Trev_struct_t = Srev_struct /* ht_dec.c:369:3 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Read and unstuff data from a backwardly-growing segment
 //
-//	This reader can read up to 8 bytes from before the VLC segment.
-//	Care must be taken not read from unreadable memory, causing a
-//	segmentation fault.
+//  This reader can read up to 8 bytes from before the VLC segment.
+//  Care must be taken not read from unreadable memory, causing a
+//  segmentation fault.
 //
-//	Note that there is another subroutine rev_read_mrp that is slightly
-//	different.  The other one fills zeros when the buffer is exhausted.
-//	This one basically does not care if the bytes are consumed, because
-//	any extra data should not be used in the actual decoding.
+//  Note that there is another subroutine rev_read_mrp that is slightly
+//  different.  The other one fills zeros when the buffer is exhausted.
+//  This one basically does not care if the bytes are consumed, because
+//  any extra data should not be used in the actual decoding.
 //
-//	Unstuffing is needed to prevent sequences more than 0xFF8F from
-//	appearing in the bits stream; since we are reading backward, we keep
-//	watch when a value larger than 0x8F appears in the bitstream.
-//	If the byte following this is 0x7F, we unstuff this byte (ignore the
-//	MSB of that byte, which should be 0).
+//  Unstuffing is needed to prevent sequences more than 0xFF8F from
+//  appearing in the bits stream; since we are reading backward, we keep
+//  watch when a value larger than 0x8F appears in the bitstream.
+//  If the byte following this is 0x7F, we unstuff this byte (ignore the
+//  MSB of that byte, which should be 0).
 //
-//	@param [in]  vlcp is a pointer to rev_struct_t structure
+//  @param [in]  vlcp is a pointer to rev_struct_t structure
 func rev_read(tls *libc.TLS, vlcp uintptr) { /* ht_dec.c:392:6: */
 	var val TOPJ_UINT32
 	var tmp TOPJ_UINT32
@@ -18885,20 +19354,19 @@ func rev_read(tls *libc.TLS, vlcp uintptr) { /* ht_dec.c:392:6: */
 	(*Trev_struct_t)(unsafe.Pointer(vlcp)).Funstuff = unstuff // this for the next read
 }
 
-// ************************************************************************/
+//************************************************************************/
+// * @brief Initiates the rev_struct_t structure and reads a few bytes to
+//         move the read address to multiple of 4
 //
-//   - @brief Initiates the rev_struct_t structure and reads a few bytes to
-//     move the read address to multiple of 4
+//  There is another similar rev_init_mrp subroutine.  The difference is
+//  that this one, rev_init, discards the first 12 bits (they have the
+//  sum of the lengths of VLC and MEL segments), and first unstuff depends
+//  on first 4 bits.
 //
-//     There is another similar rev_init_mrp subroutine.  The difference is
-//     that this one, rev_init, discards the first 12 bits (they have the
-//     sum of the lengths of VLC and MEL segments), and first unstuff depends
-//     on first 4 bits.
-//
-//     @param [in]  vlcp is a pointer to rev_struct_t structure
-//     @param [in]  data is a pointer to byte at the start of the cleanup pass
-//     @param [in]  lcup is the length of MagSgn+MEL+VLC segments
-//     @param [in]  scup is the length of MEL+VLC segments
+//  @param [in]  vlcp is a pointer to rev_struct_t structure
+//  @param [in]  data is a pointer to byte at the start of the cleanup pass
+//  @param [in]  lcup is the length of MagSgn+MEL+VLC segments
+//  @param [in]  scup is the length of MEL+VLC segments
 func rev_init(tls *libc.TLS, vlcp uintptr, data uintptr, lcup int32, scup int32) { /* ht_dec.c:460:6: */
 	var d TOPJ_UINT32
 	var num int32
@@ -18946,12 +19414,12 @@ func rev_init(tls *libc.TLS, vlcp uintptr, data uintptr, lcup int32, scup int32)
 	rev_read(tls, vlcp) // read another 32 buts
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Retrieves 32 bits from the head of a rev_struct structure
 //
-//	By the end of this call, vlcp->tmp must have no less than 33 bits
+//  By the end of this call, vlcp->tmp must have no less than 33 bits
 //
-//	@param [in]  vlcp is a pointer to rev_struct structure
+//  @param [in]  vlcp is a pointer to rev_struct structure
 func rev_fetch(tls *libc.TLS, vlcp uintptr) TOPJ_UINT32 { /* ht_dec.c:505:12: */
 	if (*Trev_struct_t)(unsafe.Pointer(vlcp)).Fbits < TOPJ_UINT32(32) { // if there are less then 32 bits, read more
 		rev_read(tls, vlcp)                                                 // read 32 bits, but unstuffing might reduce this
@@ -18962,14 +19430,14 @@ func rev_fetch(tls *libc.TLS, vlcp uintptr) TOPJ_UINT32 { /* ht_dec.c:505:12: */
 	return TOPJ_UINT32((*Trev_struct_t)(unsafe.Pointer(vlcp)).Ftmp) // return the head (bottom-most) of vlcp->tmp
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Consumes num_bits from a rev_struct structure
 //
-//	@param [in]  vlcp is a pointer to rev_struct structure
-//	@param [in]  num_bits is the number of bits to be removed
+//  @param [in]  vlcp is a pointer to rev_struct structure
+//  @param [in]  num_bits is the number of bits to be removed
 func rev_advance(tls *libc.TLS, vlcp uintptr, num_bits TOPJ_UINT32) TOPJ_UINT32 { /* ht_dec.c:523:12: */
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(num_bits <= (*Trev_struct_t)(unsafe.Pointer(vlcp)).Fbits)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__53)), ts+1786, 525, ts+1875)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__53)), ts+1922, 525, ts+2011)
 	} else {
 	} // vlcp->tmp must have more than num_bits
 	libc.AssignShrPtrUint64(vlcp+8, int(num_bits))         // remove bits
@@ -18977,18 +19445,18 @@ func rev_advance(tls *libc.TLS, vlcp uintptr, num_bits TOPJ_UINT32) TOPJ_UINT32 
 	return TOPJ_UINT32((*Trev_struct_t)(unsafe.Pointer(vlcp)).Ftmp)
 }
 
-var __func__53 = *(*[12]int8)(unsafe.Pointer(ts + 1898)) /* ht_dec.c:524:1 */
+var __func__53 = *(*[12]int8)(unsafe.Pointer(ts + 2034)) /* ht_dec.c:524:1 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Reads and unstuffs from rev_struct
 //
-//	This is different than rev_read in that this fills in zeros when the
-//	the available data is consumed.  The other does not care about the
-//	values when all data is consumed.
+//  This is different than rev_read in that this fills in zeros when the
+//  the available data is consumed.  The other does not care about the
+//  values when all data is consumed.
 //
-//	See rev_read for more information about unstuffing
+//  See rev_read for more information about unstuffing
 //
-//	@param [in]  mrp is a pointer to rev_struct structure
+//  @param [in]  mrp is a pointer to rev_struct structure
 func rev_read_mrp(tls *libc.TLS, mrp uintptr) { /* ht_dec.c:543:6: */
 	var val TOPJ_UINT32
 	var tmp TOPJ_UINT32
@@ -19060,21 +19528,20 @@ func rev_read_mrp(tls *libc.TLS, mrp uintptr) { /* ht_dec.c:543:6: */
 	(*Trev_struct_t)(unsafe.Pointer(mrp)).Funstuff = unstuff // next byte
 }
 
-// ************************************************************************/
+//************************************************************************/
+// * @brief Initialized rev_struct structure for MRP segment, and reads
+//         a number of bytes such that the next 32 bits read are from
+//         an address that is a multiple of 4. Note this is designed for
+//         an architecture that read size must be compatible with the
+//         alignment of the read address
 //
-//   - @brief Initialized rev_struct structure for MRP segment, and reads
-//     a number of bytes such that the next 32 bits read are from
-//     an address that is a multiple of 4. Note this is designed for
-//     an architecture that read size must be compatible with the
-//     alignment of the read address
+//  There is another similar subroutine rev_init.  This subroutine does
+//  NOT skip the first 12 bits, and starts with unstuff set to true.
 //
-//     There is another similar subroutine rev_init.  This subroutine does
-//     NOT skip the first 12 bits, and starts with unstuff set to true.
-//
-//     @param [in]  mrp is a pointer to rev_struct structure
-//     @param [in]  data is a pointer to byte at the start of the cleanup pass
-//     @param [in]  lcup is the length of MagSgn+MEL+VLC segments
-//     @param [in]  len2 is the length of SPP+MRP segments
+//  @param [in]  mrp is a pointer to rev_struct structure
+//  @param [in]  data is a pointer to byte at the start of the cleanup pass
+//  @param [in]  lcup is the length of MagSgn+MEL+VLC segments
+//  @param [in]  len2 is the length of SPP+MRP segments
 func rev_init_mrp(tls *libc.TLS, mrp uintptr, data uintptr, lcup int32, len2 int32) { /* ht_dec.c:612:6: */
 	var num int32
 	var i int32
@@ -19114,12 +19581,12 @@ func rev_init_mrp(tls *libc.TLS, mrp uintptr, data uintptr, lcup int32, len2 int
 	rev_read_mrp(tls, mrp)
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Retrieves 32 bits from the head of a rev_struct structure
 //
-//	By the end of this call, mrp->tmp must have no less than 33 bits
+//  By the end of this call, mrp->tmp must have no less than 33 bits
 //
-//	@param [in]  mrp is a pointer to rev_struct structure
+//  @param [in]  mrp is a pointer to rev_struct structure
 func rev_fetch_mrp(tls *libc.TLS, mrp uintptr) TOPJ_UINT32 { /* ht_dec.c:650:12: */
 	if (*Trev_struct_t)(unsafe.Pointer(mrp)).Fbits < TOPJ_UINT32(32) { // if there are less than 32 bits in mrp->tmp
 		rev_read_mrp(tls, mrp)                                             // read 30-32 bits from mrp
@@ -19130,14 +19597,14 @@ func rev_fetch_mrp(tls *libc.TLS, mrp uintptr) TOPJ_UINT32 { /* ht_dec.c:650:12:
 	return TOPJ_UINT32((*Trev_struct_t)(unsafe.Pointer(mrp)).Ftmp) // return the head of mrp->tmp
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Consumes num_bits from a rev_struct structure
 //
-//	@param [in]  mrp is a pointer to rev_struct structure
-//	@param [in]  num_bits is the number of bits to be removed
+//  @param [in]  mrp is a pointer to rev_struct structure
+//  @param [in]  num_bits is the number of bits to be removed
 func rev_advance_mrp(tls *libc.TLS, mrp uintptr, num_bits TOPJ_UINT32) TOPJ_UINT32 { /* ht_dec.c:668:12: */
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(num_bits <= (*Trev_struct_t)(unsafe.Pointer(mrp)).Fbits)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__54)), ts+1786, 670, ts+1910)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__54)), ts+1922, 670, ts+2046)
 	} else {
 	} // we must not consume more than mrp->bits
 	libc.AssignShrPtrUint64(mrp+8, int(num_bits)) // discard the lowest num_bits bits
@@ -19145,18 +19612,18 @@ func rev_advance_mrp(tls *libc.TLS, mrp uintptr, num_bits TOPJ_UINT32) TOPJ_UINT
 	return TOPJ_UINT32((*Trev_struct_t)(unsafe.Pointer(mrp)).Ftmp) // return data after consumption
 }
 
-var __func__54 = *(*[16]int8)(unsafe.Pointer(ts + 1932)) /* ht_dec.c:669:1 */
+var __func__54 = *(*[16]int8)(unsafe.Pointer(ts + 2068)) /* ht_dec.c:669:1 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Decode initial UVLC to get the u value (or u_q)
 //
-//	@param [in]  vlc is the head of the VLC bitstream
-//	@param [in]  mode is 0, 1, 2, 3, or 4. Values in 0 to 3 are composed of
-//	             u_off of 1st quad and 2nd quad of a quad pair.  The value
-//	             4 occurs when both bits are 1, and the event decoded
-//	             from MEL bitstream is also 1.
-//	@param [out] u is the u value (or u_q) + 1.  Note: we produce u + 1;
-//	             this value is a partial calculation of u + kappa.
+//  @param [in]  vlc is the head of the VLC bitstream
+//  @param [in]  mode is 0, 1, 2, 3, or 4. Values in 0 to 3 are composed of
+//               u_off of 1st quad and 2nd quad of a quad pair.  The value
+//               4 occurs when both bits are 1, and the event decoded
+//               from MEL bitstream is also 1.
+//  @param [out] u is the u value (or u_q) + 1.  Note: we produce u + 1;
+//               this value is a partial calculation of u + kappa.
 func decode_init_uvlc(tls *libc.TLS, vlc TOPJ_UINT32, mode TOPJ_UINT32, u uintptr) TOPJ_UINT32 { /* ht_dec.c:688:12: */
 
 	var consumed_bits TOPJ_UINT32 = TOPJ_UINT32(0)
@@ -19264,14 +19731,14 @@ var dec = [8]TOPJ_UINT8{ // the index is the prefix codeword
 	TOPJ_UINT8(1 | int32(0)<<2 | int32(1)<<5),
 } /* ht_dec.c:696:28 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Decode non-initial UVLC to get the u value (or u_q)
 //
-//	@param [in]  vlc is the head of the VLC bitstream
-//	@param [in]  mode is 0, 1, 2, or 3. The 1st bit is u_off of 1st quad
-//	             and 2nd for 2nd quad of a quad pair
-//	@param [out] u is the u value (or u_q) + 1.  Note: we produce u + 1;
-//	             this value is a partial calculation of u + kappa.
+//  @param [in]  vlc is the head of the VLC bitstream
+//  @param [in]  mode is 0, 1, 2, or 3. The 1st bit is u_off of 1st quad
+//               and 2nd for 2nd quad of a quad pair
+//  @param [out] u is the u value (or u_q) + 1.  Note: we produce u + 1;
+//               this value is a partial calculation of u + kappa.
 func decode_noninit_uvlc(tls *libc.TLS, vlc TOPJ_UINT32, mode TOPJ_UINT32, u uintptr) TOPJ_UINT32 { /* ht_dec.c:801:12: */
 
 	var consumed_bits TOPJ_UINT32 = TOPJ_UINT32(0)
@@ -19341,9 +19808,9 @@ var dec1 = [8]TOPJ_UINT8{
 	TOPJ_UINT8(1 | int32(0)<<2 | int32(1)<<5),
 } /* ht_dec.c:809:28 */
 
-// ************************************************************************/
-//   - @brief State structure for reading and unstuffing of forward-growing
-//     bitstreams; these are: MagSgn and SPP bitstreams
+//************************************************************************/
+// * @brief State structure for reading and unstuffing of forward-growing
+//         bitstreams; these are: MagSgn and SPP bitstreams
 type Sfrwd_struct = struct {
 	Fdata    uintptr
 	Ftmp     TOPJ_UINT64
@@ -19353,26 +19820,27 @@ type Sfrwd_struct = struct {
 	FX       TOPJ_UINT32
 } /* ht_dec.c:870:9 */
 
-// ************************************************************************/
-//   - @brief State structure for reading and unstuffing of forward-growing
-//     bitstreams; these are: MagSgn and SPP bitstreams
+//************************************************************************/
+// * @brief State structure for reading and unstuffing of forward-growing
+//         bitstreams; these are: MagSgn and SPP bitstreams
 type Tfrwd_struct_t = Sfrwd_struct /* ht_dec.c:877:3 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Read and unstuffs 32 bits from forward-growing bitstream
 //
-//	A subroutine to read from both the MagSgn or SPP bitstreams;
-//	in particular, when MagSgn bitstream is consumed, 0xFF's are fed,
-//	while when SPP is exhausted 0's are fed in.
-//	X controls this value.
+//  A subroutine to read from both the MagSgn or SPP bitstreams;
+//  in particular, when MagSgn bitstream is consumed, 0xFF's are fed,
+//  while when SPP is exhausted 0's are fed in.
+//  X controls this value.
 //
-//	Unstuffing prevent sequences that are more than 0xFF7F from appearing
-//	in the conpressed sequence.  So whenever a value of 0xFF is coded, the
-//	MSB of the next byte is set 0 and must be ignored during decoding.
+//  Unstuffing prevent sequences that are more than 0xFF7F from appearing
+//  in the conpressed sequence.  So whenever a value of 0xFF is coded, the
+//  MSB of the next byte is set 0 and must be ignored during decoding.
 //
-//	Reading can go beyond the end of buffer by up to 3 bytes.
+//  Reading can go beyond the end of buffer by up to 3 bytes.
 //
-//	@param  [in]  msp is a pointer to frwd_struct_t structure
+//  @param  [in]  msp is a pointer to frwd_struct_t structure
+//
 func frwd_read(tls *libc.TLS, msp uintptr) { /* ht_dec.c:897:6: */
 	var val TOPJ_UINT32
 	var bits TOPJ_UINT32
@@ -19380,7 +19848,7 @@ func frwd_read(tls *libc.TLS, msp uintptr) { /* ht_dec.c:897:6: */
 	var unstuff TOPJ_BOOL
 
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Tfrwd_struct_t)(unsafe.Pointer(msp)).Fbits <= TOPJ_UINT32(32))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__55)), ts+1786, 904, ts+1948)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__55)), ts+1922, 904, ts+2084)
 	} else {
 	} // assert that there is a space for 32 bits
 
@@ -19452,16 +19920,16 @@ func frwd_read(tls *libc.TLS, msp uintptr) { /* ht_dec.c:897:6: */
 	*(*TOPJ_UINT32)(unsafe.Pointer(msp + 16)) += bits
 }
 
-var __func__55 = *(*[10]int8)(unsafe.Pointer(ts + 1964)) /* ht_dec.c:898:1 */
+var __func__55 = *(*[10]int8)(unsafe.Pointer(ts + 2100)) /* ht_dec.c:898:1 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Initialize frwd_struct_t struct and reads some bytes
 //
-//	@param [in]  msp is a pointer to frwd_struct_t
-//	@param [in]  data is a pointer to the start of data
-//	@param [in]  size is the number of byte in the bitstream
-//	@param [in]  X is the value fed in when the bitstream is exhausted.
-//	             See frwd_read.
+//  @param [in]  msp is a pointer to frwd_struct_t
+//  @param [in]  data is a pointer to the start of data
+//  @param [in]  size is the number of byte in the bitstream
+//  @param [in]  X is the value fed in when the bitstream is exhausted.
+//               See frwd_read.
 func frwd_init(tls *libc.TLS, msp uintptr, data uintptr, size int32, X TOPJ_UINT32) { /* ht_dec.c:956:6: */
 	var num int32
 	var i int32
@@ -19473,7 +19941,7 @@ func frwd_init(tls *libc.TLS, msp uintptr, data uintptr, size int32, X TOPJ_UINT
 	(*Tfrwd_struct_t)(unsafe.Pointer(msp)).Fsize = size
 	(*Tfrwd_struct_t)(unsafe.Pointer(msp)).FX = X
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Tfrwd_struct_t)(unsafe.Pointer(msp)).FX == TOPJ_UINT32(0) || (*Tfrwd_struct_t)(unsafe.Pointer(msp)).FX == TOPJ_UINT32(0xFF))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__56)), ts+1786, 967, ts+1974)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__56)), ts+1922, 967, ts+2110)
 	} else {
 	}
 
@@ -19502,28 +19970,28 @@ func frwd_init(tls *libc.TLS, msp uintptr, data uintptr, size int32, X TOPJ_UINT
 	frwd_read(tls, msp) // read 32 bits more
 }
 
-var __func__56 = *(*[10]int8)(unsafe.Pointer(ts + 2004)) /* ht_dec.c:958:1 */
+var __func__56 = *(*[10]int8)(unsafe.Pointer(ts + 2140)) /* ht_dec.c:958:1 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Consume num_bits bits from the bitstream of frwd_struct_t
 //
-//	@param [in]  msp is a pointer to frwd_struct_t
-//	@param [in]  num_bits is the number of bit to consume
+//  @param [in]  msp is a pointer to frwd_struct_t
+//  @param [in]  num_bits is the number of bit to consume
 func frwd_advance(tls *libc.TLS, msp uintptr, num_bits TOPJ_UINT32) { /* ht_dec.c:992:6: */
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(num_bits <= (*Tfrwd_struct_t)(unsafe.Pointer(msp)).Fbits)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__57)), ts+1786, 994, ts+2014)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__57)), ts+1922, 994, ts+2150)
 	} else {
 	}
 	libc.AssignShrPtrUint64(msp+8, int(num_bits)) // consume num_bits
 	*(*TOPJ_UINT32)(unsafe.Pointer(msp + 16)) -= num_bits
 }
 
-var __func__57 = *(*[13]int8)(unsafe.Pointer(ts + 2036)) /* ht_dec.c:993:1 */
+var __func__57 = *(*[13]int8)(unsafe.Pointer(ts + 2172)) /* ht_dec.c:993:1 */
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Fetches 32 bits from the frwd_struct_t bitstream
 //
-//	@param [in]  msp is a pointer to frwd_struct_t
+//  @param [in]  msp is a pointer to frwd_struct_t
 func frwd_fetch(tls *libc.TLS, msp uintptr) TOPJ_UINT32 { /* ht_dec.c:1005:12: */
 	if (*Tfrwd_struct_t)(unsafe.Pointer(msp)).Fbits < TOPJ_UINT32(32) {
 		frwd_read(tls, msp)
@@ -19534,27 +20002,27 @@ func frwd_fetch(tls *libc.TLS, msp uintptr) TOPJ_UINT32 { /* ht_dec.c:1005:12: *
 	return TOPJ_UINT32((*Tfrwd_struct_t)(unsafe.Pointer(msp)).Ftmp)
 }
 
-// ************************************************************************/
+//************************************************************************/
 // * @brief Allocates T1 buffers
 //
-//	@param [in, out]  t1 is codeblock cofficients storage
-//	@param [in]       w is codeblock width
-//	@param [in]       h is codeblock height
+//  @param [in, out]  t1 is codeblock cofficients storage
+//  @param [in]       w is codeblock width
+//  @param [in]       h is codeblock height
 func opj_t1_allocate_buffers(tls *libc.TLS, t1 uintptr, w TOPJ_UINT32, h TOPJ_UINT32) TOPJ_BOOL { /* ht_dec.c:1023:17: */
 	var flagssize TOPJ_UINT32
 
 	// No risk of overflow. Prior checks ensure those assert are met
 	// They are per the specification
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(w <= TOPJ_UINT32(1024))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__58)), ts+1786, 1032, ts+2049)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__58)), ts+1922, 1032, ts+2185)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(h <= TOPJ_UINT32(1024))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__58)), ts+1786, 1033, ts+2059)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__58)), ts+1922, 1033, ts+2195)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(w*h <= TOPJ_UINT32(4096))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__58)), ts+1786, 1034, ts+2069)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__58)), ts+1922, 1034, ts+2205)
 	} else {
 	}
 
@@ -19606,21 +20074,20 @@ func opj_t1_allocate_buffers(tls *libc.TLS, t1 uintptr, w TOPJ_UINT32, h TOPJ_UI
 	return DOPJ_TRUE
 }
 
-var __func__58 = *(*[24]int8)(unsafe.Pointer(ts + 2083)) /* ht_dec.c:1027:1 */
+var __func__58 = *(*[24]int8)(unsafe.Pointer(ts + 2219)) /* ht_dec.c:1027:1 */
 
-// ************************************************************************/
+//************************************************************************/
+// * @brief Decodes one codeblock, processing the cleanup, siginificance
+//         propagation, and magnitude refinement pass
 //
-//   - @brief Decodes one codeblock, processing the cleanup, siginificance
-//     propagation, and magnitude refinement pass
-//
-//     @param [in, out]  t1 is codeblock cofficients storage
-//     @param [in]       cblk is codeblock properties
-//     @param [in]       orient is the subband to which the codeblock belongs (not needed)
-//     @param [in]       roishift is region of interest shift
-//     @param [in]       cblksty is codeblock style
-//     @param [in]       p_manager is events print manager
-//     @param [in]       p_manager_mutex a mutex to control access to p_manager
-//     @param [in]       check_pterm: check termination (not used)
+//  @param [in, out]  t1 is codeblock cofficients storage
+//  @param [in]       cblk is codeblock properties
+//  @param [in]       orient is the subband to which the codeblock belongs (not needed)
+//  @param [in]       roishift is region of interest shift
+//  @param [in]       cblksty is codeblock style
+//  @param [in]       p_manager is events print manager
+//  @param [in]       p_manager_mutex a mutex to control access to p_manager
+//  @param [in]       check_pterm: check termination (not used)
 func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ_UINT32, roishift TOPJ_UINT32, cblksty TOPJ_UINT32, p_manager uintptr, p_manager_mutex uintptr, check_pterm TOPJ_BOOL) TOPJ_BOOL { /* ht_dec.c:1096:10: */
 	bp := tls.Alloc(240)
 	defer tls.Free(240)
@@ -19679,7 +20146,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 			Xopj_mutex_lock(tls, p_manager_mutex)
 		}
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+2107, 0)
+			ts+2243, 0)
 		if p_manager_mutex != 0 {
 			Xopj_mutex_unlock(tls, p_manager_mutex)
 		}
@@ -19805,7 +20272,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 		}
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+2156, 0)
+			ts+2292, 0)
 		if p_manager_mutex != 0 {
 			Xopj_mutex_unlock(tls, p_manager_mutex)
 		}
@@ -19817,7 +20284,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 		}
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+2288, libc.VaList(bp, num_passes))
+			ts+2424, libc.VaList(bp, num_passes))
 		if p_manager_mutex != 0 {
 			Xopj_mutex_unlock(tls, p_manager_mutex)
 		}
@@ -19839,7 +20306,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 		}
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+2384, libc.VaList(bp+8, (*Topj_tcd_cblk_dec_t)(unsafe.Pointer(cblk)).FMb))
+			ts+2520, libc.VaList(bp+8, (*Topj_tcd_cblk_dec_t)(unsafe.Pointer(cblk)).FMb))
 		if p_manager_mutex != 0 {
 			Xopj_mutex_unlock(tls, p_manager_mutex)
 		}
@@ -19855,7 +20322,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 		}
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+2487,
+			ts+2623,
 			libc.VaList(bp+16, zero_bplanes, (*Topj_tcd_cblk_dec_t)(unsafe.Pointer(cblk)).FMb))
 
 		if p_manager_mutex != 0 {
@@ -19877,7 +20344,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 				only_cleanup_pass_is_decoded = DOPJ_TRUE
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-					ts+2593,
+					ts+2729,
 					libc.VaList(bp+32, num_passes))
 			}
 			if p_manager_mutex != 0 {
@@ -19898,7 +20365,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 			Xopj_mutex_lock(tls, p_manager_mutex)
 		}
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+2864, 0)
+			ts+3000, 0)
 
 		if p_manager_mutex != 0 {
 			Xopj_mutex_unlock(tls, p_manager_mutex)
@@ -19916,7 +20383,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 		}
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+2922, 0)
+			ts+3058, 0)
 
 		if p_manager_mutex != 0 {
 			Xopj_mutex_unlock(tls, p_manager_mutex)
@@ -20104,7 +20571,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 			}
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-				ts+3019, 0)
+				ts+3155, 0)
 			if p_manager_mutex != 0 {
 				Xopj_mutex_unlock(tls, p_manager_mutex)
 			}
@@ -20134,7 +20601,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 			}
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-				ts+3119, 0)
+				ts+3255, 0)
 			if p_manager_mutex != 0 {
 				Xopj_mutex_unlock(tls, p_manager_mutex)
 			}
@@ -20461,7 +20928,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 				}
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-					ts+3210, 0)
+					ts+3346, 0)
 				if p_manager_mutex != 0 {
 					Xopj_mutex_unlock(tls, p_manager_mutex)
 				}
@@ -20491,7 +20958,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 				}
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-					ts+3119, 0)
+					ts+3255, 0)
 				if p_manager_mutex != 0 {
 					Xopj_mutex_unlock(tls, p_manager_mutex)
 				}
@@ -20696,7 +21163,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 									var sym TOPJ_UINT32
 
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp)) != TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2046, ts+3304)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2046, ts+3440)
 									} else {
 									} // decoded value cannot be zero
 									sym = cwd & TOPJ_UINT32(1) // get it value
@@ -20711,7 +21178,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 									var sym TOPJ_UINT32
 
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(stride)*4)) != TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2058, ts+3315)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2058, ts+3451)
 									} else {
 									}
 									sym = cwd & TOPJ_UINT32(1)
@@ -20725,7 +21192,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 									var sym TOPJ_UINT32
 
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(2*stride)*4)) != TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2069, ts+3331)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2069, ts+3467)
 									} else {
 									}
 									sym = cwd & TOPJ_UINT32(1)
@@ -20739,7 +21206,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 									var sym TOPJ_UINT32
 
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(3*stride)*4)) != TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2080, ts+3351)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2080, ts+3487)
 									} else {
 									}
 									sym = cwd & TOPJ_UINT32(1)
@@ -20950,7 +21417,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 								sample_mask = 0x11111111 & col_mask // LSB
 								if mbr&sample_mask != 0 {
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2193, ts+3371)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2193, ts+3507)
 									} else {
 									} // the sample must have been 0
 									if cwd&TOPJ_UINT32(1) != 0 { //if this sample has become significant
@@ -20968,7 +21435,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 								sample_mask = sample_mask + sample_mask // next row
 								if mbr&sample_mask != 0 {
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2208, ts+3382)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2208, ts+3518)
 									} else {
 									}
 									if cwd&TOPJ_UINT32(1) != 0 {
@@ -20984,7 +21451,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 								sample_mask = sample_mask + sample_mask
 								if mbr&sample_mask != 0 {
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(2*stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2221, ts+3398)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2221, ts+3534)
 									} else {
 									}
 									if cwd&TOPJ_UINT32(1) != 0 {
@@ -21000,7 +21467,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 								sample_mask = sample_mask + sample_mask
 								if mbr&sample_mask != 0 {
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(3*stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2234, ts+3418)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2234, ts+3554)
 									} else {
 									}
 									if cwd&TOPJ_UINT32(1) != 0 {
@@ -21048,7 +21515,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 									sample_mask = 0x11111111 & col_mask
 									if new_sig&sample_mask != 0 {
 										if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-											libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2264, ts+3371)
+											libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2264, ts+3507)
 										} else {
 										}
 										*(*TOPJ_UINT32)(unsafe.Pointer(dp)) |= cwd&TOPJ_UINT32(1)<<31 | val //put value and sign
@@ -21060,7 +21527,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 									sample_mask = sample_mask + sample_mask
 									if new_sig&sample_mask != 0 {
 										if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-											libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2273, ts+3382)
+											libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2273, ts+3518)
 										} else {
 										}
 										*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(stride)*4)) |= cwd&TOPJ_UINT32(1)<<31 | val
@@ -21071,7 +21538,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 									sample_mask = sample_mask + sample_mask
 									if new_sig&sample_mask != 0 {
 										if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(2*stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-											libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2281, ts+3398)
+											libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2281, ts+3534)
 										} else {
 										}
 										*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(2*stride)*4)) |= cwd&TOPJ_UINT32(1)<<31 | val
@@ -21082,7 +21549,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 									sample_mask = sample_mask + sample_mask
 									if new_sig&sample_mask != 0 {
 										if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(3*stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-											libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2289, ts+3418)
+											libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2289, ts+3554)
 										} else {
 										}
 										*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(3*stride)*4)) |= cwd&TOPJ_UINT32(1)<<31 | val
@@ -21182,7 +21649,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 							if sig&sample_mask != 0 {
 								var sym TOPJ_UINT32
 								if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp)) != TOPJ_UINT32(0))), int64(0)) != 0 {
-									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2351, ts+3304)
+									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2351, ts+3440)
 								} else {
 								}
 								sym = cwd & TOPJ_UINT32(1)
@@ -21195,7 +21662,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 							if sig&sample_mask != 0 {
 								var sym TOPJ_UINT32
 								if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(stride)*4)) != TOPJ_UINT32(0))), int64(0)) != 0 {
-									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2361, ts+3315)
+									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2361, ts+3451)
 								} else {
 								}
 								sym = cwd & TOPJ_UINT32(1)
@@ -21208,7 +21675,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 							if sig&sample_mask != 0 {
 								var sym TOPJ_UINT32
 								if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(2*stride)*4)) != TOPJ_UINT32(0))), int64(0)) != 0 {
-									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2371, ts+3331)
+									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2371, ts+3467)
 								} else {
 								}
 								sym = cwd & TOPJ_UINT32(1)
@@ -21221,7 +21688,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 							if sig&sample_mask != 0 {
 								var sym TOPJ_UINT32
 								if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(3*stride)*4)) != TOPJ_UINT32(0))), int64(0)) != 0 {
-									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2381, ts+3351)
+									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2381, ts+3487)
 								} else {
 								}
 								sym = cwd & TOPJ_UINT32(1)
@@ -21445,7 +21912,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 							sample_mask = 0x11111111 & col_mask
 							if mbr&sample_mask != 0 {
 								if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2503, ts+3371)
+									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2503, ts+3507)
 								} else {
 								}
 								if cwd&TOPJ_UINT32(1) != 0 {
@@ -21461,7 +21928,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 							sample_mask = sample_mask + sample_mask
 							if mbr&sample_mask != 0 {
 								if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2516, ts+3382)
+									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2516, ts+3518)
 								} else {
 								}
 								if cwd&TOPJ_UINT32(1) != 0 {
@@ -21477,7 +21944,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 							sample_mask = sample_mask + sample_mask
 							if mbr&sample_mask != 0 {
 								if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(2*stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2529, ts+3398)
+									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2529, ts+3534)
 								} else {
 								}
 								if cwd&TOPJ_UINT32(1) != 0 {
@@ -21493,7 +21960,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 							sample_mask = sample_mask + sample_mask
 							if mbr&sample_mask != 0 {
 								if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(3*stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2542, ts+3418)
+									libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2542, ts+3554)
 								} else {
 								}
 								if cwd&TOPJ_UINT32(1) != 0 {
@@ -21540,7 +22007,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 								sample_mask = 0x11111111 & col_mask
 								if new_sig&sample_mask != 0 {
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2571, ts+3371)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2571, ts+3507)
 									} else {
 									}
 									*(*TOPJ_UINT32)(unsafe.Pointer(dp)) |= cwd&TOPJ_UINT32(1)<<31 | val
@@ -21551,7 +22018,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 								sample_mask = sample_mask + sample_mask
 								if new_sig&sample_mask != 0 {
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2579, ts+3382)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2579, ts+3518)
 									} else {
 									}
 									*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(stride)*4)) |= cwd&TOPJ_UINT32(1)<<31 | val
@@ -21562,7 +22029,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 								sample_mask = sample_mask + sample_mask
 								if new_sig&sample_mask != 0 {
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(2*stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2587, ts+3398)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2587, ts+3534)
 									} else {
 									}
 									*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(2*stride)*4)) |= cwd&TOPJ_UINT32(1)<<31 | val
@@ -21573,7 +22040,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 								sample_mask = sample_mask + sample_mask
 								if new_sig&sample_mask != 0 {
 									if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(3*stride)*4)) == TOPJ_UINT32(0))), int64(0)) != 0 {
-										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1786, 2595, ts+3418)
+										libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__59)), ts+1922, 2595, ts+3554)
 									} else {
 									}
 									*(*TOPJ_UINT32)(unsafe.Pointer(dp + uintptr(3*stride)*4)) |= cwd&TOPJ_UINT32(1)<<31 | val
@@ -21661,7 +22128,7 @@ func Xopj_t1_ht_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ
 	return DOPJ_TRUE
 }
 
-var __func__59 = *(*[22]int8)(unsafe.Pointer(ts + 3438)) /* ht_dec.c:1104:1 */
+var __func__59 = *(*[22]int8)(unsafe.Pointer(ts + 3574)) /* ht_dec.c:1104:1 */
 
 func Xopj_image_create0(tls *libc.TLS) uintptr { /* image.c:34:12: */
 	var image uintptr = Xopj_calloc(tls, uint64(1), uint64(unsafe.Sizeof(Topj_image_t{})))
@@ -21789,16 +22256,17 @@ func Xopj_image_comp_header_update(tls *libc.TLS, p_image_header uintptr, p_cp u
 //
 // @param   p_image_src     the src image
 // @param   p_image_dest    the dest image
+//
 func Xopj_copy_image_header(tls *libc.TLS, p_image_src uintptr, p_image_dest uintptr) { /* image.c:164:6: */
 	var compno TOPJ_UINT32
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image_src != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__64)), ts+3460, 170, ts+3487)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__64)), ts+3596, 170, ts+3623)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image_dest != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__64)), ts+3460, 171, ts+3505)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__64)), ts+3596, 171, ts+3641)
 	} else {
 	}
 
@@ -21851,7 +22319,7 @@ func Xopj_copy_image_header(tls *libc.TLS, p_image_src uintptr, p_image_dest uin
 	return
 }
 
-var __func__64 = *(*[22]int8)(unsafe.Pointer(ts + 3524)) /* image.c:166:1 */
+var __func__64 = *(*[22]int8)(unsafe.Pointer(ts + 3660)) /* image.c:166:1 */
 
 func Xopj_image_tile_create(tls *libc.TLS, numcmpts TOPJ_UINT32, cmptparms uintptr, clrspc TOPJ_COLOR_SPACE) uintptr { /* image.c:227:12: */
 	var compno TOPJ_UINT32
@@ -21889,10 +22357,9 @@ func Xopj_image_tile_create(tls *libc.TLS, numcmpts TOPJ_UINT32, cmptparms uintp
 	return image
 }
 
+//
 // ==========================================================
-//
-//	Matric inversion interface
-//
+//    Matric inversion interface
 // ==========================================================
 // *
 // Matrix inversion.
@@ -21924,10 +22391,9 @@ func Xopj_matrix_inversion_f(tls *libc.TLS, pSrcMatrix uintptr, pDestMatrix uint
 	return DOPJ_TRUE
 }
 
+//
 // ==========================================================
-//
-//	Local functions
-//
+//    Local functions
 // ==========================================================
 func opj_lupDecompose(tls *libc.TLS, matrix uintptr, permutations uintptr, p_swap_area uintptr, nb_compo TOPJ_UINT32) TOPJ_BOOL { /* invert.c:107:17: */
 	var tmpPermutations uintptr = permutations
@@ -22074,7 +22540,7 @@ func opj_lupSolve(tls *libc.TLS, pResult uintptr, pMatrix uintptr, pVector uintp
 	lDestPtr = pResult + uintptr(nb_compo)*4
 
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(nb_compo != TOPJ_UINT32(0))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__69)), ts+3546, 252, ts+3574)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__69)), ts+3682, 252, ts+3710)
 	} else {
 	}
 	for k = TOPJ_INT32(nb_compo) - 1; k != -1; k-- {
@@ -22092,7 +22558,7 @@ func opj_lupSolve(tls *libc.TLS, pResult uintptr, pMatrix uintptr, pVector uintp
 	}
 }
 
-var __func__69 = *(*[13]int8)(unsafe.Pointer(ts + 3588)) /* invert.c:213:1 */
+var __func__69 = *(*[13]int8)(unsafe.Pointer(ts + 3724)) /* invert.c:213:1 */
 
 func opj_lupInvert(tls *libc.TLS, pSrcMatrix uintptr, pDestMatrix uintptr, nb_compo TOPJ_UINT32, pPermutations uintptr, p_src_temp uintptr, p_dest_temp uintptr, p_swap_area uintptr) { /* invert.c:269:13: */
 	var j TOPJ_UINT32
@@ -22162,12 +22628,12 @@ type Sj2k_prog_order = struct {
 type Tj2k_prog_order_t = Sj2k_prog_order /* j2k.c:1350:3 */
 
 var j2k_prog_order_list = [6]Tj2k_prog_order_t{
-	{Fenum_prog: OPJ_CPRL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3601))},
-	{Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3606))},
-	{Fenum_prog: OPJ_PCRL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3611))},
-	{Fenum_prog: OPJ_RLCP, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3616))},
-	{Fenum_prog: OPJ_RPCL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3621))},
-	{Fenum_prog: -1, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3626))},
+	{Fenum_prog: OPJ_CPRL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3737))},
+	{Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3742))},
+	{Fenum_prog: OPJ_PCRL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3747))},
+	{Fenum_prog: OPJ_RLCP, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3752))},
+	{Fenum_prog: OPJ_RPCL, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3757))},
+	{Fenum_prog: -1, Fstr_prog: *(*[5]int8)(unsafe.Pointer(ts + 3762))},
 } /* j2k.c:1352:31 */
 
 // *
@@ -22457,7 +22923,7 @@ func opj_j2k_check_poc_val(tls *libc.TLS, p_pocs uintptr, tileno TOPJ_UINT32, p_
 	var loss TOPJ_BOOL = DOPJ_FALSE
 
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_nb_pocs > TOPJ_UINT32(0))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__74)), ts+3631, 1678, ts+3656)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__74)), ts+3767, 1678, ts+3792)
 	} else {
 	}
 
@@ -22465,7 +22931,7 @@ func opj_j2k_check_poc_val(tls *libc.TLS, p_pocs uintptr, tileno TOPJ_UINT32, p_
 		uint64(unsafe.Sizeof(TOPJ_UINT32(0))))
 	if packet_array == uintptr(00) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+3670, 0)
+			ts+3806, 0)
 		return DOPJ_FALSE
 	}
 
@@ -22510,7 +22976,7 @@ func opj_j2k_check_poc_val(tls *libc.TLS, p_pocs uintptr, tileno TOPJ_UINT32, p_
 	}
 
 	if loss != 0 {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+3718, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+3854, 0)
 	}
 
 	Xopj_free(tls, packet_array)
@@ -22518,7 +22984,7 @@ func opj_j2k_check_poc_val(tls *libc.TLS, p_pocs uintptr, tileno TOPJ_UINT32, p_
 	return libc.BoolInt32(!(loss != 0))
 }
 
-var __func__74 = *(*[22]int8)(unsafe.Pointer(ts + 3757)) /* j2k.c:1669:1 */
+var __func__74 = *(*[22]int8)(unsafe.Pointer(ts + 3893)) /* j2k.c:1669:1 */
 
 // -----------------------------------------------------------------------
 
@@ -22531,31 +22997,31 @@ func opj_j2k_get_num_tp(tls *libc.TLS, cp uintptr, pino TOPJ_UINT32, tileno TOPJ
 
 	//  preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(tileno < (*Topj_cp_t)(unsafe.Pointer(cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3631, 1759, ts+3779)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3767, 1759, ts+3915)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(pino < (*Topj_tcp_t)(unsafe.Pointer((*Topj_cp_t)(unsafe.Pointer(cp)).Ftcps+uintptr(tileno)*5696)).Fnumpocs+TOPJ_UINT32(1))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3631, 1760, ts+3806)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3767, 1760, ts+3942)
 	} else {
 	}
 
 	// get the given tile coding parameter
 	tcp = (*Topj_cp_t)(unsafe.Pointer(cp)).Ftcps + uintptr(tileno)*5696
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(tcp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3631, 1764, ts+3844)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3767, 1764, ts+3980)
 	} else {
 	}
 
 	l_current_poc = tcp + 424 + uintptr(pino)*148
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(l_current_poc != uintptr(0))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3631, 1767, ts+3854)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3767, 1767, ts+3990)
 	} else {
 	}
 
 	// get the progression order as a character string
 	prog = Xopj_j2k_convert_progression_order(tls, (*Topj_tcp_t)(unsafe.Pointer(tcp)).Fprg)
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(libc.Xstrlen(tls, prog) > uint64(0))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3631, 1771, ts+3873)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__75)), ts+3767, 1771, ts+4009)
 	} else {
 	}
 
@@ -22595,7 +23061,7 @@ func opj_j2k_get_num_tp(tls *libc.TLS, cp uintptr, pino TOPJ_UINT32, tileno TOPJ
 	return tpnum
 }
 
-var __func__75 = *(*[19]int8)(unsafe.Pointer(ts + 3890)) /* j2k.c:1751:1 */
+var __func__75 = *(*[19]int8)(unsafe.Pointer(ts + 4026)) /* j2k.c:1751:1 */
 
 func opj_j2k_calculate_tp(tls *libc.TLS, p_j2k uintptr, cp uintptr, p_nb_tiles uintptr, image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:1806:17: */
 	var pino TOPJ_UINT32
@@ -22605,23 +23071,23 @@ func opj_j2k_calculate_tp(tls *libc.TLS, p_j2k uintptr, cp uintptr, p_nb_tiles u
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_nb_tiles != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3631, 1818, ts+3909)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3767, 1818, ts+4045)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3631, 1819, ts+3926)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3767, 1819, ts+4062)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(image != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3631, 1820, ts+3935)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3767, 1820, ts+4071)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3631, 1821, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3767, 1821, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3631, 1822, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__76)), ts+3767, 1822, ts+4095)
 	} else {
 	}
 
@@ -22689,7 +23155,7 @@ func opj_j2k_calculate_tp(tls *libc.TLS, p_j2k uintptr, cp uintptr, p_nb_tiles u
 	return DOPJ_TRUE
 }
 
-var __func__76 = *(*[21]int8)(unsafe.Pointer(ts + 3975)) /* j2k.c:1812:1 */
+var __func__76 = *(*[21]int8)(unsafe.Pointer(ts + 4111)) /* j2k.c:1812:1 */
 
 func opj_j2k_write_soc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:1887:17: */
 	// 2 bytes will be written
@@ -22697,15 +23163,15 @@ func opj_j2k_write_soc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__77)), ts+3631, 1895, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__77)), ts+3767, 1895, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__77)), ts+3631, 1896, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__77)), ts+3767, 1896, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__77)), ts+3631, 1897, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__77)), ts+3767, 1897, ts+4095)
 	} else {
 	}
 
@@ -22724,7 +23190,7 @@ func opj_j2k_write_soc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__77 = *(*[18]int8)(unsafe.Pointer(ts + 4011)) /* j2k.c:1890:1 */
+var __func__77 = *(*[18]int8)(unsafe.Pointer(ts + 4147)) /* j2k.c:1890:1 */
 
 // *
 // Reads a SOC marker (Start of Codestream)
@@ -22741,15 +23207,15 @@ func opj_j2k_read_soc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__78)), ts+3631, 1936, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__78)), ts+3767, 1936, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__78)), ts+3631, 1937, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__78)), ts+3767, 1937, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__78)), ts+3631, 1938, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__78)), ts+3767, 1938, ts+4132)
 	} else {
 	}
 
@@ -22769,19 +23235,19 @@ func opj_j2k_read_soc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 	(*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Fmain_head_start = Xopj_stream_tell(tls, p_stream) - int64(2)
 
 	Xopj_event_msg(tls, p_manager, DEVT_INFO,
-		ts+4029,
+		ts+4165,
 		libc.VaList(bp, (*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Fmain_head_start))
 
 	// Add the marker to the codestream index
 	if DOPJ_FALSE == opj_j2k_add_mhmarker(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index, uint32(DJ2K_MS_SOC),
 		(*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Fmain_head_start, uint32(2)) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4068, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4204, 0)
 		return DOPJ_FALSE
 	}
 	return DOPJ_TRUE
 }
 
-var __func__78 = *(*[17]int8)(unsafe.Pointer(ts + 4104)) /* j2k.c:1931:1 */
+var __func__78 = *(*[17]int8)(unsafe.Pointer(ts + 4240)) /* j2k.c:1931:1 */
 
 func opj_j2k_write_siz(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:1968:17: */
 	var i TOPJ_UINT32
@@ -22793,15 +23259,15 @@ func opj_j2k_write_siz(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__79)), ts+3631, 1980, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__79)), ts+3767, 1980, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__79)), ts+3631, 1981, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__79)), ts+3767, 1981, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__79)), ts+3631, 1982, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__79)), ts+3767, 1982, ts+4095)
 	} else {
 	}
 
@@ -22818,7 +23284,7 @@ func opj_j2k_write_siz(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4121, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4257, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -22888,7 +23354,7 @@ func opj_j2k_write_siz(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__79 = *(*[18]int8)(unsafe.Pointer(ts + 4159)) /* j2k.c:1971:1 */
+var __func__79 = *(*[18]int8)(unsafe.Pointer(ts + 4295)) /* j2k.c:1971:1 */
 
 // *
 // Reads a SIZ marker (image and tile size)
@@ -22918,15 +23384,15 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__80)), ts+3631, 2093, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__80)), ts+3767, 2093, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__80)), ts+3631, 2094, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__80)), ts+3767, 2094, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__80)), ts+3631, 2095, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__80)), ts+3767, 2095, ts+4313)
 	} else {
 	}
 
@@ -22935,7 +23401,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// minimum size == 39 - 3 (= minimum component parameter)
 	if p_header_size < TOPJ_UINT32(36) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4197, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4333, 0)
 		return DOPJ_FALSE
 	}
 
@@ -22943,7 +23409,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	l_nb_comp = l_remaining_size / TOPJ_UINT32(3)
 	l_nb_comp_remain = l_remaining_size % TOPJ_UINT32(3)
 	if l_nb_comp_remain != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4197, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4333, 0)
 		return DOPJ_FALSE
 	}
 
@@ -22978,13 +23444,13 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 		(*Topj_image_t)(unsafe.Pointer(l_image)).Fnumcomps = TOPJ_UINT32(TOPJ_UINT16(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 192 /* l_tmp */))))
 	} else {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4225, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 192 /* l_tmp */))))
+			ts+4361, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 192 /* l_tmp */))))
 		return DOPJ_FALSE
 	}
 
 	if (*Topj_image_t)(unsafe.Pointer(l_image)).Fnumcomps != l_nb_comp {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4286,
+			ts+4422,
 			libc.VaList(bp+8, (*Topj_image_t)(unsafe.Pointer(l_image)).Fnumcomps, l_nb_comp))
 		return DOPJ_FALSE
 	}
@@ -22994,14 +23460,14 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	if (*Topj_image_t)(unsafe.Pointer(l_image)).Fx0 >= (*Topj_image_t)(unsafe.Pointer(l_image)).Fx1 || (*Topj_image_t)(unsafe.Pointer(l_image)).Fy0 >= (*Topj_image_t)(unsafe.Pointer(l_image)).Fy1 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+4400, libc.VaList(bp+24, TOPJ_INT64((*Topj_image_t)(unsafe.Pointer(l_image)).Fx1)-TOPJ_INT64((*Topj_image_t)(unsafe.Pointer(l_image)).Fx0),
+			ts+4536, libc.VaList(bp+24, TOPJ_INT64((*Topj_image_t)(unsafe.Pointer(l_image)).Fx1)-TOPJ_INT64((*Topj_image_t)(unsafe.Pointer(l_image)).Fx0),
 				TOPJ_INT64((*Topj_image_t)(unsafe.Pointer(l_image)).Fy1)-TOPJ_INT64((*Topj_image_t)(unsafe.Pointer(l_image)).Fy0)))
 		return DOPJ_FALSE
 	}
 	// testcase 2539.pdf.SIGFPE.706.1712 (also 3622.pdf.SIGFPE.706.2916 and 4008.pdf.SIGFPE.706.3345 and maybe more)
 	if (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftdx == 0 || (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftdy == 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4466, libc.VaList(bp+40, (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftdx,
+			ts+4602, libc.VaList(bp+40, (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftdx,
 				(*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftdy))
 		return DOPJ_FALSE
 	}
@@ -23011,7 +23477,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	l_ty1 = opj_uint_adds(tls, (*Topj_cp_t)(unsafe.Pointer(l_cp)).Fty0, (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftdy) // manage overflow
 	if (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftx0 > (*Topj_image_t)(unsafe.Pointer(l_image)).Fx0 || (*Topj_cp_t)(unsafe.Pointer(l_cp)).Fty0 > (*Topj_image_t)(unsafe.Pointer(l_image)).Fy0 || l_tx1 <= (*Topj_image_t)(unsafe.Pointer(l_image)).Fx0 || l_ty1 <= (*Topj_image_t)(unsafe.Pointer(l_image)).Fy0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4527, 0)
+			ts+4663, 0)
 		return DOPJ_FALSE
 	}
 	if !(int32((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fdump_state) != 0) {
@@ -23024,7 +23490,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 		if (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fihdr_w > TOPJ_UINT32(0) && (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fihdr_h > TOPJ_UINT32(0) &&
 			((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fihdr_w != siz_w || (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fihdr_h != siz_h) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+4571, libc.VaList(bp+56, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fihdr_w,
+				ts+4707, libc.VaList(bp+56, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fihdr_w,
 					(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fihdr_h, siz_w, siz_h))
 			return DOPJ_FALSE
 		}
@@ -23036,7 +23502,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	if (*Topj_image_t)(unsafe.Pointer(l_image)).Fcomps == uintptr(00) {
 		(*Topj_image_t)(unsafe.Pointer(l_image)).Fnumcomps = TOPJ_UINT32(0)
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4632, 0)
+			ts+4768, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23061,7 +23527,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 				((*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fprec != l_prec0 || (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fsgnd != l_sgnd0) {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-					ts+4680, libc.VaList(bp+88, i, l_prec0, l_sgnd0,
+					ts+4816, libc.VaList(bp+88, i, l_prec0, l_sgnd0,
 						i, (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fprec, (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fsgnd))
 			}
 			// TODO: we should perhaps also check against JP2 BPCC values
@@ -23074,7 +23540,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 		(*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fdy = *(*TOPJ_UINT32)(unsafe.Pointer(bp + 196 /* tmp */)) // should be between 1 and 255
 		if (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fdx < TOPJ_UINT32(1) || (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fdx > TOPJ_UINT32(255) || (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fdy < TOPJ_UINT32(1) || (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fdy > TOPJ_UINT32(255) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+4825,
+				ts+4961,
 				libc.VaList(bp+136, i, (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fdx, (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fdy))
 			return DOPJ_FALSE
 		}
@@ -23083,7 +23549,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 		//                     << (l_image->comps[i].prec - 1);
 		if (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fprec > TOPJ_UINT32(31) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+4930,
+				ts+5066,
 				libc.VaList(bp+160, i, (*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fprec))
 			return DOPJ_FALSE
 		}
@@ -23105,7 +23571,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	// Check that the number of tiles is valid
 	if (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw == TOPJ_UINT32(0) || (*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth == TOPJ_UINT32(0) || (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw > TOPJ_UINT32(65535)/(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+5063,
+			ts+5199,
 			libc.VaList(bp+176, (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw, (*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth))
 		return DOPJ_FALSE
 	}
@@ -23130,14 +23596,14 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	(*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftcps = Xopj_calloc(tls, uint64(l_nb_tiles), uint64(unsafe.Sizeof(Topj_tcp_t{})))
 	if (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftcps == uintptr(00) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4632, 0)
+			ts+4768, 0)
 		return DOPJ_FALSE
 	}
 
 	(*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_default_tcp)).Ftccps = Xopj_calloc(tls, uint64((*Topj_image_t)(unsafe.Pointer(l_image)).Fnumcomps), uint64(unsafe.Sizeof(Topj_tccp_t{})))
 	if (*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_default_tcp)).Ftccps == uintptr(00) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4632, 0)
+			ts+4768, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23146,7 +23612,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if !(int32((*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_default_tcp)).Fm_mct_records) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4632, 0)
+			ts+4768, 0)
 		return DOPJ_FALSE
 	}
 	(*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_default_tcp)).Fm_nb_max_mct_records = TOPJ_UINT32(DOPJ_J2K_MCT_DEFAULT_NB_RECORDS)
@@ -23156,7 +23622,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if !(int32((*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_default_tcp)).Fm_mcc_records) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+4632, 0)
+			ts+4768, 0)
 		return DOPJ_FALSE
 	}
 	(*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_default_tcp)).Fm_nb_max_mcc_records = TOPJ_UINT32(DOPJ_J2K_MCC_DEFAULT_NB_RECORDS)
@@ -23175,7 +23641,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 			uint64(unsafe.Sizeof(Topj_tccp_t{})))
 		if (*Topj_tcp_t)(unsafe.Pointer(l_current_tile_param)).Ftccps == uintptr(00) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+4632, 0)
+				ts+4768, 0)
 			return DOPJ_FALSE
 		}
 
@@ -23188,7 +23654,7 @@ func opj_j2k_read_siz(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__80 = *(*[17]int8)(unsafe.Pointer(ts + 5146)) /* j2k.c:2079:1 */
+var __func__80 = *(*[17]int8)(unsafe.Pointer(ts + 5282)) /* j2k.c:2079:1 */
 
 func opj_j2k_write_com(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2495:17: */
 	var l_comment_size TOPJ_UINT32
@@ -23198,15 +23664,15 @@ func opj_j2k_write_com(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__81)), ts+3631, 2506, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__81)), ts+3767, 2506, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__81)), ts+3631, 2507, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__81)), ts+3767, 2507, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__81)), ts+3631, 2508, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__81)), ts+3767, 2508, ts+4095)
 	} else {
 	}
 
@@ -23222,7 +23688,7 @@ func opj_j2k_write_com(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+5163, 0)
+				ts+5299, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -23252,7 +23718,7 @@ func opj_j2k_write_com(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__81 = *(*[18]int8)(unsafe.Pointer(ts + 5206)) /* j2k.c:2499:1 */
+var __func__81 = *(*[18]int8)(unsafe.Pointer(ts + 5342)) /* j2k.c:2499:1 */
 
 // *
 // Reads a COM marker (comments)
@@ -23263,15 +23729,15 @@ var __func__81 = *(*[18]int8)(unsafe.Pointer(ts + 5206)) /* j2k.c:2499:1 */
 func opj_j2k_read_com(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2560:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__82)), ts+3631, 2567, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__82)), ts+3767, 2567, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__82)), ts+3631, 2568, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__82)), ts+3767, 2568, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__82)), ts+3631, 2569, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__82)), ts+3767, 2569, ts+4313)
 	} else {
 	}
 
@@ -23283,7 +23749,7 @@ func opj_j2k_read_com(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__82 = *(*[17]int8)(unsafe.Pointer(ts + 5224)) /* j2k.c:2565:1 */
+var __func__82 = *(*[17]int8)(unsafe.Pointer(ts + 5360)) /* j2k.c:2565:1 */
 
 func opj_j2k_write_cod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2579:17: */
 	bp := tls.Alloc(4)
@@ -23298,15 +23764,15 @@ func opj_j2k_write_cod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__83)), ts+3631, 2589, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__83)), ts+3767, 2589, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__83)), ts+3631, 2590, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__83)), ts+3767, 2590, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__83)), ts+3631, 2591, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__83)), ts+3767, 2591, ts+4132)
 	} else {
 	}
 
@@ -23323,7 +23789,7 @@ func opj_j2k_write_cod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5241, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5377, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -23354,12 +23820,12 @@ func opj_j2k_write_cod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	if !(opj_j2k_write_SPCod_SPCoc(tls, p_j2k, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number, uint32(0),
 		l_current_data, bp, p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5280, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5416, 0)
 		return DOPJ_FALSE
 	}
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5280, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5416, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23372,7 +23838,7 @@ func opj_j2k_write_cod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__83 = *(*[18]int8)(unsafe.Pointer(ts + 5306)) /* j2k.c:2582:1 */
+var __func__83 = *(*[18]int8)(unsafe.Pointer(ts + 5442)) /* j2k.c:2582:1 */
 
 // *
 // Reads a COD marker (Coding style defaults)
@@ -23395,15 +23861,15 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__84)), ts+3631, 2676, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__84)), ts+3767, 2676, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__84)), ts+3631, 2677, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__84)), ts+3767, 2677, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__84)), ts+3631, 2678, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__84)), ts+3767, 2678, ts+4095)
 	} else {
 	}
 
@@ -23421,7 +23887,7 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// Make sure room is sufficient
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 12)) < TOPJ_UINT32(5) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5324, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5460, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23429,7 +23895,7 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	p_header_data++
 	// Make sure we know how to decode this
 	if (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fcsty&libc.CplUint32(TOPJ_UINT32(DJ2K_CP_CSTY_PRT|DJ2K_CP_CSTY_SOP|DJ2K_CP_CSTY_EPH)) != 0 {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5350, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5486, 0)
 		return DOPJ_FALSE
 	}
 	Xopj_read_bytes_LE(tls, p_header_data, bp+8, uint32(1)) // SGcod (A)
@@ -23438,7 +23904,7 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	// Make sure progression order is valid
 	if (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fprg > OPJ_CPRL {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+5384, 0)
+			ts+5520, 0)
 		(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fprg = OPJ_PROG_UNKNOWN
 	}
 	Xopj_read_bytes_LE(tls, p_header_data, l_tcp+8, uint32(2)) // SGcod (B)
@@ -23446,7 +23912,7 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fnumlayers < 1 || (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fnumlayers > 65535 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+5425,
+			ts+5561,
 			libc.VaList(bp, (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fnumlayers))
 		return DOPJ_FALSE
 	}
@@ -23463,7 +23929,7 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fmct > TOPJ_UINT32(1) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+5493, 0)
+			ts+5629, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23474,12 +23940,12 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if !(opj_j2k_read_SPCod_SPCoc(tls, p_j2k, uint32(0), p_header_data, bp+12,
 		p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5324, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5460, 0)
 		return DOPJ_FALSE
 	}
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 12)) != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5324, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5460, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23491,7 +23957,7 @@ func opj_j2k_read_cod(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__84 = *(*[17]int8)(unsafe.Pointer(ts + 5536)) /* j2k.c:2667:1 */
+var __func__84 = *(*[17]int8)(unsafe.Pointer(ts + 5672)) /* j2k.c:2667:1 */
 
 func opj_j2k_write_coc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2789:17: */
 	bp := tls.Alloc(4)
@@ -23504,15 +23970,15 @@ func opj_j2k_write_coc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_st
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__85)), ts+3631, 2798, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__85)), ts+3767, 2798, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__85)), ts+3631, 2799, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__85)), ts+3767, 2799, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__85)), ts+3631, 2800, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__85)), ts+3767, 2800, ts+4132)
 	} else {
 	}
 
@@ -23538,7 +24004,7 @@ func opj_j2k_write_coc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_st
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5553, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5689, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -23558,7 +24024,7 @@ func opj_j2k_write_coc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_st
 	return DOPJ_TRUE
 }
 
-var __func__85 = *(*[18]int8)(unsafe.Pointer(ts + 5592)) /* j2k.c:2793:1 */
+var __func__85 = *(*[18]int8)(unsafe.Pointer(ts + 5728)) /* j2k.c:2793:1 */
 
 func opj_j2k_compare_coc(tls *libc.TLS, p_j2k uintptr, p_first_comp_no TOPJ_UINT32, p_second_comp_no TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:2840:17: */
 	var l_cp uintptr = uintptr(0)
@@ -23566,7 +24032,7 @@ func opj_j2k_compare_coc(tls *libc.TLS, p_j2k uintptr, p_first_comp_no TOPJ_UINT
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__86)), ts+3631, 2847, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__86)), ts+3767, 2847, ts+4083)
 	} else {
 	}
 
@@ -23581,7 +24047,7 @@ func opj_j2k_compare_coc(tls *libc.TLS, p_j2k uintptr, p_first_comp_no TOPJ_UINT
 		p_first_comp_no, p_second_comp_no)
 }
 
-var __func__86 = *(*[20]int8)(unsafe.Pointer(ts + 5610)) /* j2k.c:2842:1 */
+var __func__86 = *(*[20]int8)(unsafe.Pointer(ts + 5746)) /* j2k.c:2842:1 */
 
 func opj_j2k_write_coc_in_memory(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_data uintptr, p_data_written uintptr, p_manager uintptr) { /* j2k.c:2861:13: */
 	bp := tls.Alloc(4)
@@ -23598,11 +24064,11 @@ func opj_j2k_write_coc_in_memory(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UI
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__87)), ts+3631, 2876, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__87)), ts+3767, 2876, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__87)), ts+3631, 2877, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__87)), ts+3767, 2877, ts+4095)
 	} else {
 	}
 
@@ -23642,7 +24108,7 @@ func opj_j2k_write_coc_in_memory(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UI
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_data_written)) = l_coc_size
 }
 
-var __func__87 = *(*[28]int8)(unsafe.Pointer(ts + 5630)) /* j2k.c:2867:1 */
+var __func__87 = *(*[28]int8)(unsafe.Pointer(ts + 5766)) /* j2k.c:2867:1 */
 
 func opj_j2k_get_max_coc_size(tls *libc.TLS, p_j2k uintptr) TOPJ_UINT32 { /* j2k.c:2911:19: */
 	var i TOPJ_UINT32
@@ -23684,15 +24150,15 @@ func opj_j2k_read_coc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__88)), ts+3631, 2952, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__88)), ts+3767, 2952, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__88)), ts+3631, 2953, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__88)), ts+3767, 2953, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__88)), ts+3631, 2954, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__88)), ts+3767, 2954, ts+4095)
 	} else {
 	}
 
@@ -23712,7 +24178,7 @@ func opj_j2k_read_coc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// make sure room is sufficient
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 4)) < l_comp_room+TOPJ_UINT32(1) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5658, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5794, 0)
 		return DOPJ_FALSE
 	}
 	*(*TOPJ_UINT32)(unsafe.Pointer(bp + 4 /* p_header_size */)) -= l_comp_room + TOPJ_UINT32(1)
@@ -23722,7 +24188,7 @@ func opj_j2k_read_coc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	p_header_data += uintptr(l_comp_room)
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) >= (*Topj_image_t)(unsafe.Pointer(l_image)).Fnumcomps {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+5684, 0)
+			ts+5820, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23732,18 +24198,18 @@ func opj_j2k_read_coc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if !(opj_j2k_read_SPCod_SPCoc(tls, p_j2k, *(*TOPJ_UINT32)(unsafe.Pointer(bp)), p_header_data, bp+4,
 		p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5658, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5794, 0)
 		return DOPJ_FALSE
 	}
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 4)) != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5658, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5794, 0)
 		return DOPJ_FALSE
 	}
 	return DOPJ_TRUE
 }
 
-var __func__88 = *(*[17]int8)(unsafe.Pointer(ts + 5737)) /* j2k.c:2944:1 */
+var __func__88 = *(*[17]int8)(unsafe.Pointer(ts + 5873)) /* j2k.c:2944:1 */
 
 func opj_j2k_write_qcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:2998:17: */
 	bp := tls.Alloc(4)
@@ -23756,15 +24222,15 @@ func opj_j2k_write_qcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__89)), ts+3631, 3007, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__89)), ts+3767, 3007, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__89)), ts+3631, 3008, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__89)), ts+3767, 3008, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__89)), ts+3631, 3009, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__89)), ts+3767, 3009, ts+4132)
 	} else {
 	}
 
@@ -23779,7 +24245,7 @@ func opj_j2k_write_qcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5754, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5890, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -23798,12 +24264,12 @@ func opj_j2k_write_qcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	if !(opj_j2k_write_SQcd_SQcc(tls, p_j2k, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number, uint32(0),
 		l_current_data, bp, p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5793, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5929, 0)
 		return DOPJ_FALSE
 	}
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5793, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5929, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23816,7 +24282,7 @@ func opj_j2k_write_qcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__89 = *(*[18]int8)(unsafe.Pointer(ts + 5819)) /* j2k.c:3002:1 */
+var __func__89 = *(*[18]int8)(unsafe.Pointer(ts + 5955)) /* j2k.c:3002:1 */
 
 // *
 // Reads a QCD marker (Quantization defaults)
@@ -23831,26 +24297,26 @@ func opj_j2k_read_qcd(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__90)), ts+3631, 3073, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__90)), ts+3767, 3073, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__90)), ts+3631, 3074, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__90)), ts+3767, 3074, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__90)), ts+3631, 3075, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__90)), ts+3767, 3075, ts+4095)
 	} else {
 	}
 
 	if !(opj_j2k_read_SQcd_SQcc(tls, p_j2k, uint32(0), p_header_data, bp,
 		p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5837, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5973, 0)
 		return DOPJ_FALSE
 	}
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5837, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5973, 0)
 		return DOPJ_FALSE
 	}
 
@@ -23860,7 +24326,7 @@ func opj_j2k_read_qcd(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__90 = *(*[17]int8)(unsafe.Pointer(ts + 5863)) /* j2k.c:3071:1 */
+var __func__90 = *(*[17]int8)(unsafe.Pointer(ts + 5999)) /* j2k.c:3071:1 */
 
 func opj_j2k_write_qcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:3094:17: */
 	bp := tls.Alloc(4)
@@ -23871,15 +24337,15 @@ func opj_j2k_write_qcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_st
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__91)), ts+3631, 3103, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__91)), ts+3767, 3103, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__91)), ts+3631, 3104, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__91)), ts+3767, 3104, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__91)), ts+3631, 3105, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__91)), ts+3767, 3105, ts+4132)
 	} else {
 	}
 
@@ -23900,7 +24366,7 @@ func opj_j2k_write_qcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_st
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5880, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6016, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -23920,7 +24386,7 @@ func opj_j2k_write_qcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_st
 	return DOPJ_TRUE
 }
 
-var __func__91 = *(*[18]int8)(unsafe.Pointer(ts + 5919)) /* j2k.c:3099:1 */
+var __func__91 = *(*[18]int8)(unsafe.Pointer(ts + 6055)) /* j2k.c:3099:1 */
 
 func opj_j2k_compare_qcc(tls *libc.TLS, p_j2k uintptr, p_first_comp_no TOPJ_UINT32, p_second_comp_no TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:3139:17: */
 	return opj_j2k_compare_SQcd_SQcc(tls, p_j2k, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number,
@@ -23938,11 +24404,11 @@ func opj_j2k_write_qcc_in_memory(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UI
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__92)), ts+3631, 3157, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__92)), ts+3767, 3157, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__92)), ts+3631, 3158, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__92)), ts+3767, 3158, ts+4095)
 	} else {
 	}
 
@@ -23982,7 +24448,7 @@ func opj_j2k_write_qcc_in_memory(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UI
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_data_written)) = l_qcc_size
 }
 
-var __func__92 = *(*[28]int8)(unsafe.Pointer(ts + 5937)) /* j2k.c:3152:1 */
+var __func__92 = *(*[28]int8)(unsafe.Pointer(ts + 6073)) /* j2k.c:3152:1 */
 
 func opj_j2k_get_max_qcc_size(tls *libc.TLS, p_j2k uintptr) TOPJ_UINT32 { /* j2k.c:3196:19: */
 	return opj_j2k_get_max_coc_size(tls, p_j2k)
@@ -24004,15 +24470,15 @@ func opj_j2k_read_qcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__93)), ts+3631, 3217, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__93)), ts+3767, 3217, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__93)), ts+3631, 3218, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__93)), ts+3767, 3218, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__93)), ts+3631, 3219, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__93)), ts+3767, 3219, ts+4095)
 	} else {
 	}
 
@@ -24020,7 +24486,7 @@ func opj_j2k_read_qcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if l_num_comp <= TOPJ_UINT32(256) {
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 20)) < TOPJ_UINT32(1) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5965, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6101, 0)
 			return DOPJ_FALSE
 		}
 		Xopj_read_bytes_LE(tls, p_header_data, bp+16, uint32(1))
@@ -24028,7 +24494,7 @@ func opj_j2k_read_qcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 		*(*TOPJ_UINT32)(unsafe.Pointer(bp + 20 /* p_header_size */))--
 	} else {
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 20)) < TOPJ_UINT32(2) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5965, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6101, 0)
 			return DOPJ_FALSE
 		}
 		Xopj_read_bytes_LE(tls, p_header_data, bp+16, uint32(2))
@@ -24038,26 +24504,26 @@ func opj_j2k_read_qcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 16)) >= (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+5991,
+			ts+6127,
 			libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 16 /* l_comp_no */)), (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps))
 		return DOPJ_FALSE
 	}
 
 	if !(opj_j2k_read_SQcd_SQcc(tls, p_j2k, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 16)), p_header_data, bp+20,
 		p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5965, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6101, 0)
 		return DOPJ_FALSE
 	}
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 20)) != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+5965, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6101, 0)
 		return DOPJ_FALSE
 	}
 
 	return DOPJ_TRUE
 }
 
-var __func__93 = *(*[17]int8)(unsafe.Pointer(ts + 6060)) /* j2k.c:3213:1 */
+var __func__93 = *(*[17]int8)(unsafe.Pointer(ts + 6196)) /* j2k.c:3213:1 */
 
 func opj_j2k_write_poc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:3288:17: */
 	bp := tls.Alloc(4)
@@ -24072,15 +24538,15 @@ func opj_j2k_write_poc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__94)), ts+3631, 3301, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__94)), ts+3767, 3301, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__94)), ts+3631, 3302, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__94)), ts+3767, 3302, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__94)), ts+3631, 3303, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__94)), ts+3767, 3303, ts+4132)
 	} else {
 	}
 
@@ -24102,7 +24568,7 @@ func opj_j2k_write_poc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6077, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6213, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -24122,7 +24588,7 @@ func opj_j2k_write_poc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__94 = *(*[18]int8)(unsafe.Pointer(ts + 6116)) /* j2k.c:3292:1 */
+var __func__94 = *(*[18]int8)(unsafe.Pointer(ts + 6252)) /* j2k.c:3292:1 */
 
 func opj_j2k_write_poc_in_memory(tls *libc.TLS, p_j2k uintptr, p_data uintptr, p_data_written uintptr, p_manager uintptr) { /* j2k.c:3343:13: */
 	var i TOPJ_UINT32
@@ -24138,11 +24604,11 @@ func opj_j2k_write_poc_in_memory(tls *libc.TLS, p_j2k uintptr, p_data uintptr, p
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__95)), ts+3631, 3361, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__95)), ts+3767, 3361, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__95)), ts+3631, 3362, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__95)), ts+3767, 3362, ts+4095)
 	} else {
 	}
 
@@ -24209,7 +24675,7 @@ func opj_j2k_write_poc_in_memory(tls *libc.TLS, p_j2k uintptr, p_data uintptr, p
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_data_written)) = l_poc_size
 }
 
-var __func__95 = *(*[28]int8)(unsafe.Pointer(ts + 6134)) /* j2k.c:3348:1 */
+var __func__95 = *(*[28]int8)(unsafe.Pointer(ts + 6270)) /* j2k.c:3348:1 */
 
 func opj_j2k_get_max_poc_size(tls *libc.TLS, p_j2k uintptr) TOPJ_UINT32 { /* j2k.c:3430:19: */
 	var l_tcp uintptr = uintptr(00)
@@ -24320,15 +24786,15 @@ func opj_j2k_read_poc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__96)), ts+3631, 3539, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__96)), ts+3767, 3539, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__96)), ts+3631, 3540, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__96)), ts+3767, 3540, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__96)), ts+3631, 3541, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__96)), ts+3767, 3541, ts+4095)
 	} else {
 	}
 
@@ -24344,7 +24810,7 @@ func opj_j2k_read_poc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	l_current_poc_remaining = p_header_size % l_chunk_size
 
 	if l_current_poc_nb <= TOPJ_UINT32(0) || l_current_poc_remaining != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6162, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6298, 0)
 		return DOPJ_FALSE
 	}
 
@@ -24362,7 +24828,7 @@ func opj_j2k_read_poc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	l_current_poc_nb = l_current_poc_nb + l_old_poc_nb
 
 	if l_current_poc_nb >= TOPJ_UINT32(DJ2K_MAX_POCS) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6188, libc.VaList(bp, l_current_poc_nb))
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6324, libc.VaList(bp, l_current_poc_nb))
 		return DOPJ_FALSE
 	}
 
@@ -24401,7 +24867,7 @@ func opj_j2k_read_poc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__96 = *(*[17]int8)(unsafe.Pointer(ts + 6206)) /* j2k.c:3528:1 */
+var __func__96 = *(*[17]int8)(unsafe.Pointer(ts + 6342)) /* j2k.c:3528:1 */
 
 // *
 // Reads a CRG marker (Component registration)
@@ -24414,15 +24880,15 @@ func opj_j2k_read_crg(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	var l_nb_comp TOPJ_UINT32
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__97)), ts+3631, 3622, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__97)), ts+3767, 3622, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__97)), ts+3631, 3623, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__97)), ts+3767, 3623, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__97)), ts+3631, 3624, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__97)), ts+3767, 3624, ts+4095)
 	} else {
 	}
 
@@ -24431,7 +24897,7 @@ func opj_j2k_read_crg(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	l_nb_comp = (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps
 
 	if p_header_size != l_nb_comp*TOPJ_UINT32(4) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6223, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6359, 0)
 		return DOPJ_FALSE
 	}
 	// Do not care of this at the moment since only local variables are set here
@@ -24448,7 +24914,7 @@ func opj_j2k_read_crg(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__97 = *(*[17]int8)(unsafe.Pointer(ts + 6249)) /* j2k.c:3619:1 */
+var __func__97 = *(*[17]int8)(unsafe.Pointer(ts + 6385)) /* j2k.c:3619:1 */
 
 // *
 // Reads a TLM marker (Tile Length Marker)
@@ -24472,22 +24938,22 @@ func opj_j2k_read_tlm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	var l_Ptlm_size TOPJ_UINT32
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__98)), ts+3631, 3665, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__98)), ts+3767, 3665, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__98)), ts+3631, 3666, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__98)), ts+3767, 3666, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__98)), ts+3631, 3667, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__98)), ts+3767, 3667, ts+4095)
 	} else {
 	}
 
 	_ = p_j2k
 
 	if p_header_size < TOPJ_UINT32(2) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6266, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6402, 0)
 		return DOPJ_FALSE
 	}
 	p_header_size = p_header_size - TOPJ_UINT32(2)
@@ -24508,7 +24974,7 @@ func opj_j2k_read_tlm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	l_tot_num_tp_remaining = p_header_size % l_quotient
 
 	if l_tot_num_tp_remaining != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6266, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6402, 0)
 		return DOPJ_FALSE
 	}
 	// FIXME Do not care of this at the moment since only local variables are set here
@@ -24524,7 +24990,7 @@ func opj_j2k_read_tlm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__98 = *(*[17]int8)(unsafe.Pointer(ts + 6292)) /* j2k.c:3661:1 */
+var __func__98 = *(*[17]int8)(unsafe.Pointer(ts + 6428)) /* j2k.c:3661:1 */
 
 // *
 // Reads a PLM marker (Packet length, main header marker)
@@ -24536,15 +25002,15 @@ var __func__98 = *(*[17]int8)(unsafe.Pointer(ts + 6292)) /* j2k.c:3661:1 */
 func opj_j2k_read_plm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* j2k.c:3717:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__99)), ts+3631, 3724, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__99)), ts+3767, 3724, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__99)), ts+3631, 3725, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__99)), ts+3767, 3725, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__99)), ts+3631, 3726, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__99)), ts+3767, 3726, ts+4095)
 	} else {
 	}
 
@@ -24552,7 +25018,7 @@ func opj_j2k_read_plm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	_ = p_header_data
 
 	if p_header_size < TOPJ_UINT32(1) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6309, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6445, 0)
 		return DOPJ_FALSE
 	}
 	// Do not care of this at the moment since only local variables are set here
@@ -24602,7 +25068,7 @@ func opj_j2k_read_plm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__99 = *(*[17]int8)(unsafe.Pointer(ts + 6335)) /* j2k.c:3722:1 */
+var __func__99 = *(*[17]int8)(unsafe.Pointer(ts + 6471)) /* j2k.c:3722:1 */
 
 // *
 // Reads a PLT marker (Packet length, tile-part header)
@@ -24624,22 +25090,22 @@ func opj_j2k_read_plt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__100)), ts+3631, 3799, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__100)), ts+3767, 3799, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__100)), ts+3631, 3800, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__100)), ts+3767, 3800, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__100)), ts+3631, 3801, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__100)), ts+3767, 3801, ts+4095)
 	} else {
 	}
 
 	_ = p_j2k
 
 	if p_header_size < TOPJ_UINT32(1) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6352, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6488, 0)
 		return DOPJ_FALSE
 	}
 
@@ -24661,14 +25127,14 @@ func opj_j2k_read_plt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	}
 
 	if l_packet_len != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6352, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6488, 0)
 		return DOPJ_FALSE
 	}
 
 	return DOPJ_TRUE
 }
 
-var __func__100 = *(*[17]int8)(unsafe.Pointer(ts + 6378)) /* j2k.c:3795:1 */
+var __func__100 = *(*[17]int8)(unsafe.Pointer(ts + 6514)) /* j2k.c:3795:1 */
 
 // *
 // Reads a PPM marker (Packed packet headers, main header)
@@ -24687,21 +25153,21 @@ func opj_j2k_read_ppm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__101)), ts+3631, 3854, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__101)), ts+3767, 3854, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__101)), ts+3631, 3855, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__101)), ts+3767, 3855, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__101)), ts+3631, 3856, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__101)), ts+3767, 3856, ts+4095)
 	} else {
 	}
 
 	// We need to have the Z_ppm element + 1 byte of Nppm/Ippm at minimum
 	if p_header_size < TOPJ_UINT32(2) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6395, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6531, 0)
 		return DOPJ_FALSE
 	}
 
@@ -24716,13 +25182,13 @@ func opj_j2k_read_ppm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	if (*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers == uintptr(0) { // first PPM marker
 		var l_newCount TOPJ_UINT32 = *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)) + 1 // can't overflow, l_Z_ppm is UINT8
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers_count == 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__101)), ts+3631, 3874, ts+6421)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__101)), ts+3767, 3874, ts+6557)
 		} else {
 		}
 
 		(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers = Xopj_calloc(tls, uint64(l_newCount), uint64(unsafe.Sizeof(Topj_ppx{})))
 		if (*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers == uintptr(0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6451, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6587, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers_count = l_newCount
@@ -24733,7 +25199,7 @@ func opj_j2k_read_ppm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 			uint64(l_newCount)*uint64(unsafe.Sizeof(Topj_ppx{})))
 		if new_ppm_markers == uintptr(0) {
 			// clean up to be done on l_cp destruction
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6451, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6587, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers = new_ppm_markers
@@ -24743,14 +25209,14 @@ func opj_j2k_read_ppm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if (*Topj_ppx)(unsafe.Pointer((*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers+uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)))*16)).Fm_data != uintptr(0) {
 		// clean up to be done on l_cp destruction
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6489, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_Z_ppm */))))
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6625, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_Z_ppm */))))
 		return DOPJ_FALSE
 	}
 
 	(*Topj_ppx)(unsafe.Pointer((*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers + uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_Z_ppm */)))*16)).Fm_data = Xopj_malloc(tls, uint64(p_header_size))
 	if (*Topj_ppx)(unsafe.Pointer((*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers+uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)))*16)).Fm_data == uintptr(0) {
 		// clean up to be done on l_cp destruction
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6451, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6587, 0)
 		return DOPJ_FALSE
 	}
 	(*Topj_ppx)(unsafe.Pointer((*Topj_cp_t)(unsafe.Pointer(l_cp)).Fppm_markers + uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_Z_ppm */)))*16)).Fm_data_size = p_header_size
@@ -24759,7 +25225,7 @@ func opj_j2k_read_ppm(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__101 = *(*[17]int8)(unsafe.Pointer(ts + 6511)) /* j2k.c:3849:1 */
+var __func__101 = *(*[17]int8)(unsafe.Pointer(ts + 6647)) /* j2k.c:3849:1 */
 
 // *
 // Merges all PPM markers read (Packed headers, main header)
@@ -24776,15 +25242,15 @@ func opj_j2k_merge_ppm(tls *libc.TLS, p_cp uintptr, p_manager uintptr) TOPJ_BOOL
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__102)), ts+3631, 3927, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__102)), ts+3767, 3927, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__102)), ts+3631, 3928, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__102)), ts+3767, 3928, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_cp_t)(unsafe.Pointer(p_cp)).Fppm_buffer == uintptr(0))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__102)), ts+3631, 3929, ts+6539)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__102)), ts+3767, 3929, ts+6675)
 	} else {
 	}
 
@@ -24815,7 +25281,7 @@ func opj_j2k_merge_ppm(tls *libc.TLS, p_cp uintptr, p_manager uintptr) TOPJ_BOOL
 					// read Nppm
 					if l_data_size < 4 {
 						// clean up to be done on l_cp destruction
-						Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6564, 0)
+						Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6700, 0)
 						return DOPJ_FALSE
 					}
 					Xopj_read_bytes_LE(tls, l_data, bp, uint32(4))
@@ -24837,13 +25303,13 @@ func opj_j2k_merge_ppm(tls *libc.TLS, p_cp uintptr, p_manager uintptr) TOPJ_BOOL
 
 	if l_N_ppm_remaining != 0 {
 		// clean up to be done on l_cp destruction
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6595, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6731, 0)
 		return DOPJ_FALSE
 	}
 
 	(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fppm_buffer = Xopj_malloc(tls, uint64(l_ppm_data_size))
 	if (*Topj_cp_t)(unsafe.Pointer(p_cp)).Fppm_buffer == uintptr(00) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6451, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6587, 0)
 		return DOPJ_FALSE
 	}
 	(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fppm_len = l_ppm_data_size
@@ -24874,7 +25340,7 @@ func opj_j2k_merge_ppm(tls *libc.TLS, p_cp uintptr, p_manager uintptr) TOPJ_BOOL
 					// read Nppm
 					if l_data_size < 4 {
 						// clean up to be done on l_cp destruction
-						Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6564, 0)
+						Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6700, 0)
 						return DOPJ_FALSE
 					}
 					Xopj_read_bytes_LE(tls, l_data, bp+4, uint32(4))
@@ -24910,7 +25376,7 @@ func opj_j2k_merge_ppm(tls *libc.TLS, p_cp uintptr, p_manager uintptr) TOPJ_BOOL
 	return DOPJ_TRUE
 }
 
-var __func__102 = *(*[18]int8)(unsafe.Pointer(ts + 6618)) /* j2k.c:3923:1 */
+var __func__102 = *(*[18]int8)(unsafe.Pointer(ts + 6754)) /* j2k.c:3923:1 */
 
 // *
 // Reads a PPT marker (Packed packet headers, tile-part header)
@@ -24929,28 +25395,28 @@ func opj_j2k_read_ppt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__103)), ts+3631, 4073, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__103)), ts+3767, 4073, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__103)), ts+3631, 4074, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__103)), ts+3767, 4074, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__103)), ts+3631, 4075, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__103)), ts+3767, 4075, ts+4095)
 	} else {
 	}
 
 	// We need to have the Z_ppt element + 1 byte of Ippt at minimum
 	if p_header_size < TOPJ_UINT32(2) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6636, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6772, 0)
 		return DOPJ_FALSE
 	}
 
 	l_cp = p_j2k + 112
 	if TOPJ_BITFIELD(int32(*(*uint8)(unsafe.Pointer(l_cp + 148))&0x1>>0)) != 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+6662, 0)
+			ts+6798, 0)
 		return DOPJ_FALSE
 	}
 
@@ -24965,13 +25431,13 @@ func opj_j2k_read_ppt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	if (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers == uintptr(0) { // first PPT marker
 		var l_newCount TOPJ_UINT32 = *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)) + 1 // can't overflow, l_Z_ppt is UINT8
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers_count == 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__103)), ts+3631, 4100, ts+6763)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__103)), ts+3767, 4100, ts+6899)
 		} else {
 		}
 
 		(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers = Xopj_calloc(tls, uint64(l_newCount), uint64(unsafe.Sizeof(Topj_ppx{})))
 		if (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers == uintptr(0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6794, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6930, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers_count = l_newCount
@@ -24982,7 +25448,7 @@ func opj_j2k_read_ppt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 			uint64(l_newCount)*uint64(unsafe.Sizeof(Topj_ppx{})))
 		if new_ppt_markers == uintptr(0) {
 			// clean up to be done on l_tcp destruction
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6794, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6930, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers = new_ppt_markers
@@ -24992,14 +25458,14 @@ func opj_j2k_read_ppt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if (*Topj_ppx)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers+uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)))*16)).Fm_data != uintptr(0) {
 		// clean up to be done on l_tcp destruction
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6832, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_Z_ppt */))))
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6968, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_Z_ppt */))))
 		return DOPJ_FALSE
 	}
 
 	(*Topj_ppx)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers + uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_Z_ppt */)))*16)).Fm_data = Xopj_malloc(tls, uint64(p_header_size))
 	if (*Topj_ppx)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers+uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)))*16)).Fm_data == uintptr(0) {
 		// clean up to be done on l_tcp destruction
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6794, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6930, 0)
 		return DOPJ_FALSE
 	}
 	(*Topj_ppx)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fppt_markers + uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_Z_ppt */)))*16)).Fm_data_size = p_header_size
@@ -25007,7 +25473,7 @@ func opj_j2k_read_ppt(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__103 = *(*[17]int8)(unsafe.Pointer(ts + 6854)) /* j2k.c:4067:1 */
+var __func__103 = *(*[17]int8)(unsafe.Pointer(ts + 6990)) /* j2k.c:4067:1 */
 
 // *
 // Merges all PPT markers read (Packed packet headers, tile-part header)
@@ -25019,17 +25485,17 @@ func opj_j2k_merge_ppt(tls *libc.TLS, p_tcp uintptr, p_manager uintptr) TOPJ_BOO
 	var l_ppt_data_size TOPJ_UINT32
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tcp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__104)), ts+3631, 4151, ts+6871)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__104)), ts+3767, 4151, ts+7007)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__104)), ts+3631, 4152, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__104)), ts+3767, 4152, ts+4095)
 	} else {
 	}
 
 	if (*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fppt_buffer != uintptr(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+6883, 0)
+			ts+7019, 0)
 		return DOPJ_FALSE
 	}
 
@@ -25044,7 +25510,7 @@ func opj_j2k_merge_ppt(tls *libc.TLS, p_tcp uintptr, p_manager uintptr) TOPJ_BOO
 
 	(*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fppt_buffer = Xopj_malloc(tls, uint64(l_ppt_data_size))
 	if (*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fppt_buffer == uintptr(00) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6794, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+6930, 0)
 		return DOPJ_FALSE
 	}
 	(*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fppt_len = l_ppt_data_size
@@ -25069,7 +25535,7 @@ func opj_j2k_merge_ppt(tls *libc.TLS, p_tcp uintptr, p_manager uintptr) TOPJ_BOO
 	return DOPJ_TRUE
 }
 
-var __func__104 = *(*[18]int8)(unsafe.Pointer(ts + 6928)) /* j2k.c:4148:1 */
+var __func__104 = *(*[18]int8)(unsafe.Pointer(ts + 7064)) /* j2k.c:4148:1 */
 
 func opj_j2k_write_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4200:17: */
 	var l_current_data uintptr = uintptr(00)
@@ -25078,15 +25544,15 @@ func opj_j2k_write_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__105)), ts+3631, 4210, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__105)), ts+3767, 4210, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__105)), ts+3631, 4211, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__105)), ts+3767, 4211, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__105)), ts+3631, 4212, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__105)), ts+3767, 4212, ts+4132)
 	} else {
 	}
 
@@ -25096,7 +25562,7 @@ func opj_j2k_write_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 		// We could do more but it would require writing several TLM markers
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+6946, 0)
+			ts+7082, 0)
 		return DOPJ_FALSE
 	}
 
@@ -25117,7 +25583,7 @@ func opj_j2k_write_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+7025, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+7161, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -25165,20 +25631,20 @@ func opj_j2k_write_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__105 = *(*[18]int8)(unsafe.Pointer(ts + 7064)) /* j2k.c:4204:1 */
+var __func__105 = *(*[18]int8)(unsafe.Pointer(ts + 7200)) /* j2k.c:4204:1 */
 
 func opj_j2k_write_sot(tls *libc.TLS, p_j2k uintptr, p_data uintptr, total_data_size TOPJ_UINT32, p_data_written uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4285:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__106)), ts+3631, 4294, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__106)), ts+3767, 4294, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__106)), ts+3631, 4295, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__106)), ts+3767, 4295, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__106)), ts+3631, 4296, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__106)), ts+3767, 4296, ts+4132)
 	} else {
 	}
 
@@ -25186,7 +25652,7 @@ func opj_j2k_write_sot(tls *libc.TLS, p_j2k uintptr, p_data uintptr, total_data_
 
 	if total_data_size < TOPJ_UINT32(12) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+7082, 0)
+			ts+7218, 0)
 		return DOPJ_FALSE
 	}
 
@@ -25222,22 +25688,22 @@ func opj_j2k_write_sot(tls *libc.TLS, p_j2k uintptr, p_data uintptr, total_data_
 	return DOPJ_TRUE
 }
 
-var __func__106 = *(*[18]int8)(unsafe.Pointer(ts + 7137)) /* j2k.c:4292:1 */
+var __func__106 = *(*[18]int8)(unsafe.Pointer(ts + 7273)) /* j2k.c:4292:1 */
 
 func opj_j2k_get_sot_values(tls *libc.TLS, p_header_data uintptr, p_header_size TOPJ_UINT32, p_tile_no uintptr, p_tot_len uintptr, p_current_part uintptr, p_num_parts uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4345:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__107)), ts+3631, 4354, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__107)), ts+3767, 4354, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__107)), ts+3631, 4355, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__107)), ts+3767, 4355, ts+4095)
 	} else {
 	}
 
 	// Size of this marker is fixed = 12 (we have already read marker and its size)
 	if p_header_size != TOPJ_UINT32(8) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+7155, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+7291, 0)
 		return DOPJ_FALSE
 	}
 
@@ -25252,7 +25718,7 @@ func opj_j2k_get_sot_values(tls *libc.TLS, p_header_data uintptr, p_header_size 
 	return DOPJ_TRUE
 }
 
-var __func__107 = *(*[23]int8)(unsafe.Pointer(ts + 7181)) /* j2k.c:4352:1 */
+var __func__107 = *(*[23]int8)(unsafe.Pointer(ts + 7317)) /* j2k.c:4352:1 */
 
 func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4374:17: */
 	bp := tls.Alloc(108)
@@ -25271,18 +25737,18 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	// preconditions
 
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__108)), ts+3631, 4387, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__108)), ts+3767, 4387, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__108)), ts+3631, 4388, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__108)), ts+3767, 4388, ts+4095)
 	} else {
 	}
 
 	if !(opj_j2k_get_sot_values(tls, p_header_data, p_header_size,
 		p_j2k+288, bp+96, bp+100, bp+104,
 		p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+7155, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+7291, 0)
 		return DOPJ_FALSE
 	}
 
@@ -25290,7 +25756,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// testcase 2.pdf.SIGFPE.706.1112
 	if (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number >= (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+7204,
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+7340,
 			libc.VaList(bp, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number))
 		return DOPJ_FALSE
 	}
@@ -25313,7 +25779,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 		if (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_current_tile_part_number+1 != TOPJ_INT32(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 100))) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-				ts+7228,
+				ts+7364,
 				libc.VaList(bp+8, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number,
 					*(*TOPJ_UINT32)(unsafe.Pointer(bp + 100 /* l_current_part */)),
 					(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_current_tile_part_number+1))
@@ -25330,11 +25796,11 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	// PSot should be equal to zero or >=14 or <= 2^32-1
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 96)) != TOPJ_UINT32(0) && *(*TOPJ_UINT32)(unsafe.Pointer(bp + 96)) < TOPJ_UINT32(14) {
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 96)) == TOPJ_UINT32(12) { // MSD: Special case for the PHR data which are read by kakadu
-			Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+7293,
+			Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+7429,
 				libc.VaList(bp+32, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 96 /* l_tot_len */))))
 		} else {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+7330, libc.VaList(bp+40, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 96 /* l_tot_len */))))
+				ts+7466, libc.VaList(bp+40, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 96 /* l_tot_len */))))
 			return DOPJ_FALSE
 		}
 	}
@@ -25343,7 +25809,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	if !(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 96)) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_INFO,
 
-			ts+7391, 0)
+			ts+7527, 0)
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_last_tile_part = 1
 	}
 
@@ -25351,7 +25817,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 		// Fixes https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=2851
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+7502, libc.VaList(bp+48, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 100 /* l_current_part */)),
+			ts+7638, libc.VaList(bp+48, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 100 /* l_current_part */)),
 				(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_nb_tile_parts))
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_last_tile_part = 1
 		return DOPJ_FALSE
@@ -25365,7 +25831,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 			if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 100)) >= (*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_nb_tile_parts {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-					ts+7602, libc.VaList(bp+64, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 100 /* l_current_part */)),
+					ts+7738, libc.VaList(bp+64, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 100 /* l_current_part */)),
 						(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_nb_tile_parts))
 				(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_last_tile_part = 1
 				return DOPJ_FALSE
@@ -25375,7 +25841,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 			// testcase 451.pdf.SIGSEGV.ce9.3723
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-				ts+7701, libc.VaList(bp+80, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 100 /* l_current_part */)), *(*TOPJ_UINT32)(unsafe.Pointer(bp + 104 /* l_num_parts */))))
+				ts+7837, libc.VaList(bp+80, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 100 /* l_current_part */)), *(*TOPJ_UINT32)(unsafe.Pointer(bp + 104 /* l_num_parts */))))
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_last_tile_part = 1
 			return DOPJ_FALSE
 		}
@@ -25407,7 +25873,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 			l_tile_y >= (*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_end_tile_y)), 2, 0x4)
 	} else {
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_tile_ind_to_dec >= 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__108)), ts+3631, 4578, ts+7809)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__108)), ts+3767, 4578, ts+7945)
 		} else {
 		}
 		libc.SetBitFieldPtr8Uint32(p_j2k+8+80, TOPJ_BITFIELD(libc.Bool32((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number != TOPJ_UINT32((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_tile_ind_to_dec))), 2, 0x4)
@@ -25416,7 +25882,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	// Index
 	if (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index != 0 {
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index != uintptr(00))), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__108)), ts+3631, 4586, ts+7866)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__108)), ts+3767, 4586, ts+8002)
 		} else {
 		}
 		(*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index + uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftileno = (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number
@@ -25430,7 +25896,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 				(*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index + uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftp_index = Xopj_calloc(tls, uint64(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 104 /* l_num_parts */))), uint64(unsafe.Sizeof(Topj_tp_index_t{})))
 				if !(int32((*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index+uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftp_index) != 0) {
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+7902, 0)
+						ts+8038, 0)
 					return DOPJ_FALSE
 				}
 			} else {
@@ -25441,7 +25907,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 					Xopj_free(tls, (*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index+uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftp_index)
 					(*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index + uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftp_index = uintptr(0)
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+7902, 0)
+						ts+8038, 0)
 					return DOPJ_FALSE
 				}
 				(*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index + uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftp_index = new_tp_index
@@ -25457,7 +25923,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 					if !(int32((*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index+uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftp_index) != 0) {
 						(*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index + uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Fcurrent_nb_tps = TOPJ_UINT32(0)
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+7902, 0)
+							ts+8038, 0)
 						return DOPJ_FALSE
 					}
 				}
@@ -25473,7 +25939,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 						(*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index + uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftp_index = uintptr(0)
 						(*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index + uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Fcurrent_nb_tps = TOPJ_UINT32(0)
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+7902, 0)
+							ts+8038, 0)
 						return DOPJ_FALSE
 					}
 					(*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index + uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*56)).Ftp_index = new_tp_index
@@ -25515,7 +25981,7 @@ func opj_j2k_read_sot(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__108 = *(*[17]int8)(unsafe.Pointer(ts + 7970)) /* j2k.c:4378:1 */
+var __func__108 = *(*[17]int8)(unsafe.Pointer(ts + 8106)) /* j2k.c:4378:1 */
 
 // *
 // Write one or more PLT markers in the provided buffer
@@ -25563,7 +26029,7 @@ func opj_j2k_write_plt_in_memory(tls *libc.TLS, p_j2k uintptr, marker_info uintp
 		if int32(Lplt)+int32(var_bytes_size) > 65535 {
 			if int32(Zplt) == 255 {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+7987, 0)
+					ts+8123, 0)
 				return DOPJ_FALSE
 			}
 
@@ -25612,15 +26078,15 @@ func opj_j2k_write_sod(tls *libc.TLS, p_j2k uintptr, p_tile_coder uintptr, p_dat
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__109)), ts+3631, 4794, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__109)), ts+3767, 4794, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__109)), ts+3631, 4795, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__109)), ts+3767, 4795, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__109)), ts+3631, 4796, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__109)), ts+3767, 4796, ts+4132)
 	} else {
 	}
 
@@ -25628,7 +26094,7 @@ func opj_j2k_write_sod(tls *libc.TLS, p_j2k uintptr, p_tile_coder uintptr, p_dat
 
 	if total_data_size < TOPJ_UINT32(4) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+8054, 0)
+			ts+8190, 0)
 		return DOPJ_FALSE
 	}
 
@@ -25675,14 +26141,14 @@ func opj_j2k_write_sod(tls *libc.TLS, p_j2k uintptr, p_tile_coder uintptr, p_dat
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_PLT)
 		if marker_info == uintptr(0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+8109, 0)
+				ts+8245, 0)
 			return DOPJ_FALSE
 		}
 	}
 
 	if l_remaining_data < (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_reserved_bytes_for_PLT {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+8054, 0)
+			ts+8190, 0)
 		Xopj_tcd_marker_info_destroy(tls, marker_info)
 		return DOPJ_FALSE
 	}
@@ -25693,7 +26159,7 @@ func opj_j2k_write_sod(tls *libc.TLS, p_j2k uintptr, p_tile_coder uintptr, p_dat
 		p_data_written, l_remaining_data, l_cstr_info,
 		marker_info,
 		p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8166, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8302, 0)
 		Xopj_tcd_marker_info_destroy(tls, marker_info)
 		return DOPJ_FALSE
 	}
@@ -25706,7 +26172,7 @@ func opj_j2k_write_sod(tls *libc.TLS, p_j2k uintptr, p_tile_coder uintptr, p_dat
 		var p_PLT_buffer uintptr = Xopj_malloc(tls,
 			uint64((*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_reserved_bytes_for_PLT))
 		if !(p_PLT_buffer != 0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8186, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8322, 0)
 			Xopj_tcd_marker_info_destroy(tls, marker_info)
 			return DOPJ_FALSE
 		}
@@ -25721,7 +26187,7 @@ func opj_j2k_write_sod(tls *libc.TLS, p_j2k uintptr, p_tile_coder uintptr, p_dat
 		}
 
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(*(*TOPJ_UINT32)(unsafe.Pointer(bp)) <= (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_reserved_bytes_for_PLT)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__109)), ts+3631, 4908, ts+8210)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__109)), ts+3767, 4908, ts+8346)
 		} else {
 		}
 
@@ -25737,7 +26203,7 @@ func opj_j2k_write_sod(tls *libc.TLS, p_j2k uintptr, p_tile_coder uintptr, p_dat
 	return DOPJ_TRUE
 }
 
-var __func__109 = *(*[18]int8)(unsafe.Pointer(ts + 8291)) /* j2k.c:4788:1 */
+var __func__109 = *(*[18]int8)(unsafe.Pointer(ts + 8427)) /* j2k.c:4788:1 */
 
 func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:4923:17: */
 	var l_current_read_size TOPJ_SIZE_T
@@ -25749,15 +26215,15 @@ func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__110)), ts+3631, 4936, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__110)), ts+3767, 4936, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__110)), ts+3631, 4937, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__110)), ts+3767, 4937, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__110)), ts+3631, 4938, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__110)), ts+3767, 4938, ts+4132)
 	} else {
 	}
 
@@ -25788,17 +26254,17 @@ func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 		if TOPJ_OFF_T((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_sot_length) > Xopj_stream_get_number_byte_left(tls, p_stream) {
 			if (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fstrict != 0 {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+8309, 0)
+					ts+8445, 0)
 				return DOPJ_FALSE
 			} else {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-					ts+8309, 0)
+					ts+8445, 0)
 			}
 		}
 		if (*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_sot_length > uint32(2147483647)*2+1-uint32(DOPJ_COMMON_CBLK_DATA_EXTRA) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-				ts+8364, 0)
+				ts+8500, 0)
 			return DOPJ_FALSE
 		}
 		// Add a margin of OPJ_COMMON_CBLK_DATA_EXTRA to the allocation we
@@ -25814,7 +26280,7 @@ func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 			if *(*TOPJ_UINT32)(unsafe.Pointer(l_tile_len)) > uint32(2147483647)*2+1-uint32(DOPJ_COMMON_CBLK_DATA_EXTRA)-(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_sot_length {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-					ts+8451, 0)
+					ts+8587, 0)
 				return DOPJ_FALSE
 			}
 
@@ -25831,7 +26297,7 @@ func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 		}
 
 		if *(*uintptr)(unsafe.Pointer(l_current_data)) == uintptr(00) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8552, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8688, 0)
 			return DOPJ_FALSE
 		}
 	} else {
@@ -25852,7 +26318,7 @@ func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 			uint32(DJ2K_MS_SOD),
 			l_current_pos,
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_sot_length+TOPJ_UINT32(2)) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8586, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8722, 0)
 			return DOPJ_FALSE
 		}
 
@@ -25881,7 +26347,7 @@ func opj_j2k_read_sod(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager 
 	return DOPJ_TRUE
 }
 
-var __func__110 = *(*[17]int8)(unsafe.Pointer(ts + 8622)) /* j2k.c:4927:1 */
+var __func__110 = *(*[17]int8)(unsafe.Pointer(ts + 8758)) /* j2k.c:4927:1 */
 
 func opj_j2k_write_rgn(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_comp_no TOPJ_UINT32, nb_comps TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5071:17: */
 	var l_current_data uintptr = uintptr(00)
@@ -25893,15 +26359,15 @@ func opj_j2k_write_rgn(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_co
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__111)), ts+3631, 5087, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__111)), ts+3767, 5087, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__111)), ts+3631, 5088, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__111)), ts+3767, 5088, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__111)), ts+3631, 5089, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__111)), ts+3767, 5089, ts+4132)
 	} else {
 	}
 
@@ -25948,20 +26414,20 @@ func opj_j2k_write_rgn(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_co
 	return DOPJ_TRUE
 }
 
-var __func__111 = *(*[18]int8)(unsafe.Pointer(ts + 8639)) /* j2k.c:5078:1 */
+var __func__111 = *(*[18]int8)(unsafe.Pointer(ts + 8775)) /* j2k.c:5078:1 */
 
 func opj_j2k_write_eoc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5134:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__112)), ts+3631, 5140, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__112)), ts+3767, 5140, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__112)), ts+3631, 5141, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__112)), ts+3767, 5141, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__112)), ts+3631, 5142, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__112)), ts+3767, 5142, ts+4132)
 	} else {
 	}
 
@@ -25982,7 +26448,7 @@ func opj_j2k_write_eoc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__112 = *(*[18]int8)(unsafe.Pointer(ts + 8657)) /* j2k.c:5138:1 */
+var __func__112 = *(*[18]int8)(unsafe.Pointer(ts + 8793)) /* j2k.c:5138:1 */
 
 // *
 // Reads a RGN marker (Region Of Interest)
@@ -26007,15 +26473,15 @@ func opj_j2k_read_rgn(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__113)), ts+3631, 5189, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__113)), ts+3767, 5189, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__113)), ts+3631, 5190, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__113)), ts+3767, 5190, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__113)), ts+3631, 5191, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__113)), ts+3767, 5191, ts+4095)
 	} else {
 	}
 
@@ -26029,7 +26495,7 @@ func opj_j2k_read_rgn(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	}
 
 	if p_header_size != TOPJ_UINT32(2)+l_comp_room {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8675, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8811, 0)
 		return DOPJ_FALSE
 	}
 
@@ -26049,7 +26515,7 @@ func opj_j2k_read_rgn(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	// testcase 3635.pdf.asan.77.2930
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 16)) >= l_nb_comp {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+8701,
+			ts+8837,
 			libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 16 /* l_comp_no */)), l_nb_comp))
 		return DOPJ_FALSE
 	}
@@ -26062,7 +26528,7 @@ func opj_j2k_read_rgn(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 }
 
-var __func__113 = *(*[17]int8)(unsafe.Pointer(ts + 8758)) /* j2k.c:5180:1 */
+var __func__113 = *(*[17]int8)(unsafe.Pointer(ts + 8894)) /* j2k.c:5180:1 */
 
 func opj_j2k_get_tp_stride(tls *libc.TLS, p_tcp uintptr) TOPJ_FLOAT32 { /* j2k.c:5249:20: */
 	return TOPJ_FLOAT32(((*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fm_nb_tile_parts - TOPJ_UINT32(1)) * TOPJ_UINT32(14))
@@ -26098,15 +26564,15 @@ func opj_j2k_update_rates(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__114)), ts+3631, 5279, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__114)), ts+3767, 5279, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__114)), ts+3631, 5280, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__114)), ts+3767, 5280, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__114)), ts+3631, 5281, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__114)), ts+3767, 5281, ts+4132)
 	} else {
 	}
 
@@ -26240,7 +26706,7 @@ func opj_j2k_update_rates(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 	(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_encoded_tile_data = Xopj_malloc(tls, uint64((*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_encoded_tile_size))
 	if (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_encoded_tile_data == uintptr(00) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+8775,
+			ts+8911,
 			libc.VaList(bp, TOPJ_UINT32(l_tile_size/uint64(1024)/uint64(1024))))
 		return DOPJ_FALSE
 	}
@@ -26257,20 +26723,20 @@ func opj_j2k_update_rates(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 	return DOPJ_TRUE
 }
 
-var __func__114 = *(*[21]int8)(unsafe.Pointer(ts + 8842)) /* j2k.c:5263:1 */
+var __func__114 = *(*[21]int8)(unsafe.Pointer(ts + 8978)) /* j2k.c:5263:1 */
 
 func opj_j2k_get_end_header(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5487:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__115)), ts+3631, 5492, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__115)), ts+3767, 5492, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__115)), ts+3631, 5493, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__115)), ts+3767, 5493, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__115)), ts+3631, 5494, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__115)), ts+3767, 5494, ts+4132)
 	} else {
 	}
 
@@ -26281,7 +26747,7 @@ func opj_j2k_get_end_header(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_ma
 	return DOPJ_TRUE
 }
 
-var __func__115 = *(*[23]int8)(unsafe.Pointer(ts + 8863)) /* j2k.c:5490:1 */
+var __func__115 = *(*[23]int8)(unsafe.Pointer(ts + 8999)) /* j2k.c:5490:1 */
 
 func opj_j2k_write_mct_data_group(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5503:17: */
 	var i TOPJ_UINT32
@@ -26291,15 +26757,15 @@ func opj_j2k_write_mct_data_group(tls *libc.TLS, p_j2k uintptr, p_stream uintptr
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__116)), ts+3631, 5513, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__116)), ts+3767, 5513, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__116)), ts+3631, 5514, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__116)), ts+3767, 5514, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__116)), ts+3631, 5515, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__116)), ts+3767, 5515, ts+4095)
 	} else {
 	}
 
@@ -26337,22 +26803,22 @@ func opj_j2k_write_mct_data_group(tls *libc.TLS, p_j2k uintptr, p_stream uintptr
 	return DOPJ_TRUE
 }
 
-var __func__116 = *(*[29]int8)(unsafe.Pointer(ts + 8886)) /* j2k.c:5506:1 */
+var __func__116 = *(*[29]int8)(unsafe.Pointer(ts + 9022)) /* j2k.c:5506:1 */
 
 func opj_j2k_write_all_coc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5551:17: */
 	var compno TOPJ_UINT32
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__117)), ts+3631, 5559, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__117)), ts+3767, 5559, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__117)), ts+3631, 5560, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__117)), ts+3767, 5560, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__117)), ts+3631, 5561, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__117)), ts+3767, 5561, ts+4132)
 	} else {
 	}
 
@@ -26368,22 +26834,22 @@ func opj_j2k_write_all_coc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_man
 	return DOPJ_TRUE
 }
 
-var __func__117 = *(*[22]int8)(unsafe.Pointer(ts + 8915)) /* j2k.c:5555:1 */
+var __func__117 = *(*[22]int8)(unsafe.Pointer(ts + 9051)) /* j2k.c:5555:1 */
 
 func opj_j2k_write_all_qcc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5575:17: */
 	var compno TOPJ_UINT32
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__118)), ts+3631, 5583, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__118)), ts+3767, 5583, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__118)), ts+3631, 5584, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__118)), ts+3767, 5584, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__118)), ts+3631, 5585, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__118)), ts+3767, 5585, ts+4132)
 	} else {
 	}
 
@@ -26398,7 +26864,7 @@ func opj_j2k_write_all_qcc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_man
 	return DOPJ_TRUE
 }
 
-var __func__118 = *(*[22]int8)(unsafe.Pointer(ts + 8937)) /* j2k.c:5579:1 */
+var __func__118 = *(*[22]int8)(unsafe.Pointer(ts + 9073)) /* j2k.c:5579:1 */
 
 func opj_j2k_write_regions(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5598:17: */
 	var compno TOPJ_UINT32
@@ -26406,15 +26872,15 @@ func opj_j2k_write_regions(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_man
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__119)), ts+3631, 5606, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__119)), ts+3767, 5606, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__119)), ts+3631, 5607, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__119)), ts+3767, 5607, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__119)), ts+3631, 5608, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__119)), ts+3767, 5608, ts+4132)
 	} else {
 	}
 
@@ -26435,22 +26901,22 @@ func opj_j2k_write_regions(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_man
 	return DOPJ_TRUE
 }
 
-var __func__119 = *(*[22]int8)(unsafe.Pointer(ts + 8959)) /* j2k.c:5601:1 */
+var __func__119 = *(*[22]int8)(unsafe.Pointer(ts + 9095)) /* j2k.c:5601:1 */
 
 func opj_j2k_write_epc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5627:17: */
 	var l_cstr_index uintptr = uintptr(00)
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__120)), ts+3631, 5634, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__120)), ts+3767, 5634, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__120)), ts+3631, 5635, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__120)), ts+3767, 5635, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__120)), ts+3631, 5636, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__120)), ts+3767, 5636, ts+4132)
 	} else {
 	}
 
@@ -26470,7 +26936,7 @@ func opj_j2k_write_epc(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__120 = *(*[18]int8)(unsafe.Pointer(ts + 8981)) /* j2k.c:5630:1 */
+var __func__120 = *(*[18]int8)(unsafe.Pointer(ts + 9117)) /* j2k.c:5630:1 */
 
 func opj_j2k_read_unk(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, output_marker uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5667:17: */
 	bp := tls.Alloc(4)
@@ -26483,25 +26949,25 @@ func opj_j2k_read_unk(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, output_mar
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__121)), ts+3631, 5678, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__121)), ts+3767, 5678, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__121)), ts+3631, 5679, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__121)), ts+3767, 5679, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__121)), ts+3631, 5680, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__121)), ts+3767, 5680, ts+4132)
 	} else {
 	}
 
-	Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+8999, 0)
+	Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+9135, 0)
 
 	for {
 		// Try to read 2 bytes (the next marker ID) from stream and copy them into the buffer
 		if Xopj_stream_read_data(tls, p_stream,
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, uint64(2), p_manager) != uint64(2) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 			return DOPJ_FALSE
 		}
 
@@ -26516,7 +26982,7 @@ func opj_j2k_read_unk(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, output_mar
 
 			if !((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_state&(*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fstates != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+9033, 0)
+					ts+9169, 0)
 				return DOPJ_FALSE
 			} else {
 				if (*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fid != TOPJ_UINT32(DJ2K_MS_UNK) {
@@ -26526,7 +26992,7 @@ func opj_j2k_read_unk(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, output_mar
 							int64(TOPJ_UINT32(Xopj_stream_tell(tls, p_stream))-l_size_unk),
 							l_size_unk)
 						if res == DOPJ_FALSE {
-							Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4068, 0)
+							Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4204, 0)
 							return DOPJ_FALSE
 						}
 					}
@@ -26543,7 +27009,7 @@ func opj_j2k_read_unk(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, output_mar
 	return DOPJ_TRUE
 }
 
-var __func__121 = *(*[17]int8)(unsafe.Pointer(ts + 9076)) /* j2k.c:5672:1 */
+var __func__121 = *(*[17]int8)(unsafe.Pointer(ts + 9212)) /* j2k.c:5672:1 */
 
 func opj_j2k_write_mct_record(tls *libc.TLS, p_j2k uintptr, p_mct_record uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5730:17: */
 	var l_mct_size TOPJ_UINT32
@@ -26552,15 +27018,15 @@ func opj_j2k_write_mct_record(tls *libc.TLS, p_j2k uintptr, p_mct_record uintptr
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__122)), ts+3631, 5740, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__122)), ts+3767, 5740, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__122)), ts+3631, 5741, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__122)), ts+3767, 5741, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__122)), ts+3631, 5742, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__122)), ts+3767, 5742, ts+4132)
 	} else {
 	}
 
@@ -26573,7 +27039,7 @@ func opj_j2k_write_mct_record(tls *libc.TLS, p_j2k uintptr, p_mct_record uintptr
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9093, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9229, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -26615,7 +27081,7 @@ func opj_j2k_write_mct_record(tls *libc.TLS, p_j2k uintptr, p_mct_record uintptr
 	return DOPJ_TRUE
 }
 
-var __func__122 = *(*[25]int8)(unsafe.Pointer(ts + 9132)) /* j2k.c:5734:1 */
+var __func__122 = *(*[25]int8)(unsafe.Pointer(ts + 9268)) /* j2k.c:5734:1 */
 
 // *
 // Reads a MCT marker (Multiple Component Transform)
@@ -26637,11 +27103,11 @@ func opj_j2k_read_mct(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__123)), ts+3631, 5817, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__123)), ts+3767, 5817, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__123)), ts+3631, 5818, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__123)), ts+3767, 5818, ts+4083)
 	} else {
 	}
 
@@ -26652,7 +27118,7 @@ func opj_j2k_read_mct(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	}
 
 	if p_header_size < TOPJ_UINT32(2) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9157, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9293, 0)
 		return DOPJ_FALSE
 	}
 
@@ -26661,12 +27127,12 @@ func opj_j2k_read_mct(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	p_header_data += uintptr(2)
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+9183, 0)
+			ts+9319, 0)
 		return DOPJ_TRUE
 	}
 
 	if p_header_size <= TOPJ_UINT32(6) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9157, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9293, 0)
 		return DOPJ_FALSE
 	}
 
@@ -26697,7 +27163,7 @@ func opj_j2k_read_mct(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 				(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_mct_records = uintptr(0)
 				(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_nb_max_mct_records = TOPJ_UINT32(0)
 				(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_nb_mct_records = TOPJ_UINT32(0)
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9243, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9379, 0)
 				return DOPJ_FALSE
 			}
 
@@ -26738,7 +27204,7 @@ func opj_j2k_read_mct(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	p_header_data += uintptr(2)
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+9281, 0)
+			ts+9417, 0)
 		return DOPJ_TRUE
 	}
 
@@ -26746,7 +27212,7 @@ func opj_j2k_read_mct(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	(*Topj_mct_data_t)(unsafe.Pointer(l_mct_data)).Fm_data = Xopj_malloc(tls, uint64(p_header_size))
 	if !(int32((*Topj_mct_data_t)(unsafe.Pointer(l_mct_data)).Fm_data) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9157, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9293, 0)
 		return DOPJ_FALSE
 	}
 	libc.X__builtin___memcpy_chk(tls, (*Topj_mct_data_t)(unsafe.Pointer(l_mct_data)).Fm_data, p_header_data, uint64(p_header_size), libc.X__builtin_object_size(tls, (*Topj_mct_data_t)(unsafe.Pointer(l_mct_data)).Fm_data, 0))
@@ -26756,7 +27222,7 @@ func opj_j2k_read_mct(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__123 = *(*[17]int8)(unsafe.Pointer(ts + 9325)) /* j2k.c:5809:1 */
+var __func__123 = *(*[17]int8)(unsafe.Pointer(ts + 9461)) /* j2k.c:5809:1 */
 
 func opj_j2k_write_mcc_record(tls *libc.TLS, p_j2k uintptr, p_mcc_record uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:5937:17: */
 	var i TOPJ_UINT32
@@ -26768,15 +27234,15 @@ func opj_j2k_write_mcc_record(tls *libc.TLS, p_j2k uintptr, p_mcc_record uintptr
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__124)), ts+3631, 5950, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__124)), ts+3767, 5950, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__124)), ts+3631, 5951, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__124)), ts+3767, 5951, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__124)), ts+3631, 5952, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__124)), ts+3767, 5952, ts+4132)
 	} else {
 	}
 
@@ -26796,7 +27262,7 @@ func opj_j2k_write_mcc_record(tls *libc.TLS, p_j2k uintptr, p_mcc_record uintptr
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9342, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9478, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -26878,7 +27344,7 @@ func opj_j2k_write_mcc_record(tls *libc.TLS, p_j2k uintptr, p_mcc_record uintptr
 	return DOPJ_TRUE
 }
 
-var __func__124 = *(*[25]int8)(unsafe.Pointer(ts + 9381)) /* j2k.c:5941:1 */
+var __func__124 = *(*[25]int8)(unsafe.Pointer(ts + 9517)) /* j2k.c:5941:1 */
 
 func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* j2k.c:6052:17: */
 	bp := tls.Alloc(16)
@@ -26902,15 +27368,15 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__125)), ts+3631, 6069, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__125)), ts+3767, 6069, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__125)), ts+3631, 6070, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__125)), ts+3767, 6070, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__125)), ts+3631, 6071, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__125)), ts+3767, 6071, ts+4095)
 	} else {
 	}
 
@@ -26921,7 +27387,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	}
 
 	if p_header_size < TOPJ_UINT32(2) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9406, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9542, 0)
 		return DOPJ_FALSE
 	}
 
@@ -26930,12 +27396,12 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	p_header_data += uintptr(2)
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+9432, 0)
+			ts+9568, 0)
 		return DOPJ_TRUE
 	}
 
 	if p_header_size < TOPJ_UINT32(7) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9406, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9542, 0)
 		return DOPJ_FALSE
 	}
 
@@ -26965,7 +27431,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 				(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_mcc_records = uintptr(0)
 				(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_nb_max_mcc_records = TOPJ_UINT32(0)
 				(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_nb_mcc_records = TOPJ_UINT32(0)
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9478, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9614, 0)
 				return DOPJ_FALSE
 			}
 			(*Topj_tcp_t)(unsafe.Pointer(l_tcp)).Fm_mcc_records = new_mcc_records
@@ -26982,7 +27448,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	p_header_data += uintptr(2)
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+9432, 0)
+			ts+9568, 0)
 		return DOPJ_TRUE
 	}
 
@@ -26992,7 +27458,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)) > TOPJ_UINT32(1) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+9516, 0)
+			ts+9652, 0)
 		return DOPJ_TRUE
 	}
 
@@ -27000,7 +27466,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	for i = TOPJ_UINT32(0); i < *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_nb_collections */)); i++ {
 		if p_header_size < TOPJ_UINT32(3) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9406, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9542, 0)
 			return DOPJ_FALSE
 		}
 
@@ -27010,7 +27476,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(1) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+9560, 0)
+				ts+9696, 0)
 			return DOPJ_TRUE
 		}
 
@@ -27023,7 +27489,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 		(*Topj_simple_mcc_decorrelation_data_t)(unsafe.Pointer(l_mcc_record)).Fm_nb_comps = *(*TOPJ_UINT32)(unsafe.Pointer(bp + 12)) & TOPJ_UINT32(0x7fff)
 
 		if p_header_size < l_nb_bytes_by_comp*(*Topj_simple_mcc_decorrelation_data_t)(unsafe.Pointer(l_mcc_record)).Fm_nb_comps+TOPJ_UINT32(2) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9406, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9542, 0)
 			return DOPJ_FALSE
 		}
 
@@ -27036,7 +27502,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 			if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != j {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-					ts+9626, 0)
+					ts+9762, 0)
 				return DOPJ_TRUE
 			}
 		}
@@ -27049,12 +27515,12 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 12)) != (*Topj_simple_mcc_decorrelation_data_t)(unsafe.Pointer(l_mcc_record)).Fm_nb_comps {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+9680, 0)
+				ts+9816, 0)
 			return DOPJ_TRUE
 		}
 
 		if p_header_size < l_nb_bytes_by_comp*(*Topj_simple_mcc_decorrelation_data_t)(unsafe.Pointer(l_mcc_record)).Fm_nb_comps+TOPJ_UINT32(3) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9406, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9542, 0)
 			return DOPJ_FALSE
 		}
 
@@ -27067,7 +27533,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 			if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != j {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-					ts+9626, 0)
+					ts+9762, 0)
 				return DOPJ_TRUE
 			}
 		}
@@ -27096,7 +27562,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 			}
 
 			if (*Topj_simple_mcc_decorrelation_data_t)(unsafe.Pointer(l_mcc_record)).Fm_decorrelation_array == uintptr(00) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9406, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9542, 0)
 				return DOPJ_FALSE
 			}
 		}
@@ -27113,14 +27579,14 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 			}
 
 			if (*Topj_simple_mcc_decorrelation_data_t)(unsafe.Pointer(l_mcc_record)).Fm_offset_array == uintptr(00) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9406, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9542, 0)
 				return DOPJ_FALSE
 			}
 		}
 	}
 
 	if p_header_size != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9406, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9542, 0)
 		return DOPJ_FALSE
 	}
 
@@ -27131,7 +27597,7 @@ func opj_j2k_read_mcc(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__125 = *(*[17]int8)(unsafe.Pointer(ts + 9746)) /* j2k.c:6056:1 */
+var __func__125 = *(*[17]int8)(unsafe.Pointer(ts + 9882)) /* j2k.c:6056:1 */
 
 func opj_j2k_write_mco(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:6285:17: */
 	var l_current_data uintptr = uintptr(00)
@@ -27142,15 +27608,15 @@ func opj_j2k_write_mco(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__126)), ts+3631, 6297, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__126)), ts+3767, 6297, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__126)), ts+3631, 6298, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__126)), ts+3767, 6298, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__126)), ts+3631, 6299, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__126)), ts+3767, 6299, ts+4132)
 	} else {
 	}
 
@@ -27165,7 +27631,7 @@ func opj_j2k_write_mco(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9763, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9899, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -27200,7 +27666,7 @@ func opj_j2k_write_mco(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__126 = *(*[18]int8)(unsafe.Pointer(ts + 9802)) /* j2k.c:6289:1 */
+var __func__126 = *(*[18]int8)(unsafe.Pointer(ts + 9938)) /* j2k.c:6289:1 */
 
 // *
 // Reads a MCO marker (Multiple Component Transform Ordering)
@@ -27224,15 +27690,15 @@ func opj_j2k_read_mco(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__127)), ts+3631, 6369, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__127)), ts+3767, 6369, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__127)), ts+3631, 6370, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__127)), ts+3767, 6370, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__127)), ts+3631, 6371, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__127)), ts+3767, 6371, ts+4095)
 	} else {
 	}
 
@@ -27244,7 +27710,7 @@ func opj_j2k_read_mco(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	}
 
 	if p_header_size < TOPJ_UINT32(1) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9820, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9956, 0)
 		return DOPJ_FALSE
 	}
 
@@ -27254,12 +27720,12 @@ func opj_j2k_read_mco(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) > TOPJ_UINT32(1) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+9846, 0)
+			ts+9982, 0)
 		return DOPJ_TRUE
 	}
 
 	if p_header_size != *(*TOPJ_UINT32)(unsafe.Pointer(bp))+TOPJ_UINT32(1) {
-		Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+9820, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+9956, 0)
 		return DOPJ_FALSE
 	}
 
@@ -27287,7 +27753,7 @@ func opj_j2k_read_mco(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__127 = *(*[17]int8)(unsafe.Pointer(ts + 9901)) /* j2k.c:6361:1 */
+var __func__127 = *(*[17]int8)(unsafe.Pointer(ts + 10037)) /* j2k.c:6361:1 */
 
 func opj_j2k_add_mct(tls *libc.TLS, p_tcp uintptr, p_image uintptr, p_index TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:6422:17: */
 	var i TOPJ_UINT32
@@ -27304,7 +27770,7 @@ func opj_j2k_add_mct(tls *libc.TLS, p_tcp uintptr, p_image uintptr, p_index TOPJ
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tcp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__128)), ts+3631, 6434, ts+6871)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__128)), ts+3767, 6434, ts+7007)
 	} else {
 	}
 
@@ -27384,7 +27850,7 @@ func opj_j2k_add_mct(tls *libc.TLS, p_tcp uintptr, p_image uintptr, p_index TOPJ
 	return DOPJ_TRUE
 }
 
-var __func__128 = *(*[16]int8)(unsafe.Pointer(ts + 9918)) /* j2k.c:6424:1 */
+var __func__128 = *(*[16]int8)(unsafe.Pointer(ts + 10054)) /* j2k.c:6424:1 */
 
 func opj_j2k_write_cbd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:6509:17: */
 	var i TOPJ_UINT32
@@ -27395,15 +27861,15 @@ func opj_j2k_write_cbd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__129)), ts+3631, 6520, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__129)), ts+3767, 6520, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__129)), ts+3631, 6521, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__129)), ts+3767, 6521, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__129)), ts+3631, 6522, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__129)), ts+3767, 6522, ts+4132)
 	} else {
 	}
 
@@ -27417,7 +27883,7 @@ func opj_j2k_write_cbd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 			Xopj_free(tls, (*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_header_tile_data)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = uintptr(0)
 			(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data_size = TOPJ_UINT32(0)
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9934, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+10070, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_tile_data = new_header_tile_data
@@ -27454,7 +27920,7 @@ func opj_j2k_write_cbd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 	return DOPJ_TRUE
 }
 
-var __func__129 = *(*[18]int8)(unsafe.Pointer(ts + 9973)) /* j2k.c:6512:1 */
+var __func__129 = *(*[18]int8)(unsafe.Pointer(ts + 10109)) /* j2k.c:6512:1 */
 
 // *
 // Reads a CBD marker (Component bit depth definition)
@@ -27476,22 +27942,22 @@ func opj_j2k_read_cbd(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__130)), ts+3631, 6590, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__130)), ts+3767, 6590, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__130)), ts+3631, 6591, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__130)), ts+3767, 6591, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__130)), ts+3631, 6592, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__130)), ts+3767, 6592, ts+4095)
 	} else {
 	}
 
 	l_num_comp = (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps
 
 	if p_header_size != (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps+TOPJ_UINT32(2) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9991, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+10127, 0)
 		return DOPJ_FALSE
 	}
 
@@ -27500,7 +27966,7 @@ func opj_j2k_read_cbd(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	p_header_data += uintptr(2)
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 16)) != l_num_comp {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9991, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+10127, 0)
 		return DOPJ_FALSE
 	}
 
@@ -27514,7 +27980,7 @@ func opj_j2k_read_cbd(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 
 		if (*Topj_image_comp_t)(unsafe.Pointer(l_comp)).Fprec > TOPJ_UINT32(31) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+4930,
+				ts+5066,
 				libc.VaList(bp, i, (*Topj_image_comp_t)(unsafe.Pointer(l_comp)).Fprec))
 			return DOPJ_FALSE
 		}
@@ -27524,7 +27990,7 @@ func opj_j2k_read_cbd(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__130 = *(*[17]int8)(unsafe.Pointer(ts + 10017)) /* j2k.c:6583:1 */
+var __func__130 = *(*[17]int8)(unsafe.Pointer(ts + 10153)) /* j2k.c:6583:1 */
 
 // *
 // Reads a CAP marker (extended capabilities definition). Empty implementation.
@@ -27537,15 +28003,15 @@ var __func__130 = *(*[17]int8)(unsafe.Pointer(ts + 10017)) /* j2k.c:6583:1 */
 func opj_j2k_read_cap(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* j2k.c:6639:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__131)), ts+3631, 6646, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__131)), ts+3767, 6646, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__131)), ts+3631, 6647, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__131)), ts+3767, 6647, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__131)), ts+3631, 6648, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__131)), ts+3767, 6648, ts+4095)
 	} else {
 	}
 
@@ -27557,7 +28023,7 @@ func opj_j2k_read_cap(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__131 = *(*[17]int8)(unsafe.Pointer(ts + 10034)) /* j2k.c:6644:1 */
+var __func__131 = *(*[17]int8)(unsafe.Pointer(ts + 10170)) /* j2k.c:6644:1 */
 
 // *
 // Reads a CPF marker (corresponding profile). Empty implementation. Found in HTJ2K files
@@ -27568,15 +28034,15 @@ var __func__131 = *(*[17]int8)(unsafe.Pointer(ts + 10034)) /* j2k.c:6644:1 */
 func opj_j2k_read_cpf(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* j2k.c:6665:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__132)), ts+3631, 6672, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__132)), ts+3767, 6672, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__132)), ts+3631, 6673, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__132)), ts+3767, 6673, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__132)), ts+3631, 6674, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__132)), ts+3767, 6674, ts+4095)
 	} else {
 	}
 
@@ -27588,7 +28054,7 @@ func opj_j2k_read_cpf(tls *libc.TLS, p_j2k uintptr, p_header_data uintptr, p_hea
 	return DOPJ_TRUE
 }
 
-var __func__132 = *(*[17]int8)(unsafe.Pointer(ts + 10051)) /* j2k.c:6670:1 */
+var __func__132 = *(*[17]int8)(unsafe.Pointer(ts + 10187)) /* j2k.c:6670:1 */
 
 // -----------------------------------------------------------------------
 // J2K / JPT decoder interface
@@ -27628,7 +28094,7 @@ func Xopj_j2k_set_threads(tls *libc.TLS, j2k uintptr, num_threads TOPJ_UINT32) T
 }
 
 func opj_j2k_get_default_thread_count(tls *libc.TLS) int32 { /* j2k.c:6729:12: */
-	var num_threads_str uintptr = libc.Xgetenv(tls, ts+10068)
+	var num_threads_str uintptr = libc.Xgetenv(tls, ts+10204)
 	var num_cpus int32
 	var num_threads int32
 
@@ -27636,7 +28102,7 @@ func opj_j2k_get_default_thread_count(tls *libc.TLS) int32 { /* j2k.c:6729:12: *
 		return 0
 	}
 	num_cpus = Xopj_get_num_cpus(tls)
-	if libc.Xstrcmp(tls, num_threads_str, ts+10084) == 0 {
+	if libc.Xstrcmp(tls, num_threads_str, ts+10220) == 0 {
 		return num_cpus
 	}
 	if num_cpus == 0 {
@@ -27760,7 +28226,7 @@ func opj_j2k_set_cinema_parameters(tls *libc.TLS, parameters uintptr, image uint
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_numlayers > 1 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+10093,
+			ts+10229,
 			libc.VaList(bp, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_numlayers,
 				float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_numlayers-1)*4)))))
 		*(*float32)(unsafe.Pointer(parameters + 4800)) = *(*float32)(unsafe.Pointer(parameters + 4800 + uintptr((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_numlayers-1)*4))
@@ -27773,7 +28239,7 @@ func opj_j2k_set_cinema_parameters(tls *libc.TLS, parameters uintptr, image uint
 		if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution > 6 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+10266,
+				ts+10402,
 				libc.VaList(bp+16, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution+1))
 			(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution = 6
 		}
@@ -27782,13 +28248,13 @@ func opj_j2k_set_cinema_parameters(tls *libc.TLS, parameters uintptr, image uint
 		if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution < 2 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+10412,
+				ts+10548,
 				libc.VaList(bp+24, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution+1))
 			(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution = 1
 		} else if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution > 7 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+10566,
+				ts+10702,
 				libc.VaList(bp+32, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution+1))
 			(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution = 7
 		}
@@ -27829,11 +28295,11 @@ func opj_j2k_set_cinema_parameters(tls *libc.TLS, parameters uintptr, image uint
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmax_cs_size = DOPJ_CINEMA_24_CS
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+10720, 0)
+			ts+10856, 0)
 	} else if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmax_cs_size > DOPJ_CINEMA_24_CS {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+10869, 0)
+			ts+11005, 0)
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmax_cs_size = DOPJ_CINEMA_24_CS
 	}
 
@@ -27842,11 +28308,11 @@ func opj_j2k_set_cinema_parameters(tls *libc.TLS, parameters uintptr, image uint
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmax_comp_size = DOPJ_CINEMA_24_COMP
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+11042, 0)
+			ts+11178, 0)
 	} else if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmax_comp_size > DOPJ_CINEMA_24_COMP {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+11191, 0)
+			ts+11327, 0)
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmax_comp_size = DOPJ_CINEMA_24_COMP
 	}
 
@@ -27864,7 +28330,7 @@ func opj_j2k_is_cinema_compliant(tls *libc.TLS, image uintptr, rsiz TOPJ_UINT16,
 	if (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps != TOPJ_UINT32(3) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+11364,
+			ts+11500,
 			libc.VaList(bp, (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps))
 		return DOPJ_FALSE
 	}
@@ -27872,8 +28338,8 @@ func opj_j2k_is_cinema_compliant(tls *libc.TLS, image uintptr, rsiz TOPJ_UINT16,
 	// Bitdepth
 	for i = TOPJ_UINT32(0); i < (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps; i++ {
 		if TOPJ_UINT32(libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fprec != TOPJ_UINT32(12)))|(*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fsgnd != 0 {
-			*(*[7]int8)(unsafe.Pointer(bp + 64 /* signed_str */)) = *(*[7]int8)(unsafe.Pointer(ts + 11530))
-			*(*[9]int8)(unsafe.Pointer(bp + 71 /* unsigned_str */)) = *(*[9]int8)(unsafe.Pointer(ts + 11537))
+			*(*[7]int8)(unsafe.Pointer(bp + 64 /* signed_str */)) = *(*[7]int8)(unsafe.Pointer(ts + 11666))
+			*(*[9]int8)(unsafe.Pointer(bp + 71 /* unsigned_str */)) = *(*[9]int8)(unsafe.Pointer(ts + 11673))
 			var tmp_str uintptr
 			if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fsgnd != 0 {
 				tmp_str = bp + 64 /* signed_str */
@@ -27882,7 +28348,7 @@ func opj_j2k_is_cinema_compliant(tls *libc.TLS, image uintptr, rsiz TOPJ_UINT16,
 			}
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+11546,
+				ts+11682,
 				libc.VaList(bp+8, i, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fprec, tmp_str))
 			return DOPJ_FALSE
 		}
@@ -27894,7 +28360,7 @@ func opj_j2k_is_cinema_compliant(tls *libc.TLS, image uintptr, rsiz TOPJ_UINT16,
 		if libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw > TOPJ_UINT32(2048))|libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh > TOPJ_UINT32(1080)) != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+11763,
+				ts+11899,
 				libc.VaList(bp+32, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh))
 			return DOPJ_FALSE
 		}
@@ -27903,7 +28369,7 @@ func opj_j2k_is_cinema_compliant(tls *libc.TLS, image uintptr, rsiz TOPJ_UINT16,
 		if libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw > TOPJ_UINT32(4096))|libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh > TOPJ_UINT32(2160)) != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+11934,
+				ts+12070,
 				libc.VaList(bp+48, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh))
 			return DOPJ_FALSE
 		}
@@ -28078,19 +28544,19 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if int32(mainlevel) > DOPJ_IMF_MAINLEVEL_MAX {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+12099,
+			ts+12235,
 			libc.VaList(bp, int32(mainlevel)))
 		ret = DOPJ_FALSE
 	} else {
 		// Validate sublevel
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(uint64(unsafe.Sizeof(tabMaxSubLevelFromMainLevel)) == uint64(DOPJ_IMF_MAINLEVEL_MAX+1)*uint64(unsafe.Sizeof(TOPJ_UINT16(0))))), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__133)), ts+3631, 7199, ts+12205)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__133)), ts+3767, 7199, ts+12341)
 		} else {
 		}
 		if int32(sublevel) > int32(tabMaxSubLevelFromMainLevel[mainlevel]) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+12313,
+				ts+12449,
 				libc.VaList(bp+8, int32(tabMaxSubLevelFromMainLevel[mainlevel]),
 					int32(mainlevel),
 					int32(sublevel)))
@@ -28102,7 +28568,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps > TOPJ_UINT32(3) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+12437,
+			ts+12573,
 			libc.VaList(bp+32, (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps))
 		ret = DOPJ_FALSE
 	}
@@ -28110,7 +28576,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if (*Topj_image_t)(unsafe.Pointer(image)).Fx0 != TOPJ_UINT32(0) || (*Topj_image_t)(unsafe.Pointer(image)).Fy0 != TOPJ_UINT32(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+12582,
+			ts+12718,
 			libc.VaList(bp+40, (*Topj_image_t)(unsafe.Pointer(image)).Fx0, libc.Bool32((*Topj_image_t)(unsafe.Pointer(image)).Fy0 != TOPJ_UINT32(0))))
 		ret = DOPJ_FALSE
 	}
@@ -28118,7 +28584,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tx0 != 0 || (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_ty0 != 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+12697,
+			ts+12833,
 			libc.VaList(bp+56, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tx0, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_ty0))
 		ret = DOPJ_FALSE
 	}
@@ -28128,7 +28594,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 			if TOPJ_UINT32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tdx) < (*Topj_image_t)(unsafe.Pointer(image)).Fx1 || TOPJ_UINT32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tdy) < (*Topj_image_t)(unsafe.Pointer(image)).Fy1 {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-					ts+12811,
+					ts+12947,
 					libc.VaList(bp+72, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tdx,
 						(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tdy,
 						(*Topj_image_t)(unsafe.Pointer(image)).Fx1,
@@ -28147,7 +28613,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 			} else {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-					ts+12967,
+					ts+13103,
 					libc.VaList(bp+104, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tdx,
 						(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_tdy))
 				ret = DOPJ_FALSE
@@ -28158,8 +28624,8 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	// Bitdepth
 	for i = TOPJ_UINT32(0); i < (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps; i++ {
 		if !((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fprec >= TOPJ_UINT32(8) && (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fprec <= TOPJ_UINT32(16)) || (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fsgnd != 0 {
-			*(*[7]int8)(unsafe.Pointer(bp + 392 /* signed_str */)) = *(*[7]int8)(unsafe.Pointer(ts + 11530))
-			*(*[9]int8)(unsafe.Pointer(bp + 399 /* unsigned_str */)) = *(*[9]int8)(unsafe.Pointer(ts + 11537))
+			*(*[7]int8)(unsafe.Pointer(bp + 392 /* signed_str */)) = *(*[7]int8)(unsafe.Pointer(ts + 11666))
+			*(*[9]int8)(unsafe.Pointer(bp + 399 /* unsigned_str */)) = *(*[9]int8)(unsafe.Pointer(ts + 11673))
 			var tmp_str uintptr
 			if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fsgnd != 0 {
 				tmp_str = bp + 392 /* signed_str */
@@ -28168,7 +28634,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 			}
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+13211,
+				ts+13347,
 				libc.VaList(bp+120, i, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fprec, tmp_str))
 			ret = DOPJ_FALSE
 		}
@@ -28179,28 +28645,28 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if i == TOPJ_UINT32(0) && (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdx != TOPJ_UINT32(1) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+13400,
+				ts+13536,
 				libc.VaList(bp+144, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdx))
 			ret = DOPJ_FALSE
 		}
 		if i == TOPJ_UINT32(1) && (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdx != TOPJ_UINT32(1) && (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdx != TOPJ_UINT32(2) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+13497,
+				ts+13633,
 				libc.VaList(bp+152, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdx))
 			ret = DOPJ_FALSE
 		}
 		if i > TOPJ_UINT32(1) && (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdx != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i-TOPJ_UINT32(1))*64)).Fdx {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+13599,
+				ts+13735,
 				libc.VaList(bp+160, i+TOPJ_UINT32(1), (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdx, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i-TOPJ_UINT32(1))*64)).Fdx))
 			ret = DOPJ_FALSE
 		}
 		if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdy != TOPJ_UINT32(1) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+13731,
+				ts+13867,
 				libc.VaList(bp+184, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(i)*64)).Fdy, i))
 			ret = DOPJ_FALSE
 		}
@@ -28214,7 +28680,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw > TOPJ_UINT32(2048))|libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh > TOPJ_UINT32(1556)) != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+13844,
+				ts+13980,
 				libc.VaList(bp+200, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh))
 			ret = DOPJ_FALSE
 		}
@@ -28225,7 +28691,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw > TOPJ_UINT32(4096))|libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh > TOPJ_UINT32(3112)) != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+13992,
+				ts+14128,
 				libc.VaList(bp+216, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh))
 			ret = DOPJ_FALSE
 		}
@@ -28236,14 +28702,14 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw > TOPJ_UINT32(8192))|libc.Bool32((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh > TOPJ_UINT32(6224)) != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+14140,
+				ts+14276,
 				libc.VaList(bp+232, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fw, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fh))
 			ret = DOPJ_FALSE
 		}
 		break
 	default:
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(0 != 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__133)), ts+3631, 7377, ts+14288)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__133)), ts+3767, 7377, ts+14424)
 		} else {
 		}
 		return DOPJ_FALSE
@@ -28252,14 +28718,14 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Froi_compno != -1 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+14290, 0)
+			ts+14426, 0)
 		ret = DOPJ_FALSE
 	}
 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init != 32 || (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init != 32 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+14423,
+			ts+14559,
 			libc.VaList(bp+248, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init,
 				(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init))
 		ret = DOPJ_FALSE
@@ -28268,7 +28734,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fprog_order != OPJ_CPRL {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+14556,
+			ts+14692,
 			libc.VaList(bp+264, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fprog_order))
 		ret = DOPJ_FALSE
 	}
@@ -28276,7 +28742,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumpocs != TOPJ_UINT32(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+14687,
+			ts+14823,
 			libc.VaList(bp+272, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumpocs))
 		ret = DOPJ_FALSE
 	}
@@ -28285,7 +28751,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmode != 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+14798,
+			ts+14934,
 			libc.VaList(bp+280, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmode))
 		ret = DOPJ_FALSE
 	}
@@ -28295,7 +28761,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Firreversible != 1 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+14945, 0)
+				ts+15081, 0)
 			ret = DOPJ_FALSE
 		}
 	} else {
@@ -28303,7 +28769,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Firreversible != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+15092, 0)
+				ts+15228, 0)
 			ret = DOPJ_FALSE
 		}
 	}
@@ -28312,7 +28778,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_numlayers != 1 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-			ts+15239,
+			ts+15375,
 			libc.VaList(bp+288, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_numlayers))
 		ret = DOPJ_FALSE
 	}
@@ -28323,7 +28789,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if !(NL >= 1 && NL <= 5) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+15361,
+				ts+15497,
 				libc.VaList(bp+296, NL))
 			ret = DOPJ_FALSE
 		}
@@ -28332,7 +28798,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if !(NL >= 1 && NL <= 6) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+15481,
+				ts+15617,
 				libc.VaList(bp+304, NL))
 			ret = DOPJ_FALSE
 		}
@@ -28341,7 +28807,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if !(NL >= 1 && NL <= 7) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+15601,
+				ts+15737,
 				libc.VaList(bp+312, NL))
 			ret = DOPJ_FALSE
 		}
@@ -28352,7 +28818,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 5) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+15721,
+						ts+15857,
 						libc.VaList(bp+320, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28360,7 +28826,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 4) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+15861,
+						ts+15997,
 						libc.VaList(bp+328, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28374,7 +28840,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 6) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+16008,
+						ts+16144,
 						libc.VaList(bp+336, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28382,7 +28848,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 5) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+16148,
+						ts+16284,
 						libc.VaList(bp+344, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28390,7 +28856,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 4) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+16295,
+						ts+16431,
 						libc.VaList(bp+352, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28404,7 +28870,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 7) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+16442,
+						ts+16578,
 						libc.VaList(bp+360, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28412,7 +28878,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 6) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+16582,
+						ts+16718,
 						libc.VaList(bp+368, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28420,7 +28886,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 5) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+16148,
+						ts+16284,
 						libc.VaList(bp+376, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28428,7 +28894,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 				if !(NL >= 1 && NL <= 4) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+16295,
+						ts+16431,
 						libc.VaList(bp+384, NL))
 					ret = DOPJ_FALSE
 				}
@@ -28444,7 +28910,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 		if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fres_spec != 1 || *(*int32)(unsafe.Pointer(parameters + 5632)) != 128 || *(*int32)(unsafe.Pointer(parameters + 5764)) != 128 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+16729, 0)
+				ts+16865, 0)
 			ret = DOPJ_FALSE
 		}
 	} else {
@@ -28453,7 +28919,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 			if *(*int32)(unsafe.Pointer(parameters + 5632 + uintptr(i)*4)) != 256 || *(*int32)(unsafe.Pointer(parameters + 5764 + uintptr(i)*4)) != 256 {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-					ts+16729, 0)
+					ts+16865, 0)
 				ret = DOPJ_FALSE
 			}
 		}
@@ -28462,7 +28928,7 @@ func opj_j2k_is_imf_compliant(tls *libc.TLS, parameters uintptr, image uintptr, 
 	return ret
 }
 
-var __func__133 = *(*[25]int8)(unsafe.Pointer(ts + 16872)) /* j2k.c:7178:1 */
+var __func__133 = *(*[25]int8)(unsafe.Pointer(ts + 17008)) /* j2k.c:7178:1 */
 
 func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:7616:10: */
 	bp := tls.Alloc(309)
@@ -28482,39 +28948,39 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution <= 0 || (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution > DOPJ_J2K_MAXRLVLS {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+16897,
+			ts+17033,
 			libc.VaList(bp, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fnumresolution, DOPJ_J2K_MAXRLVLS))
 		return DOPJ_FALSE
 	}
 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init < 4 || (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init > 1024 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+16953,
+			ts+17089,
 			libc.VaList(bp+16, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init))
 		return DOPJ_FALSE
 	}
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init < 4 || (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init > 1024 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+17024,
+			ts+17160,
 			libc.VaList(bp+24, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init))
 		return DOPJ_FALSE
 	}
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init*(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init > 4096 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+17099, 0)
+			ts+17235, 0)
 		return DOPJ_FALSE
 	}
 	cblkw = TOPJ_UINT32(opj_int_floorlog2(tls, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init))
 	cblkh = TOPJ_UINT32(opj_int_floorlog2(tls, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init))
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init != int32(1)<<cblkw {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+16953,
+			ts+17089,
 			libc.VaList(bp+32, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockw_init))
 		return DOPJ_FALSE
 	}
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init != int32(1)<<cblkh {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+16953,
+			ts+17089,
 			libc.VaList(bp+40, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcblockh_init))
 		return DOPJ_FALSE
 	}
@@ -28581,7 +29047,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		if deprecated_used != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+17165, 0)
+				ts+17301, 0)
 		}
 	}
 
@@ -28607,25 +29073,25 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 				if rate_i_corr != *(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i)*4)) && rate_i_m_1_corr != *(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i-TOPJ_UINT32(1))*4)) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+17302,
+						ts+17438,
 						libc.VaList(bp+48, i, float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i)*4))), float64(rate_i_corr),
 							i-TOPJ_UINT32(1), float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i-TOPJ_UINT32(1))*4))), float64(rate_i_m_1_corr)))
 				} else if rate_i_corr != *(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i)*4)) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+17404,
+						ts+17540,
 						libc.VaList(bp+96, i, float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i)*4))), float64(rate_i_corr),
 							i-TOPJ_UINT32(1), float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i-TOPJ_UINT32(1))*4)))))
 				} else if rate_i_m_1_corr != *(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i-TOPJ_UINT32(1))*4)) {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+17488,
+						ts+17624,
 						libc.VaList(bp+136, i, float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i)*4))),
 							i-TOPJ_UINT32(1), float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i-TOPJ_UINT32(1))*4))), float64(rate_i_m_1_corr)))
 				} else {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-						ts+17572,
+						ts+17708,
 						libc.VaList(bp+176, i, float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i)*4))),
 							i-TOPJ_UINT32(1), float64(*(*float32)(unsafe.Pointer(parameters + 4800 + uintptr(i-TOPJ_UINT32(1))*4)))))
 				}
@@ -28637,7 +29103,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 			if *(*float32)(unsafe.Pointer(parameters + 5200 + uintptr(i)*4)) < *(*float32)(unsafe.Pointer(parameters + 5200 + uintptr(i-TOPJ_UINT32(1))*4)) && !(i == TOPJ_UINT32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftcp_numlayers)-TOPJ_UINT32(1) && *(*float32)(unsafe.Pointer(parameters + 5200 + uintptr(i)*4)) == float32(0)) {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-					ts+17638,
+					ts+17774,
 					libc.VaList(bp+208, i, float64(*(*float32)(unsafe.Pointer(parameters + 5200 + uintptr(i)*4))), i-TOPJ_UINT32(1),
 						float64(*(*float32)(unsafe.Pointer(parameters + 5200 + uintptr(i-TOPJ_UINT32(1))*4)))))
 			}
@@ -28675,7 +29141,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		if cap != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+17715, 0)
+				ts+17851, 0)
 		}
 	}
 
@@ -28689,7 +29155,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		if int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) == DOPJ_PROFILE_CINEMA_S2K ||
 			int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) == DOPJ_PROFILE_CINEMA_S4K {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+17807, 0)
+				ts+17943, 0)
 			(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz = TOPJ_UINT16(DOPJ_PROFILE_NONE)
 		} else {
 			opj_j2k_set_cinema_parameters(tls, parameters, image, p_manager)
@@ -28699,11 +29165,11 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		}
 	} else if int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) == DOPJ_PROFILE_CINEMA_LTS {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+17869, 0)
+			ts+18005, 0)
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz = TOPJ_UINT16(DOPJ_PROFILE_NONE)
 	} else if int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) >= DOPJ_PROFILE_BC_SINGLE && int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) <= DOPJ_PROFILE_BC_MULTI_R|0x000b {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+17924, 0)
+			ts+18060, 0)
 		(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz = TOPJ_UINT16(DOPJ_PROFILE_NONE)
 	} else if int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) >= DOPJ_PROFILE_IMF_2K && int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) <= DOPJ_PROFILE_IMF_8K_R|0x009b {
 		opj_j2k_set_imf_parameters(tls, parameters, image, p_manager)
@@ -28714,12 +29180,12 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		if int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) == DOPJ_PROFILE_PART2|DOPJ_EXTENSION_NONE {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+17972, 0)
+				ts+18108, 0)
 			(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz = TOPJ_UINT16(DOPJ_PROFILE_NONE)
 		} else if int32((*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz) != DOPJ_PROFILE_PART2|DOPJ_EXTENSION_MCT {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+18060, 0)
+				ts+18196, 0)
 			(*Topj_cparameters_t)(unsafe.Pointer(parameters)).Frsiz = TOPJ_UINT16(DOPJ_PROFILE_NONE)
 		}
 	}
@@ -28739,7 +29205,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		(*Topj_encoding_param_t)(unsafe.Pointer(cp + 120)).Fm_matrice = Xopj_malloc(tls, array_size)
 		if !(int32((*Topj_encoding_param_t)(unsafe.Pointer(cp+120)).Fm_matrice) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+18119, 0)
+				ts+18255, 0)
 			return DOPJ_FALSE
 		}
 		libc.X__builtin___memcpy_chk(tls, (*Topj_encoding_param_t)(unsafe.Pointer(cp+120)).Fm_matrice, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_matrice, array_size, libc.X__builtin_object_size(tls, (*Topj_encoding_param_t)(unsafe.Pointer(cp+120)).Fm_matrice, 0))
@@ -28758,7 +29224,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		(*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment = Xopj_malloc(tls, libc.Xstrlen(tls, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_comment)+uint64(1))
 		if !(int32((*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+18191, 0)
+				ts+18327, 0)
 			return DOPJ_FALSE
 		}
 		libc.X__builtin___strcpy_chk(tls, (*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fcp_comment, libc.X__builtin_object_size(tls, (*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment, func() int32 {
@@ -28769,7 +29235,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		}()))
 	} else {
 		// Create default comment for codestream
-		*(*[29]int8)(unsafe.Pointer(bp + 280 /* comment */)) = *(*[29]int8)(unsafe.Pointer(ts + 18245))
+		*(*[29]int8)(unsafe.Pointer(bp + 280 /* comment */)) = *(*[29]int8)(unsafe.Pointer(ts + 18381))
 		var clen Tsize_t = libc.Xstrlen(tls, bp+280)
 		var version uintptr = Xopj_version(tls)
 
@@ -28777,7 +29243,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		(*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment = Xopj_malloc(tls, clen+libc.Xstrlen(tls, version)+uint64(1))
 		if !(int32((*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+18274, 0)
+				ts+18410, 0)
 			return DOPJ_FALSE
 		}
 		libc.X__builtin___sprintf_chk(tls, (*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment, 0, libc.X__builtin_object_size(tls, (*Topj_cp_t)(unsafe.Pointer(cp)).Fcomment, func() int32 {
@@ -28785,7 +29251,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 				return 1
 			}
 			return 0
-		}()), ts+18320 /* "%s%s" */, libc.VaList(bp+240, bp+280 /* &comment[0] */, version))
+		}()), ts+18456 /* "%s%s" */, libc.VaList(bp+240, bp+280 /* &comment[0] */, version))
 		// <<UniPG
 	}
 
@@ -28795,11 +29261,11 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 
 	if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Ftile_size_on != 0 {
 		if (*Topj_cp_t)(unsafe.Pointer(cp)).Ftdx == TOPJ_UINT32(0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+18325, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+18461, 0)
 			return DOPJ_FALSE
 		}
 		if (*Topj_cp_t)(unsafe.Pointer(cp)).Ftdy == TOPJ_UINT32(0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+18345, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+18481, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_cp_t)(unsafe.Pointer(cp)).Ftw = TOPJ_UINT32(opj_int_ceildiv(tls, TOPJ_INT32((*Topj_image_t)(unsafe.Pointer(image)).Fx1-(*Topj_cp_t)(unsafe.Pointer(cp)).Ftx0),
@@ -28809,7 +29275,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		// Check that the number of tiles is valid
 		if (*Topj_cp_t)(unsafe.Pointer(cp)).Ftw > TOPJ_UINT32(65535)/(*Topj_cp_t)(unsafe.Pointer(cp)).Fth {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+5063,
+				ts+5199,
 				libc.VaList(bp+256, (*Topj_cp_t)(unsafe.Pointer(cp)).Ftw, (*Topj_cp_t)(unsafe.Pointer(cp)).Fth))
 			return DOPJ_FALSE
 		}
@@ -28828,7 +29294,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 	(*Topj_cp_t)(unsafe.Pointer(cp)).Ftcps = Xopj_calloc(tls, uint64((*Topj_cp_t)(unsafe.Pointer(cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(cp)).Fth), uint64(unsafe.Sizeof(Topj_tcp_t{})))
 	if !(int32((*Topj_cp_t)(unsafe.Pointer(cp)).Ftcps) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+18366, 0)
+			ts+18502, 0)
 		return DOPJ_FALSE
 	}
 
@@ -28869,7 +29335,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 
 					if (*Topj_poc_t)(unsafe.Pointer(parameters+56+uintptr(numpocs_tile)*148)).Fcompno0 >= (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps {
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+18420, libc.VaList(bp+272, i))
+							ts+18556, libc.VaList(bp+272, i))
 						return DOPJ_FALSE
 					}
 
@@ -28903,7 +29369,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 		(*Topj_tcp_t)(unsafe.Pointer(tcp)).Ftccps = Xopj_calloc(tls, uint64((*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps), uint64(unsafe.Sizeof(Topj_tccp_t{})))
 		if !(int32((*Topj_tcp_t)(unsafe.Pointer(tcp)).Ftccps) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+18448, 0)
+				ts+18584, 0)
 			return DOPJ_FALSE
 		}
 		if (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmct_data != 0 {
@@ -28914,7 +29380,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 
 			if !(lTmpBuf != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+18512, 0)
+					ts+18648, 0)
 				return DOPJ_FALSE
 			}
 
@@ -28924,7 +29390,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 				Xopj_free(tls, lTmpBuf)
 				lTmpBuf = uintptr(0)
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+18555, 0)
+					ts+18691, 0)
 				return DOPJ_FALSE
 			}
 			libc.X__builtin___memcpy_chk(tls, (*Topj_tcp_t)(unsafe.Pointer(tcp)).Fm_mct_coding_matrix, (*Topj_cparameters_t)(unsafe.Pointer(parameters)).Fmct_data, uint64(lMctSize), libc.X__builtin_object_size(tls, (*Topj_tcp_t)(unsafe.Pointer(tcp)).Fm_mct_coding_matrix, 0))
@@ -28935,7 +29401,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 				Xopj_free(tls, lTmpBuf)
 				lTmpBuf = uintptr(0)
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+18613, 0)
+					ts+18749, 0)
 				return DOPJ_FALSE
 			}
 			if Xopj_matrix_inversion_f(tls, lTmpBuf, (*Topj_tcp_t)(unsafe.Pointer(tcp)).Fm_mct_decoding_matrix,
@@ -28943,7 +29409,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 				Xopj_free(tls, lTmpBuf)
 				lTmpBuf = uintptr(0)
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+18673, 0)
+					ts+18809, 0)
 				return DOPJ_FALSE
 			}
 
@@ -28952,7 +29418,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 				Xopj_free(tls, lTmpBuf)
 				lTmpBuf = uintptr(0)
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+18721, 0)
+					ts+18857, 0)
 				return DOPJ_FALSE
 			}
 			Xopj_calculate_norms(tls, (*Topj_tcp_t)(unsafe.Pointer(tcp)).Fmct_norms, (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps,
@@ -28966,14 +29432,14 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 
 			if Xopj_j2k_setup_mct_encoding(tls, tcp, image) == DOPJ_FALSE {
 				// free will be handled by opj_j2k_destroy
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+18771, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+18907, 0)
 				return DOPJ_FALSE
 			}
 		} else {
 			if (*Topj_tcp_t)(unsafe.Pointer(tcp)).Fmct == TOPJ_UINT32(1) && (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps >= TOPJ_UINT32(3) { // RGB->YCC MCT is enabled
 				if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fdx != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+1*64)).Fdx || (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fdx != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+2*64)).Fdx || (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fdy != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+1*64)).Fdy || (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps)).Fdy != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+2*64)).Fdy {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-						ts+18805, 0)
+						ts+18941, 0)
 					(*Topj_tcp_t)(unsafe.Pointer(tcp)).Fmct = TOPJ_UINT32(0)
 				}
 			}
@@ -29019,7 +29485,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 				var p TOPJ_INT32 = 0
 				var it_res TOPJ_INT32
 				if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_tccp_t)(unsafe.Pointer(tccp)).Fnumresolutions > TOPJ_UINT32(0))), int64(0)) != 0 {
-					libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__134)), ts+3631, 8236, ts+18876)
+					libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__134)), ts+3767, 8236, ts+19012)
 				} else {
 				}
 				for it_res = TOPJ_INT32((*Topj_tccp_t)(unsafe.Pointer(tccp)).Fnumresolutions) - 1; it_res >= 0; it_res-- {
@@ -29043,7 +29509,7 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 						var size_prch TOPJ_INT32 = 0
 
 						if libc.X__builtin_expect(tls, libc.BoolInt64(!(res_spec > 0)), int64(0)) != 0 {
-							libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__134)), ts+3631, 8257, ts+18901)
+							libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__134)), ts+3767, 8257, ts+19037)
 						} else {
 						} // issue 189
 						size_prcw = *(*int32)(unsafe.Pointer(parameters + 5632 + uintptr(res_spec-1)*4)) >> (p - (res_spec - 1))
@@ -29082,11 +29548,11 @@ func Xopj_j2k_setup_encoder(tls *libc.TLS, p_j2k uintptr, parameters uintptr, im
 	return DOPJ_TRUE
 }
 
-var __func__134 = *(*[22]int8)(unsafe.Pointer(ts + 18914)) /* j2k.c:7620:1 */
+var __func__134 = *(*[22]int8)(unsafe.Pointer(ts + 19050)) /* j2k.c:7620:1 */
 
 func opj_j2k_add_mhmarker(tls *libc.TLS, cstr_index uintptr, type1 TOPJ_UINT32, pos TOPJ_OFF_T, len TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:8295:17: */
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cstr_index != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__135)), ts+3631, 8298, ts+18936)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__135)), ts+3767, 8298, ts+19072)
 	} else {
 	}
 
@@ -29115,15 +29581,15 @@ func opj_j2k_add_mhmarker(tls *libc.TLS, cstr_index uintptr, type1 TOPJ_UINT32, 
 	return DOPJ_TRUE
 }
 
-var __func__135 = *(*[21]int8)(unsafe.Pointer(ts + 18953)) /* j2k.c:8297:1 */
+var __func__135 = *(*[21]int8)(unsafe.Pointer(ts + 19089)) /* j2k.c:8297:1 */
 
 func opj_j2k_add_tlmarker(tls *libc.TLS, tileno TOPJ_UINT32, cstr_index uintptr, type1 TOPJ_UINT32, pos TOPJ_OFF_T, len TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:8326:17: */
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cstr_index != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__136)), ts+3631, 8330, ts+18936)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__136)), ts+3767, 8330, ts+19072)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__136)), ts+3631, 8331, ts+18974)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__136)), ts+3767, 8331, ts+19110)
 	} else {
 	}
 
@@ -29162,7 +29628,7 @@ func opj_j2k_add_tlmarker(tls *libc.TLS, tileno TOPJ_UINT32, cstr_index uintptr,
 	return DOPJ_TRUE
 }
 
-var __func__136 = *(*[21]int8)(unsafe.Pointer(ts + 19003)) /* j2k.c:8329:1 */
+var __func__136 = *(*[21]int8)(unsafe.Pointer(ts + 19139)) /* j2k.c:8329:1 */
 
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
@@ -29178,15 +29644,15 @@ func Xopj_j2k_end_decompress(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_m
 func Xopj_j2k_read_header(tls *libc.TLS, p_stream uintptr, p_j2k uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8390:10: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__137)), ts+3631, 8396, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__137)), ts+3767, 8396, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__137)), ts+3631, 8397, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__137)), ts+3767, 8397, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__137)), ts+3631, 8398, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__137)), ts+3767, 8398, ts+4095)
 	} else {
 	}
 
@@ -29242,16 +29708,16 @@ func Xopj_j2k_read_header(tls *libc.TLS, p_stream uintptr, p_j2k uintptr, p_imag
 	return DOPJ_TRUE
 }
 
-var __func__137 = *(*[20]int8)(unsafe.Pointer(ts + 19024)) /* j2k.c:8394:1 */
+var __func__137 = *(*[20]int8)(unsafe.Pointer(ts + 19160)) /* j2k.c:8394:1 */
 
 func opj_j2k_setup_header_reading(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8452:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__138)), ts+3631, 8456, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__138)), ts+3767, 8456, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__138)), ts+3631, 8457, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__138)), ts+3767, 8457, ts+4095)
 	} else {
 	}
 
@@ -29273,16 +29739,16 @@ func opj_j2k_setup_header_reading(tls *libc.TLS, p_j2k uintptr, p_manager uintpt
 	return DOPJ_TRUE
 }
 
-var __func__138 = *(*[29]int8)(unsafe.Pointer(ts + 19044)) /* j2k.c:8454:1 */
+var __func__138 = *(*[29]int8)(unsafe.Pointer(ts + 19180)) /* j2k.c:8454:1 */
 
 func opj_j2k_setup_decoding_validation(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8473:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__139)), ts+3631, 8477, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__139)), ts+3767, 8477, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__139)), ts+3631, 8478, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__139)), ts+3767, 8478, ts+4095)
 	} else {
 	}
 
@@ -29303,7 +29769,7 @@ func opj_j2k_setup_decoding_validation(tls *libc.TLS, p_j2k uintptr, p_manager u
 	return DOPJ_TRUE
 }
 
-var __func__139 = *(*[34]int8)(unsafe.Pointer(ts + 19073)) /* j2k.c:8475:1 */
+var __func__139 = *(*[34]int8)(unsafe.Pointer(ts + 19209)) /* j2k.c:8475:1 */
 
 func opj_j2k_mct_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8493:17: */
 	var l_is_valid TOPJ_BOOL = DOPJ_TRUE
@@ -29312,15 +29778,15 @@ func opj_j2k_mct_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_ma
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__140)), ts+3631, 8501, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__140)), ts+3767, 8501, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__140)), ts+3631, 8502, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__140)), ts+3767, 8502, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__140)), ts+3631, 8503, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__140)), ts+3767, 8503, ts+4095)
 	} else {
 	}
 
@@ -29348,7 +29814,7 @@ func opj_j2k_mct_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_ma
 	return l_is_valid
 }
 
-var __func__140 = *(*[23]int8)(unsafe.Pointer(ts + 19107)) /* j2k.c:8496:1 */
+var __func__140 = *(*[23]int8)(unsafe.Pointer(ts + 19243)) /* j2k.c:8496:1 */
 
 func Xopj_j2k_setup_mct_encoding(tls *libc.TLS, p_tcp uintptr, p_image uintptr) TOPJ_BOOL { /* j2k.c:8529:10: */
 	var i TOPJ_UINT32
@@ -29364,7 +29830,7 @@ func Xopj_j2k_setup_mct_encoding(tls *libc.TLS, p_tcp uintptr, p_image uintptr) 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tcp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__141)), ts+3631, 8540, ts+6871)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__141)), ts+3767, 8540, ts+7007)
 	} else {
 	}
 
@@ -29516,7 +29982,7 @@ func Xopj_j2k_setup_mct_encoding(tls *libc.TLS, p_tcp uintptr, p_image uintptr) 
 	return DOPJ_TRUE
 }
 
-var __func__141 = *(*[27]int8)(unsafe.Pointer(ts + 19130)) /* j2k.c:8530:1 */
+var __func__141 = *(*[27]int8)(unsafe.Pointer(ts + 19266)) /* j2k.c:8530:1 */
 
 func opj_j2k_build_decoder(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8692:17: */
 	// add here initialization of cp
@@ -29541,15 +30007,15 @@ func opj_j2k_encoding_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr,
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__142)), ts+3631, 8723, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__142)), ts+3767, 8723, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__142)), ts+3631, 8724, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__142)), ts+3767, 8724, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__142)), ts+3631, 8725, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__142)), ts+3767, 8725, ts+4095)
 	} else {
 	}
 
@@ -29570,19 +30036,19 @@ func opj_j2k_encoding_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr,
 	// FIXME Shall we change OPJ_J2K_MAXRLVLS to 32 ?
 	if (*Topj_tccp_t)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftcps)).Ftccps)).Fnumresolutions <= TOPJ_UINT32(0) || (*Topj_tccp_t)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftcps)).Ftccps)).Fnumresolutions > TOPJ_UINT32(32) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+19157, 0)
+			ts+19293, 0)
 		return DOPJ_FALSE
 	}
 
 	if (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftdx < TOPJ_UINT32(int32(1)<<((*Topj_tccp_t)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftcps)).Ftccps)).Fnumresolutions-1)) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+19157, 0)
+			ts+19293, 0)
 		return DOPJ_FALSE
 	}
 
 	if (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftdy < TOPJ_UINT32(int32(1)<<((*Topj_tccp_t)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftcps)).Ftccps)).Fnumresolutions-1)) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+19157, 0)
+			ts+19293, 0)
 		return DOPJ_FALSE
 	}
 
@@ -29590,22 +30056,22 @@ func opj_j2k_encoding_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr,
 	return l_is_valid
 }
 
-var __func__142 = *(*[28]int8)(unsafe.Pointer(ts + 19227)) /* j2k.c:8719:1 */
+var __func__142 = *(*[28]int8)(unsafe.Pointer(ts + 19363)) /* j2k.c:8719:1 */
 
 func opj_j2k_decoding_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8767:17: */
 	var l_is_valid TOPJ_BOOL = DOPJ_TRUE
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__143)), ts+3631, 8775, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__143)), ts+3767, 8775, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__143)), ts+3631, 8776, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__143)), ts+3767, 8776, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__143)), ts+3631, 8777, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__143)), ts+3767, 8777, ts+4095)
 	} else {
 	}
 
@@ -29627,7 +30093,7 @@ func opj_j2k_decoding_validation(tls *libc.TLS, p_j2k uintptr, p_stream uintptr,
 	return l_is_valid
 }
 
-var __func__143 = *(*[28]int8)(unsafe.Pointer(ts + 19255)) /* j2k.c:8771:1 */
+var __func__143 = *(*[28]int8)(unsafe.Pointer(ts + 19391)) /* j2k.c:8771:1 */
 
 func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8800:17: */
 	bp := tls.Alloc(16)
@@ -29644,15 +30110,15 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__144)), ts+3631, 8812, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__144)), ts+3767, 8812, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__144)), ts+3631, 8813, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__144)), ts+3767, 8813, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__144)), ts+3631, 8814, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__144)), ts+3767, 8814, ts+4095)
 	} else {
 	}
 
@@ -29661,14 +30127,14 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 
 	// Try to read the SOC marker, the codestream must begin with SOC marker
 	if !(opj_j2k_read_soc(tls, p_j2k, p_stream, p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19283, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19419, 0)
 		return DOPJ_FALSE
 	}
 
 	// Try to read 2 bytes (the next marker ID) from stream and copy them into the buffer
 	if Xopj_stream_read_data(tls, p_stream,
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, uint64(2), p_manager) != uint64(2) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 		return DOPJ_FALSE
 	}
 
@@ -29682,7 +30148,7 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 		// Check if the current marker ID is valid
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)) < TOPJ_UINT32(0xff00) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+19307, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_current_marker */))))
+				ts+19443, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_current_marker */))))
 			return DOPJ_FALSE
 		}
 
@@ -29693,7 +30159,7 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 		if (*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fid == TOPJ_UINT32(DJ2K_MS_UNK) {
 			if !(opj_j2k_read_unk(tls, p_j2k, p_stream, bp+8, p_manager) != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+19358, 0)
+					ts+19494, 0)
 				return DOPJ_FALSE
 			}
 
@@ -29720,14 +30186,14 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 		// Check if the marker is known and if it is the right place to find it
 		if !((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_state&(*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fstates != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+9033, 0)
+				ts+9169, 0)
 			return DOPJ_FALSE
 		}
 
 		// Try to read 2 bytes (the marker size) from stream and copy them into the buffer
 		if Xopj_stream_read_data(tls, p_stream,
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, uint64(2), p_manager) != uint64(2) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 			return DOPJ_FALSE
 		}
 
@@ -29735,7 +30201,7 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 		Xopj_read_bytes_LE(tls, (*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, bp+12,
 			uint32(2))
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 12)) < TOPJ_UINT32(2) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19413, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19549, 0)
 			return DOPJ_FALSE
 		}
 		*(*TOPJ_UINT32)(unsafe.Pointer(bp + 12 /* l_marker_size */)) -= TOPJ_UINT32(2) // Subtract the size of the marker ID already read
@@ -29748,7 +30214,7 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 				Xopj_free(tls, (*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data)
 				(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_data = uintptr(0)
 				(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_data_size = TOPJ_UINT32(0)
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19434, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19570, 0)
 				return DOPJ_FALSE
 			}
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_data = new_header_data
@@ -29759,7 +30225,7 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 		if Xopj_stream_read_data(tls, p_stream,
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, uint64(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 12))),
 			p_manager) != TOPJ_SIZE_T(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 12))) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 			return DOPJ_FALSE
 		}
 
@@ -29769,7 +30235,7 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 		})(unsafe.Pointer(&struct{ uintptr }{(*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fhandler})).f(tls, p_j2k,
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 12)), p_manager) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+19468, 0)
+				ts+19604, 0)
 			return DOPJ_FALSE
 		}
 
@@ -29779,14 +30245,14 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 			(*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fid,
 			int64(TOPJ_UINT32(Xopj_stream_tell(tls, p_stream))-*(*TOPJ_UINT32)(unsafe.Pointer(bp + 12))-TOPJ_UINT32(4)),
 			*(*TOPJ_UINT32)(unsafe.Pointer(bp + 12))+TOPJ_UINT32(4)) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4068, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+4204, 0)
 			return DOPJ_FALSE
 		}
 
 		// Try to read 2 bytes (the next marker ID) from stream and copy them into the buffer
 		if Xopj_stream_read_data(tls, p_stream,
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, uint64(2), p_manager) != uint64(2) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 			return DOPJ_FALSE
 		}
 
@@ -29797,26 +30263,26 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 
 	if l_has_siz == 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+19527, 0)
+			ts+19663, 0)
 		return DOPJ_FALSE
 	}
 	if l_has_cod == 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+19573, 0)
+			ts+19709, 0)
 		return DOPJ_FALSE
 	}
 	if l_has_qcd == 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+19619, 0)
+			ts+19755, 0)
 		return DOPJ_FALSE
 	}
 
 	if !(opj_j2k_merge_ppm(tls, p_j2k+112, p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19665, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19801, 0)
 		return DOPJ_FALSE
 	}
 
-	Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+19691, 0)
+	Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+19827, 0)
 
 	// Position of the last element if the main header
 	(*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Fmain_head_end = TOPJ_OFF_T(TOPJ_UINT32(Xopj_stream_tell(tls, p_stream)) - TOPJ_UINT32(2))
@@ -29827,7 +30293,7 @@ func opj_j2k_read_header_procedure(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 	return DOPJ_TRUE
 }
 
-var __func__144 = *(*[30]int8)(unsafe.Pointer(ts + 19732)) /* j2k.c:8803:1 */
+var __func__144 = *(*[30]int8)(unsafe.Pointer(ts + 19868)) /* j2k.c:8803:1 */
 
 func opj_j2k_exec(tls *libc.TLS, p_j2k uintptr, p_procedure_list uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:8985:17: */
 	var l_procedure uintptr = uintptr(00)
@@ -29837,19 +30303,19 @@ func opj_j2k_exec(tls *libc.TLS, p_j2k uintptr, p_procedure_list uintptr, p_stre
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_procedure_list != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__145)), ts+3631, 8996, ts+19762)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__145)), ts+3767, 8996, ts+19898)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__145)), ts+3631, 8997, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__145)), ts+3767, 8997, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__145)), ts+3631, 8998, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__145)), ts+3767, 8998, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__145)), ts+3631, 8999, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__145)), ts+3767, 8999, ts+4095)
 	} else {
 	}
 
@@ -29868,7 +30334,7 @@ func opj_j2k_exec(tls *libc.TLS, p_j2k uintptr, p_procedure_list uintptr, p_stre
 	return l_result
 }
 
-var __func__145 = *(*[13]int8)(unsafe.Pointer(ts + 19785)) /* j2k.c:8989:1 */
+var __func__145 = *(*[13]int8)(unsafe.Pointer(ts + 19921)) /* j2k.c:8989:1 */
 
 // FIXME DOC
 func opj_j2k_copy_default_tcp_and_create_tcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:9016:17: */
@@ -29891,15 +30357,15 @@ func opj_j2k_copy_default_tcp_and_create_tcd(tls *libc.TLS, p_j2k uintptr, p_str
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__146)), ts+3631, 9035, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__146)), ts+3767, 9035, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__146)), ts+3631, 9036, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__146)), ts+3767, 9036, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__146)), ts+3631, 9037, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__146)), ts+3767, 9037, ts+4095)
 	} else {
 	}
 
@@ -30016,14 +30482,14 @@ func opj_j2k_copy_default_tcp_and_create_tcd(tls *libc.TLS, p_j2k uintptr, p_str
 	if !(Xopj_tcd_init(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd, l_image, p_j2k+112, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tp) != 0) {
 		Xopj_tcd_destroy(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd)
 		(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd = uintptr(00)
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19798, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19934, 0)
 		return DOPJ_FALSE
 	}
 
 	return DOPJ_TRUE
 }
 
-var __func__146 = *(*[40]int8)(unsafe.Pointer(ts + 19832)) /* j2k.c:9020:1 */
+var __func__146 = *(*[40]int8)(unsafe.Pointer(ts + 19968)) /* j2k.c:9020:1 */
 
 func opj_j2k_get_marker_handler(tls *libc.TLS, p_id TOPJ_UINT32) uintptr { /* j2k.c:9166:46: */
 	var e uintptr
@@ -30317,7 +30783,7 @@ func opj_j2k_need_nb_tile_parts_correction(tls *libc.TLS, p_stream uintptr, tile
 
 		// Try to read 2 bytes (the marker size) from stream and copy them into the buffer
 		if Xopj_stream_read_data(tls, p_stream, bp, uint64(2), p_manager) != uint64(2) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 			return DOPJ_FALSE
 		}
 
@@ -30326,14 +30792,14 @@ func opj_j2k_need_nb_tile_parts_correction(tls *libc.TLS, p_stream uintptr, tile
 
 		// Check marker size for SOT Marker
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 16)) != TOPJ_UINT32(10) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19872, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20008, 0)
 			return DOPJ_FALSE
 		}
 		*(*TOPJ_UINT32)(unsafe.Pointer(bp + 16 /* l_marker_size */)) -= TOPJ_UINT32(2)
 
 		if Xopj_stream_read_data(tls, p_stream, bp, uint64(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 16))),
 			p_manager) != TOPJ_SIZE_T(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 16))) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 			return DOPJ_FALSE
 		}
 
@@ -30391,15 +30857,15 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__147)), ts+3631, 9535, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__147)), ts+3767, 9535, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__147)), ts+3631, 9536, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__147)), ts+3767, 9536, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__147)), ts+3631, 9537, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__147)), ts+3767, 9537, ts+4095)
 	} else {
 	}
 
@@ -30424,7 +30890,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 			// Try to read 2 bytes (the marker size) from stream and copy them into the buffer
 			if Xopj_stream_read_data(tls, p_stream,
 				(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, uint64(2), p_manager) != uint64(2) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 				return DOPJ_FALSE
 			}
 
@@ -30434,7 +30900,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 
 			// Check marker size (does not include marker ID but includes marker size)
 			if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 32)) < TOPJ_UINT32(2) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19872, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20008, 0)
 				return DOPJ_FALSE
 			}
 
@@ -30456,7 +30922,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 			// Check if the marker is known and if it is the right place to find it
 			if !((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_state&(*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fstates != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+9033, 0)
+					ts+9169, 0)
 				return DOPJ_FALSE
 			}
 			// FIXME manage case of unknown marker as in the main header ?
@@ -30468,7 +30934,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 				// Check enough bytes left in stream before allocation
 				if TOPJ_OFF_T(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 32))) > Xopj_stream_get_number_byte_left(tls, p_stream) {
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+19898, 0)
+						ts+20034, 0)
 					return DOPJ_FALSE
 				}
 				new_header_data = Xopj_realloc(tls,
@@ -30477,7 +30943,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 					Xopj_free(tls, (*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data)
 					(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_data = uintptr(0)
 					(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_data_size = TOPJ_UINT32(0)
-					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19434, 0)
+					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19570, 0)
 					return DOPJ_FALSE
 				}
 				(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_header_data = new_header_data
@@ -30488,13 +30954,13 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 			if Xopj_stream_read_data(tls, p_stream,
 				(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, uint64(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 32))),
 				p_manager) != TOPJ_SIZE_T(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 32))) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 				return DOPJ_FALSE
 			}
 
 			if !(int32((*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fhandler) != 0) {
 				// See issue #175
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19943, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20079, 0)
 				return DOPJ_FALSE
 			}
 			// Read the marker segment with the correct marker handler
@@ -30503,7 +30969,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 			})(unsafe.Pointer(&struct{ uintptr }{(*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fhandler})).f(tls, p_j2k,
 				(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 32)), p_manager) != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+19972, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 36 /* l_current_marker */))))
+					ts+20108, libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 36 /* l_current_marker */))))
 				return DOPJ_FALSE
 			}
 
@@ -30513,7 +30979,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 				(*Topj_dec_memory_marker_handler_t)(unsafe.Pointer(l_marker_handler)).Fid,
 				int64(TOPJ_UINT32(Xopj_stream_tell(tls, p_stream))-*(*TOPJ_UINT32)(unsafe.Pointer(bp + 32))-TOPJ_UINT32(4)),
 				*(*TOPJ_UINT32)(unsafe.Pointer(bp + 32))+TOPJ_UINT32(4)) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8586, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+8722, 0)
 				return DOPJ_FALSE
 			}
 
@@ -30529,7 +30995,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 				// Skip the rest of the tile part header
 				if Xopj_stream_skip(tls, p_stream, int64((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_sot_length),
 					p_manager) != TOPJ_OFF_T((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_sot_length) {
-					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 					return DOPJ_FALSE
 				}
 				*(*TOPJ_UINT32)(unsafe.Pointer(bp + 36 /* l_current_marker */)) = TOPJ_UINT32(DJ2K_MS_SOD) // Normally we reached a SOD
@@ -30537,7 +31003,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 				// Try to read 2 bytes (the next marker ID) from stream and copy them into the buffer
 				if Xopj_stream_read_data(tls, p_stream,
 					(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_header_data, uint64(2), p_manager) != uint64(2) {
-					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 					return DOPJ_FALSE
 				}
 				// Read 2 bytes from the buffer as the new marker ID
@@ -30564,7 +31030,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 				if !(opj_j2k_need_nb_tile_parts_correction(tls, p_stream,
 					(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number, bp+40, p_manager) != 0) {
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+20019, 0)
+						ts+20155, 0)
 					return DOPJ_FALSE
 				}
 				if *(*TOPJ_BOOL)(unsafe.Pointer(bp + 40)) != 0 {
@@ -30579,7 +31045,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 						}
 					}
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-						ts+20065, 0)
+						ts+20201, 0)
 				}
 			}
 		} else {
@@ -30607,7 +31073,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 					if l_tile_no < l_nb_tiles {
 						Xopj_event_msg(tls, p_manager, DEVT_INFO,
 
-							ts+20106,
+							ts+20242,
 							libc.VaList(bp+8, l_tile_no))
 						(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number = l_tile_no
 						*(*TOPJ_UINT32)(unsafe.Pointer(bp + 36 /* l_current_marker */)) = TOPJ_UINT32(DJ2K_MS_EOC)
@@ -30616,7 +31082,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 					}
 				}
 
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9015, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+9151, 0)
 				return DOPJ_FALSE
 			}
 
@@ -30651,17 +31117,17 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 
 	if !(opj_j2k_merge_ppt(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftcps+uintptr((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number)*5696,
 		p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20203, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20339, 0)
 		return DOPJ_FALSE
 	}
 	//FIXME ???
 	if !(Xopj_tcd_init_decode_tile(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number,
 		p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19798, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+19934, 0)
 		return DOPJ_FALSE
 	}
 
-	Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+20229,
+	Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+20365,
 		libc.VaList(bp+16, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number+TOPJ_UINT32(1), (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth*(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw))
 
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_tile_index)) = (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number
@@ -30685,7 +31151,7 @@ func Xopj_j2k_read_tile_header(tls *libc.TLS, p_j2k uintptr, p_tile_index uintpt
 	return DOPJ_TRUE
 }
 
-var __func__147 = *(*[25]int8)(unsafe.Pointer(ts + 20268)) /* j2k.c:9527:1 */
+var __func__147 = *(*[25]int8)(unsafe.Pointer(ts + 20404)) /* j2k.c:9527:1 */
 
 func Xopj_j2k_decode_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32, p_data uintptr, p_data_size TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:9827:10: */
 	bp := tls.Alloc(8)
@@ -30700,15 +31166,15 @@ func Xopj_j2k_decode_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__148)), ts+3631, 9840, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__148)), ts+3767, 9840, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__148)), ts+3631, 9841, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__148)), ts+3767, 9841, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__148)), ts+3631, 9842, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__148)), ts+3767, 9842, ts+4095)
 	} else {
 	}
 
@@ -30746,7 +31212,7 @@ func Xopj_j2k_decode_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32
 		(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index, p_manager) != 0) {
 		opj_j2k_tcp_destroy(tls, l_tcp)
 		*(*TOPJ_UINT32)(unsafe.Pointer(p_j2k + 8)) |= J2K_STATE_ERR
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20293, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20429, 0)
 		return DOPJ_FALSE
 	}
 
@@ -30781,7 +31247,7 @@ func Xopj_j2k_decode_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32
 				}
 				return DEVT_WARNING
 			}(),
-				ts+9015, 0)
+				ts+9151, 0)
 			if (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fstrict != 0 {
 				return DOPJ_FALSE
 			}
@@ -30795,10 +31261,10 @@ func Xopj_j2k_decode_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32
 		} else if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 4)) != TOPJ_UINT32(DJ2K_MS_SOT) {
 			if Xopj_stream_get_number_byte_left(tls, p_stream) == int64(0) {
 				(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_state = J2K_STATE_NEOC
-				Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+20312, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+20448, 0)
 				return DOPJ_TRUE
 			}
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20342, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+20478, 0)
 			return DOPJ_FALSE
 		}
 	}
@@ -30806,7 +31272,7 @@ func Xopj_j2k_decode_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32
 	return DOPJ_TRUE
 }
 
-var __func__148 = *(*[20]int8)(unsafe.Pointer(ts + 20374)) /* j2k.c:9833:1 */
+var __func__148 = *(*[20]int8)(unsafe.Pointer(ts + 20510)) /* j2k.c:9833:1 */
 
 func opj_j2k_update_image_data(tls *libc.TLS, p_tcd uintptr, p_output_image uintptr) TOPJ_BOOL { /* j2k.c:9927:17: */
 	var i TOPJ_UINT32
@@ -30908,11 +31374,11 @@ __1:
 		// by this input area.
 		//
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(res_x0 >= 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__149)), ts+3631, 10018, ts+20394)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__149)), ts+3767, 10018, ts+20530)
 		} else {
 		}
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(res_x1 >= 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__149)), ts+3631, 10019, ts+20406)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__149)), ts+3767, 10019, ts+20542)
 		} else {
 		}
 		if l_x0_dest < TOPJ_UINT32(res_x0) {
@@ -31040,7 +31506,7 @@ __3:
 	return DOPJ_TRUE
 }
 
-var __func__149 = *(*[26]int8)(unsafe.Pointer(ts + 20418)) /* j2k.c:9929:1 */
+var __func__149 = *(*[26]int8)(unsafe.Pointer(ts + 20554)) /* j2k.c:9929:1 */
 
 func opj_j2k_update_image_dimensions(tls *libc.TLS, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10144:17: */
 	bp := tls.Alloc(32)
@@ -31057,7 +31523,7 @@ func opj_j2k_update_image_dimensions(tls *libc.TLS, p_image uintptr, p_manager u
 		var l_w TOPJ_INT32
 		if (*Topj_image_t)(unsafe.Pointer(p_image)).Fx0 > TOPJ_UINT32(2147483647) || (*Topj_image_t)(unsafe.Pointer(p_image)).Fy0 > TOPJ_UINT32(2147483647) || (*Topj_image_t)(unsafe.Pointer(p_image)).Fx1 > TOPJ_UINT32(2147483647) || (*Topj_image_t)(unsafe.Pointer(p_image)).Fy1 > TOPJ_UINT32(2147483647) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+20444, 0)
+				ts+20580, 0)
 			return DOPJ_FALSE
 		}
 
@@ -31072,7 +31538,7 @@ func opj_j2k_update_image_dimensions(tls *libc.TLS, p_image uintptr, p_manager u
 			opj_int_ceildivpow2(tls, TOPJ_INT32((*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fx0), TOPJ_INT32((*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Ffactor))
 		if l_w < 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+20495,
+				ts+20631,
 				libc.VaList(bp, it_comp, l_w))
 			return DOPJ_FALSE
 		}
@@ -31082,7 +31548,7 @@ func opj_j2k_update_image_dimensions(tls *libc.TLS, p_image uintptr, p_manager u
 			opj_int_ceildivpow2(tls, TOPJ_INT32((*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Fy0), TOPJ_INT32((*Topj_image_comp_t)(unsafe.Pointer(l_img_comp)).Ffactor))
 		if l_h < 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+20564,
+				ts+20700,
 				libc.VaList(bp+16, it_comp, l_h))
 			return DOPJ_FALSE
 		}
@@ -31104,7 +31570,7 @@ func Xopj_j2k_set_decoded_components(tls *libc.TLS, p_j2k uintptr, numcomps TOPJ
 	if (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image == uintptr(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+20633, 0)
+			ts+20769, 0)
 		return DOPJ_FALSE
 	}
 
@@ -31117,14 +31583,14 @@ func Xopj_j2k_set_decoded_components(tls *libc.TLS, p_j2k uintptr, numcomps TOPJ
 	for i = TOPJ_UINT32(0); i < numcomps; i++ {
 		if *(*TOPJ_UINT32)(unsafe.Pointer(comps_indices + uintptr(i)*4)) >= (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+20706,
+				ts+20842,
 				libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(comps_indices + uintptr(i)*4))))
 			Xopj_free(tls, already_mapped)
 			return DOPJ_FALSE
 		}
 		if *(*TOPJ_BOOL)(unsafe.Pointer(already_mapped + uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(comps_indices + uintptr(i)*4)))*4)) != 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+20735,
+				ts+20871,
 				libc.VaList(bp+8, *(*TOPJ_UINT32)(unsafe.Pointer(comps_indices + uintptr(i)*4))))
 			Xopj_free(tls, already_mapped)
 			return DOPJ_FALSE
@@ -31163,7 +31629,7 @@ func Xopj_j2k_set_decode_area(tls *libc.TLS, p_j2k uintptr, p_image uintptr, p_s
 		// ingested, go on
 	} else if (*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_state != J2K_STATE_TPHSOT {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+20774, 0)
+			ts+20910, 0)
 		return DOPJ_FALSE
 	}
 
@@ -31175,7 +31641,7 @@ func Xopj_j2k_set_decode_area(tls *libc.TLS, p_j2k uintptr, p_image uintptr, p_s
 
 	if !(p_start_x != 0) && !(p_start_y != 0) && !(p_end_x != 0) && !(p_end_y != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_INFO,
-			ts+20855, 0)
+			ts+20991, 0)
 
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_start_tile_x = TOPJ_UINT32(0)
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_start_tile_y = TOPJ_UINT32(0)
@@ -31196,17 +31662,17 @@ func Xopj_j2k_set_decode_area(tls *libc.TLS, p_j2k uintptr, p_image uintptr, p_s
 	// Left
 	if p_start_x < 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+20924,
+			ts+21060,
 			libc.VaList(bp, p_start_x))
 		return DOPJ_FALSE
 	} else if TOPJ_UINT32(p_start_x) > (*Topj_image_t)(unsafe.Pointer(l_image)).Fx1 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+20990,
+			ts+21126,
 			libc.VaList(bp+8, p_start_x, (*Topj_image_t)(unsafe.Pointer(l_image)).Fx1))
 		return DOPJ_FALSE
 	} else if TOPJ_UINT32(p_start_x) < (*Topj_image_t)(unsafe.Pointer(l_image)).Fx0 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+21077,
+			ts+21213,
 			libc.VaList(bp+24, p_start_x, (*Topj_image_t)(unsafe.Pointer(l_image)).Fx0))
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_start_tile_x = TOPJ_UINT32(0)
 		(*Topj_image_t)(unsafe.Pointer(p_image)).Fx0 = (*Topj_image_t)(unsafe.Pointer(l_image)).Fx0
@@ -31218,17 +31684,17 @@ func Xopj_j2k_set_decode_area(tls *libc.TLS, p_j2k uintptr, p_image uintptr, p_s
 	// Up
 	if p_start_y < 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+21165,
+			ts+21301,
 			libc.VaList(bp+40, p_start_y))
 		return DOPJ_FALSE
 	} else if TOPJ_UINT32(p_start_y) > (*Topj_image_t)(unsafe.Pointer(l_image)).Fy1 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+21229,
+			ts+21365,
 			libc.VaList(bp+48, p_start_y, (*Topj_image_t)(unsafe.Pointer(l_image)).Fy1))
 		return DOPJ_FALSE
 	} else if TOPJ_UINT32(p_start_y) < (*Topj_image_t)(unsafe.Pointer(l_image)).Fy0 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+21314,
+			ts+21450,
 			libc.VaList(bp+64, p_start_y, (*Topj_image_t)(unsafe.Pointer(l_image)).Fy0))
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_start_tile_y = TOPJ_UINT32(0)
 		(*Topj_image_t)(unsafe.Pointer(p_image)).Fy0 = (*Topj_image_t)(unsafe.Pointer(l_image)).Fy0
@@ -31240,17 +31706,17 @@ func Xopj_j2k_set_decode_area(tls *libc.TLS, p_j2k uintptr, p_image uintptr, p_s
 	// Right
 	if p_end_x <= 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+21400,
+			ts+21536,
 			libc.VaList(bp+80, p_end_x))
 		return DOPJ_FALSE
 	} else if TOPJ_UINT32(p_end_x) < (*Topj_image_t)(unsafe.Pointer(l_image)).Fx0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+21466,
+			ts+21602,
 			libc.VaList(bp+88, p_end_x, (*Topj_image_t)(unsafe.Pointer(l_image)).Fx0))
 		return DOPJ_FALSE
 	} else if TOPJ_UINT32(p_end_x) > (*Topj_image_t)(unsafe.Pointer(l_image)).Fx1 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+21555,
+			ts+21691,
 			libc.VaList(bp+104, p_end_x, (*Topj_image_t)(unsafe.Pointer(l_image)).Fx1))
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_end_tile_x = (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw
 		(*Topj_image_t)(unsafe.Pointer(p_image)).Fx1 = (*Topj_image_t)(unsafe.Pointer(l_image)).Fx1
@@ -31263,18 +31729,18 @@ func Xopj_j2k_set_decode_area(tls *libc.TLS, p_j2k uintptr, p_image uintptr, p_s
 	// Bottom
 	if p_end_y <= 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+21643,
+			ts+21779,
 			libc.VaList(bp+120, p_end_y))
 		return DOPJ_FALSE
 	} else if TOPJ_UINT32(p_end_y) < (*Topj_image_t)(unsafe.Pointer(l_image)).Fy0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+21710,
+			ts+21846,
 			libc.VaList(bp+128, p_end_y, (*Topj_image_t)(unsafe.Pointer(l_image)).Fy0))
 		return DOPJ_FALSE
 	}
 	if TOPJ_UINT32(p_end_y) > (*Topj_image_t)(unsafe.Pointer(l_image)).Fy1 {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+21800,
+			ts+21936,
 			libc.VaList(bp+144, p_end_y, (*Topj_image_t)(unsafe.Pointer(l_image)).Fy1))
 		(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k + 8)).Fm_end_tile_y = (*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth
 		(*Topj_image_t)(unsafe.Pointer(p_image)).Fy1 = (*Topj_image_t)(unsafe.Pointer(l_image)).Fy1
@@ -31290,7 +31756,7 @@ func Xopj_j2k_set_decode_area(tls *libc.TLS, p_j2k uintptr, p_image uintptr, p_s
 	ret = opj_j2k_update_image_dimensions(tls, p_image, p_manager)
 
 	if ret != 0 {
-		Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+21889,
+		Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+22025,
 			libc.VaList(bp+160, (*Topj_image_t)(unsafe.Pointer(p_image)).Fx0, (*Topj_image_t)(unsafe.Pointer(p_image)).Fy0, (*Topj_image_t)(unsafe.Pointer(p_image)).Fx1, (*Topj_image_t)(unsafe.Pointer(p_image)).Fy1))
 	}
 
@@ -31391,7 +31857,7 @@ func opj_j2k_get_SPCod_SPCoc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_U
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__150)), ts+3631, 10516, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__150)), ts+3767, 10516, ts+4083)
 	} else {
 	}
 
@@ -31401,11 +31867,11 @@ func opj_j2k_get_SPCod_SPCoc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_U
 
 	// preconditions again
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tile_no < (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__150)), ts+3631, 10523, ts+21927)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__150)), ts+3767, 10523, ts+22063)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_comp_no < (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__150)), ts+3631, 10524, ts+21961)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__150)), ts+3767, 10524, ts+22097)
 	} else {
 	}
 
@@ -31417,7 +31883,7 @@ func opj_j2k_get_SPCod_SPCoc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_U
 	return TOPJ_UINT32(0)
 }
 
-var __func__150 = *(*[29]int8)(unsafe.Pointer(ts + 22006)) /* j2k.c:10510:1 */
+var __func__150 = *(*[29]int8)(unsafe.Pointer(ts + 22142)) /* j2k.c:10510:1 */
 
 func opj_j2k_compare_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_first_comp_no TOPJ_UINT32, p_second_comp_no TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:10533:17: */
 	var i TOPJ_UINT32
@@ -31428,7 +31894,7 @@ func opj_j2k_compare_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UI
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__151)), ts+3631, 10543, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__151)), ts+3767, 10543, ts+4083)
 	} else {
 	}
 
@@ -31467,7 +31933,7 @@ func opj_j2k_compare_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UI
 	return DOPJ_TRUE
 }
 
-var __func__151 = *(*[28]int8)(unsafe.Pointer(ts + 22035)) /* j2k.c:10535:1 */
+var __func__151 = *(*[28]int8)(unsafe.Pointer(ts + 22171)) /* j2k.c:10535:1 */
 
 func opj_j2k_write_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_comp_no TOPJ_UINT32, p_data uintptr, p_header_size uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10580:17: */
 	var i TOPJ_UINT32
@@ -31477,19 +31943,19 @@ func opj_j2k_write_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3631, 10593, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3767, 10593, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_size != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3631, 10594, ts+22063)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3767, 10594, ts+22199)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3631, 10595, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3767, 10595, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3631, 10596, ts+22083)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3767, 10596, ts+22219)
 	} else {
 	}
 
@@ -31499,16 +31965,16 @@ func opj_j2k_write_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT
 
 	// preconditions again
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tile_no < (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3631, 10603, ts+21927)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3767, 10603, ts+22063)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_comp_no < (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3631, 10604, ts+22096)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__152)), ts+3767, 10604, ts+22232)
 	} else {
 	}
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(p_header_size)) < TOPJ_UINT32(5) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22143, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22279, 0)
 		return DOPJ_FALSE
 	}
 
@@ -31534,7 +32000,7 @@ func opj_j2k_write_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT
 	if (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcsty&TOPJ_UINT32(DJ2K_CCP_CSTY_PRT) != 0 {
 
 		if *(*TOPJ_UINT32)(unsafe.Pointer(p_header_size)) < (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22143, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22279, 0)
 			return DOPJ_FALSE
 		}
 
@@ -31550,7 +32016,7 @@ func opj_j2k_write_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT
 	return DOPJ_TRUE
 }
 
-var __func__152 = *(*[26]int8)(unsafe.Pointer(ts + 22178)) /* j2k.c:10586:1 */
+var __func__152 = *(*[26]int8)(unsafe.Pointer(ts + 22314)) /* j2k.c:10586:1 */
 
 func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, p_header_data uintptr, p_header_size uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10649:17: */
 	bp := tls.Alloc(44)
@@ -31566,15 +32032,15 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__153)), ts+3631, 10662, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__153)), ts+3767, 10662, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__153)), ts+3631, 10663, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__153)), ts+3767, 10663, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__153)), ts+3631, 10664, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__153)), ts+3767, 10664, ts+4313)
 	} else {
 	}
 
@@ -31587,7 +32053,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 
 	// precondition again
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(compno < (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__153)), ts+3631, 10672, ts+22204)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__153)), ts+3767, 10672, ts+22340)
 	} else {
 	}
 
@@ -31596,7 +32062,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 
 	// make sure room is sufficient
 	if *(*TOPJ_UINT32)(unsafe.Pointer(p_header_size)) < TOPJ_UINT32(5) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22246, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22382, 0)
 		return DOPJ_FALSE
 	}
 
@@ -31605,7 +32071,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 	(*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions++ // tccp->numresolutions = read() + 1
 	if (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions > TOPJ_UINT32(DOPJ_J2K_MAXRLVLS) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+22281,
+			ts+22417,
 			libc.VaList(bp, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions, DOPJ_J2K_MAXRLVLS))
 		return DOPJ_FALSE
 	}
@@ -31615,7 +32081,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 	if (*Topj_decoding_param_t)(unsafe.Pointer(l_cp+120)).Fm_reduce >= (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-			ts+22358,
+			ts+22494,
 			libc.VaList(bp+16, compno, (*Topj_decoding_param_t)(unsafe.Pointer(l_cp+120)).Fm_reduce, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions))
 		*(*TOPJ_UINT32)(unsafe.Pointer(p_j2k + 8)) |= TOPJ_UINT32(0x8000) // FIXME J2K_DEC_STATE_ERR;
 		return DOPJ_FALSE
@@ -31633,7 +32099,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 
 	if (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblkw > TOPJ_UINT32(10) || (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblkh > TOPJ_UINT32(10) || (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblkw+(*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblkh > TOPJ_UINT32(12) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+22536, 0)
+			ts+22672, 0)
 		return DOPJ_FALSE
 	}
 
@@ -31643,7 +32109,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 	if (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblksty&TOPJ_UINT32(DJ2K_CCP_CBLKSTY_HTMIXED) != TOPJ_UINT32(0) {
 		// We do not support HT mixed mode yet.  For conformance, it should be supported.
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+22604, 0)
+			ts+22740, 0)
 		return DOPJ_FALSE
 	}
 
@@ -31653,7 +32119,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 
 	if (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fqmfbid > TOPJ_UINT32(1) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+22684, 0)
+			ts+22820, 0)
 		return DOPJ_FALSE
 	}
 
@@ -31662,7 +32128,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 	// use custom precinct size ?
 	if (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcsty&TOPJ_UINT32(DJ2K_CCP_CSTY_PRT) != 0 {
 		if *(*TOPJ_UINT32)(unsafe.Pointer(p_header_size)) < (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22246, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22382, 0)
 			return DOPJ_FALSE
 		}
 
@@ -31672,7 +32138,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 			l_current_ptr++
 			// Precinct exponent 0 is only allowed for lowest resolution level (Table A.21)
 			if i != TOPJ_UINT32(0) && (*(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))&TOPJ_UINT32(0xf) == TOPJ_UINT32(0) || *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))>>4 == TOPJ_UINT32(0)) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22749, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22885, 0)
 				return DOPJ_FALSE
 			}
 			*(*TOPJ_UINT32)(unsafe.Pointer(l_tccp + 812 + uintptr(i)*4)) = *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40)) & TOPJ_UINT32(0xf)
@@ -31691,7 +32157,7 @@ func opj_j2k_read_SPCod_SPCoc(tls *libc.TLS, p_j2k uintptr, compno TOPJ_UINT32, 
 	return DOPJ_TRUE
 }
 
-var __func__153 = *(*[25]int8)(unsafe.Pointer(ts + 22772)) /* j2k.c:10654:1 */
+var __func__153 = *(*[25]int8)(unsafe.Pointer(ts + 22908)) /* j2k.c:10654:1 */
 
 func opj_j2k_copy_tile_component_parameters(tls *libc.TLS, p_j2k uintptr) { /* j2k.c:10801:13: */
 	// loop
@@ -31704,7 +32170,7 @@ func opj_j2k_copy_tile_component_parameters(tls *libc.TLS, p_j2k uintptr) { /* j
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__154)), ts+3631, 10811, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__154)), ts+3767, 10811, ts+4083)
 	} else {
 	}
 
@@ -31731,7 +32197,7 @@ func opj_j2k_copy_tile_component_parameters(tls *libc.TLS, p_j2k uintptr) { /* j
 	}
 }
 
-var __func__154 = *(*[39]int8)(unsafe.Pointer(ts + 22797)) /* j2k.c:10802:1 */
+var __func__154 = *(*[39]int8)(unsafe.Pointer(ts + 22933)) /* j2k.c:10802:1 */
 
 func opj_j2k_get_SQcd_SQcc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_comp_no TOPJ_UINT32) TOPJ_UINT32 { /* j2k.c:10835:19: */
 	var l_num_bands TOPJ_UINT32
@@ -31742,7 +32208,7 @@ func opj_j2k_get_SQcd_SQcc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UIN
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__155)), ts+3631, 10846, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__155)), ts+3767, 10846, ts+4083)
 	} else {
 	}
 
@@ -31752,11 +32218,11 @@ func opj_j2k_get_SQcd_SQcc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UIN
 
 	// preconditions again
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tile_no < (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__155)), ts+3631, 10853, ts+22836)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__155)), ts+3767, 10853, ts+22972)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_comp_no < (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__155)), ts+3631, 10854, ts+21961)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__155)), ts+3767, 10854, ts+22097)
 	} else {
 	}
 
@@ -31774,7 +32240,7 @@ func opj_j2k_get_SQcd_SQcc_size(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UIN
 	return TOPJ_UINT32(0)
 }
 
-var __func__155 = *(*[27]int8)(unsafe.Pointer(ts + 22868)) /* j2k.c:10838:1 */
+var __func__155 = *(*[27]int8)(unsafe.Pointer(ts + 23004)) /* j2k.c:10838:1 */
 
 func opj_j2k_compare_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_first_comp_no TOPJ_UINT32, p_second_comp_no TOPJ_UINT32) TOPJ_BOOL { /* j2k.c:10866:17: */
 	var l_cp uintptr = uintptr(0)
@@ -31786,7 +32252,7 @@ func opj_j2k_compare_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__156)), ts+3631, 10876, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__156)), ts+3767, 10876, ts+4083)
 	} else {
 	}
 
@@ -31825,7 +32291,7 @@ func opj_j2k_compare_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT
 	return DOPJ_TRUE
 }
 
-var __func__156 = *(*[26]int8)(unsafe.Pointer(ts + 22895)) /* j2k.c:10868:1 */
+var __func__156 = *(*[26]int8)(unsafe.Pointer(ts + 23031)) /* j2k.c:10868:1 */
 
 func opj_j2k_write_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32, p_comp_no TOPJ_UINT32, p_data uintptr, p_header_size uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10914:17: */
 	var l_header_size TOPJ_UINT32
@@ -31840,19 +32306,19 @@ func opj_j2k_write_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3631, 10930, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3767, 10930, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_size != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3631, 10931, ts+22063)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3767, 10931, ts+22199)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3631, 10932, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3767, 10932, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3631, 10933, ts+22083)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3767, 10933, ts+22219)
 	} else {
 	}
 
@@ -31862,11 +32328,11 @@ func opj_j2k_write_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32
 
 	// preconditions again
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tile_no < (*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(l_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3631, 10940, ts+22836)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3767, 10940, ts+22972)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_comp_no < (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3631, 10941, ts+21961)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__157)), ts+3767, 10941, ts+22097)
 	} else {
 	}
 
@@ -31880,7 +32346,7 @@ func opj_j2k_write_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32
 		l_header_size = TOPJ_UINT32(1) + l_num_bands
 
 		if *(*TOPJ_UINT32)(unsafe.Pointer(p_header_size)) < l_header_size {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22921, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+23057, 0)
 			return DOPJ_FALSE
 		}
 
@@ -31897,7 +32363,7 @@ func opj_j2k_write_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32
 		l_header_size = TOPJ_UINT32(1) + TOPJ_UINT32(2)*l_num_bands
 
 		if *(*TOPJ_UINT32)(unsafe.Pointer(p_header_size)) < l_header_size {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22921, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+23057, 0)
 			return DOPJ_FALSE
 		}
 
@@ -31919,7 +32385,7 @@ func opj_j2k_write_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_tile_no TOPJ_UINT32
 	return DOPJ_TRUE
 }
 
-var __func__157 = *(*[24]int8)(unsafe.Pointer(ts + 22954)) /* j2k.c:10920:1 */
+var __func__157 = *(*[24]int8)(unsafe.Pointer(ts + 23090)) /* j2k.c:10920:1 */
 
 func opj_j2k_read_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32, p_header_data uintptr, p_header_size uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:10989:17: */
 	bp := tls.Alloc(28)
@@ -31937,15 +32403,15 @@ func opj_j2k_read_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32,
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__158)), ts+3631, 11005, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__158)), ts+3767, 11005, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__158)), ts+3631, 11006, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__158)), ts+3767, 11006, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__158)), ts+3631, 11007, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__158)), ts+3767, 11007, ts+4313)
 	} else {
 	}
 
@@ -31959,7 +32425,7 @@ func opj_j2k_read_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32,
 
 	// precondition again
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_comp_no < (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__158)), ts+3631, 11017, ts+21961)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__158)), ts+3767, 11017, ts+22097)
 	} else {
 	}
 
@@ -31967,7 +32433,7 @@ func opj_j2k_read_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32,
 	l_current_ptr = p_header_data
 
 	if *(*TOPJ_UINT32)(unsafe.Pointer(p_header_size)) < TOPJ_UINT32(1) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+22978, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+23114, 0)
 		return DOPJ_FALSE
 	}
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_header_size)) -= TOPJ_UINT32(1)
@@ -31989,7 +32455,7 @@ func opj_j2k_read_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32,
 		if l_num_band > TOPJ_UINT32(3*DOPJ_J2K_MAXRLVLS-2) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
 
-				ts+23014, libc.VaList(bp, l_num_band, 3*DOPJ_J2K_MAXRLVLS-2,
+				ts+23150, libc.VaList(bp, l_num_band, 3*DOPJ_J2K_MAXRLVLS-2,
 					3*DOPJ_J2K_MAXRLVLS-2))
 			//return OPJ_FALSE;
 		}
@@ -32033,7 +32499,7 @@ func opj_j2k_read_SQcd_SQcc(tls *libc.TLS, p_j2k uintptr, p_comp_no TOPJ_UINT32,
 	return DOPJ_TRUE
 }
 
-var __func__158 = *(*[23]int8)(unsafe.Pointer(ts + 23230)) /* j2k.c:10995:1 */
+var __func__158 = *(*[23]int8)(unsafe.Pointer(ts + 23366)) /* j2k.c:10995:1 */
 
 func opj_j2k_copy_tile_quantization_parameters(tls *libc.TLS, p_j2k uintptr) { /* j2k.c:11108:13: */
 	var i TOPJ_UINT32
@@ -32045,7 +32511,7 @@ func opj_j2k_copy_tile_quantization_parameters(tls *libc.TLS, p_j2k uintptr) { /
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__159)), ts+3631, 11118, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__159)), ts+3767, 11118, ts+4083)
 	} else {
 	}
 
@@ -32068,7 +32534,7 @@ func opj_j2k_copy_tile_quantization_parameters(tls *libc.TLS, p_j2k uintptr) { /
 	}
 }
 
-var __func__159 = *(*[42]int8)(unsafe.Pointer(ts + 23253)) /* j2k.c:11109:1 */
+var __func__159 = *(*[42]int8)(unsafe.Pointer(ts + 23389)) /* j2k.c:11109:1 */
 
 func opj_j2k_dump_tile_info(tls *libc.TLS, l_default_tile uintptr, numcomps TOPJ_INT32, out_stream uintptr) { /* j2k.c:11137:13: */
 	bp := tls.Alloc(144)
@@ -32077,11 +32543,11 @@ func opj_j2k_dump_tile_info(tls *libc.TLS, l_default_tile uintptr, numcomps TOPJ
 	if l_default_tile != 0 {
 		var compno TOPJ_INT32
 
-		libc.Xfprintf(tls, out_stream, ts+23295, 0)
-		libc.Xfprintf(tls, out_stream, ts+23313, libc.VaList(bp, (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Fcsty))
-		libc.Xfprintf(tls, out_stream, ts+23326, libc.VaList(bp+8, (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Fprg))
-		libc.Xfprintf(tls, out_stream, ts+23338, libc.VaList(bp+16, (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Fnumlayers))
-		libc.Xfprintf(tls, out_stream, ts+23355, libc.VaList(bp+24, (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Fmct))
+		libc.Xfprintf(tls, out_stream, ts+23431, 0)
+		libc.Xfprintf(tls, out_stream, ts+23449, libc.VaList(bp, (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Fcsty))
+		libc.Xfprintf(tls, out_stream, ts+23462, libc.VaList(bp+8, (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Fprg))
+		libc.Xfprintf(tls, out_stream, ts+23474, libc.VaList(bp+16, (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Fnumlayers))
+		libc.Xfprintf(tls, out_stream, ts+23491, libc.VaList(bp+24, (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Fmct))
 
 		for compno = 0; compno < numcomps; compno++ {
 			var l_tccp uintptr = (*Topj_tcp_t)(unsafe.Pointer(l_default_tile)).Ftccps + uintptr(compno)*1080
@@ -32090,48 +32556,48 @@ func opj_j2k_dump_tile_info(tls *libc.TLS, l_default_tile uintptr, numcomps TOPJ
 			var numbands TOPJ_INT32
 
 			// coding style
-			libc.Xfprintf(tls, out_stream, ts+23366, libc.VaList(bp+32, compno))
-			libc.Xfprintf(tls, out_stream, ts+23380, libc.VaList(bp+40, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcsty))
-			libc.Xfprintf(tls, out_stream, ts+23394, libc.VaList(bp+48, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions))
-			libc.Xfprintf(tls, out_stream, ts+23417, libc.VaList(bp+56, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblkw))
-			libc.Xfprintf(tls, out_stream, ts+23433, libc.VaList(bp+64, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblkh))
-			libc.Xfprintf(tls, out_stream, ts+23449, libc.VaList(bp+72, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblksty))
-			libc.Xfprintf(tls, out_stream, ts+23466, libc.VaList(bp+80, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fqmfbid))
+			libc.Xfprintf(tls, out_stream, ts+23502, libc.VaList(bp+32, compno))
+			libc.Xfprintf(tls, out_stream, ts+23516, libc.VaList(bp+40, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcsty))
+			libc.Xfprintf(tls, out_stream, ts+23530, libc.VaList(bp+48, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions))
+			libc.Xfprintf(tls, out_stream, ts+23553, libc.VaList(bp+56, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblkw))
+			libc.Xfprintf(tls, out_stream, ts+23569, libc.VaList(bp+64, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblkh))
+			libc.Xfprintf(tls, out_stream, ts+23585, libc.VaList(bp+72, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fcblksty))
+			libc.Xfprintf(tls, out_stream, ts+23602, libc.VaList(bp+80, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fqmfbid))
 
-			libc.Xfprintf(tls, out_stream, ts+23481, 0)
+			libc.Xfprintf(tls, out_stream, ts+23617, 0)
 			for resno = TOPJ_UINT32(0); resno < (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions; resno++ {
-				libc.Xfprintf(tls, out_stream, ts+23505, libc.VaList(bp+88, *(*TOPJ_UINT32)(unsafe.Pointer(l_tccp + 812 + uintptr(resno)*4)), *(*TOPJ_UINT32)(unsafe.Pointer(l_tccp + 944 + uintptr(resno)*4))))
+				libc.Xfprintf(tls, out_stream, ts+23641, libc.VaList(bp+88, *(*TOPJ_UINT32)(unsafe.Pointer(l_tccp + 812 + uintptr(resno)*4)), *(*TOPJ_UINT32)(unsafe.Pointer(l_tccp + 944 + uintptr(resno)*4))))
 			}
-			libc.Xfprintf(tls, out_stream, ts+23514, 0)
+			libc.Xfprintf(tls, out_stream, ts+23650, 0)
 
 			// quantization style
-			libc.Xfprintf(tls, out_stream, ts+23516, libc.VaList(bp+104, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fqntsty))
-			libc.Xfprintf(tls, out_stream, ts+23531, libc.VaList(bp+112, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumgbits))
-			libc.Xfprintf(tls, out_stream, ts+23548, 0)
+			libc.Xfprintf(tls, out_stream, ts+23652, libc.VaList(bp+104, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fqntsty))
+			libc.Xfprintf(tls, out_stream, ts+23667, libc.VaList(bp+112, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumgbits))
+			libc.Xfprintf(tls, out_stream, ts+23684, 0)
 			if (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fqntsty == TOPJ_UINT32(DJ2K_CCP_QNTSTY_SIQNT) {
 				numbands = 1
 			} else {
 				numbands = TOPJ_INT32((*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions)*3 - 2
 			}
 			for bandno = 0; bandno < numbands; bandno++ {
-				libc.Xfprintf(tls, out_stream, ts+23505, libc.VaList(bp+120, (*Topj_stepsize_t)(unsafe.Pointer(l_tccp+28+uintptr(bandno)*8)).Fmant,
+				libc.Xfprintf(tls, out_stream, ts+23641, libc.VaList(bp+120, (*Topj_stepsize_t)(unsafe.Pointer(l_tccp+28+uintptr(bandno)*8)).Fmant,
 					(*Topj_stepsize_t)(unsafe.Pointer(l_tccp+28+uintptr(bandno)*8)).Fexpn))
 			}
-			libc.Xfprintf(tls, out_stream, ts+23514, 0)
+			libc.Xfprintf(tls, out_stream, ts+23650, 0)
 
 			// RGN value
-			libc.Xfprintf(tls, out_stream, ts+23569, libc.VaList(bp+136, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Froishift))
+			libc.Xfprintf(tls, out_stream, ts+23705, libc.VaList(bp+136, (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Froishift))
 
-			libc.Xfprintf(tls, out_stream, ts+23586, 0)
+			libc.Xfprintf(tls, out_stream, ts+23722, 0)
 		} //end of component of default tile
-		libc.Xfprintf(tls, out_stream, ts+23592, 0) //end of default tile
+		libc.Xfprintf(tls, out_stream, ts+23728, 0) //end of default tile
 	}
 }
 
 func Xj2k_dump(tls *libc.TLS, p_j2k uintptr, flag TOPJ_INT32, out_stream uintptr) { /* j2k.c:11190:6: */
 	// Check if the flag is compatible with j2k file
 	if flag&DOPJ_JP2_INFO != 0 || flag&DOPJ_JP2_IND != 0 {
-		libc.Xfprintf(tls, out_stream, ts+23597, 0)
+		libc.Xfprintf(tls, out_stream, ts+23733, 0)
 		return
 	}
 
@@ -32188,24 +32654,24 @@ func opj_j2k_dump_MH_index(tls *libc.TLS, p_j2k uintptr, out_stream uintptr) { /
 	var it_tile TOPJ_UINT32
 	var it_tile_part TOPJ_UINT32
 
-	libc.Xfprintf(tls, out_stream, ts+23609, 0)
+	libc.Xfprintf(tls, out_stream, ts+23745, 0)
 
 	libc.Xfprintf(tls, out_stream,
-		ts+23647,
+		ts+23783,
 		libc.VaList(bp, (*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Fmain_head_start, (*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Fmain_head_end))
 
-	libc.Xfprintf(tls, out_stream, ts+23714, 0)
+	libc.Xfprintf(tls, out_stream, ts+23850, 0)
 
 	if (*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Fmarker != 0 {
 		for it_marker = TOPJ_UINT32(0); it_marker < (*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Fmarknum; it_marker++ {
-			libc.Xfprintf(tls, out_stream, ts+23732,
+			libc.Xfprintf(tls, out_stream, ts+23868,
 				libc.VaList(bp+16, int32((*Topj_marker_info_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Fmarker+uintptr(it_marker)*24)).Ftype),
 					(*Topj_marker_info_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Fmarker+uintptr(it_marker)*24)).Fpos,
 					(*Topj_marker_info_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Fmarker+uintptr(it_marker)*24)).Flen))
 		}
 	}
 
-	libc.Xfprintf(tls, out_stream, ts+23592, 0)
+	libc.Xfprintf(tls, out_stream, ts+23728, 0)
 
 	if (*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index != 0 {
 
@@ -32216,18 +32682,18 @@ func opj_j2k_dump_MH_index(tls *libc.TLS, p_j2k uintptr, out_stream uintptr) { /
 		}
 
 		if l_acc_nb_of_tile_part != 0 {
-			libc.Xfprintf(tls, out_stream, ts+23763, 0)
+			libc.Xfprintf(tls, out_stream, ts+23899, 0)
 
 			for it_tile = TOPJ_UINT32(0); it_tile < (*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Fnb_of_tiles; it_tile++ {
 				var nb_of_tile_part TOPJ_UINT32 = (*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index + uintptr(it_tile)*56)).Fnb_tps
 
-				libc.Xfprintf(tls, out_stream, ts+23780, libc.VaList(bp+40, it_tile,
+				libc.Xfprintf(tls, out_stream, ts+23916, libc.VaList(bp+40, it_tile,
 					nb_of_tile_part))
 
 				if (*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index+uintptr(it_tile)*56)).Ftp_index != 0 {
 					for it_tile_part = TOPJ_UINT32(0); it_tile_part < nb_of_tile_part; it_tile_part++ {
 						libc.Xfprintf(tls, out_stream,
-							ts+23816,
+							ts+23952,
 							libc.VaList(bp+56, it_tile_part,
 								(*Topj_tp_index_t)(unsafe.Pointer((*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index+uintptr(it_tile)*56)).Ftp_index+uintptr(it_tile_part)*24)).Fstart_pos,
 								(*Topj_tp_index_t)(unsafe.Pointer((*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index+uintptr(it_tile)*56)).Ftp_index+uintptr(it_tile_part)*24)).Fend_header,
@@ -32237,18 +32703,18 @@ func opj_j2k_dump_MH_index(tls *libc.TLS, p_j2k uintptr, out_stream uintptr) { /
 
 				if (*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index+uintptr(it_tile)*56)).Fmarker != 0 {
 					for it_marker = TOPJ_UINT32(0); it_marker < (*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index+uintptr(it_tile)*56)).Fmarknum; it_marker++ {
-						libc.Xfprintf(tls, out_stream, ts+23732,
+						libc.Xfprintf(tls, out_stream, ts+23868,
 							libc.VaList(bp+88, int32((*Topj_marker_info_t)(unsafe.Pointer((*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index+uintptr(it_tile)*56)).Fmarker+uintptr(it_marker)*24)).Ftype),
 								(*Topj_marker_info_t)(unsafe.Pointer((*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index+uintptr(it_tile)*56)).Fmarker+uintptr(it_marker)*24)).Fpos,
 								(*Topj_marker_info_t)(unsafe.Pointer((*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer(cstr_index)).Ftile_index+uintptr(it_tile)*56)).Fmarker+uintptr(it_marker)*24)).Flen))
 					}
 				}
 			}
-			libc.Xfprintf(tls, out_stream, ts+23592, 0)
+			libc.Xfprintf(tls, out_stream, ts+23728, 0)
 		}
 	}
 
-	libc.Xfprintf(tls, out_stream, ts+23882, 0)
+	libc.Xfprintf(tls, out_stream, ts+24018, 0)
 
 }
 
@@ -32256,14 +32722,14 @@ func opj_j2k_dump_MH_info(tls *libc.TLS, p_j2k uintptr, out_stream uintptr) { /*
 	bp := tls.Alloc(48)
 	defer tls.Free(48)
 
-	libc.Xfprintf(tls, out_stream, ts+23885, 0)
+	libc.Xfprintf(tls, out_stream, ts+24021, 0)
 
-	libc.Xfprintf(tls, out_stream, ts+23922, libc.VaList(bp, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftx0, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fty0))
-	libc.Xfprintf(tls, out_stream, ts+23940, libc.VaList(bp+16, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftdx, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftdy))
-	libc.Xfprintf(tls, out_stream, ts+23958, libc.VaList(bp+32, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth))
+	libc.Xfprintf(tls, out_stream, ts+24058, libc.VaList(bp, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftx0, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fty0))
+	libc.Xfprintf(tls, out_stream, ts+24076, libc.VaList(bp+16, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftdx, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftdy))
+	libc.Xfprintf(tls, out_stream, ts+24094, libc.VaList(bp+32, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth))
 	opj_j2k_dump_tile_info(tls, (*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_default_tcp,
 		TOPJ_INT32((*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps), out_stream)
-	libc.Xfprintf(tls, out_stream, ts+23882, 0)
+	libc.Xfprintf(tls, out_stream, ts+24018, 0)
 }
 
 func Xj2k_dump_image_header(tls *libc.TLS, img_header uintptr, dev_dump_flag TOPJ_BOOL, out_stream uintptr) { /* j2k.c:11326:6: */
@@ -32273,30 +32739,30 @@ func Xj2k_dump_image_header(tls *libc.TLS, img_header uintptr, dev_dump_flag TOP
 	// var tab [2]int8 at bp+88, 2
 
 	if dev_dump_flag != 0 {
-		libc.Xfprintf(tls, libc.X__stdoutp, ts+23974, 0)
+		libc.Xfprintf(tls, libc.X__stdoutp, ts+24110, 0)
 		*(*int8)(unsafe.Pointer(bp + 88)) = int8(0)
 	} else {
-		libc.Xfprintf(tls, out_stream, ts+24011, 0)
+		libc.Xfprintf(tls, out_stream, ts+24147, 0)
 		*(*int8)(unsafe.Pointer(bp + 88)) = int8('\t')
 		*(*int8)(unsafe.Pointer(bp + 88 + 1)) = int8(0)
 	}
 
-	libc.Xfprintf(tls, out_stream, ts+24025, libc.VaList(bp, bp+88, (*Topj_image_t)(unsafe.Pointer(img_header)).Fx0, (*Topj_image_t)(unsafe.Pointer(img_header)).Fy0))
-	libc.Xfprintf(tls, out_stream, ts+24042, libc.VaList(bp+24, bp+88, (*Topj_image_t)(unsafe.Pointer(img_header)).Fx1,
+	libc.Xfprintf(tls, out_stream, ts+24161, libc.VaList(bp, bp+88, (*Topj_image_t)(unsafe.Pointer(img_header)).Fx0, (*Topj_image_t)(unsafe.Pointer(img_header)).Fy0))
+	libc.Xfprintf(tls, out_stream, ts+24178, libc.VaList(bp+24, bp+88, (*Topj_image_t)(unsafe.Pointer(img_header)).Fx1,
 		(*Topj_image_t)(unsafe.Pointer(img_header)).Fy1))
-	libc.Xfprintf(tls, out_stream, ts+24059, libc.VaList(bp+48, bp+88, (*Topj_image_t)(unsafe.Pointer(img_header)).Fnumcomps))
+	libc.Xfprintf(tls, out_stream, ts+24195, libc.VaList(bp+48, bp+88, (*Topj_image_t)(unsafe.Pointer(img_header)).Fnumcomps))
 
 	if (*Topj_image_t)(unsafe.Pointer(img_header)).Fcomps != 0 {
 		var compno TOPJ_UINT32
 		for compno = TOPJ_UINT32(0); compno < (*Topj_image_t)(unsafe.Pointer(img_header)).Fnumcomps; compno++ {
-			libc.Xfprintf(tls, out_stream, ts+24075, libc.VaList(bp+64, bp+88, compno))
+			libc.Xfprintf(tls, out_stream, ts+24211, libc.VaList(bp+64, bp+88, compno))
 			Xj2k_dump_image_comp_header(tls, (*Topj_image_t)(unsafe.Pointer(img_header)).Fcomps+uintptr(compno)*64, dev_dump_flag,
 				out_stream)
-			libc.Xfprintf(tls, out_stream, ts+24095, libc.VaList(bp+80, bp+88))
+			libc.Xfprintf(tls, out_stream, ts+24231, libc.VaList(bp+80, bp+88))
 		}
 	}
 
-	libc.Xfprintf(tls, out_stream, ts+23882, 0)
+	libc.Xfprintf(tls, out_stream, ts+24018, 0)
 }
 
 func Xj2k_dump_image_comp_header(tls *libc.TLS, comp_header uintptr, dev_dump_flag TOPJ_BOOL, out_stream uintptr) { /* j2k.c:11358:6: */
@@ -32306,7 +32772,7 @@ func Xj2k_dump_image_comp_header(tls *libc.TLS, comp_header uintptr, dev_dump_fl
 	// var tab [3]int8 at bp+56, 3
 
 	if dev_dump_flag != 0 {
-		libc.Xfprintf(tls, libc.X__stdoutp, ts+24100, 0)
+		libc.Xfprintf(tls, libc.X__stdoutp, ts+24236, 0)
 		*(*int8)(unsafe.Pointer(bp + 56)) = int8(0)
 	} else {
 		*(*int8)(unsafe.Pointer(bp + 56)) = int8('\t')
@@ -32314,12 +32780,12 @@ func Xj2k_dump_image_comp_header(tls *libc.TLS, comp_header uintptr, dev_dump_fl
 		*(*int8)(unsafe.Pointer(bp + 56 + 2)) = int8(0)
 	}
 
-	libc.Xfprintf(tls, out_stream, ts+24142, libc.VaList(bp, bp+56, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fdx, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fdy))
-	libc.Xfprintf(tls, out_stream, ts+24159, libc.VaList(bp+24, bp+56, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fprec))
-	libc.Xfprintf(tls, out_stream, ts+24171, libc.VaList(bp+40, bp+56, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fsgnd))
+	libc.Xfprintf(tls, out_stream, ts+24278, libc.VaList(bp, bp+56, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fdx, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fdy))
+	libc.Xfprintf(tls, out_stream, ts+24295, libc.VaList(bp+24, bp+56, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fprec))
+	libc.Xfprintf(tls, out_stream, ts+24307, libc.VaList(bp+40, bp+56, (*Topj_image_comp_t)(unsafe.Pointer(comp_header)).Fsgnd))
 
 	if dev_dump_flag != 0 {
-		libc.Xfprintf(tls, out_stream, ts+23882, 0)
+		libc.Xfprintf(tls, out_stream, ts+24018, 0)
 	}
 }
 
@@ -32537,7 +33003,7 @@ func opj_j2k_are_all_used_components_decoded(tls *libc.TLS, p_j2k uintptr, p_man
 		for compno = TOPJ_UINT32(0); compno < (*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8 /* &.m_specific_param */)).Fm_numcomps_to_decode; compno++ {
 			var dec_compno TOPJ_UINT32 = *(*TOPJ_UINT32)(unsafe.Pointer((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_comps_indices_to_decode + uintptr(compno)*4))
 			if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_output_image)).Fcomps+uintptr(dec_compno)*64)).Fdata == uintptr(0) {
-				Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+24183,
+				Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+24319,
 					libc.VaList(bp, dec_compno))
 				decoded_all_used_components = DOPJ_FALSE
 			}
@@ -32545,7 +33011,7 @@ func opj_j2k_are_all_used_components_decoded(tls *libc.TLS, p_j2k uintptr, p_man
 	} else {
 		for compno = TOPJ_UINT32(0); compno < (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_output_image)).Fnumcomps; compno++ {
 			if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_output_image)).Fcomps+uintptr(compno)*64)).Fdata == uintptr(0) {
-				Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+24183,
+				Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+24319,
 					libc.VaList(bp+8, compno))
 				decoded_all_used_components = DOPJ_FALSE
 			}
@@ -32553,7 +33019,7 @@ func opj_j2k_are_all_used_components_decoded(tls *libc.TLS, p_j2k uintptr, p_man
 	}
 
 	if decoded_all_used_components == DOPJ_FALSE {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24214, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24350, 0)
 		return DOPJ_FALSE
 	}
 
@@ -32597,7 +33063,7 @@ func opj_j2k_decode_tiles(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 
 		if !(Xopj_j2k_decode_tile(tls, p_j2k, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40)), uintptr(0), uint32(0),
 			p_stream, p_manager) != 0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24252, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24388, 0)
 			return DOPJ_FALSE
 		}
 
@@ -32637,12 +33103,12 @@ func opj_j2k_decode_tiles(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 
 		if !(Xopj_j2k_decode_tile(tls, p_j2k, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40)), uintptr(0), uint32(0),
 			p_stream, p_manager) != 0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24279,
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24415,
 				libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))+TOPJ_UINT32(1), (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth*(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw))
 			return DOPJ_FALSE
 		}
 
-		Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+24308,
+		Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+24444,
 			libc.VaList(bp+16, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))+TOPJ_UINT32(1), (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth*(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw))
 
 		if !(opj_j2k_update_image_data(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd,
@@ -32657,7 +33123,7 @@ func opj_j2k_decode_tiles(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 		}
 
 		Xopj_event_msg(tls, p_manager, DEVT_INFO,
-			ts+24338, libc.VaList(bp+32, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))+TOPJ_UINT32(1)))
+			ts+24474, libc.VaList(bp+32, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))+TOPJ_UINT32(1)))
 
 		if Xopj_stream_get_number_byte_left(tls, p_stream) == int64(0) &&
 			(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_state == J2K_STATE_NEOC {
@@ -32680,11 +33146,11 @@ func opj_j2k_decode_tiles(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 func opj_j2k_setup_decoding(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:11754:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__160)), ts+3631, 11758, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__160)), ts+3767, 11758, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__160)), ts+3631, 11759, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__160)), ts+3767, 11759, ts+4095)
 	} else {
 	}
 
@@ -32699,7 +33165,7 @@ func opj_j2k_setup_decoding(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOP
 	return DOPJ_TRUE
 }
 
-var __func__160 = *(*[23]int8)(unsafe.Pointer(ts + 24382)) /* j2k.c:11756:1 */
+var __func__160 = *(*[23]int8)(unsafe.Pointer(ts + 24518)) /* j2k.c:11756:1 */
 
 // Read and decode one tile.
 func opj_j2k_decode_one_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:11773:17: */
@@ -32738,14 +33204,14 @@ func opj_j2k_decode_one_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_m
 				//  so move to the last SOT read
 				if !(Xopj_stream_read_seek(tls, p_stream,
 					(*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_last_sot_read_pos+int64(2), p_manager) != 0) {
-					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24405, 0)
+					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24541, 0)
 					return DOPJ_FALSE
 				}
 			} else {
 				if !(Xopj_stream_read_seek(tls, p_stream,
 					(*Topj_tp_index_t)(unsafe.Pointer((*Topj_tile_index_t)(unsafe.Pointer((*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Ftile_index+uintptr(l_tile_no_to_dec)*56)).Ftp_index)).Fstart_pos+int64(2),
 					p_manager) != 0) {
-					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24405, 0)
+					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24541, 0)
 					return DOPJ_FALSE
 				}
 			}
@@ -32786,7 +33252,7 @@ func opj_j2k_decode_one_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_m
 			p_stream, p_manager) != 0) {
 			return DOPJ_FALSE
 		}
-		Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+24308,
+		Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+24444,
 			libc.VaList(bp, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))+TOPJ_UINT32(1), (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth*(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw))
 
 		if !(opj_j2k_update_image_data(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd,
@@ -32796,19 +33262,19 @@ func opj_j2k_decode_one_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_m
 		opj_j2k_tcp_data_destroy(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftcps+uintptr(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 40)))*5696)
 
 		Xopj_event_msg(tls, p_manager, DEVT_INFO,
-			ts+24338, libc.VaList(bp+16, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))+TOPJ_UINT32(1)))
+			ts+24474, libc.VaList(bp+16, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))+TOPJ_UINT32(1)))
 
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40)) == l_tile_no_to_dec {
 			// move into the codestream to the first SOT (FIXME or not move?)
 			if !(Xopj_stream_read_seek(tls, p_stream, (*Topj_codestream_index_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fcstr_index)).Fmain_head_end+int64(2),
 				p_manager) != 0) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24405, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24541, 0)
 				return DOPJ_FALSE
 			}
 			break
 		} else {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+24433,
+				ts+24569,
 				libc.VaList(bp+24, *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40))+TOPJ_UINT32(1), l_tile_no_to_dec+TOPJ_UINT32(1)))
 		}
 
@@ -32826,11 +33292,11 @@ func opj_j2k_decode_one_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_m
 func opj_j2k_setup_decoding_tile(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:11886:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__161)), ts+3631, 11890, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__161)), ts+3767, 11890, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__161)), ts+3631, 11891, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__161)), ts+3767, 11891, ts+4095)
 	} else {
 	}
 
@@ -32845,7 +33311,7 @@ func opj_j2k_setup_decoding_tile(tls *libc.TLS, p_j2k uintptr, p_manager uintptr
 	return DOPJ_TRUE
 }
 
-var __func__161 = *(*[28]int8)(unsafe.Pointer(ts + 24500)) /* j2k.c:11888:1 */
+var __func__161 = *(*[28]int8)(unsafe.Pointer(ts + 24636)) /* j2k.c:11888:1 */
 
 func opj_j2k_move_data_from_codec_to_output_image(tls *libc.TLS, p_j2k uintptr, p_image uintptr) TOPJ_BOOL { /* j2k.c:11902:17: */
 	var compno TOPJ_UINT32
@@ -32872,7 +33338,7 @@ func opj_j2k_move_data_from_codec_to_output_image(tls *libc.TLS, p_j2k uintptr, 
 		}
 		for compno = TOPJ_UINT32(0); compno < (*Topj_image_t)(unsafe.Pointer(p_image)).Fnumcomps; compno++ {
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_output_image)).Fcomps+uintptr(compno)*64)).Fdata == uintptr(0))), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__162)), ts+3631, 11935, ts+24528)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__162)), ts+3767, 11935, ts+24664)
 			} else {
 			}
 			Xopj_image_data_free(tls, (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_output_image)).Fcomps+uintptr(compno)*64)).Fdata)
@@ -32892,7 +33358,7 @@ func opj_j2k_move_data_from_codec_to_output_image(tls *libc.TLS, p_j2k uintptr, 
 	return DOPJ_TRUE
 }
 
-var __func__162 = *(*[45]int8)(unsafe.Pointer(ts + 24578)) /* j2k.c:11904:1 */
+var __func__162 = *(*[45]int8)(unsafe.Pointer(ts + 24714)) /* j2k.c:11904:1 */
 
 func Xopj_j2k_decode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:11962:10: */
 	if !(p_image != 0) {
@@ -32950,19 +33416,19 @@ func Xopj_j2k_get_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_image u
 	var l_img_comp uintptr
 
 	if !(p_image != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24623, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24759, 0)
 		return DOPJ_FALSE
 	}
 
 	if (*Topj_image_t)(unsafe.Pointer(p_image)).Fnumcomps < (*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fnumcomps {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+24661, 0)
+			ts+24797, 0)
 		return DOPJ_FALSE
 	}
 
 	if tile_index >= (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw*(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+24705, libc.VaList(bp, tile_index,
+			ts+24841, libc.VaList(bp, tile_index,
 				(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw*(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth-TOPJ_UINT32(1)))
 		return DOPJ_FALSE
 	}
@@ -33067,7 +33533,7 @@ func Xopj_j2k_set_decoded_resolution_factor(tls *libc.TLS, p_j2k uintptr, res_fa
 						var max_res TOPJ_UINT32 = (*Topj_tccp_t)(unsafe.Pointer((*Topj_tcp_t)(unsafe.Pointer((*Topj_j2k_dec_t)(unsafe.Pointer(p_j2k+8)).Fm_default_tcp)).Ftccps + uintptr(it_comp)*1080)).Fnumresolutions
 						if res_factor >= max_res {
 							Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-								ts+24766, 0)
+								ts+24902, 0)
 							return DOPJ_FALSE
 						}
 						(*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)).Fcomps + uintptr(it_comp)*64)).Ffactor = res_factor
@@ -33094,34 +33560,34 @@ func Xopj_j2k_encoder_set_extra_options(tls *libc.TLS, p_j2k uintptr, p_options 
 	}
 
 	for p_option_iter = p_options; *(*uintptr)(unsafe.Pointer(p_option_iter)) != uintptr(0); p_option_iter += 8 {
-		if libc.Xstrncmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24842, uint64(4)) == 0 {
-			if libc.Xstrcmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24847) == 0 {
+		if libc.Xstrncmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24978, uint64(4)) == 0 {
+			if libc.Xstrcmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24983) == 0 {
 				(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_PLT = DOPJ_TRUE
-			} else if libc.Xstrcmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24855) == 0 {
+			} else if libc.Xstrcmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24991) == 0 {
 				(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_PLT = DOPJ_FALSE
 			} else {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+24862, libc.VaList(bp, *(*uintptr)(unsafe.Pointer(p_option_iter))))
+					ts+24998, libc.VaList(bp, *(*uintptr)(unsafe.Pointer(p_option_iter))))
 				return DOPJ_FALSE
 			}
-		} else if libc.Xstrncmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24893, uint64(4)) == 0 {
-			if libc.Xstrcmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24898) == 0 {
+		} else if libc.Xstrncmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+25029, uint64(4)) == 0 {
+			if libc.Xstrcmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+25034) == 0 {
 				(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_TLM = DOPJ_TRUE
-			} else if libc.Xstrcmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24906) == 0 {
+			} else if libc.Xstrcmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+25042) == 0 {
 				(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_TLM = DOPJ_FALSE
 			} else {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+24862, libc.VaList(bp+8, *(*uintptr)(unsafe.Pointer(p_option_iter))))
+					ts+24998, libc.VaList(bp+8, *(*uintptr)(unsafe.Pointer(p_option_iter))))
 				return DOPJ_FALSE
 			}
-		} else if libc.Xstrncmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+24913, libc.Xstrlen(tls, ts+24913)) == 0 {
+		} else if libc.Xstrncmp(tls, *(*uintptr)(unsafe.Pointer(p_option_iter)), ts+25049, libc.Xstrlen(tls, ts+25049)) == 0 {
 			var tileno TOPJ_UINT32
 			var cp uintptr = p_j2k + 112
 
-			var numgbits int32 = libc.Xatoi(tls, *(*uintptr)(unsafe.Pointer(p_option_iter))+uintptr(libc.Xstrlen(tls, ts+24913)))
+			var numgbits int32 = libc.Xatoi(tls, *(*uintptr)(unsafe.Pointer(p_option_iter))+uintptr(libc.Xstrlen(tls, ts+25049)))
 			if numgbits < 0 || numgbits > 7 {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+24925, libc.VaList(bp+16, *(*uintptr)(unsafe.Pointer(p_option_iter))))
+					ts+25061, libc.VaList(bp+16, *(*uintptr)(unsafe.Pointer(p_option_iter))))
 				return DOPJ_FALSE
 			}
 
@@ -33135,7 +33601,7 @@ func Xopj_j2k_encoder_set_extra_options(tls *libc.TLS, p_j2k uintptr, p_options 
 			}
 		} else {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+24975, libc.VaList(bp+24, *(*uintptr)(unsafe.Pointer(p_option_iter))))
+				ts+25111, libc.VaList(bp+24, *(*uintptr)(unsafe.Pointer(p_option_iter))))
 			return DOPJ_FALSE
 		}
 	}
@@ -33157,15 +33623,15 @@ func Xopj_j2k_encode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager u
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__163)), ts+3631, 12243, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__163)), ts+3767, 12243, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__163)), ts+3631, 12244, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__163)), ts+3767, 12244, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__163)), ts+3631, 12245, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__163)), ts+3767, 12245, ts+4095)
 	} else {
 	}
 
@@ -33199,7 +33665,7 @@ func Xopj_j2k_encode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager u
 				(*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tilec)).FownsData = DOPJ_FALSE
 			} else {
 				if !(Xopj_alloc_tile_component_data(tls, l_tilec) != 0) {
-					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24996, 0)
+					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25132, 0)
 					if l_current_data != 0 {
 						Xopj_free(tls, l_current_data)
 					}
@@ -33216,7 +33682,7 @@ func Xopj_j2k_encode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager u
 					if l_current_data != 0 {
 						Xopj_free(tls, l_current_data)
 					}
-					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25034, 0)
+					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25170, 0)
 					return DOPJ_FALSE
 				}
 				l_current_data = l_new_current_data
@@ -33226,7 +33692,7 @@ func Xopj_j2k_encode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager u
 				// Should not happen in practice, but will avoid Coverity to
 				// complain about a null pointer dereference
 				if libc.X__builtin_expect(tls, libc.BoolInt64(!(0 != 0)), int64(0)) != 0 {
-					libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__163)), ts+3631, 12306, ts+14288)
+					libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__163)), ts+3767, 12306, ts+14424)
 				} else {
 				}
 				return DOPJ_FALSE
@@ -33241,7 +33707,7 @@ func Xopj_j2k_encode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager u
 			if !(Xopj_tcd_copy_tile_data(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd, l_current_data,
 				l_current_tile_size) != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+25073, 0)
+					ts+25209, 0)
 				Xopj_free(tls, l_current_data)
 				return DOPJ_FALSE
 			}
@@ -33261,7 +33727,7 @@ func Xopj_j2k_encode(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager u
 	return DOPJ_TRUE
 }
 
-var __func__163 = *(*[15]int8)(unsafe.Pointer(ts + 25120)) /* j2k.c:12234:1 */
+var __func__163 = *(*[15]int8)(unsafe.Pointer(ts + 25256)) /* j2k.c:12234:1 */
 
 func Xopj_j2k_end_compress(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12339:10: */
 	// customization of the encoding
@@ -33279,21 +33745,21 @@ func Xopj_j2k_end_compress(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_man
 func Xopj_j2k_start_compress(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12355:10: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__164)), ts+3631, 12361, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__164)), ts+3767, 12361, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__164)), ts+3631, 12362, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__164)), ts+3767, 12362, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__164)), ts+3631, 12363, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__164)), ts+3767, 12363, ts+4095)
 	} else {
 	}
 
 	(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image = Xopj_image_create0(tls)
 	if !(int32((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25135, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25271, 0)
 		return DOPJ_FALSE
 	}
 	Xopj_copy_image_header(tls, p_image, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_private_image)
@@ -33333,7 +33799,7 @@ func Xopj_j2k_start_compress(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_i
 	return DOPJ_TRUE
 }
 
-var __func__164 = *(*[23]int8)(unsafe.Pointer(ts + 25168)) /* j2k.c:12359:1 */
+var __func__164 = *(*[23]int8)(unsafe.Pointer(ts + 25304)) /* j2k.c:12359:1 */
 
 func opj_j2k_pre_write_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12407:17: */
 	bp := tls.Alloc(16)
@@ -33341,11 +33807,11 @@ func opj_j2k_pre_write_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT
 
 	_ = p_stream
 	if p_tile_index != (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25191, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25327, 0)
 		return DOPJ_FALSE
 	}
 
-	Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+25228,
+	Xopj_event_msg(tls, p_manager, DEVT_INFO, ts+25364,
 		libc.VaList(bp, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_current_tile_number+TOPJ_UINT32(1), (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Ftw*(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_cp.Fth))
 
 	(*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k + 8)).Fm_current_tile_part_number = TOPJ_UINT32(0)
@@ -33508,7 +33974,7 @@ func opj_j2k_post_write_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_m
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_j2k_enc_t)(unsafe.Pointer(p_j2k+8)).Fm_encoded_tile_data != 0)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__165)), ts+3631, 12569, ts+25249)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__165)), ts+3767, 12569, ts+25385)
 	} else {
 	}
 
@@ -33544,16 +34010,16 @@ func opj_j2k_post_write_tile(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_m
 	return DOPJ_TRUE
 }
 
-var __func__165 = *(*[24]int8)(unsafe.Pointer(ts + 25303)) /* j2k.c:12562:1 */
+var __func__165 = *(*[24]int8)(unsafe.Pointer(ts + 25439)) /* j2k.c:12562:1 */
 
 func opj_j2k_setup_end_compress(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12603:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__166)), ts+3631, 12607, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__166)), ts+3767, 12607, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__166)), ts+3631, 12608, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__166)), ts+3767, 12608, ts+4095)
 	} else {
 	}
 
@@ -33595,16 +34061,16 @@ func opj_j2k_setup_end_compress(tls *libc.TLS, p_j2k uintptr, p_manager uintptr)
 	return DOPJ_TRUE
 }
 
-var __func__166 = *(*[27]int8)(unsafe.Pointer(ts + 25327)) /* j2k.c:12605:1 */
+var __func__166 = *(*[27]int8)(unsafe.Pointer(ts + 25463)) /* j2k.c:12605:1 */
 
 func opj_j2k_setup_encoding_validation(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12638:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__167)), ts+3631, 12642, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__167)), ts+3767, 12642, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__167)), ts+3631, 12643, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__167)), ts+3767, 12643, ts+4095)
 	} else {
 	}
 
@@ -33632,16 +34098,16 @@ func opj_j2k_setup_encoding_validation(tls *libc.TLS, p_j2k uintptr, p_manager u
 	return DOPJ_TRUE
 }
 
-var __func__167 = *(*[34]int8)(unsafe.Pointer(ts + 25354)) /* j2k.c:12640:1 */
+var __func__167 = *(*[34]int8)(unsafe.Pointer(ts + 25490)) /* j2k.c:12640:1 */
 
 func opj_j2k_setup_header_writing(tls *libc.TLS, p_j2k uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12663:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__168)), ts+3631, 12667, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__168)), ts+3767, 12667, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__168)), ts+3631, 12668, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__168)), ts+3767, 12668, ts+4095)
 	} else {
 	}
 
@@ -33758,7 +34224,7 @@ func opj_j2k_setup_header_writing(tls *libc.TLS, p_j2k uintptr, p_manager uintpt
 	return DOPJ_TRUE
 }
 
-var __func__168 = *(*[29]int8)(unsafe.Pointer(ts + 25388)) /* j2k.c:12665:1 */
+var __func__168 = *(*[29]int8)(unsafe.Pointer(ts + 25524)) /* j2k.c:12665:1 */
 
 func opj_j2k_write_first_tile_part(tls *libc.TLS, p_j2k uintptr, p_data uintptr, p_data_written uintptr, total_data_size TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12754:17: */
 	bp := tls.Alloc(4)
@@ -33952,15 +34418,15 @@ func opj_j2k_write_updated_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__169)), ts+3631, 12970, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__169)), ts+3767, 12970, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__169)), ts+3631, 12971, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__169)), ts+3767, 12971, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__169)), ts+3631, 12972, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__169)), ts+3767, 12972, ts+4132)
 	} else {
 	}
 
@@ -33990,20 +34456,20 @@ func opj_j2k_write_updated_tlm(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__169 = *(*[26]int8)(unsafe.Pointer(ts + 25417)) /* j2k.c:12964:1 */
+var __func__169 = *(*[26]int8)(unsafe.Pointer(ts + 25553)) /* j2k.c:12964:1 */
 
 func opj_j2k_end_encoding(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:12997:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__170)), ts+3631, 13002, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__170)), ts+3767, 13002, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__170)), ts+3631, 13003, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__170)), ts+3767, 13003, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__170)), ts+3631, 13004, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__170)), ts+3767, 13004, ts+4132)
 	} else {
 	}
 
@@ -34029,22 +34495,22 @@ func opj_j2k_end_encoding(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_mana
 	return DOPJ_TRUE
 }
 
-var __func__170 = *(*[21]int8)(unsafe.Pointer(ts + 25443)) /* j2k.c:13000:1 */
+var __func__170 = *(*[21]int8)(unsafe.Pointer(ts + 25579)) /* j2k.c:13000:1 */
 
 // *
 // Destroys the memory associated with the decoding of headers.
 func opj_j2k_destroy_header_memory(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:13031:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__171)), ts+3631, 13037, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__171)), ts+3767, 13037, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__171)), ts+3631, 13038, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__171)), ts+3767, 13038, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__171)), ts+3631, 13039, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__171)), ts+3767, 13039, ts+4095)
 	} else {
 	}
 
@@ -34061,7 +34527,7 @@ func opj_j2k_destroy_header_memory(tls *libc.TLS, p_j2k uintptr, p_stream uintpt
 	return DOPJ_TRUE
 }
 
-var __func__171 = *(*[30]int8)(unsafe.Pointer(ts + 25464)) /* j2k.c:13035:1 */
+var __func__171 = *(*[30]int8)(unsafe.Pointer(ts + 25600)) /* j2k.c:13035:1 */
 
 func opj_j2k_init_info(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:13054:17: */
 	var l_cstr_info uintptr = uintptr(00)
@@ -34069,15 +34535,15 @@ func opj_j2k_init_info(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__172)), ts+3631, 13061, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__172)), ts+3767, 13061, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__172)), ts+3631, 13062, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__172)), ts+3767, 13062, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__172)), ts+3631, 13063, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__172)), ts+3767, 13063, ts+4132)
 	} else {
 	}
 	_ = l_cstr_info
@@ -34128,7 +34594,7 @@ func opj_j2k_init_info(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager
 		p_manager)
 }
 
-var __func__172 = *(*[18]int8)(unsafe.Pointer(ts + 25494)) /* j2k.c:13057:1 */
+var __func__172 = *(*[18]int8)(unsafe.Pointer(ts + 25630)) /* j2k.c:13057:1 */
 
 // *
 // Creates a tile-coder encoder.
@@ -34139,15 +34605,15 @@ var __func__172 = *(*[18]int8)(unsafe.Pointer(ts + 25494)) /* j2k.c:13057:1 */
 func opj_j2k_create_tcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:13119:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_j2k != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__173)), ts+3631, 13125, ts+3947)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__173)), ts+3767, 13125, ts+4083)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__173)), ts+3631, 13126, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__173)), ts+3767, 13126, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__173)), ts+3631, 13127, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__173)), ts+3767, 13127, ts+4132)
 	} else {
 	}
 
@@ -34156,7 +34622,7 @@ func opj_j2k_create_tcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manage
 	(*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd = Xopj_tcd_create(tls, DOPJ_FALSE)
 
 	if !(int32((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25512, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25648, 0)
 		return DOPJ_FALSE
 	}
 
@@ -34170,7 +34636,7 @@ func opj_j2k_create_tcd(tls *libc.TLS, p_j2k uintptr, p_stream uintptr, p_manage
 	return DOPJ_TRUE
 }
 
-var __func__173 = *(*[19]int8)(unsafe.Pointer(ts + 25552)) /* j2k.c:13123:1 */
+var __func__173 = *(*[19]int8)(unsafe.Pointer(ts + 25688)) /* j2k.c:13123:1 */
 
 func Xopj_j2k_write_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32, p_data uintptr, p_data_size TOPJ_UINT32, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* j2k.c:13148:10: */
 	bp := tls.Alloc(16)
@@ -34178,7 +34644,7 @@ func Xopj_j2k_write_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32,
 
 	if !(opj_j2k_pre_write_tile(tls, p_j2k, p_tile_index, p_stream, p_manager) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+25571, libc.VaList(bp, p_tile_index))
+			ts+25707, libc.VaList(bp, p_tile_index))
 		return DOPJ_FALSE
 	} else {
 		var j TOPJ_UINT32
@@ -34187,7 +34653,7 @@ func Xopj_j2k_write_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32,
 			var l_tilec uintptr = (*Topj_tcd_tile_t)(unsafe.Pointer((*Topj_tcd_image_t)(unsafe.Pointer((*Sopj_tcd)(unsafe.Pointer((*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd)).Ftcd_image)).Ftiles)).Fcomps + uintptr(j)*112
 
 			if !(Xopj_alloc_tile_component_data(tls, l_tilec) != 0) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+24996, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25132, 0)
 				return DOPJ_FALSE
 			}
 		}
@@ -34195,12 +34661,12 @@ func Xopj_j2k_write_tile(tls *libc.TLS, p_j2k uintptr, p_tile_index TOPJ_UINT32,
 		// now copy data into the tile component
 		if !(Xopj_tcd_copy_tile_data(tls, (*Topj_j2k_t)(unsafe.Pointer(p_j2k)).Fm_tcd, p_data, uint64(p_data_size)) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+25073, 0)
+				ts+25209, 0)
 			return DOPJ_FALSE
 		}
 		if !(opj_j2k_post_write_tile(tls, p_j2k, p_stream, p_manager) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+25628, libc.VaList(bp+8, p_tile_index))
+				ts+25764, libc.VaList(bp+8, p_tile_index))
 			return DOPJ_FALSE
 		}
 	}
@@ -34233,19 +34699,19 @@ func opj_jp2_read_boxhdr(tls *libc.TLS, box uintptr, p_number_bytes_read uintptr
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cio != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25686, 482, ts+25711)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25822, 482, ts+25847)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(box != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25686, 483, ts+25721)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25822, 483, ts+25857)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_number_bytes_read != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25686, 484, ts+25731)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25822, 484, ts+25867)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25686, 485, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25822, 485, ts+4095)
 	} else {
 	}
 
@@ -34263,12 +34729,12 @@ func opj_jp2_read_boxhdr(tls *libc.TLS, box uintptr, p_number_bytes_read uintptr
 		var bleft TOPJ_OFF_T = Xopj_stream_get_number_byte_left(tls, cio)
 		if bleft > int64(0xFFFFFFFF-8) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+25757, 0)
+				ts+25893, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_jp2_box_t)(unsafe.Pointer(box)).Flength = TOPJ_UINT32(bleft) + 8
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(TOPJ_OFF_T((*Topj_jp2_box_t)(unsafe.Pointer(box)).Flength) == bleft+int64(8))), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25686, 505, ts+25799)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__178)), ts+25822, 505, ts+25935)
 		} else {
 		}
 		return DOPJ_TRUE
@@ -34293,7 +34759,7 @@ func opj_jp2_read_boxhdr(tls *libc.TLS, box uintptr, p_number_bytes_read uintptr
 		Xopj_read_bytes_LE(tls, bp, bp+8, uint32(4))
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 8)) != TOPJ_UINT32(0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+25757, 0)
+				ts+25893, 0)
 			return DOPJ_FALSE
 		}
 		Xopj_read_bytes_LE(tls, bp+uintptr(4), box, uint32(4))
@@ -34301,7 +34767,7 @@ func opj_jp2_read_boxhdr(tls *libc.TLS, box uintptr, p_number_bytes_read uintptr
 	return DOPJ_TRUE
 }
 
-var __func__178 = *(*[20]int8)(unsafe.Pointer(ts + 25835)) /* jp2.c:477:1 */
+var __func__178 = *(*[20]int8)(unsafe.Pointer(ts + 25971)) /* jp2.c:477:1 */
 
 func opj_jp2_read_ihdr(tls *libc.TLS, jp2 uintptr, p_image_header_data uintptr, p_image_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:561:17: */
 	bp := tls.Alloc(32)
@@ -34309,26 +34775,26 @@ func opj_jp2_read_ihdr(tls *libc.TLS, jp2 uintptr, p_image_header_data uintptr, 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__179)), ts+25686, 567, ts+25855)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__179)), ts+25822, 567, ts+25991)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__179)), ts+25686, 568, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__179)), ts+25822, 568, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__179)), ts+25686, 569, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__179)), ts+25822, 569, ts+4095)
 	} else {
 	}
 
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcomps != uintptr(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+25891, 0)
+			ts+26027, 0)
 		return DOPJ_TRUE
 	}
 
 	if p_image_header_size != TOPJ_UINT32(14) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+25939, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26075, 0)
 		return DOPJ_FALSE
 	}
 
@@ -34341,12 +34807,12 @@ func opj_jp2_read_ihdr(tls *libc.TLS, jp2 uintptr, p_image_header_data uintptr, 
 
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fh < TOPJ_UINT32(1) || (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fw < TOPJ_UINT32(1) || (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcomps < TOPJ_UINT32(1) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+25972,
+			ts+26108,
 			libc.VaList(bp, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fw, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fh, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcomps))
 		return DOPJ_FALSE
 	}
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcomps-1 >= 16384 { // unsigned underflow is well defined: 1U <= jp2->numcomps <= 16384U
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26023, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26159, 0)
 		return DOPJ_FALSE
 	}
 
@@ -34355,7 +34821,7 @@ func opj_jp2_read_ihdr(tls *libc.TLS, jp2 uintptr, p_image_header_data uintptr, 
 		uint64(unsafe.Sizeof(Topj_jp2_comps_t{})))
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcomps == uintptr(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+26060, 0)
+			ts+26196, 0)
 		return DOPJ_FALSE
 	}
 
@@ -34368,7 +34834,7 @@ func opj_jp2_read_ihdr(tls *libc.TLS, jp2 uintptr, p_image_header_data uintptr, 
 	// Should be equal to 7 cf. chapter about image header box of the norm
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).FC != TOPJ_UINT32(7) {
 		Xopj_event_msg(tls, p_manager, DEVT_INFO,
-			ts+26109,
+			ts+26245,
 			libc.VaList(bp+24, (*Topj_jp2_t)(unsafe.Pointer(jp2)).FC))
 	}
 
@@ -34385,7 +34851,7 @@ func opj_jp2_read_ihdr(tls *libc.TLS, jp2 uintptr, p_image_header_data uintptr, 
 	return DOPJ_TRUE
 }
 
-var __func__179 = *(*[18]int8)(unsafe.Pointer(ts + 26199)) /* jp2.c:565:1 */
+var __func__179 = *(*[18]int8)(unsafe.Pointer(ts + 26335)) /* jp2.c:565:1 */
 
 func opj_jp2_write_ihdr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) uintptr { /* jp2.c:636:17: */
 	var l_ihdr_data uintptr
@@ -34393,11 +34859,11 @@ func opj_jp2_write_ihdr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__180)), ts+25686, 643, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__180)), ts+25822, 643, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_nb_bytes_written != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__180)), ts+25686, 644, ts+26217)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__180)), ts+25822, 644, ts+26353)
 	} else {
 	}
 
@@ -34443,7 +34909,7 @@ func opj_jp2_write_ihdr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 	return l_ihdr_data
 }
 
-var __func__180 = *(*[19]int8)(unsafe.Pointer(ts + 26242)) /* jp2.c:639:1 */
+var __func__180 = *(*[19]int8)(unsafe.Pointer(ts + 26378)) /* jp2.c:639:1 */
 
 func opj_jp2_write_bpcc(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) uintptr { /* jp2.c:688:17: */
 	var i TOPJ_UINT32
@@ -34454,11 +34920,11 @@ func opj_jp2_write_bpcc(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__181)), ts+25686, 698, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__181)), ts+25822, 698, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_nb_bytes_written != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__181)), ts+25686, 699, ts+26217)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__181)), ts+25822, 699, ts+26353)
 	} else {
 	}
 	l_bpcc_size = TOPJ_UINT32(8) + (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcomps
@@ -34488,7 +34954,7 @@ func opj_jp2_write_bpcc(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 	return l_bpcc_data
 }
 
-var __func__181 = *(*[19]int8)(unsafe.Pointer(ts + 26261)) /* jp2.c:691:1 */
+var __func__181 = *(*[19]int8)(unsafe.Pointer(ts + 26397)) /* jp2.c:691:1 */
 
 func opj_jp2_read_bpcc(tls *libc.TLS, jp2 uintptr, p_bpc_header_data uintptr, p_bpc_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:727:17: */
 	bp := tls.Alloc(8)
@@ -34498,27 +34964,27 @@ func opj_jp2_read_bpcc(tls *libc.TLS, jp2 uintptr, p_bpc_header_data uintptr, p_
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_bpc_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__182)), ts+25686, 736, ts+26280)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__182)), ts+25822, 736, ts+26416)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__182)), ts+25686, 737, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__182)), ts+25822, 737, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__182)), ts+25686, 738, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__182)), ts+25822, 738, ts+4095)
 	} else {
 	}
 
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fbpc != TOPJ_UINT32(255) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+26304,
+			ts+26440,
 			libc.VaList(bp, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fbpc))
 	}
 
 	// and length is relevant
 	if p_bpc_header_size != (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcomps {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26418, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26554, 0)
 		return DOPJ_FALSE
 	}
 
@@ -34532,7 +34998,7 @@ func opj_jp2_read_bpcc(tls *libc.TLS, jp2 uintptr, p_bpc_header_data uintptr, p_
 	return DOPJ_TRUE
 }
 
-var __func__182 = *(*[18]int8)(unsafe.Pointer(ts + 26450)) /* jp2.c:732:1 */
+var __func__182 = *(*[18]int8)(unsafe.Pointer(ts + 26586)) /* jp2.c:732:1 */
 
 func opj_jp2_write_cdef(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) uintptr { /* jp2.c:762:17: */
 	// room for 8 bytes for box, 2 for n
@@ -34544,23 +35010,23 @@ func opj_jp2_write_cdef(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25686, 772, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25822, 772, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_nb_bytes_written != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25686, 773, ts+26217)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25822, 773, ts+26353)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_cdef != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25686, 774, ts+26468)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25822, 774, ts+26604)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_jp2_cdef_t)(unsafe.Pointer((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_cdef)).Finfo != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25686, 775, ts+26494)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25822, 775, ts+26630)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(uint32((*Topj_jp2_cdef_t)(unsafe.Pointer((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_cdef)).Fn) > 0)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25686, 776, ts+26526)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__183)), ts+25822, 776, ts+26662)
 	} else {
 	}
 
@@ -34599,7 +35065,7 @@ func opj_jp2_write_cdef(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 	return l_cdef_data
 }
 
-var __func__183 = *(*[19]int8)(unsafe.Pointer(ts + 26554)) /* jp2.c:764:1 */
+var __func__183 = *(*[19]int8)(unsafe.Pointer(ts + 26690)) /* jp2.c:764:1 */
 
 func opj_jp2_write_colr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) uintptr { /* jp2.c:813:17: */
 	// room for 8 bytes for box 3 for common data and variable upon profile
@@ -34609,15 +35075,15 @@ func opj_jp2_write_colr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__184)), ts+25686, 822, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__184)), ts+25822, 822, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_nb_bytes_written != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__184)), ts+25686, 823, ts+26217)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__184)), ts+25822, 823, ts+26353)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fmeth == TOPJ_UINT32(1) || (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fmeth == TOPJ_UINT32(2))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__184)), ts+25686, 824, ts+26573)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__184)), ts+25822, 824, ts+26709)
 	} else {
 	}
 
@@ -34627,7 +35093,7 @@ func opj_jp2_write_colr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 		break
 	case TOPJ_UINT32(2):
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Ficc_profile_len != 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__184)), ts+25686, 831, ts+26606)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__184)), ts+25822, 831, ts+26742)
 		} else {
 		} // ICC profile
 		l_colr_size = l_colr_size + (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Ficc_profile_len
@@ -34676,7 +35142,7 @@ func opj_jp2_write_colr(tls *libc.TLS, jp2 uintptr, p_nb_bytes_written uintptr) 
 	return l_colr_data
 }
 
-var __func__184 = *(*[19]int8)(unsafe.Pointer(ts + 26633)) /* jp2.c:816:1 */
+var __func__184 = *(*[19]int8)(unsafe.Pointer(ts + 26769)) /* jp2.c:816:1 */
 
 func opj_jp2_free_pclr(tls *libc.TLS, color uintptr) { /* jp2.c:880:13: */
 	Xopj_free(tls, (*Topj_jp2_pclr_t)(unsafe.Pointer((*Topj_jp2_color_t)(unsafe.Pointer(color)).Fjp2_pclr)).Fchannel_sign)
@@ -34710,7 +35176,7 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 
 		for i = TOPJ_UINT16(0); int32(i) < int32(n); i++ {
 			if TOPJ_UINT32((*Topj_jp2_cdef_info_t)(unsafe.Pointer(info+uintptr(i)*6)).Fcn) >= nr_channels {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26652,
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26788,
 					libc.VaList(bp, int32((*Topj_jp2_cdef_info_t)(unsafe.Pointer(info+uintptr(i)*6)).Fcn), nr_channels))
 				return DOPJ_FALSE
 			}
@@ -34719,7 +35185,7 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 			}
 
 			if int32((*Topj_jp2_cdef_info_t)(unsafe.Pointer(info+uintptr(i)*6)).Fasoc) > 0 && TOPJ_UINT32(int32((*Topj_jp2_cdef_info_t)(unsafe.Pointer(info+uintptr(i)*6)).Fasoc)-1) >= nr_channels {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26652,
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26788,
 					libc.VaList(bp+16, int32((*Topj_jp2_cdef_info_t)(unsafe.Pointer(info+uintptr(i)*6)).Fasoc)-1, nr_channels))
 				return DOPJ_FALSE
 			}
@@ -34734,7 +35200,7 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 				}
 			}
 			if int32(i) == int32(n) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26689, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26825, 0)
 				return DOPJ_FALSE
 			}
 			nr_channels--
@@ -34752,7 +35218,7 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 		// verify that all original components match an existing one
 		for i = TOPJ_UINT16(0); int32(i) < int32(nr_channels); i++ {
 			if TOPJ_UINT32((*Topj_jp2_cmap_comp_t)(unsafe.Pointer(cmap+uintptr(i)*4)).Fcmp) >= (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26652,
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26788,
 					libc.VaList(bp+32, int32((*Topj_jp2_cmap_comp_t)(unsafe.Pointer(cmap+uintptr(i)*4)).Fcmp), (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps))
 				is_sane = DOPJ_FALSE
 			}
@@ -34760,7 +35226,7 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 
 		pcol_usage = Xopj_calloc(tls, uint64(nr_channels), uint64(unsafe.Sizeof(TOPJ_BOOL(0))))
 		if !(pcol_usage != 0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26722, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26858, 0)
 			return DOPJ_FALSE
 		}
 		// verify that no component is targeted more than once
@@ -34770,20 +35236,20 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 			// See ISO 15444-1 Table I.14 – MTYPi field values
 			if int32(mtyp) != 0 && int32(mtyp) != 1 {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+26739, libc.VaList(bp+48, int32(i),
+					ts+26875, libc.VaList(bp+48, int32(i),
 						int32(mtyp)))
 				is_sane = DOPJ_FALSE
 			} else if int32(pcol) >= int32(nr_channels) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+26778, libc.VaList(bp+64, int32(pcol)))
+					ts+26914, libc.VaList(bp+64, int32(pcol)))
 				is_sane = DOPJ_FALSE
 			} else if *(*TOPJ_BOOL)(unsafe.Pointer(pcol_usage + uintptr(pcol)*4)) != 0 && int32(mtyp) == 1 {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26834, libc.VaList(bp+72, int32(pcol)))
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26970, libc.VaList(bp+72, int32(pcol)))
 				is_sane = DOPJ_FALSE
 			} else if int32(mtyp) == 0 && int32(pcol) != 0 {
 				// I.5.3.5 PCOL: If the value of the MTYP field for this channel is 0, then
 				// the value of this field shall be 0.
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+26865, libc.VaList(bp+80, int32(i),
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27001, libc.VaList(bp+80, int32(i),
 					int32(pcol)))
 				is_sane = DOPJ_FALSE
 			} else if int32(mtyp) == 1 && int32(pcol) != int32(i) {
@@ -34791,7 +35257,7 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 				// in opj_jp2_apply_pclr()
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-					ts+26901, libc.VaList(bp+96, int32(i), int32(i), int32(pcol)))
+					ts+27037, libc.VaList(bp+96, int32(i), int32(i), int32(pcol)))
 				is_sane = DOPJ_FALSE
 			} else {
 				*(*TOPJ_BOOL)(unsafe.Pointer(pcol_usage + uintptr(pcol)*4)) = DOPJ_TRUE
@@ -34800,7 +35266,7 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 		// verify that all components are targeted at least once
 		for i = TOPJ_UINT16(0); int32(i) < int32(nr_channels); i++ {
 			if !(*(*TOPJ_BOOL)(unsafe.Pointer(pcol_usage + uintptr(i)*4)) != 0) && int32((*Topj_jp2_cmap_comp_t)(unsafe.Pointer(cmap+uintptr(i)*4)).Fmtyp) != 0 {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27002,
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27138,
 					libc.VaList(bp+120, int32(i)))
 				is_sane = DOPJ_FALSE
 			}
@@ -34811,7 +35277,7 @@ func opj_jp2_check_color(tls *libc.TLS, image uintptr, color uintptr, p_manager 
 				if !(*(*TOPJ_BOOL)(unsafe.Pointer(pcol_usage + uintptr(i)*4)) != 0) {
 					is_sane = int32(0)
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-						ts+27040, 0)
+						ts+27176, 0)
 					break
 				}
 			}
@@ -34865,7 +35331,7 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 		cmp = (*Topj_jp2_cmap_comp_t)(unsafe.Pointer(cmap + uintptr(i)*4)).Fcmp
 		if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(image)).Fcomps+uintptr(cmp)*64)).Fdata == uintptr(0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+27091, libc.VaList(bp, int32(i)))
+				ts+27227, libc.VaList(bp, int32(i)))
 			return DOPJ_FALSE
 		}
 	}
@@ -34874,7 +35340,7 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 	new_comps = Xopj_malloc(tls, uint64(nr_channels)*uint64(unsafe.Sizeof(Topj_image_comp_t{})))
 	if !(new_comps != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+27147, 0)
+			ts+27283, 0)
 		return DOPJ_FALSE
 	}
 	for i = TOPJ_UINT16(0); int32(i) < int32(nr_channels); i++ {
@@ -34884,13 +35350,13 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 		// Direct use
 		if int32((*Topj_jp2_cmap_comp_t)(unsafe.Pointer(cmap+uintptr(i)*4)).Fmtyp) == 0 {
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!(int32(pcol) == 0)), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25686, 1079, ts+27199)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25822, 1079, ts+27335)
 			} else {
 			}
 			*(*Topj_image_comp_t)(unsafe.Pointer(new_comps + uintptr(i)*64)) = *(*Topj_image_comp_t)(unsafe.Pointer(old_comps + uintptr(cmp)*64))
 		} else {
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!(int32(i) == int32(pcol))), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25686, 1082, ts+27209)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25822, 1082, ts+27345)
 			} else {
 			}
 			*(*Topj_image_comp_t)(unsafe.Pointer(new_comps + uintptr(pcol)*64)) = *(*Topj_image_comp_t)(unsafe.Pointer(old_comps + uintptr(cmp)*64))
@@ -34905,7 +35371,7 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 			}
 			Xopj_free(tls, new_comps)
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+27147, 0)
+				ts+27283, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_image_comp_t)(unsafe.Pointer(new_comps + uintptr(i)*64)).Fprec = TOPJ_UINT32(*(*TOPJ_BYTE)(unsafe.Pointer(channel_size + uintptr(i))))
@@ -34920,7 +35386,7 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 		pcol = TOPJ_UINT16((*Topj_jp2_cmap_comp_t)(unsafe.Pointer(cmap + uintptr(i)*4)).Fpcol)
 		src = (*Topj_image_comp_t)(unsafe.Pointer(old_comps + uintptr(cmp)*64)).Fdata
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(src != 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25686, 1110, ts+27219)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25822, 1110, ts+27355)
 		} else {
 		} // verified above
 		max = (*Topj_image_comp_t)(unsafe.Pointer(new_comps+uintptr(pcol)*64)).Fw * (*Topj_image_comp_t)(unsafe.Pointer(new_comps+uintptr(pcol)*64)).Fh
@@ -34929,7 +35395,7 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 		if int32((*Topj_jp2_cmap_comp_t)(unsafe.Pointer(cmap+uintptr(i)*4)).Fmtyp) == 0 {
 			dst = (*Topj_image_comp_t)(unsafe.Pointer(new_comps + uintptr(i)*64)).Fdata
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!(dst != 0)), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25686, 1116, ts+27223)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25822, 1116, ts+27359)
 			} else {
 			}
 			for j = TOPJ_UINT32(0); j < max; j++ {
@@ -34937,12 +35403,12 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 			}
 		} else {
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!(int32(i) == int32(pcol))), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25686, 1121, ts+27209)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25822, 1121, ts+27345)
 			} else {
 			}
 			dst = (*Topj_image_comp_t)(unsafe.Pointer(new_comps + uintptr(pcol)*64)).Fdata
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!(dst != 0)), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25686, 1123, ts+27223)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__185)), ts+25822, 1123, ts+27359)
 			} else {
 			}
 			for j = TOPJ_UINT32(0); j < max; j++ {
@@ -34973,7 +35439,7 @@ func opj_jp2_apply_pclr(tls *libc.TLS, image uintptr, color uintptr, p_manager u
 	return DOPJ_TRUE
 }
 
-var __func__185 = *(*[19]int8)(unsafe.Pointer(ts + 27227)) /* jp2.c:1039:1 */
+var __func__185 = *(*[19]int8)(unsafe.Pointer(ts + 27363)) /* jp2.c:1039:1 */
 
 // apply_pclr()
 
@@ -34995,15 +35461,15 @@ func opj_jp2_read_pclr(tls *libc.TLS, jp2 uintptr, p_pclr_header_data uintptr, p
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_pclr_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__186)), ts+25686, 1167, ts+27246)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__186)), ts+25822, 1167, ts+27382)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__186)), ts+25686, 1168, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__186)), ts+25822, 1168, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__186)), ts+25686, 1169, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__186)), ts+25822, 1169, ts+4095)
 	} else {
 	}
 	_ = p_pclr_header_size
@@ -35020,7 +35486,7 @@ func opj_jp2_read_pclr(tls *libc.TLS, jp2 uintptr, p_pclr_header_data uintptr, p
 	p_pclr_header_data += uintptr(2)
 	nr_entries = TOPJ_UINT16(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_value */)))
 	if uint32(nr_entries) == 0 || uint32(nr_entries) > 1024 {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27271,
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27407,
 			libc.VaList(bp, int32(nr_entries)))
 		return DOPJ_FALSE
 	}
@@ -35030,7 +35496,7 @@ func opj_jp2_read_pclr(tls *libc.TLS, jp2 uintptr, p_pclr_header_data uintptr, p
 	nr_channels = TOPJ_UINT16(*(*TOPJ_UINT32)(unsafe.Pointer(bp + 8 /* l_value */)))
 	if uint32(nr_channels) == 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+27309, 0)
+			ts+27445, 0)
 		return DOPJ_FALSE
 	}
 
@@ -35105,7 +35571,7 @@ func opj_jp2_read_pclr(tls *libc.TLS, jp2 uintptr, p_pclr_header_data uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__186 = *(*[18]int8)(unsafe.Pointer(ts + 27354)) /* jp2.c:1157:1 */
+var __func__186 = *(*[18]int8)(unsafe.Pointer(ts + 27490)) /* jp2.c:1157:1 */
 
 func opj_jp2_read_cmap(tls *libc.TLS, jp2 uintptr, p_cmap_header_data uintptr, p_cmap_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1266:17: */
 	bp := tls.Alloc(4)
@@ -35118,15 +35584,15 @@ func opj_jp2_read_cmap(tls *libc.TLS, jp2 uintptr, p_cmap_header_data uintptr, p
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__187)), ts+25686, 1277, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__187)), ts+25822, 1277, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cmap_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__187)), ts+25686, 1278, ts+27372)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__187)), ts+25822, 1278, ts+27508)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__187)), ts+25686, 1279, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__187)), ts+25822, 1279, ts+4095)
 	} else {
 	}
 	_ = p_cmap_header_size
@@ -35134,20 +35600,20 @@ func opj_jp2_read_cmap(tls *libc.TLS, jp2 uintptr, p_cmap_header_data uintptr, p
 	// Need nr_channels:
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_pclr == uintptr(0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+27397, 0)
+			ts+27533, 0)
 		return DOPJ_FALSE
 	}
 
 	// Part 1, I.5.3.5: 'There shall be at most one Component Mapping box
 	// inside a JP2 Header box' :
 	if (*Topj_jp2_pclr_t)(unsafe.Pointer((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_pclr)).Fcmap != 0 {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27443, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27579, 0)
 		return DOPJ_FALSE
 	}
 
 	nr_channels = (*Topj_jp2_pclr_t)(unsafe.Pointer((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_pclr)).Fnr_channels
 	if p_cmap_header_size < TOPJ_UINT32(nr_channels)*TOPJ_UINT32(4) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27474, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27610, 0)
 		return DOPJ_FALSE
 	}
 
@@ -35175,7 +35641,7 @@ func opj_jp2_read_cmap(tls *libc.TLS, jp2 uintptr, p_cmap_header_data uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__187 = *(*[18]int8)(unsafe.Pointer(ts + 27507)) /* jp2.c:1271:1 */
+var __func__187 = *(*[18]int8)(unsafe.Pointer(ts + 27643)) /* jp2.c:1271:1 */
 
 func opj_jp2_apply_cdef(tls *libc.TLS, image uintptr, color uintptr, manager uintptr) { /* jp2.c:1329:13: */
 	bp := tls.Alloc(96)
@@ -35197,7 +35663,7 @@ func opj_jp2_apply_cdef(tls *libc.TLS, image uintptr, color uintptr, manager uin
 		cn = (*Topj_jp2_cdef_info_t)(unsafe.Pointer(info + uintptr(i)*6)).Fcn
 
 		if TOPJ_UINT32(cn) >= (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps {
-			Xopj_event_msg(tls, manager, DEVT_WARNING, ts+27525,
+			Xopj_event_msg(tls, manager, DEVT_WARNING, ts+27661,
 				libc.VaList(bp, int32(cn), (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps))
 			continue
 		}
@@ -35208,7 +35674,7 @@ func opj_jp2_apply_cdef(tls *libc.TLS, image uintptr, color uintptr, manager uin
 
 		acn = TOPJ_UINT16(int32(asoc) - 1)
 		if TOPJ_UINT32(acn) >= (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps {
-			Xopj_event_msg(tls, manager, DEVT_WARNING, ts+27565,
+			Xopj_event_msg(tls, manager, DEVT_WARNING, ts+27701,
 				libc.VaList(bp+16, int32(acn), (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps))
 			continue
 		}
@@ -35258,15 +35724,15 @@ func opj_jp2_read_cdef(tls *libc.TLS, jp2 uintptr, p_cdef_header_data uintptr, p
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__188)), ts+25686, 1403, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__188)), ts+25822, 1403, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cdef_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__188)), ts+25686, 1404, ts+27606)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__188)), ts+25822, 1404, ts+27742)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__188)), ts+25686, 1405, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__188)), ts+25822, 1405, ts+4095)
 	} else {
 	}
 	_ = p_cdef_header_size
@@ -35278,7 +35744,7 @@ func opj_jp2_read_cdef(tls *libc.TLS, jp2 uintptr, p_cdef_header_data uintptr, p
 	}
 
 	if p_cdef_header_size < TOPJ_UINT32(2) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27631, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27767, 0)
 		return DOPJ_FALSE
 	}
 
@@ -35287,12 +35753,12 @@ func opj_jp2_read_cdef(tls *libc.TLS, jp2 uintptr, p_cdef_header_data uintptr, p
 
 	if int32(TOPJ_UINT16(*(*TOPJ_UINT32)(unsafe.Pointer(bp)))) == 0 { // szukw000: FIXME
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+27664, 0)
+			ts+27800, 0)
 		return DOPJ_FALSE
 	}
 
 	if p_cdef_header_size < TOPJ_UINT32(2)+TOPJ_UINT32(TOPJ_UINT16(*(*TOPJ_UINT32)(unsafe.Pointer(bp))))*TOPJ_UINT32(6) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27631, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27767, 0)
 		return DOPJ_FALSE
 	}
 
@@ -35326,7 +35792,7 @@ func opj_jp2_read_cdef(tls *libc.TLS, jp2 uintptr, p_cdef_header_data uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__188 = *(*[18]int8)(unsafe.Pointer(ts + 27725)) /* jp2.c:1397:1 */
+var __func__188 = *(*[18]int8)(unsafe.Pointer(ts + 27861)) /* jp2.c:1397:1 */
 
 func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p_colr_header_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1464:17: */
 	bp := tls.Alloc(64)
@@ -35336,20 +35802,20 @@ func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__189)), ts+25686, 1473, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__189)), ts+25822, 1473, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_colr_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__189)), ts+25686, 1474, ts+27743)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__189)), ts+25822, 1474, ts+27879)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__189)), ts+25686, 1475, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__189)), ts+25822, 1475, ts+4095)
 	} else {
 	}
 
 	if p_colr_header_size < TOPJ_UINT32(3) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27768, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27904, 0)
 		return DOPJ_FALSE
 	}
 
@@ -35357,7 +35823,7 @@ func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p
 	// Specification boxes after the first.'
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_has_colr != 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_INFO,
-			ts+27800, 0)
+			ts+27936, 0)
 		p_colr_header_data += uintptr(p_colr_header_size)
 		return DOPJ_TRUE
 	}
@@ -35373,13 +35839,13 @@ func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p
 
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fmeth == TOPJ_UINT32(1) {
 		if p_colr_header_size < TOPJ_UINT32(7) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27909,
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28045,
 				libc.VaList(bp, p_colr_header_size))
 			return DOPJ_FALSE
 		}
 		if p_colr_header_size > TOPJ_UINT32(7) && (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fenumcs != TOPJ_UINT32(14) { // handled below for CIELab)
 			// testcase Altona_Technical_v20_x4.pdf
-			Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+27909,
+			Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+28045,
 				libc.VaList(bp+8, p_colr_header_size))
 		}
 
@@ -35405,7 +35871,7 @@ func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p
 
 			cielab = Xopj_malloc(tls, uint64(9)*uint64(unsafe.Sizeof(TOPJ_UINT32(0))))
 			if cielab == uintptr(0) {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+27945, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28081, 0)
 				return DOPJ_FALSE
 			}
 			*(*TOPJ_UINT32)(unsafe.Pointer(cielab)) = TOPJ_UINT32(14) // enumcs
@@ -35434,7 +35900,7 @@ func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p
 				*(*TOPJ_UINT32)(unsafe.Pointer(cielab + 1*4)) = TOPJ_UINT32(0)
 			} else if p_colr_header_size != TOPJ_UINT32(7) {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-					ts+27975, libc.VaList(bp+16, p_colr_header_size))
+					ts+28111, libc.VaList(bp+16, p_colr_header_size))
 			}
 			*(*TOPJ_UINT32)(unsafe.Pointer(cielab + 2*4)) = *(*TOPJ_UINT32)(unsafe.Pointer(bp + 32 /* rl */))
 			*(*TOPJ_UINT32)(unsafe.Pointer(cielab + 4*4)) = *(*TOPJ_UINT32)(unsafe.Pointer(bp + 40 /* ra */))
@@ -35472,13 +35938,13 @@ func opj_jp2_read_colr(tls *libc.TLS, jp2 uintptr, p_colr_header_data uintptr, p
 		//         conforming JP2 reader shall ignore the entire Colour Specification box.
 		Xopj_event_msg(tls, p_manager, DEVT_INFO,
 
-			ts+28019, libc.VaList(bp+24, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fmeth))
+			ts+28155, libc.VaList(bp+24, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fmeth))
 	}
 
 	return DOPJ_TRUE
 }
 
-var __func__189 = *(*[18]int8)(unsafe.Pointer(ts + 28125)) /* jp2.c:1469:1 */
+var __func__189 = *(*[18]int8)(unsafe.Pointer(ts + 28261)) /* jp2.c:1469:1 */
 
 func Xopj_jp2_decode(tls *libc.TLS, jp2 uintptr, p_stream uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1597:10: */
 	if !(p_image != 0) {
@@ -35488,7 +35954,7 @@ func Xopj_jp2_decode(tls *libc.TLS, jp2 uintptr, p_stream uintptr, p_image uintp
 	// J2K decoding
 	if !(Xopj_j2k_decode(tls, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fj2k, p_stream, p_image, p_manager) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+28143, 0)
+			ts+28279, 0)
 		return DOPJ_FALSE
 	}
 
@@ -35561,15 +36027,15 @@ func opj_jp2_write_jp2h(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager ui
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__190)), ts+25686, 1681, ts+28192)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__190)), ts+25822, 1681, ts+28328)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__190)), ts+25686, 1682, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__190)), ts+25822, 1682, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__190)), ts+25686, 1683, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__190)), ts+25822, 1683, ts+4095)
 	} else {
 	}
 
@@ -35615,7 +36081,7 @@ func opj_jp2_write_jp2h(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager ui
 			l_current_writer+16)
 		if (*Topj_jp2_img_header_writer_handler_t)(unsafe.Pointer(l_current_writer)).Fm_data == uintptr(00) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+28205, 0)
+				ts+28341, 0)
 			l_result = DOPJ_FALSE
 			break
 		}
@@ -35642,7 +36108,7 @@ func opj_jp2_write_jp2h(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager ui
 	// write super box data on stream
 	if Xopj_stream_write_data(tls, stream, bp+96, uint64(8), p_manager) != uint64(8) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+28248, 0)
+			ts+28384, 0)
 		l_result = DOPJ_FALSE
 	}
 
@@ -35652,7 +36118,7 @@ func opj_jp2_write_jp2h(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager ui
 			if Xopj_stream_write_data(tls, stream, (*Topj_jp2_img_header_writer_handler_t)(unsafe.Pointer(l_current_writer)).Fm_data,
 				uint64((*Topj_jp2_img_header_writer_handler_t)(unsafe.Pointer(l_current_writer)).Fm_size), p_manager) != TOPJ_SIZE_T((*Topj_jp2_img_header_writer_handler_t)(unsafe.Pointer(l_current_writer)).Fm_size) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+28248, 0)
+					ts+28384, 0)
 				l_result = DOPJ_FALSE
 				break
 			}
@@ -35673,7 +36139,7 @@ func opj_jp2_write_jp2h(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager ui
 	return l_result
 }
 
-var __func__190 = *(*[19]int8)(unsafe.Pointer(ts + 28291)) /* jp2.c:1668:1 */
+var __func__190 = *(*[19]int8)(unsafe.Pointer(ts + 28427)) /* jp2.c:1668:1 */
 
 func opj_jp2_write_ftyp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1771:17: */
 	var i TOPJ_UINT32
@@ -35684,15 +36150,15 @@ func opj_jp2_write_ftyp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintp
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cio != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__191)), ts+25686, 1781, ts+25711)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__191)), ts+25822, 1781, ts+25847)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__191)), ts+25686, 1782, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__191)), ts+25822, 1782, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__191)), ts+25686, 1783, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__191)), ts+25822, 1783, ts+4095)
 	} else {
 	}
 	l_ftyp_size = TOPJ_UINT32(16) + TOPJ_UINT32(4)*(*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcl
@@ -35700,7 +36166,7 @@ func opj_jp2_write_ftyp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintp
 	l_ftyp_data = Xopj_calloc(tls, uint64(1), uint64(l_ftyp_size))
 
 	if l_ftyp_data == uintptr(00) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28310, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28446, 0)
 		return DOPJ_FALSE
 	}
 
@@ -35726,7 +36192,7 @@ func opj_jp2_write_ftyp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintp
 		p_manager) == TOPJ_SIZE_T(l_ftyp_size))
 	if !(l_result != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+28349, 0)
+			ts+28485, 0)
 	}
 
 	Xopj_free(tls, l_ftyp_data)
@@ -35734,7 +36200,7 @@ func opj_jp2_write_ftyp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintp
 	return l_result
 }
 
-var __func__191 = *(*[19]int8)(unsafe.Pointer(ts + 28390)) /* jp2.c:1774:1 */
+var __func__191 = *(*[19]int8)(unsafe.Pointer(ts + 28526)) /* jp2.c:1774:1 */
 
 func opj_jp2_write_jp2c(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1823:17: */
 	bp := tls.Alloc(8)
@@ -35745,19 +36211,19 @@ func opj_jp2_write_jp2c(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintp
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__192)), ts+25686, 1831, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__192)), ts+25822, 1831, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cio != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__192)), ts+25686, 1832, ts+25711)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__192)), ts+25822, 1832, ts+25847)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__192)), ts+25686, 1833, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__192)), ts+25822, 1833, ts+4095)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(Xopj_stream_has_seek(tls, cio) != 0)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__192)), ts+25686, 1834, ts+28409)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__192)), ts+25822, 1834, ts+28545)
 	} else {
 	}
 
@@ -35769,24 +36235,24 @@ func opj_jp2_write_jp2c(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintp
 		uint32(4)) // JP2C
 
 	if !(Xopj_stream_seek(tls, cio, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fj2k_codestream_offset, p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28434, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28570, 0)
 		return DOPJ_FALSE
 	}
 
 	if Xopj_stream_write_data(tls, cio, bp, uint64(8), p_manager) != uint64(8) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28434, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28570, 0)
 		return DOPJ_FALSE
 	}
 
 	if !(Xopj_stream_seek(tls, cio, j2k_codestream_exit, p_manager) != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28434, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+28570, 0)
 		return DOPJ_FALSE
 	}
 
 	return DOPJ_TRUE
 }
 
-var __func__192 = *(*[19]int8)(unsafe.Pointer(ts + 28465)) /* jp2.c:1826:1 */
+var __func__192 = *(*[19]int8)(unsafe.Pointer(ts + 28601)) /* jp2.c:1826:1 */
 
 func opj_jp2_write_jp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:1861:17: */
 	bp := tls.Alloc(12)
@@ -35797,15 +36263,15 @@ func opj_jp2_write_jp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cio != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__193)), ts+25686, 1869, ts+25711)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__193)), ts+25822, 1869, ts+25847)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__193)), ts+25686, 1870, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__193)), ts+25822, 1870, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__193)), ts+25686, 1871, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__193)), ts+25822, 1871, ts+4095)
 	} else {
 	}
 
@@ -35825,7 +36291,7 @@ func opj_jp2_write_jp(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr
 	return DOPJ_TRUE
 }
 
-var __func__193 = *(*[17]int8)(unsafe.Pointer(ts + 28484)) /* jp2.c:1864:1 */
+var __func__193 = *(*[17]int8)(unsafe.Pointer(ts + 28620)) /* jp2.c:1864:1 */
 
 // -----------------------------------------------------------------------
 // JP2 decoder interface
@@ -35870,7 +36336,7 @@ func Xopj_jp2_setup_encoder(tls *libc.TLS, jp2 uintptr, parameters uintptr, imag
 	// Check if number of components respects standard
 	if (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps < TOPJ_UINT32(1) || (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps > TOPJ_UINT32(16384) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+28501, 0)
+			ts+28637, 0)
 		return DOPJ_FALSE
 	}
 
@@ -35890,7 +36356,7 @@ func Xopj_jp2_setup_encoder(tls *libc.TLS, jp2 uintptr, parameters uintptr, imag
 	(*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcl = Xopj_malloc(tls, uint64((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcl)*uint64(unsafe.Sizeof(TOPJ_UINT32(0))))
 	if !(int32((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcl) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+28570, 0)
+			ts+28706, 0)
 		return DOPJ_FALSE
 	}
 	*(*TOPJ_UINT32)(unsafe.Pointer((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcl)) = TOPJ_UINT32(DJP2_JP2) // CL0 : JP2
@@ -35901,7 +36367,7 @@ func Xopj_jp2_setup_encoder(tls *libc.TLS, jp2 uintptr, parameters uintptr, imag
 	(*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcomps = Xopj_malloc(tls, uint64((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcomps)*uint64(unsafe.Sizeof(Topj_jp2_comps_t{})))
 	if !(int32((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcomps) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+28570, 0)
+			ts+28706, 0)
 		// Memory of jp2->cl will be freed by opj_jp2_destroy
 		return DOPJ_FALSE
 	}
@@ -35971,25 +36437,25 @@ func Xopj_jp2_setup_encoder(tls *libc.TLS, jp2 uintptr, parameters uintptr, imag
 		}
 		if alpha_count == 0 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+28616, 0)
+				ts+28752, 0)
 		} else if (*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps < color_channels+TOPJ_UINT32(1) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+28690, 0)
+				ts+28826, 0)
 			alpha_count = 0
 		} else if alpha_channel < color_channels {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+28783, 0)
+				ts+28919, 0)
 			alpha_count = 0
 		}
 	} else if alpha_count > TOPJ_UINT32(1) {
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+28866, 0)
+			ts+29002, 0)
 	}
 	if alpha_count == 1 { // if here, we know what we can do
 		(*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_cdef = Xopj_malloc(tls, uint64(unsafe.Sizeof(Topj_jp2_cdef_t{})))
 		if !(int32((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_cdef) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+28931, 0)
+				ts+29067, 0)
 			return DOPJ_FALSE
 		}
 		// no memset needed, all values will be overwritten except if jp2->color.jp2_cdef->info allocation fails,
@@ -35999,7 +36465,7 @@ func Xopj_jp2_setup_encoder(tls *libc.TLS, jp2 uintptr, parameters uintptr, imag
 		if !(int32((*Topj_jp2_cdef_t)(unsafe.Pointer((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_cdef)).Finfo) != 0) {
 			// memory will be freed by opj_jp2_destroy
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+28931, 0)
+				ts+29067, 0)
 			return DOPJ_FALSE
 		}
 		(*Topj_jp2_cdef_t)(unsafe.Pointer((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcolor.Fjp2_cdef)).Fn = TOPJ_UINT16((*Topj_image_t)(unsafe.Pointer(image)).Fnumcomps) // cast is valid : image->numcomps [1,16384]
@@ -36037,15 +36503,15 @@ func Xopj_jp2_encode(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uintp
 func Xopj_jp2_end_decompress(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2112:10: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__194)), ts+25686, 2118, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__194)), ts+25822, 2118, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cio != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__194)), ts+25686, 2119, ts+25711)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__194)), ts+25822, 2119, ts+25847)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__194)), ts+25686, 2120, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__194)), ts+25822, 2120, ts+4095)
 	} else {
 	}
 
@@ -36062,20 +36528,20 @@ func Xopj_jp2_end_decompress(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager 
 	return Xopj_j2k_end_decompress(tls, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fj2k, cio, p_manager)
 }
 
-var __func__194 = *(*[23]int8)(unsafe.Pointer(ts + 28975)) /* jp2.c:2116:1 */
+var __func__194 = *(*[23]int8)(unsafe.Pointer(ts + 29111)) /* jp2.c:2116:1 */
 
 func Xopj_jp2_end_compress(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2135:10: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__195)), ts+25686, 2141, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__195)), ts+25822, 2141, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cio != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__195)), ts+25686, 2142, ts+25711)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__195)), ts+25822, 2142, ts+25847)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__195)), ts+25686, 2143, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__195)), ts+25822, 2143, ts+4095)
 	} else {
 	}
 
@@ -36092,16 +36558,16 @@ func Xopj_jp2_end_compress(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager ui
 	return opj_jp2_exec(tls, jp2, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fm_procedure_list, cio, p_manager)
 }
 
-var __func__195 = *(*[21]int8)(unsafe.Pointer(ts + 28998)) /* jp2.c:2139:1 */
+var __func__195 = *(*[21]int8)(unsafe.Pointer(ts + 29134)) /* jp2.c:2139:1 */
 
 func opj_jp2_setup_end_header_writing(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2158:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__196)), ts+25686, 2162, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__196)), ts+25822, 2162, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__196)), ts+25686, 2163, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__196)), ts+25822, 2163, ts+4095)
 	} else {
 	}
 
@@ -36115,16 +36581,16 @@ func opj_jp2_setup_end_header_writing(tls *libc.TLS, jp2 uintptr, p_manager uint
 	return DOPJ_TRUE
 }
 
-var __func__196 = *(*[33]int8)(unsafe.Pointer(ts + 29019)) /* jp2.c:2160:1 */
+var __func__196 = *(*[33]int8)(unsafe.Pointer(ts + 29155)) /* jp2.c:2160:1 */
 
 func opj_jp2_setup_end_header_reading(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2193:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__197)), ts+25686, 2197, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__197)), ts+25822, 2197, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__197)), ts+25686, 2198, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__197)), ts+25822, 2198, ts+4095)
 	} else {
 	}
 
@@ -36139,7 +36605,7 @@ func opj_jp2_setup_end_header_reading(tls *libc.TLS, jp2 uintptr, p_manager uint
 	return DOPJ_TRUE
 }
 
-var __func__197 = *(*[33]int8)(unsafe.Pointer(ts + 29052)) /* jp2.c:2195:1 */
+var __func__197 = *(*[33]int8)(unsafe.Pointer(ts + 29188)) /* jp2.c:2195:1 */
 
 func opj_jp2_default_validation(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2209:17: */
 	var l_is_valid TOPJ_BOOL = DOPJ_TRUE
@@ -36147,15 +36613,15 @@ func opj_jp2_default_validation(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manag
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__198)), ts+25686, 2218, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__198)), ts+25822, 2218, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cio != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__198)), ts+25686, 2219, ts+25711)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__198)), ts+25822, 2219, ts+25847)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__198)), ts+25686, 2220, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__198)), ts+25822, 2220, ts+4095)
 	} else {
 	}
 
@@ -36202,7 +36668,7 @@ func opj_jp2_default_validation(tls *libc.TLS, jp2 uintptr, cio uintptr, p_manag
 	return l_is_valid
 }
 
-var __func__198 = *(*[27]int8)(unsafe.Pointer(ts + 29085)) /* jp2.c:2213:1 */
+var __func__198 = *(*[27]int8)(unsafe.Pointer(ts + 29221)) /* jp2.c:2213:1 */
 
 func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2266:17: */
 	bp := tls.Alloc(152)
@@ -36220,15 +36686,15 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__199)), ts+25686, 2280, ts+28192)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__199)), ts+25822, 2280, ts+28328)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__199)), ts+25686, 2281, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__199)), ts+25822, 2281, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__199)), ts+25686, 2282, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__199)), ts+25822, 2282, ts+4095)
 	} else {
 	}
 
@@ -36236,7 +36702,7 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 
 	if l_current_data == uintptr(00) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+29112, 0)
+			ts+29248, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36248,16 +36714,16 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 				Xopj_free(tls, l_current_data)
 				return DOPJ_TRUE
 			} else {
-				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29162, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29298, 0)
 				Xopj_free(tls, l_current_data)
 				return DOPJ_FALSE
 			}
 		} else if (*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Flength == TOPJ_UINT32(0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29190, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29326, 0)
 			Xopj_free(tls, l_current_data)
 			return DOPJ_FALSE
 		} else if (*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Flength < *(*TOPJ_UINT32)(unsafe.Pointer(bp + 148)) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29228, libc.VaList(bp, (*Topj_jp2_box_t)(unsafe.Pointer(bp+136 /* &box */)).Flength,
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29364, libc.VaList(bp, (*Topj_jp2_box_t)(unsafe.Pointer(bp+136 /* &box */)).Flength,
 				(*Topj_jp2_box_t)(unsafe.Pointer(bp+136 /* &box */)).Ftype))
 			Xopj_free(tls, l_current_data)
 			return DOPJ_FALSE
@@ -36270,7 +36736,7 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 		if l_current_handler != uintptr(00) || l_current_handler_misplaced != uintptr(00) {
 			if l_current_handler == uintptr(00) {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-					ts+29254,
+					ts+29390,
 					libc.VaList(bp+16, int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>24)), int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>16)),
 						int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>8)), int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>0))))
 				if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fjp2_state&JP2_STATE_HEADER != 0 {
@@ -36278,14 +36744,14 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 					l_current_handler = l_current_handler_misplaced
 				} else {
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-						ts+29305,
+						ts+29441,
 						libc.VaList(bp+48, int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>24)), int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>16)),
 							int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>8)), int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>0))))
 					*(*TOPJ_UINT32)(unsafe.Pointer(jp2 + 116)) |= JP2_STATE_UNKNOWN
 					if Xopj_stream_skip(tls, stream, int64(l_current_data_size),
 						p_manager) != TOPJ_OFF_T(l_current_data_size) {
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+29371, 0)
+							ts+29507, 0)
 						Xopj_free(tls, l_current_data)
 						return DOPJ_FALSE
 					}
@@ -36295,7 +36761,7 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 			if TOPJ_OFF_T(l_current_data_size) > Xopj_stream_get_number_byte_left(tls, stream) {
 				// do not even try to malloc if we can't read
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+29421,
+					ts+29557,
 					libc.VaList(bp+80, (*Topj_jp2_box_t)(unsafe.Pointer(bp+136 /* &box */)).Flength, int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>24)), int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>16)),
 						int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>8)), int32(TOPJ_BYTE((*Topj_jp2_box_t)(unsafe.Pointer(bp+136)).Ftype>>0)), l_current_data_size,
 						TOPJ_UINT32(Xopj_stream_get_number_byte_left(tls, stream))))
@@ -36308,7 +36774,7 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 				if !(new_current_data != 0) {
 					Xopj_free(tls, l_current_data)
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+29497, 0)
+						ts+29633, 0)
 					return DOPJ_FALSE
 				}
 				l_current_data = new_current_data
@@ -36319,7 +36785,7 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 				uint64(l_current_data_size), p_manager))
 			if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 148)) != l_current_data_size {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+29539, 0)
+					ts+29675, 0)
 				Xopj_free(tls, l_current_data)
 				return DOPJ_FALSE
 			}
@@ -36334,13 +36800,13 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 		} else {
 			if !((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fjp2_state&JP2_STATE_SIGNATURE != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+29588, 0)
+					ts+29724, 0)
 				Xopj_free(tls, l_current_data)
 				return DOPJ_FALSE
 			}
 			if !((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fjp2_state&JP2_STATE_FILE_TYPE != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+29658, 0)
+					ts+29794, 0)
 				Xopj_free(tls, l_current_data)
 				return DOPJ_FALSE
 			}
@@ -36351,12 +36817,12 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 					// If we already read the codestream, do not error out
 					// Needed for data/input/nonregression/issue254.jp2
 					Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-						ts+29371, 0)
+						ts+29507, 0)
 					Xopj_free(tls, l_current_data)
 					return DOPJ_TRUE
 				} else {
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+29371, 0)
+						ts+29507, 0)
 					Xopj_free(tls, l_current_data)
 					return DOPJ_FALSE
 				}
@@ -36369,7 +36835,7 @@ func opj_jp2_read_header_procedure(tls *libc.TLS, jp2 uintptr, stream uintptr, p
 	return DOPJ_TRUE
 }
 
-var __func__199 = *(*[30]int8)(unsafe.Pointer(ts + 29719)) /* jp2.c:2270:1 */
+var __func__199 = *(*[30]int8)(unsafe.Pointer(ts + 29855)) /* jp2.c:2270:1 */
 
 // *
 // Executes the given procedures on the given codec.
@@ -36388,19 +36854,19 @@ func opj_jp2_exec(tls *libc.TLS, jp2 uintptr, p_procedure_list uintptr, stream u
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_procedure_list != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__200)), ts+25686, 2444, ts+19762)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__200)), ts+25822, 2444, ts+19898)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__200)), ts+25686, 2445, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__200)), ts+25822, 2445, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__200)), ts+25686, 2446, ts+28192)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__200)), ts+25822, 2446, ts+28328)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__200)), ts+25686, 2447, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__200)), ts+25822, 2447, ts+4095)
 	} else {
 	}
 
@@ -36419,20 +36885,20 @@ func opj_jp2_exec(tls *libc.TLS, jp2 uintptr, p_procedure_list uintptr, stream u
 	return l_result
 }
 
-var __func__200 = *(*[13]int8)(unsafe.Pointer(ts + 29749)) /* jp2.c:2437:1 */
+var __func__200 = *(*[13]int8)(unsafe.Pointer(ts + 29885)) /* jp2.c:2437:1 */
 
 func Xopj_jp2_start_compress(tls *libc.TLS, jp2 uintptr, stream uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2463:10: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__201)), ts+25686, 2470, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__201)), ts+25822, 2470, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__201)), ts+25686, 2471, ts+28192)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__201)), ts+25822, 2471, ts+28328)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__201)), ts+25686, 2472, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__201)), ts+25822, 2472, ts+4095)
 	} else {
 	}
 
@@ -36459,7 +36925,7 @@ func Xopj_jp2_start_compress(tls *libc.TLS, jp2 uintptr, stream uintptr, p_image
 	return Xopj_j2k_start_compress(tls, (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fj2k, stream, p_image, p_manager)
 }
 
-var __func__201 = *(*[23]int8)(unsafe.Pointer(ts + 29762)) /* jp2.c:2468:1 */
+var __func__201 = *(*[23]int8)(unsafe.Pointer(ts + 29898)) /* jp2.c:2468:1 */
 
 func opj_jp2_find_handler(tls *libc.TLS, p_id TOPJ_UINT32) uintptr { /* jp2.c:2497:39: */
 	var i TOPJ_UINT32
@@ -36508,27 +36974,27 @@ func opj_jp2_read_jp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_header
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__202)), ts+25686, 2551, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__202)), ts+25822, 2551, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__202)), ts+25686, 2552, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__202)), ts+25822, 2552, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__202)), ts+25686, 2553, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__202)), ts+25822, 2553, ts+4095)
 	} else {
 	}
 
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fjp2_state != JP2_STATE_NONE {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+29785, 0)
+			ts+29921, 0)
 		return DOPJ_FALSE
 	}
 
 	// assure length of data is correct (4 -> magic number)
 	if p_header_size != TOPJ_UINT32(4) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29839, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29975, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36536,7 +37002,7 @@ func opj_jp2_read_jp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_header
 	Xopj_read_bytes_LE(tls, p_header_data, bp, uint32(4))
 	if *(*TOPJ_UINT32)(unsafe.Pointer(bp)) != TOPJ_UINT32(0x0d0a870a) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+29873, 0)
+			ts+30009, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36545,7 +37011,7 @@ func opj_jp2_read_jp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_header
 	return DOPJ_TRUE
 }
 
-var __func__202 = *(*[16]int8)(unsafe.Pointer(ts + 29917)) /* jp2.c:2547:1 */
+var __func__202 = *(*[16]int8)(unsafe.Pointer(ts + 30053)) /* jp2.c:2547:1 */
 
 // *
 // Reads a a FTYP box - File type box
@@ -36562,27 +37028,27 @@ func opj_jp2_read_ftyp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__203)), ts+25686, 2599, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__203)), ts+25822, 2599, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__203)), ts+25686, 2600, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__203)), ts+25822, 2600, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__203)), ts+25686, 2601, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__203)), ts+25822, 2601, ts+4095)
 	} else {
 	}
 
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fjp2_state != JP2_STATE_SIGNATURE {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+29933, 0)
+			ts+30069, 0)
 		return DOPJ_FALSE
 	}
 
 	// assure length of data is correct
 	if p_header_size < TOPJ_UINT32(8) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29983, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30119, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36596,7 +37062,7 @@ func opj_jp2_read_ftyp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 
 	// the number of remaining bytes should be a multiple of 4
 	if l_remaining_bytes&TOPJ_UINT32(0x3) != TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29983, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30119, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36605,7 +37071,7 @@ func opj_jp2_read_ftyp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcl != 0 {
 		(*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcl = Xopj_calloc(tls, uint64((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fnumcl), uint64(unsafe.Sizeof(TOPJ_UINT32(0))))
 		if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fcl == uintptr(00) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30019, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30155, 0)
 			return DOPJ_FALSE
 		}
 	}
@@ -36620,20 +37086,20 @@ func opj_jp2_read_ftyp(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 	return DOPJ_TRUE
 }
 
-var __func__203 = *(*[18]int8)(unsafe.Pointer(ts + 30052)) /* jp2.c:2595:1 */
+var __func__203 = *(*[18]int8)(unsafe.Pointer(ts + 30188)) /* jp2.c:2595:1 */
 
 func opj_jp2_skip_jp2c(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2649:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__204)), ts+25686, 2654, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__204)), ts+25822, 2654, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__204)), ts+25686, 2655, ts+28192)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__204)), ts+25822, 2655, ts+28328)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__204)), ts+25686, 2656, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__204)), ts+25822, 2656, ts+4095)
 	} else {
 	}
 
@@ -36646,20 +37112,20 @@ func opj_jp2_skip_jp2c(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uin
 	return DOPJ_TRUE
 }
 
-var __func__204 = *(*[18]int8)(unsafe.Pointer(ts + 30070)) /* jp2.c:2652:1 */
+var __func__204 = *(*[18]int8)(unsafe.Pointer(ts + 30206)) /* jp2.c:2652:1 */
 
 func opj_jpip_skip_iptr(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2667:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__205)), ts+25686, 2672, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__205)), ts+25822, 2672, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__205)), ts+25686, 2673, ts+28192)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__205)), ts+25822, 2673, ts+28328)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__205)), ts+25686, 2674, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__205)), ts+25822, 2674, ts+4095)
 	} else {
 	}
 
@@ -36672,7 +37138,7 @@ func opj_jpip_skip_iptr(tls *libc.TLS, jp2 uintptr, stream uintptr, p_manager ui
 	return DOPJ_TRUE
 }
 
-var __func__205 = *(*[19]int8)(unsafe.Pointer(ts + 30088)) /* jp2.c:2670:1 */
+var __func__205 = *(*[19]int8)(unsafe.Pointer(ts + 30224)) /* jp2.c:2670:1 */
 
 // *
 // Reads the Jpeg2000 file Header box - JP2 Header box (warning, this is a super box).
@@ -36696,22 +37162,22 @@ func opj_jp2_read_jp2h(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_header_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__206)), ts+25686, 2707, ts+4177)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__206)), ts+25822, 2707, ts+4313)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__206)), ts+25686, 2708, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__206)), ts+25822, 2708, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__206)), ts+25686, 2709, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__206)), ts+25822, 2709, ts+4095)
 	} else {
 	}
 
 	// make sure the box is well placed
 	if (*Topj_jp2_t)(unsafe.Pointer(jp2)).Fjp2_state&JP2_STATE_FILE_TYPE != JP2_STATE_FILE_TYPE {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+30107, 0)
+			ts+30243, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36723,13 +37189,13 @@ func opj_jp2_read_jp2h(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 		if !(opj_jp2_read_boxhdr_char(tls, bp, p_header_data, bp+12, p_header_size,
 			p_manager) != 0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+30152, 0)
+				ts+30288, 0)
 			return DOPJ_FALSE
 		}
 
 		if (*Topj_jp2_box_t)(unsafe.Pointer(bp)).Flength > p_header_size {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+30195, 0)
+				ts+30331, 0)
 			return DOPJ_FALSE
 		}
 
@@ -36758,7 +37224,7 @@ func opj_jp2_read_jp2h(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 
 	if l_has_ihdr == 0 {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+30267, 0)
+			ts+30403, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36768,7 +37234,7 @@ func opj_jp2_read_jp2h(tls *libc.TLS, jp2 uintptr, p_header_data uintptr, p_head
 	return DOPJ_TRUE
 }
 
-var __func__206 = *(*[18]int8)(unsafe.Pointer(ts + 30326)) /* jp2.c:2700:1 */
+var __func__206 = *(*[18]int8)(unsafe.Pointer(ts + 30462)) /* jp2.c:2700:1 */
 
 func opj_jp2_read_boxhdr_char(tls *libc.TLS, box uintptr, p_data uintptr, p_number_bytes_read uintptr, p_box_max_size TOPJ_UINT32, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2769:17: */
 	bp := tls.Alloc(8)
@@ -36778,24 +37244,24 @@ func opj_jp2_read_boxhdr_char(tls *libc.TLS, box uintptr, p_data uintptr, p_numb
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_data != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__207)), ts+25686, 2779, ts+22083)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__207)), ts+25822, 2779, ts+22219)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(box != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__207)), ts+25686, 2780, ts+25721)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__207)), ts+25822, 2780, ts+25857)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_number_bytes_read != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__207)), ts+25686, 2781, ts+25731)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__207)), ts+25822, 2781, ts+25867)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__207)), ts+25686, 2782, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__207)), ts+25822, 2782, ts+4095)
 	} else {
 	}
 
 	if p_box_max_size < TOPJ_UINT32(8) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30344, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30480, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36817,7 +37283,7 @@ func opj_jp2_read_boxhdr_char(tls *libc.TLS, box uintptr, p_data uintptr, p_numb
 
 		if p_box_max_size < TOPJ_UINT32(16) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+30384, 0)
+				ts+30520, 0)
 			return DOPJ_FALSE
 		}
 
@@ -36827,7 +37293,7 @@ func opj_jp2_read_boxhdr_char(tls *libc.TLS, box uintptr, p_data uintptr, p_numb
 
 		if *(*TOPJ_UINT32)(unsafe.Pointer(bp + 4)) != TOPJ_UINT32(0) {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+25757, 0)
+				ts+25893, 0)
 			return DOPJ_FALSE
 		}
 
@@ -36836,34 +37302,34 @@ func opj_jp2_read_boxhdr_char(tls *libc.TLS, box uintptr, p_data uintptr, p_numb
 		(*Topj_jp2_box_t)(unsafe.Pointer(box)).Flength = *(*TOPJ_UINT32)(unsafe.Pointer(bp))
 
 		if (*Topj_jp2_box_t)(unsafe.Pointer(box)).Flength == TOPJ_UINT32(0) {
-			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29190, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29326, 0)
 			return DOPJ_FALSE
 		}
 	} else if (*Topj_jp2_box_t)(unsafe.Pointer(box)).Flength == TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29190, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+29326, 0)
 		return DOPJ_FALSE
 	}
 	if (*Topj_jp2_box_t)(unsafe.Pointer(box)).Flength < *(*TOPJ_UINT32)(unsafe.Pointer(p_number_bytes_read)) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30428, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30564, 0)
 		return DOPJ_FALSE
 	}
 	return DOPJ_TRUE
 }
 
-var __func__207 = *(*[25]int8)(unsafe.Pointer(ts + 30457)) /* jp2.c:2775:1 */
+var __func__207 = *(*[25]int8)(unsafe.Pointer(ts + 30593)) /* jp2.c:2775:1 */
 
 func Xopj_jp2_read_header(tls *libc.TLS, p_stream uintptr, jp2 uintptr, p_image uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2840:10: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__208)), ts+25686, 2847, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__208)), ts+25822, 2847, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_stream != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__208)), ts+25686, 2848, ts+3996)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__208)), ts+25822, 2848, ts+4132)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__208)), ts+25686, 2849, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__208)), ts+25822, 2849, ts+4095)
 	} else {
 	}
 
@@ -36887,11 +37353,11 @@ func Xopj_jp2_read_header(tls *libc.TLS, p_stream uintptr, jp2 uintptr, p_image 
 		return DOPJ_FALSE
 	}
 	if int32((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fhas_jp2h) == 0 {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30482, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30618, 0)
 		return DOPJ_FALSE
 	}
 	if int32((*Topj_jp2_t)(unsafe.Pointer(jp2)).Fhas_ihdr) == 0 {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30511, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+30647, 0)
 		return DOPJ_FALSE
 	}
 
@@ -36901,16 +37367,16 @@ func Xopj_jp2_read_header(tls *libc.TLS, p_stream uintptr, jp2 uintptr, p_image 
 		p_manager)
 }
 
-var __func__208 = *(*[20]int8)(unsafe.Pointer(ts + 30540)) /* jp2.c:2845:1 */
+var __func__208 = *(*[20]int8)(unsafe.Pointer(ts + 30676)) /* jp2.c:2845:1 */
 
 func opj_jp2_setup_encoding_validation(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2885:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__209)), ts+25686, 2889, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__209)), ts+25822, 2889, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__209)), ts+25686, 2890, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__209)), ts+25822, 2890, ts+4095)
 	} else {
 	}
 
@@ -36925,16 +37391,16 @@ func opj_jp2_setup_encoding_validation(tls *libc.TLS, jp2 uintptr, p_manager uin
 	return DOPJ_TRUE
 }
 
-var __func__209 = *(*[34]int8)(unsafe.Pointer(ts + 30560)) /* jp2.c:2887:1 */
+var __func__209 = *(*[34]int8)(unsafe.Pointer(ts + 30696)) /* jp2.c:2887:1 */
 
 func opj_jp2_setup_decoding_validation(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2901:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__210)), ts+25686, 2905, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__210)), ts+25822, 2905, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__210)), ts+25686, 2906, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__210)), ts+25822, 2906, ts+4095)
 	} else {
 	}
 
@@ -36946,16 +37412,16 @@ func opj_jp2_setup_decoding_validation(tls *libc.TLS, jp2 uintptr, p_manager uin
 	return DOPJ_TRUE
 }
 
-var __func__210 = *(*[34]int8)(unsafe.Pointer(ts + 30594)) /* jp2.c:2903:1 */
+var __func__210 = *(*[34]int8)(unsafe.Pointer(ts + 30730)) /* jp2.c:2903:1 */
 
 func opj_jp2_setup_header_writing(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2916:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__211)), ts+25686, 2920, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__211)), ts+25822, 2920, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__211)), ts+25686, 2921, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__211)), ts+25822, 2921, ts+4095)
 	} else {
 	}
 
@@ -36997,16 +37463,16 @@ func opj_jp2_setup_header_writing(tls *libc.TLS, jp2 uintptr, p_manager uintptr)
 	return DOPJ_TRUE
 }
 
-var __func__211 = *(*[29]int8)(unsafe.Pointer(ts + 30628)) /* jp2.c:2918:1 */
+var __func__211 = *(*[29]int8)(unsafe.Pointer(ts + 30764)) /* jp2.c:2918:1 */
 
 func opj_jp2_setup_header_reading(tls *libc.TLS, jp2 uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2951:17: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__212)), ts+25686, 2955, ts+25881)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__212)), ts+25822, 2955, ts+26017)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_manager != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__212)), ts+25686, 2956, ts+3959)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__212)), ts+25822, 2956, ts+4095)
 	} else {
 	}
 
@@ -37022,7 +37488,7 @@ func opj_jp2_setup_header_reading(tls *libc.TLS, jp2 uintptr, p_manager uintptr)
 	return DOPJ_TRUE
 }
 
-var __func__212 = *(*[29]int8)(unsafe.Pointer(ts + 30657)) /* jp2.c:2953:1 */
+var __func__212 = *(*[29]int8)(unsafe.Pointer(ts + 30793)) /* jp2.c:2953:1 */
 
 func Xopj_jp2_read_tile_header(tls *libc.TLS, p_jp2 uintptr, p_tile_index uintptr, p_data_size uintptr, p_tile_x0 uintptr, p_tile_y0 uintptr, p_tile_x1 uintptr, p_tile_y1 uintptr, p_nb_comps uintptr, p_go_on uintptr, p_stream uintptr, p_manager uintptr) TOPJ_BOOL { /* jp2.c:2968:10: */
 	return Xopj_j2k_read_tile_header(tls, (*Topj_jp2_t)(unsafe.Pointer(p_jp2)).Fj2k,
@@ -37130,11 +37596,11 @@ func Xopj_jp2_get_tile(tls *libc.TLS, p_jp2 uintptr, p_stream uintptr, p_image u
 	}
 
 	Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-		ts+30686, 0)
+		ts+30822, 0)
 
 	if !(Xopj_j2k_get_tile(tls, (*Topj_jp2_t)(unsafe.Pointer(p_jp2)).Fj2k, p_stream, p_image, p_manager, tile_index) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+28143, 0)
+			ts+28279, 0)
 		return DOPJ_FALSE
 	}
 
@@ -37235,7 +37701,7 @@ func Xopj_jp2_create(tls *libc.TLS, p_is_decoder TOPJ_BOOL) uintptr { /* jp2.c:3
 func Xjp2_dump(tls *libc.TLS, p_jp2 uintptr, flag TOPJ_INT32, out_stream uintptr) { /* jp2.c:3221:6: */
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_jp2 != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__213)), ts+25686, 3224, ts+30761)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__213)), ts+25822, 3224, ts+30897)
 	} else {
 	}
 
@@ -37244,7 +37710,7 @@ func Xjp2_dump(tls *libc.TLS, p_jp2 uintptr, flag TOPJ_INT32, out_stream uintptr
 		out_stream)
 }
 
-var __func__213 = *(*[9]int8)(unsafe.Pointer(ts + 30773)) /* jp2.c:3222:1 */
+var __func__213 = *(*[9]int8)(unsafe.Pointer(ts + 30909)) /* jp2.c:3222:1 */
 
 func Xjp2_get_cstr_index(tls *libc.TLS, p_jp2 uintptr) uintptr { /* jp2.c:3231:23: */
 	return Xj2k_get_cstr_index(tls, (*Topj_jp2_t)(unsafe.Pointer(p_jp2)).Fj2k)
@@ -37621,7 +38087,7 @@ func Xopj_mqc_init_enc(tls *libc.TLS, mqc uintptr, bp uintptr) { /* mqc.c:188:6:
 	// necessary, as this is only used at the beginning of the code block
 	// and our initial fake byte is set at 0
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(int32(*(*TOPJ_BYTE)(unsafe.Pointer((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp))) != 0xff)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__222)), ts+30782, 205, ts+30807)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__222)), ts+30918, 205, ts+30943)
 	} else {
 	}
 
@@ -37629,7 +38095,7 @@ func Xopj_mqc_init_enc(tls *libc.TLS, mqc uintptr, bp uintptr) { /* mqc.c:188:6:
 	(*Topj_mqc_t)(unsafe.Pointer(mqc)).Fend_of_byte_stream_counter = TOPJ_UINT32(0)
 }
 
-var __func__222 = *(*[17]int8)(unsafe.Pointer(ts + 30826)) /* mqc.c:189:1 */
+var __func__222 = *(*[17]int8)(unsafe.Pointer(ts + 30962)) /* mqc.c:189:1 */
 
 func Xopj_mqc_flush(tls *libc.TLS, mqc uintptr) { /* mqc.c:212:6: */
 	// C.2.9 Termination of coding (FLUSH)
@@ -37652,7 +38118,7 @@ func Xopj_mqc_bypass_init_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:229:6: */
 	// which will have advance mqc->bp by at least 2 bytes beyond its
 	// initial position
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp >= (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fstart)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__223)), ts+30782, 234, ts+30843)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__223)), ts+30918, 234, ts+30979)
 	} else {
 	}
 	(*Topj_mqc_t)(unsafe.Pointer(mqc)).Fc = TOPJ_UINT32(0)
@@ -37665,12 +38131,12 @@ func Xopj_mqc_bypass_init_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:229:6: */
 	// Given that we are called after opj_mqc_flush(), the previous byte
 	// cannot be 0xff.
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(int32(*(*TOPJ_BYTE)(unsafe.Pointer((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp + libc.UintptrFromInt32(-1)))) != 0xff)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__223)), ts+30782, 244, ts+30865)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__223)), ts+30918, 244, ts+31001)
 	} else {
 	}
 }
 
-var __func__223 = *(*[24]int8)(unsafe.Pointer(ts + 30885)) /* mqc.c:230:1 */
+var __func__223 = *(*[24]int8)(unsafe.Pointer(ts + 31021)) /* mqc.c:230:1 */
 
 func Xopj_mqc_bypass_enc(tls *libc.TLS, mqc uintptr, d TOPJ_UINT32) { /* mqc.c:247:6: */
 	if (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fct == DBYPASS_CT_INIT {
@@ -37721,7 +38187,7 @@ func Xopj_mqc_bypass_flush_enc(tls *libc.TLS, mqc uintptr, erterm TOPJ_BOOL) { /
 	} else if (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fct == TOPJ_UINT32(7) && int32(*(*TOPJ_BYTE)(unsafe.Pointer((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp + libc.UintptrFromInt32(-1)))) == 0xff {
 		// Discard last 0xff
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!!(erterm != 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__224)), ts+30782, 296, ts+30909)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__224)), ts+30918, 296, ts+31045)
 		} else {
 		}
 		(*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp--
@@ -37734,12 +38200,12 @@ func Xopj_mqc_bypass_flush_enc(tls *libc.TLS, mqc uintptr, erterm TOPJ_BOOL) { /
 	}
 
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(int32(*(*TOPJ_BYTE)(unsafe.Pointer((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp + libc.UintptrFromInt32(-1)))) != 0xff)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__224)), ts+30782, 307, ts+30865)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__224)), ts+30918, 307, ts+31001)
 	} else {
 	}
 }
 
-var __func__224 = *(*[25]int8)(unsafe.Pointer(ts + 30917)) /* mqc.c:273:1 */
+var __func__224 = *(*[25]int8)(unsafe.Pointer(ts + 31053)) /* mqc.c:273:1 */
 
 func Xopj_mqc_reset_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:310:6: */
 	Xopj_mqc_resetstates(tls, mqc)
@@ -37761,11 +38227,11 @@ func Xopj_mqc_restart_init_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:337:6: */
 	// initial position
 	(*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp--
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp >= (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fstart-uintptr(1))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__225)), ts+30782, 350, ts+30942)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__225)), ts+30918, 350, ts+31078)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(int32(*(*TOPJ_BYTE)(unsafe.Pointer((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp))) != 0xff)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__225)), ts+30782, 351, ts+30968)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__225)), ts+30918, 351, ts+31104)
 	} else {
 	}
 	if int32(*(*TOPJ_BYTE)(unsafe.Pointer((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp))) == 0xff {
@@ -37773,7 +38239,7 @@ func Xopj_mqc_restart_init_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:337:6: */
 	}
 }
 
-var __func__225 = *(*[25]int8)(unsafe.Pointer(ts + 30985)) /* mqc.c:338:1 */
+var __func__225 = *(*[25]int8)(unsafe.Pointer(ts + 31121)) /* mqc.c:338:1 */
 
 func Xopj_mqc_erterm_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:357:6: */
 	var k TOPJ_INT32 = TOPJ_INT32(TOPJ_UINT32(11) - (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fct + TOPJ_UINT32(1))
@@ -37790,7 +38256,7 @@ func Xopj_mqc_erterm_enc(tls *libc.TLS, mqc uintptr) { /* mqc.c:357:6: */
 	}
 }
 
-// *
+//*
 // Encode the most probable symbol
 // @param mqc MQC handle
 func opj_mqc_codemps(tls *libc.TLS, mqc uintptr) { /* mqc.c:382:20: */
@@ -37823,7 +38289,7 @@ func opj_mqc_codemps(tls *libc.TLS, mqc uintptr) { /* mqc.c:382:20: */
 
 }
 
-// *
+//*
 // Encode the most least symbol
 // @param mqc MQC handle
 func opj_mqc_codelps(tls *libc.TLS, mqc uintptr) { /* mqc.c:391:20: */
@@ -37853,7 +38319,7 @@ func opj_mqc_codelps(tls *libc.TLS, mqc uintptr) { /* mqc.c:391:20: */
 
 }
 
-// *
+//*
 // Encode a symbol using the MQ-coder
 // @param mqc MQC handle
 // @param d The symbol to be encoded (0 or 1)
@@ -37878,7 +38344,7 @@ func opj_mqc_init_dec_common(tls *libc.TLS, mqc uintptr, bp uintptr, len TOPJ_UI
 	_ = extra_writable_bytes
 
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(extra_writable_bytes >= TOPJ_UINT32(DOPJ_COMMON_CBLK_DATA_EXTRA))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__226)), ts+30782, 427, ts+31010)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__226)), ts+30918, 427, ts+31146)
 	} else {
 	}
 	(*Topj_mqc_t)(unsafe.Pointer(mqc)).Fstart = bp
@@ -37893,7 +38359,7 @@ func opj_mqc_init_dec_common(tls *libc.TLS, mqc uintptr, bp uintptr, len TOPJ_UI
 	(*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp = bp
 }
 
-var __func__226 = *(*[24]int8)(unsafe.Pointer(ts + 31061)) /* mqc.c:424:1 */
+var __func__226 = *(*[24]int8)(unsafe.Pointer(ts + 31197)) /* mqc.c:424:1 */
 
 func Xopj_mqc_init_dec(tls *libc.TLS, mqc uintptr, bp uintptr, len TOPJ_UINT32, extra_writable_bytes TOPJ_UINT32) { /* mqc.c:439:6: */
 	// Implements ISO 15444-1 C.3.5 Initialization of the decoder (INITDEC)
@@ -37942,7 +38408,7 @@ func Xopj_mqc_byteout(tls *libc.TLS, mqc uintptr) { /* mqc.c:492:6: */
 	// bp is initialized to start - 1 in opj_mqc_init_enc()
 	// but this is safe, see opj_tcd_code_block_enc_allocate_data()
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp >= (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fstart-uintptr(1))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__227)), ts+30782, 496, ts+30942)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__227)), ts+30918, 496, ts+31078)
 	} else {
 	}
 	if int32(*(*TOPJ_BYTE)(unsafe.Pointer((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp))) == 0xff {
@@ -37974,7 +38440,7 @@ func Xopj_mqc_byteout(tls *libc.TLS, mqc uintptr) { /* mqc.c:492:6: */
 	}
 }
 
-var __func__227 = *(*[16]int8)(unsafe.Pointer(ts + 31085)) /* mqc.c:493:1 */
+var __func__227 = *(*[16]int8)(unsafe.Pointer(ts + 31221)) /* mqc.c:493:1 */
 
 // ----------------------------------------------------------------------
 // Functions to set the message handlers
@@ -38070,7 +38536,7 @@ func opj_close_from_file(tls *libc.TLS, p_user_data uintptr) { /* openjpeg.c:138
 // ----------------------------------------------------------------------
 
 func Xopj_version(tls *libc.TLS) uintptr { /* openjpeg.c:171:11: */
-	return ts + 31101 /* "2.5.0" */
+	return ts + 31237 /* "2.5.0" */
 }
 
 // ----------------------------------------------------------------------
@@ -38276,7 +38742,7 @@ func Xopj_setup_decoder(tls *libc.TLS, p_codec uintptr, parameters uintptr) TOPJ
 
 		if !((*Topj_codec_private_t)(unsafe.Pointer(l_codec)).Fis_decompressor != 0) {
 			Xopj_event_msg(tls, l_codec+104, DEVT_ERROR,
-				ts+31107, 0)
+				ts+31243, 0)
 			return DOPJ_FALSE
 		}
 
@@ -38295,7 +38761,7 @@ func Xopj_decoder_set_strict_mode(tls *libc.TLS, p_codec uintptr, strict TOPJ_BO
 
 		if !((*Topj_codec_private_t)(unsafe.Pointer(l_codec)).Fis_decompressor != 0) {
 			Xopj_event_msg(tls, l_codec+104, DEVT_ERROR,
-				ts+31188, 0)
+				ts+31324, 0)
 			return DOPJ_FALSE
 		}
 
@@ -38316,7 +38782,7 @@ func Xopj_read_header(tls *libc.TLS, p_stream uintptr, p_codec uintptr, p_image 
 
 		if !((*Topj_codec_private_t)(unsafe.Pointer(l_codec)).Fis_decompressor != 0) {
 			Xopj_event_msg(tls, l_codec+104, DEVT_ERROR,
-				ts+31279, 0)
+				ts+31415, 0)
 			return DOPJ_FALSE
 		}
 
@@ -38337,13 +38803,13 @@ func Xopj_set_decoded_components(tls *libc.TLS, p_codec uintptr, numcomps TOPJ_U
 
 		if !((*Topj_codec_private_t)(unsafe.Pointer(l_codec)).Fis_decompressor != 0) {
 			Xopj_event_msg(tls, l_codec+104, DEVT_ERROR,
-				ts+31358, 0)
+				ts+31494, 0)
 			return DOPJ_FALSE
 		}
 
 		if apply_color_transforms != 0 {
 			Xopj_event_msg(tls, l_codec+104, DEVT_ERROR,
-				ts+31448, 0)
+				ts+31584, 0)
 			return DOPJ_FALSE
 		}
 
@@ -38367,7 +38833,7 @@ func Xopj_decode(tls *libc.TLS, p_codec uintptr, p_stream uintptr, p_image uintp
 		var l_stream uintptr = p_stream
 
 		if !((*Topj_codec_private_t)(unsafe.Pointer(l_codec)).Fis_decompressor != 0) {
-			libc.Xfprintf(tls, libc.X__stdoutp, ts+31501, libc.VaList(bp, ts+31511))
+			libc.Xfprintf(tls, libc.X__stdoutp, ts+31637, libc.VaList(bp, ts+31647))
 			return DOPJ_FALSE
 		}
 
@@ -38876,9 +39342,9 @@ func Xopj_stream_create_file_stream(tls *libc.TLS, fname uintptr, p_size TOPJ_SI
 	}
 
 	if p_is_read_stream != 0 {
-		mode = ts + 1519 /* "rb" */
+		mode = ts + 31667 /* "rb" */
 	} else {
-		mode = ts + 1522 /* "wb" */
+		mode = ts + 31670 /* "wb" */
 	}
 
 	p_file = libc.Xfopen(tls, fname, mode)
@@ -38929,12 +39395,12 @@ func opj_aligned_alloc_n(tls *libc.TLS, alignment Tsize_t, size Tsize_t) uintptr
 
 	// alignment shall be power of 2
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(alignment != uint64(0) && alignment&(alignment-uint64(1)) == uint64(0))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__236)), ts+31531, 52, ts+31563)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__236)), ts+31673, 52, ts+31705)
 	} else {
 	}
 	// alignment shall be at least sizeof(void*)
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(alignment >= Tsize_t(unsafe.Sizeof(uintptr(0))))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__236)), ts+31531, 54, ts+31623)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__236)), ts+31673, 54, ts+31765)
 	} else {
 	}
 
@@ -38956,7 +39422,7 @@ func opj_aligned_alloc_n(tls *libc.TLS, alignment Tsize_t, size Tsize_t) uintptr
 
 		// let's be extra careful
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(alignment <= libc.Uint64(18446744073709551615)-uint64(unsafe.Sizeof(uintptr(0))))), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__236)), ts+31531, 90, ts+31650)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__236)), ts+31673, 90, ts+31792)
 		} else {
 		}
 
@@ -38979,19 +39445,19 @@ func opj_aligned_alloc_n(tls *libc.TLS, alignment Tsize_t, size Tsize_t) uintptr
 	return ptr
 }
 
-var __func__236 = *(*[20]int8)(unsafe.Pointer(ts + 31691)) /* opj_malloc.c:48:1 */
+var __func__236 = *(*[20]int8)(unsafe.Pointer(ts + 31833)) /* opj_malloc.c:48:1 */
 
 func opj_aligned_realloc_n(tls *libc.TLS, ptr uintptr, alignment Tsize_t, new_size Tsize_t) uintptr { /* opj_malloc.c:111:20: */
 	var r_ptr uintptr
 
 	// alignment shall be power of 2
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(alignment != uint64(0) && alignment&(alignment-uint64(1)) == uint64(0))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__237)), ts+31531, 117, ts+31563)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__237)), ts+31673, 117, ts+31705)
 	} else {
 	}
 	// alignment shall be at least sizeof(void*)
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(alignment >= Tsize_t(unsafe.Sizeof(uintptr(0))))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__237)), ts+31531, 119, ts+31623)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__237)), ts+31673, 119, ts+31765)
 	} else {
 	}
 
@@ -39011,7 +39477,7 @@ func opj_aligned_realloc_n(tls *libc.TLS, ptr uintptr, alignment Tsize_t, new_si
 
 		// let's be extra careful
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!(alignment <= libc.Uint64(18446744073709551615)-uint64(unsafe.Sizeof(uintptr(0))))), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__237)), ts+31531, 157, ts+31650)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__237)), ts+31673, 157, ts+31792)
 		} else {
 		}
 
@@ -39051,7 +39517,7 @@ func opj_aligned_realloc_n(tls *libc.TLS, ptr uintptr, alignment Tsize_t, new_si
 	return r_ptr
 }
 
-var __func__237 = *(*[22]int8)(unsafe.Pointer(ts + 31711)) /* opj_malloc.c:113:1 */
+var __func__237 = *(*[22]int8)(unsafe.Pointer(ts + 31853)) /* opj_malloc.c:113:1 */
 
 func Xopj_malloc(tls *libc.TLS, size Tsize_t) uintptr { /* opj_malloc.c:195:6: */
 	if size == uint64(0) { // prevent implementation defined behavior of realloc
@@ -39109,6 +39575,7 @@ func Xopj_free(tls *libc.TLS, ptr uintptr) { /* opj_malloc.c:250:6: */
 
 // *
 // Progression order changes
+//
 type Topj_poc_t1 = struct {
 	Fresno0      TOPJ_UINT32
 	Fcompno0     TOPJ_UINT32
@@ -39149,7 +39616,7 @@ type Topj_poc_t1 = struct {
 	Fty0_t       TOPJ_UINT32
 } /* openjpeg.h:388:3 */
 
-// *
+//*
 // Packet iterator
 type Topj_pi_iterator_t1 = struct {
 	Ftp_on        TOPJ_BYTE
@@ -39200,7 +39667,7 @@ func opj_pi_next_lrcp(tls *libc.TLS, pi uintptr) TOPJ_BOOL { /* pi.c:237:17: */
 		goto __1
 	}
 	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR,
-		ts+31733, 0)
+		ts+31875, 0)
 	return DOPJ_FALSE
 __1:
 	;
@@ -39261,7 +39728,7 @@ __15:
 	if !(index >= (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Finclude_size) {
 		goto __18
 	}
-	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31778, 0)
+	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31920, 0)
 	return DOPJ_FALSE
 __18:
 	;
@@ -39318,7 +39785,7 @@ func opj_pi_next_rlcp(tls *libc.TLS, pi uintptr) TOPJ_BOOL { /* pi.c:297:17: */
 		goto __1
 	}
 	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR,
-		ts+31808, 0)
+		ts+31950, 0)
 	return DOPJ_FALSE
 __1:
 	;
@@ -39373,7 +39840,7 @@ __15:
 	if !(index >= (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Finclude_size) {
 		goto __18
 	}
-	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31778, 0)
+	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31920, 0)
 	return DOPJ_FALSE
 __18:
 	;
@@ -39443,7 +39910,7 @@ func opj_pi_next_rpcl(tls *libc.TLS, pi uintptr) TOPJ_BOOL { /* pi.c:350:17: */
 		goto __1
 	}
 	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR,
-		ts+31853, 0)
+		ts+31995, 0)
 	return DOPJ_FALSE
 __1:
 	;
@@ -39630,7 +40097,7 @@ __34:
 	if !(index >= (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Finclude_size) {
 		goto __37
 	}
-	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31778, 0)
+	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31920, 0)
 	return DOPJ_FALSE
 __37:
 	;
@@ -39707,7 +40174,7 @@ func opj_pi_next_pcrl(tls *libc.TLS, pi uintptr) TOPJ_BOOL { /* pi.c:489:17: */
 		goto __1
 	}
 	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR,
-		ts+31898, 0)
+		ts+32040, 0)
 	return DOPJ_FALSE
 __1:
 	;
@@ -39889,7 +40356,7 @@ __33:
 	if !(index >= (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Finclude_size) {
 		goto __36
 	}
-	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31778, 0)
+	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31920, 0)
 	return DOPJ_FALSE
 __36:
 	;
@@ -39965,7 +40432,7 @@ func opj_pi_next_cprl(tls *libc.TLS, pi uintptr) TOPJ_BOOL { /* pi.c:627:17: */
 		goto __1
 	}
 	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR,
-		ts+31943, 0)
+		ts+32085, 0)
 	return DOPJ_FALSE
 __1:
 	;
@@ -40134,7 +40601,7 @@ __30:
 	if !(index >= (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Finclude_size) {
 		goto __33
 	}
-	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31778, 0)
+	Xopj_event_msg(tls, (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fmanager, DEVT_ERROR, ts+31920, 0)
 	return DOPJ_FALSE
 __33:
 	;
@@ -40205,15 +40672,15 @@ func opj_get_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uintptr, p
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__242)), ts+31988, 788, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__242)), ts+32130, 788, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__242)), ts+31988, 789, ts+32012)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__242)), ts+32130, 789, ts+32154)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tileno < (*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__242)), ts+31988, 790, ts+32026)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__242)), ts+32130, 790, ts+32168)
 	} else {
 	}
 
@@ -40325,7 +40792,7 @@ func opj_get_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uintptr, p
 	}
 }
 
-var __func__242 = *(*[28]int8)(unsafe.Pointer(ts + 32057)) /* pi.c:773:1 */
+var __func__242 = *(*[28]int8)(unsafe.Pointer(ts + 32199)) /* pi.c:773:1 */
 
 func opj_get_all_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uintptr, tileno TOPJ_UINT32, p_tx0 uintptr, p_tx1 uintptr, p_ty0 uintptr, p_ty1 uintptr, p_dx_min uintptr, p_dy_min uintptr, p_max_prec uintptr, p_max_res uintptr, p_resolutions uintptr) { /* pi.c:883:13: */
 	// loop
@@ -40350,15 +40817,15 @@ func opj_get_all_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uintpt
 
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__243)), ts+31988, 914, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__243)), ts+32130, 914, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__243)), ts+31988, 915, ts+32012)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__243)), ts+32130, 915, ts+32154)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(tileno < (*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__243)), ts+31988, 916, ts+32085)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__243)), ts+32130, 916, ts+32227)
 	} else {
 	}
 
@@ -40484,7 +40951,7 @@ func opj_get_all_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uintpt
 	}
 }
 
-var __func__243 = *(*[32]int8)(unsafe.Pointer(ts + 32114)) /* pi.c:895:1 */
+var __func__243 = *(*[32]int8)(unsafe.Pointer(ts + 32256)) /* pi.c:895:1 */
 
 func opj_pi_create(tls *libc.TLS, image uintptr, cp uintptr, tileno TOPJ_UINT32, manager uintptr) uintptr { /* pi.c:1019:26: */
 	// loop
@@ -40503,15 +40970,15 @@ func opj_pi_create(tls *libc.TLS, image uintptr, cp uintptr, tileno TOPJ_UINT32,
 
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__244)), ts+31988, 1038, ts+3926)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__244)), ts+32130, 1038, ts+4062)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(image != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__244)), ts+31988, 1039, ts+3935)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__244)), ts+32130, 1039, ts+4071)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(tileno < (*Topj_cp_t)(unsafe.Pointer(cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__244)), ts+31988, 1040, ts+32146)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__244)), ts+32130, 1040, ts+32288)
 	} else {
 	}
 
@@ -40559,7 +41026,7 @@ func opj_pi_create(tls *libc.TLS, image uintptr, cp uintptr, tileno TOPJ_UINT32,
 	return l_pi
 }
 
-var __func__244 = *(*[14]int8)(unsafe.Pointer(ts + 32171)) /* pi.c:1023:1 */
+var __func__244 = *(*[14]int8)(unsafe.Pointer(ts + 32313)) /* pi.c:1023:1 */
 
 func opj_pi_update_encode_poc_and_final(tls *libc.TLS, p_cp uintptr, p_tileno TOPJ_UINT32, p_tx0 TOPJ_UINT32, p_tx1 TOPJ_UINT32, p_ty0 TOPJ_UINT32, p_ty1 TOPJ_UINT32, p_max_prec TOPJ_UINT32, p_max_res TOPJ_UINT32, p_dx_min TOPJ_UINT32, p_dy_min TOPJ_UINT32) { /* pi.c:1086:13: */
 	// loop
@@ -40576,11 +41043,11 @@ func opj_pi_update_encode_poc_and_final(tls *libc.TLS, p_cp uintptr, p_tileno TO
 
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__245)), ts+31988, 1110, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__245)), ts+32130, 1110, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tileno < (*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__245)), ts+31988, 1111, ts+32026)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__245)), ts+32130, 1111, ts+32168)
 	} else {
 	}
 
@@ -40640,7 +41107,7 @@ func opj_pi_update_encode_poc_and_final(tls *libc.TLS, p_cp uintptr, p_tileno TO
 	}
 }
 
-var __func__245 = *(*[35]int8)(unsafe.Pointer(ts + 32185)) /* pi.c:1096:1 */
+var __func__245 = *(*[35]int8)(unsafe.Pointer(ts + 32327)) /* pi.c:1096:1 */
 
 func opj_pi_update_encode_not_poc(tls *libc.TLS, p_cp uintptr, p_num_comps TOPJ_UINT32, p_tileno TOPJ_UINT32, p_tx0 TOPJ_UINT32, p_tx1 TOPJ_UINT32, p_ty0 TOPJ_UINT32, p_ty1 TOPJ_UINT32, p_max_prec TOPJ_UINT32, p_max_res TOPJ_UINT32, p_dx_min TOPJ_UINT32, p_dy_min TOPJ_UINT32) { /* pi.c:1165:13: */
 	// loop
@@ -40654,11 +41121,11 @@ func opj_pi_update_encode_not_poc(tls *libc.TLS, p_cp uintptr, p_num_comps TOPJ_
 
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__246)), ts+31988, 1187, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__246)), ts+32130, 1187, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tileno < (*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__246)), ts+31988, 1188, ts+32026)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__246)), ts+32130, 1188, ts+32168)
 	} else {
 	}
 
@@ -40692,7 +41159,7 @@ func opj_pi_update_encode_not_poc(tls *libc.TLS, p_cp uintptr, p_num_comps TOPJ_
 	}
 }
 
-var __func__246 = *(*[29]int8)(unsafe.Pointer(ts + 32220)) /* pi.c:1176:1 */
+var __func__246 = *(*[29]int8)(unsafe.Pointer(ts + 32362)) /* pi.c:1176:1 */
 
 func opj_pi_update_decode_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_max_precision TOPJ_UINT32, p_max_res TOPJ_UINT32) { /* pi.c:1220:13: */
 	// loop
@@ -40708,11 +41175,11 @@ func opj_pi_update_decode_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_max_
 
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_pi != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__247)), ts+31988, 1237, ts+32249)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__247)), ts+32130, 1237, ts+32391)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tcp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__247)), ts+31988, 1238, ts+6871)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__247)), ts+32130, 1238, ts+7007)
 	} else {
 	}
 
@@ -40739,7 +41206,7 @@ func opj_pi_update_decode_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_max_
 	}
 }
 
-var __func__247 = *(*[25]int8)(unsafe.Pointer(ts + 32260)) /* pi.c:1224:1 */
+var __func__247 = *(*[25]int8)(unsafe.Pointer(ts + 32402)) /* pi.c:1224:1 */
 
 func opj_pi_update_decode_not_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_max_precision TOPJ_UINT32, p_max_res TOPJ_UINT32) { /* pi.c:1267:13: */
 	// loop
@@ -40751,11 +41218,11 @@ func opj_pi_update_decode_not_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_
 	var l_current_pi uintptr = uintptr(00)
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tcp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__248)), ts+31988, 1280, ts+6871)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__248)), ts+32130, 1280, ts+7007)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_pi != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__248)), ts+31988, 1281, ts+32249)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__248)), ts+32130, 1281, ts+32391)
 	} else {
 	}
 
@@ -40778,7 +41245,7 @@ func opj_pi_update_decode_not_poc(tls *libc.TLS, p_pi uintptr, p_tcp uintptr, p_
 	}
 }
 
-var __func__248 = *(*[29]int8)(unsafe.Pointer(ts + 32285)) /* pi.c:1271:1 */
+var __func__248 = *(*[29]int8)(unsafe.Pointer(ts + 32427)) /* pi.c:1271:1 */
 
 func opj_pi_check_next_level(tls *libc.TLS, pos TOPJ_INT32, cp uintptr, tileno TOPJ_UINT32, pino TOPJ_UINT32, prog uintptr) TOPJ_BOOL { /* pi.c:1304:17: */
 	var i TOPJ_INT32
@@ -40863,10 +41330,9 @@ func opj_pi_check_next_level(tls *libc.TLS, pos TOPJ_INT32, cp uintptr, tileno T
 	return DOPJ_FALSE
 }
 
+//
 // ==========================================================
-//
-//	Packet iterator interface
-//
+//    Packet iterator interface
 // ==========================================================
 func Xopj_pi_create_decode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_tile_no TOPJ_UINT32, manager uintptr) uintptr { /* pi.c:1393:19: */
 	bp := tls.Alloc(32)
@@ -40918,15 +41384,15 @@ func Xopj_pi_create_decode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_tile_
 
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__249)), ts+31988, 1427, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__249)), ts+32130, 1427, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__249)), ts+31988, 1428, ts+32012)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__249)), ts+32130, 1428, ts+32154)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tile_no < (*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__249)), ts+31988, 1429, ts+32314)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__249)), ts+32130, 1429, ts+32456)
 	} else {
 	}
 
@@ -41082,7 +41548,7 @@ func Xopj_pi_create_decode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_tile_
 	return l_pi
 }
 
-var __func__249 = *(*[21]int8)(unsafe.Pointer(ts + 32346)) /* pi.c:1397:1 */
+var __func__249 = *(*[21]int8)(unsafe.Pointer(ts + 32488)) /* pi.c:1397:1 */
 
 func Xopj_get_encoding_packet_count(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_tile_no TOPJ_UINT32) TOPJ_UINT32 { /* pi.c:1592:12: */
 	bp := tls.Alloc(32)
@@ -41106,15 +41572,15 @@ func Xopj_get_encoding_packet_count(tls *libc.TLS, p_image uintptr, p_cp uintptr
 
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__250)), ts+31988, 1602, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__250)), ts+32130, 1602, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__250)), ts+31988, 1603, ts+32012)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__250)), ts+32130, 1603, ts+32154)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tile_no < (*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__250)), ts+31988, 1604, ts+32314)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__250)), ts+32130, 1604, ts+32456)
 	} else {
 	}
 
@@ -41125,7 +41591,7 @@ func Xopj_get_encoding_packet_count(tls *libc.TLS, p_image uintptr, p_cp uintptr
 	return (*Topj_tcp_t)(unsafe.Pointer((*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftcps+uintptr(p_tile_no)*5696)).Fnumlayers * *(*TOPJ_UINT32)(unsafe.Pointer(bp + 24)) * (*Topj_image_t)(unsafe.Pointer(p_image)).Fnumcomps * *(*TOPJ_UINT32)(unsafe.Pointer(bp + 28))
 }
 
-var __func__250 = *(*[30]int8)(unsafe.Pointer(ts + 32367)) /* pi.c:1595:1 */
+var __func__250 = *(*[30]int8)(unsafe.Pointer(ts + 32509)) /* pi.c:1595:1 */
 
 func Xopj_pi_initialise_encode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_tile_no TOPJ_UINT32, p_t2_mode TJ2K_T2_MODE, manager uintptr) uintptr { /* pi.c:1615:19: */
 	bp := tls.Alloc(32)
@@ -41177,15 +41643,15 @@ func Xopj_pi_initialise_encode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_t
 
 	// preconditions in debug
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__251)), ts+31988, 1650, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__251)), ts+32130, 1650, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__251)), ts+31988, 1651, ts+32012)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__251)), ts+32130, 1651, ts+32154)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tile_no < (*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__251)), ts+31988, 1652, ts+32314)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__251)), ts+32130, 1652, ts+32456)
 	} else {
 	}
 
@@ -41343,7 +41809,7 @@ func Xopj_pi_initialise_encode(tls *libc.TLS, p_image uintptr, p_cp uintptr, p_t
 	return l_pi
 }
 
-var __func__251 = *(*[25]int8)(unsafe.Pointer(ts + 32397)) /* pi.c:1620:1 */
+var __func__251 = *(*[25]int8)(unsafe.Pointer(ts + 32539)) /* pi.c:1620:1 */
 
 func Xopj_pi_create_encode(tls *libc.TLS, pi uintptr, cp uintptr, tileno TOPJ_UINT32, pino TOPJ_UINT32, tpnum TOPJ_UINT32, tppos TOPJ_INT32, t2_mode TJ2K_T2_MODE) { /* pi.c:1808:6: */
 	var prog uintptr
@@ -41675,15 +42141,15 @@ func Xopj_pi_update_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uin
 
 	// preconditions
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_cp != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__252)), ts+31988, 2117, ts+6528)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__252)), ts+32130, 2117, ts+6664)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_image != uintptr(00))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__252)), ts+31988, 2118, ts+32012)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__252)), ts+32130, 2118, ts+32154)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(p_tile_no < (*Topj_cp_t)(unsafe.Pointer(p_cp)).Ftw*(*Topj_cp_t)(unsafe.Pointer(p_cp)).Fth)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__252)), ts+31988, 2119, ts+32314)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__252)), ts+32130, 2119, ts+32456)
 	} else {
 	}
 
@@ -41702,7 +42168,7 @@ func Xopj_pi_update_encoding_parameters(tls *libc.TLS, p_image uintptr, p_cp uin
 	}
 }
 
-var __func__252 = *(*[34]int8)(unsafe.Pointer(ts + 32422)) /* pi.c:2106:1 */
+var __func__252 = *(*[34]int8)(unsafe.Pointer(ts + 32564)) /* pi.c:2106:1 */
 
 func Xopj_pi_next(tls *libc.TLS, pi uintptr) TOPJ_BOOL { /* pi.c:2136:10: */
 	switch (*Topj_pi_iterator_t1)(unsafe.Pointer(pi)).Fpoc.Fprg {
@@ -41730,6 +42196,7 @@ func Xopj_pi_next(tls *libc.TLS, pi uintptr) TOPJ_BOOL { /* pi.c:2136:10: */
 
 // *
 // Progression order changes
+//
 type Topj_poc_t2 = struct {
 	Fresno0      TOPJ_UINT32
 	Fcompno0     TOPJ_UINT32
@@ -41770,7 +42237,7 @@ type Topj_poc_t2 = struct {
 	Fty0_t       TOPJ_UINT32
 } /* openjpeg.h:388:3 */
 
-// *
+//*
 // Packet iterator
 type Topj_pi_iterator_t2 = struct {
 	Ftp_on        TOPJ_BYTE
@@ -41880,7 +42347,7 @@ type Topj_pi_iterator_t2 = struct {
 //* @defgroup SPARSE_ARRAY SPARSE ARRAYS - Sparse arrays
 //@{
 
-// * Opaque type for sparse arrays that contain int32 values
+//* Opaque type for sparse arrays that contain int32 values
 type Topj_sparse_array_int32_t = Sopj_sparse_array_int32 /* sparse_array.h:53:39 */
 
 func Xopj_sparse_array_int32_create(tls *libc.TLS, width TOPJ_UINT32, height TOPJ_UINT32, block_width TOPJ_UINT32, block_height TOPJ_UINT32) uintptr { /* sparse_array.c:45:25: */
@@ -58825,7 +59292,7 @@ func opj_t1_dec_clnpass(tls *libc.TLS, t1 uintptr, bpno TOPJ_INT32, cblksty TOPJ
 	opj_t1_dec_clnpass_check_segsym(tls, t1, cblksty)
 }
 
-// * mod fixed_quality
+//* mod fixed_quality
 func opj_t1_getwmsedec(tls *libc.TLS, nmsedec TOPJ_INT32, compno TOPJ_UINT32, level TOPJ_UINT32, orient TOPJ_UINT32, bpno TOPJ_INT32, qmfbid TOPJ_UINT32, stepsize TOPJ_FLOAT64, numcomps TOPJ_UINT32, mct_norms uintptr, mct_numcomps TOPJ_UINT32) TOPJ_FLOAT64 { /* t1.c:1418:20: */
 	var w1 TOPJ_FLOAT64 = TOPJ_FLOAT64(1)
 	var w2 TOPJ_FLOAT64
@@ -58867,15 +59334,15 @@ func opj_t1_allocate_buffers1(tls *libc.TLS, t1 uintptr, w TOPJ_UINT32, h TOPJ_U
 	// No risk of overflow. Prior checks ensure those assert are met
 	// They are per the specification
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(w <= TOPJ_UINT32(1024))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__261)), ts+32456, 1463, ts+2049)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__261)), ts+32598, 1463, ts+2185)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(h <= TOPJ_UINT32(1024))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__261)), ts+32456, 1464, ts+2059)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__261)), ts+32598, 1464, ts+2195)
 	} else {
 	}
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(w*h <= TOPJ_UINT32(4096))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__261)), ts+32456, 1465, ts+2069)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__261)), ts+32598, 1465, ts+2205)
 	} else {
 	}
 
@@ -58957,7 +59424,7 @@ func opj_t1_allocate_buffers1(tls *libc.TLS, t1 uintptr, w TOPJ_UINT32, h TOPJ_U
 	return DOPJ_TRUE
 }
 
-var __func__261 = *(*[24]int8)(unsafe.Pointer(ts + 2083)) /* t1.c:1457:1 */
+var __func__261 = *(*[24]int8)(unsafe.Pointer(ts + 2219)) /* t1.c:1457:1 */
 
 // -----------------------------------------------------------------------
 
@@ -59057,7 +59524,7 @@ func opj_t1_clbl_decode_processor(tls *libc.TLS, user_data uintptr, tls1 uintptr
 				Xopj_mutex_lock(tls, (*Topj_t1_cblk_decode_processing_job_t)(unsafe.Pointer(job)).Fp_manager_mutex)
 			}
 			Xopj_event_msg(tls, (*Topj_t1_cblk_decode_processing_job_t)(unsafe.Pointer(job)).Fp_manager, DEVT_ERROR,
-				ts+32480, 0)
+				ts+32622, 0)
 			if (*Topj_t1_cblk_decode_processing_job_t)(unsafe.Pointer(job)).Fp_manager_mutex != 0 {
 				Xopj_mutex_unlock(tls, (*Topj_t1_cblk_decode_processing_job_t)(unsafe.Pointer(job)).Fp_manager_mutex)
 			}
@@ -59091,14 +59558,14 @@ func opj_t1_clbl_decode_processor(tls *libc.TLS, user_data uintptr, tls1 uintptr
 		t1 = Xopj_t1_create(tls, DOPJ_FALSE)
 		if t1 == uintptr(0) {
 			Xopj_event_msg(tls, (*Topj_t1_cblk_decode_processing_job_t)(unsafe.Pointer(job)).Fp_manager, DEVT_ERROR,
-				ts+32516, 0)
+				ts+32658, 0)
 			*(*TOPJ_BOOL)(unsafe.Pointer((*Topj_t1_cblk_decode_processing_job_t)(unsafe.Pointer(job)).Fpret)) = DOPJ_FALSE
 			Xopj_free(tls, job)
 			return
 		}
 		if !(Xopj_tls_set(tls, tls1, DOPJ_TLS_KEY_T1, t1, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{opj_t1_destroy_wrapper}))) != 0) {
 			Xopj_event_msg(tls, (*Topj_t1_cblk_decode_processing_job_t)(unsafe.Pointer(job)).Fp_manager, DEVT_ERROR,
-				ts+32547, 0)
+				ts+32689, 0)
 			Xopj_t1_destroy(tls, t1)
 			*(*TOPJ_BOOL)(unsafe.Pointer((*Topj_t1_cblk_decode_processing_job_t)(unsafe.Pointer(job)).Fpret)) = DOPJ_FALSE
 			Xopj_free(tls, job)
@@ -59187,7 +59654,7 @@ func opj_t1_clbl_decode_processor(tls *libc.TLS, user_data uintptr, tls1 uintptr
 	// partially a tile. In which case partial decoding should be the
 	// priority
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(cblk)).Fdecoded_data != uintptr(0) || (*Topj_tcd_tilecomp_t)(unsafe.Pointer(tilec)).Fdata != uintptr(0))), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__262)), ts+32456, 1763, ts+32579)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__262)), ts+32598, 1763, ts+32721)
 	} else {
 	}
 
@@ -59243,7 +59710,7 @@ func opj_t1_clbl_decode_processor(tls *libc.TLS, user_data uintptr, tls1 uintptr
 	Xopj_free(tls, job)
 }
 
-var __func__262 = *(*[29]int8)(unsafe.Pointer(ts + 32633)) /* t1.c:1613:1 */
+var __func__262 = *(*[29]int8)(unsafe.Pointer(ts + 32775)) /* t1.c:1613:1 */
 
 func Xopj_t1_decode_cblks(tls *libc.TLS, tcd uintptr, pret uintptr, tilec uintptr, tccp uintptr, p_manager uintptr, p_manager_mutex uintptr, check_pterm TOPJ_BOOL) { /* t1.c:1840:6: */
 	var tp uintptr = (*Topj_tcd_t)(unsafe.Pointer(tcd)).Fthread_pool
@@ -59370,7 +59837,7 @@ func opj_t1_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ_UIN
 			Xopj_mutex_lock(tls, p_manager_mutex)
 		}
 		Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-			ts+32662,
+			ts+32804,
 			libc.VaList(bp, bpno_plus_one))
 		if p_manager_mutex != 0 {
 			Xopj_mutex_unlock(tls, p_manager_mutex)
@@ -59492,7 +59959,7 @@ func opj_t1_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ_UIN
 				Xopj_mutex_lock(tls, p_manager_mutex)
 			}
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+32722,
+				ts+32864,
 				libc.VaList(bp+8, int32((int64((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fend)-int64((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp))/1)-2,
 					int32((int64((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fbp)-int64((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fstart))/1),
 					int32((int64((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fend)-int64((*Topj_mqc_t)(unsafe.Pointer(mqc)).Fstart))/1)))
@@ -59504,7 +59971,7 @@ func opj_t1_decode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ_UIN
 				Xopj_mutex_lock(tls, p_manager_mutex)
 			}
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+32792,
+				ts+32934,
 				libc.VaList(bp+32, (*Topj_mqc_t)(unsafe.Pointer(mqc)).Fend_of_byte_stream_counter))
 			if p_manager_mutex != 0 {
 				Xopj_mutex_unlock(tls, p_manager_mutex)
@@ -59839,7 +60306,7 @@ func opj_t1_enc_is_term_pass(tls *libc.TLS, cblk uintptr, cblksty TOPJ_UINT32, b
 	return DOPJ_FALSE
 }
 
-// * mod fixed_quality
+//* mod fixed_quality
 func opj_t1_encode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ_UINT32, compno TOPJ_UINT32, level TOPJ_UINT32, qmfbid TOPJ_UINT32, stepsize TOPJ_FLOAT64, cblksty TOPJ_UINT32, numcomps TOPJ_UINT32, mct_norms uintptr, mct_numcomps TOPJ_UINT32) TOPJ_FLOAT64 { /* t1.c:2409:20: */
 	bp := tls.Alloc(8)
 	defer tls.Free(8)
@@ -60014,7 +60481,7 @@ func opj_t1_encode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ_UIN
 		// Prevent generation of FF as last data byte of a pass
 		// For terminating passes, the flushing procedure ensured this already
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_tcd_pass_t)(unsafe.Pointer(pass)).Frate > TOPJ_UINT32(0))), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__263)), ts+32456, 2568, ts+32847)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__263)), ts+32598, 2568, ts+32989)
 		} else {
 		}
 		if int32(*(*TOPJ_BYTE)(unsafe.Pointer((*Topj_tcd_cblk_enc_t)(unsafe.Pointer(cblk)).Fdata + uintptr((*Topj_tcd_pass_t)(unsafe.Pointer(pass)).Frate-TOPJ_UINT32(1))))) == 0xFF {
@@ -60031,7 +60498,7 @@ func opj_t1_encode_cblk(tls *libc.TLS, t1 uintptr, cblk uintptr, orient TOPJ_UIN
 	return cumwmsedec
 }
 
-var __func__263 = *(*[19]int8)(unsafe.Pointer(ts + 32862)) /* t1.c:2420:1 */
+var __func__263 = *(*[19]int8)(unsafe.Pointer(ts + 33004)) /* t1.c:2420:1 */
 
 //@}
 
@@ -60185,11 +60652,11 @@ func Xopj_t2_encode_packets(tls *libc.TLS, p_t2 uintptr, p_tile_no TOPJ_UINT32, 
 		if p_marker_info != 0 && (*Topj_tcd_marker_info_t)(unsafe.Pointer(p_marker_info)).Fneed_PLT != 0 {
 			// One time use intended
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_tcd_marker_info_t)(unsafe.Pointer(p_marker_info)).Fpacket_count == TOPJ_UINT32(0))), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__268)), ts+32881, 317, ts+32905)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__268)), ts+33023, 317, ts+33047)
 			} else {
 			}
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_tcd_marker_info_t)(unsafe.Pointer(p_marker_info)).Fp_packet_size == uintptr(0))), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__268)), ts+32881, 318, ts+32938)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__268)), ts+33023, 318, ts+33080)
 			} else {
 			}
 
@@ -60255,7 +60722,7 @@ func Xopj_t2_encode_packets(tls *libc.TLS, p_t2 uintptr, p_tile_no TOPJ_UINT32, 
 	return DOPJ_TRUE
 }
 
-var __func__268 = *(*[22]int8)(unsafe.Pointer(ts + 32975)) /* t2.c:233:1 */
+var __func__268 = *(*[22]int8)(unsafe.Pointer(ts + 33117)) /* t2.c:233:1 */
 
 // see issue 80
 // issue 290
@@ -60315,7 +60782,7 @@ func Xopj_t2_decode_packets(tls *libc.TLS, tcd uintptr, p_t2 uintptr, p_tile_no 
 		for Xopj_pi_next(tls, l_current_pi) != 0 {
 			var skip_packet TOPJ_BOOL = DOPJ_FALSE
 			opj_null_jas_fprintf(tls, libc.X__stderrp,
-				ts+32997,
+				ts+33139,
 				libc.VaList(bp, (*Topj_pi_iterator_t2)(unsafe.Pointer(l_current_pi)).Fpoc.Fprg1, (*Topj_pi_iterator_t2)(unsafe.Pointer(l_current_pi)).Fcompno, (*Topj_pi_iterator_t2)(unsafe.Pointer(l_current_pi)).Fresno,
 					(*Topj_pi_iterator_t2)(unsafe.Pointer(l_current_pi)).Fprecno, (*Topj_pi_iterator_t2)(unsafe.Pointer(l_current_pi)).Flayno))
 
@@ -60499,7 +60966,7 @@ func opj_t2_encode_packet(tls *libc.TLS, tileno TOPJ_UINT32, tile uintptr, tcp u
 			if p_t2_mode == FINAL_PASS {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-					ts+33075,
+					ts+33217,
 					libc.VaList(bp, length, 6))
 			}
 			return DOPJ_FALSE
@@ -60535,7 +61002,7 @@ func opj_t2_encode_packet(tls *libc.TLS, tileno TOPJ_UINT32, tile uintptr, tcp u
 			// but likely not a proper fix.
 			if precno >= (*Topj_tcd_resolution_t)(unsafe.Pointer(res)).Fpw*(*Topj_tcd_resolution_t)(unsafe.Pointer(res)).Fph {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+33153,
+					ts+33295,
 					libc.VaList(bp+16, precno, (*Topj_tcd_resolution_t)(unsafe.Pointer(res)).Fpw*(*Topj_tcd_resolution_t)(unsafe.Pointer(res)).Fph))
 				return DOPJ_FALSE
 			}
@@ -60595,7 +61062,7 @@ __4:
 		// but likely not a proper fix.
 		if precno >= (*Topj_tcd_resolution_t)(unsafe.Pointer(res)).Fpw*(*Topj_tcd_resolution_t)(unsafe.Pointer(res)).Fph {
 			Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-				ts+33153,
+				ts+33295,
 				libc.VaList(bp+32, precno, (*Topj_tcd_resolution_t)(unsafe.Pointer(res)).Fpw*(*Topj_tcd_resolution_t)(unsafe.Pointer(res)).Fph))
 			return DOPJ_FALSE
 		}
@@ -60712,7 +61179,7 @@ __6:
 			if p_t2_mode == FINAL_PASS {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-					ts+33075,
+					ts+33217,
 					libc.VaList(bp+48, length, 2))
 			}
 			return DOPJ_FALSE
@@ -60764,7 +61231,7 @@ __7:
 				if p_t2_mode == FINAL_PASS {
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
 
-						ts+33075,
+						ts+33217,
 						libc.VaList(bp+64, length, (*Topj_tcd_layer_t)(unsafe.Pointer(layer)).Flen))
 				}
 				return DOPJ_FALSE
@@ -60799,7 +61266,7 @@ __9:
 	;
 
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(c >= dest)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__269)), ts+32881, 1000, ts+33204)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__269)), ts+33023, 1000, ts+33346)
 	} else {
 	}
 	*(*TOPJ_UINT32)(unsafe.Pointer(p_data_written)) += TOPJ_UINT32((int64(c) - int64(dest)) / 1)
@@ -60807,7 +61274,7 @@ __9:
 	return DOPJ_TRUE
 }
 
-var __func__269 = *(*[21]int8)(unsafe.Pointer(ts + 33214)) /* t2.c:672:1 */
+var __func__269 = *(*[21]int8)(unsafe.Pointer(ts + 33356)) /* t2.c:672:1 */
 
 func opj_t2_skip_packet(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_tcp uintptr, p_pi uintptr, p_src uintptr, p_data_read uintptr, p_max_length TOPJ_UINT32, p_pack_info uintptr, p_manager uintptr) TOPJ_BOOL { /* t2.c:1006:17: */
 	bp := tls.Alloc(8)
@@ -60876,7 +61343,7 @@ func opj_t2_read_packet_header(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_tc
 			if !(Xopj_tcd_is_band_empty(tls, l_band) != 0) {
 				var l_prc uintptr = (*Topj_tcd_band_t)(unsafe.Pointer(l_band)).Fprecincts + uintptr((*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fprecno)*56
 				if !(uint64((*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fprecno) < uint64((*Topj_tcd_band_t)(unsafe.Pointer(l_band)).Fprecincts_data_size)/uint64(unsafe.Sizeof(Topj_tcd_precinct_t{}))) {
-					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+33235, 0)
+					Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+33377, 0)
 					return DOPJ_FALSE
 				}
 
@@ -60901,9 +61368,9 @@ func opj_t2_read_packet_header(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_tc
 	if (*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fcsty&TOPJ_UINT32(DJ2K_CP_CSTY_SOP) != 0 {
 		if p_max_length < TOPJ_UINT32(6) {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+33253, 0)
+				ts+33395, 0)
 		} else if int32(*(*TOPJ_BYTE)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 104))))) != 0xff || int32(*(*TOPJ_BYTE)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 104)) + uintptr(1)))) != 0x91 {
-			Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+33295, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+33437, 0)
 		} else {
 			*(*uintptr)(unsafe.Pointer(bp + 104 /* l_current_data */)) += uintptr(6)
 		}
@@ -60942,7 +61409,7 @@ func opj_t2_read_packet_header(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_tc
 	Xopj_bio_init_dec(tls, l_bio, l_header_data, *(*TOPJ_UINT32)(unsafe.Pointer(l_modified_length_ptr)))
 
 	l_present = Xopj_bio_read(tls, l_bio, uint32(1))
-	opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33316, libc.VaList(bp, l_present))
+	opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33458, libc.VaList(bp, l_present))
 	if !(l_present != 0) {
 		// TODO MSD: no test to control the output of this function
 		Xopj_bio_inalign(tls, l_bio)
@@ -60953,9 +61420,9 @@ func opj_t2_read_packet_header(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_tc
 		if (*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fcsty&TOPJ_UINT32(DJ2K_CP_CSTY_EPH) != 0 {
 			if *(*TOPJ_UINT32)(unsafe.Pointer(l_modified_length_ptr))-TOPJ_UINT32((int64(l_header_data)-int64(*(*uintptr)(unsafe.Pointer(l_header_data_start))))/1) < 2 {
 				Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-					ts+33329, 0)
+					ts+33471, 0)
 			} else if int32(*(*TOPJ_BYTE)(unsafe.Pointer(l_header_data))) != 0xff || int32(*(*TOPJ_BYTE)(unsafe.Pointer(l_header_data + uintptr(1)))) != 0x92 {
-				Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+33371, 0)
+				Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+33513, 0)
 			} else {
 				l_header_data += uintptr(2)
 			}
@@ -61012,7 +61479,7 @@ __1:
 			if !(l_included != 0) {
 				(*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fnumnewpasses = TOPJ_UINT32(0)
 				l_cblk += 80
-				opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33392, libc.VaList(bp+8, l_included))
+				opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33534, libc.VaList(bp+8, l_included))
 				continue
 			}
 
@@ -61067,13 +61534,13 @@ __1:
 						(*Topj_tcd_seg_t)(unsafe.Pointer((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fsegs+uintptr(l_segno)*24)).Fnumnewpasses)
 					if bit_number > TOPJ_UINT32(32) {
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+33406,
+							ts+33548,
 							libc.VaList(bp+16, bit_number))
 						Xopj_bio_destroy(tls, l_bio)
 						return DOPJ_FALSE
 					}
 					(*Topj_tcd_seg_t)(unsafe.Pointer((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fsegs + uintptr(l_segno)*24)).Fnewlen = Xopj_bio_read(tls, l_bio, bit_number)
-					opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33460,
+					opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33602,
 						libc.VaList(bp+24, l_included, (*Topj_tcd_seg_t)(unsafe.Pointer((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fsegs+uintptr(l_segno)*24)).Fnumnewpasses, l_increment,
 							(*Topj_tcd_seg_t)(unsafe.Pointer((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fsegs+uintptr(l_segno)*24)).Fnewlen))
 
@@ -61095,13 +61562,13 @@ __1:
 						(*Topj_tcd_seg_t)(unsafe.Pointer((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fsegs+uintptr(l_segno)*24)).Fnumnewpasses)
 					if bit_number > TOPJ_UINT32(32) {
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+33406,
+							ts+33548,
 							libc.VaList(bp+56, bit_number))
 						Xopj_bio_destroy(tls, l_bio)
 						return DOPJ_FALSE
 					}
 					(*Topj_tcd_seg_t)(unsafe.Pointer((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fsegs + uintptr(l_segno)*24)).Fnewlen = Xopj_bio_read(tls, l_bio, bit_number)
-					opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33460,
+					opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33602,
 						libc.VaList(bp+64, l_included, (*Topj_tcd_seg_t)(unsafe.Pointer((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fsegs+uintptr(l_segno)*24)).Fnumnewpasses, l_increment,
 							(*Topj_tcd_seg_t)(unsafe.Pointer((*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fsegs+uintptr(l_segno)*24)).Fnewlen))
 
@@ -61142,17 +61609,17 @@ __3:
 	if (*Topj_tcp_t)(unsafe.Pointer(p_tcp)).Fcsty&TOPJ_UINT32(DJ2K_CP_CSTY_EPH) != 0 {
 		if *(*TOPJ_UINT32)(unsafe.Pointer(l_modified_length_ptr))-TOPJ_UINT32((int64(l_header_data)-int64(*(*uintptr)(unsafe.Pointer(l_header_data_start))))/1) < 2 {
 			Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-				ts+33329, 0)
+				ts+33471, 0)
 		} else if int32(*(*TOPJ_BYTE)(unsafe.Pointer(l_header_data))) != 0xff || int32(*(*TOPJ_BYTE)(unsafe.Pointer(l_header_data + uintptr(1)))) != 0x92 {
-			Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+33371, 0)
+			Xopj_event_msg(tls, p_manager, DEVT_WARNING, ts+33513, 0)
 		} else {
 			l_header_data += uintptr(2)
 		}
 	}
 
 	l_header_length = TOPJ_UINT32((int64(l_header_data) - int64(*(*uintptr)(unsafe.Pointer(l_header_data_start)))) / 1)
-	opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33510, libc.VaList(bp+96, l_header_length))
-	opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33522, 0)
+	opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33652, libc.VaList(bp+96, l_header_length))
+	opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33664, 0)
 	*(*TOPJ_UINT32)(unsafe.Pointer(l_modified_length_ptr)) -= l_header_length
 	*(*uintptr)(unsafe.Pointer(l_header_data_start)) += uintptr(l_header_length)
 
@@ -61230,13 +61697,13 @@ func opj_t2_read_packet_data(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_pi u
 				if TOPJ_SIZE_T(l_current_data)+TOPJ_SIZE_T((*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen) < TOPJ_SIZE_T(l_current_data) || l_current_data+uintptr((*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen) > p_src_data+uintptr(p_max_length) || partial_buffer != 0 {
 					if (*Topj_cp_t)(unsafe.Pointer((*Topj_t2_t)(unsafe.Pointer(p_t2)).Fcp)).Fstrict != 0 {
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+33535,
+							ts+33677,
 							libc.VaList(bp, (*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen, p_max_length, cblkno, (*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fprecno, bandno, (*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fresno,
 								(*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fcompno))
 						return DOPJ_FALSE
 					} else {
 						Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-							ts+33535,
+							ts+33677,
 							libc.VaList(bp+56, (*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen, p_max_length, cblkno, (*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fprecno, bandno, (*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fresno,
 								(*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fcompno))
 						// skip this codeblock since it is a partial read
@@ -61260,7 +61727,7 @@ func opj_t2_read_packet_data(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_pi u
 						uint64(l_numchunksalloc)*uint64(unsafe.Sizeof(Topj_tcd_seg_data_chunk_t{})))
 					if l_chunks == uintptr(0) {
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+33620, 0)
+							ts+33762, 0)
 						return DOPJ_FALSE
 					}
 					(*Topj_tcd_cblk_dec_t)(unsafe.Pointer(l_cblk)).Fchunks = l_chunks
@@ -61355,19 +61822,19 @@ func opj_t2_skip_packet_data(tls *libc.TLS, p_t2 uintptr, p_tile uintptr, p_pi u
 				if *(*TOPJ_UINT32)(unsafe.Pointer(p_data_read))+(*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen < *(*TOPJ_UINT32)(unsafe.Pointer(p_data_read)) || *(*TOPJ_UINT32)(unsafe.Pointer(p_data_read))+(*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen > p_max_length {
 					if (*Topj_cp_t)(unsafe.Pointer((*Topj_t2_t)(unsafe.Pointer(p_t2)).Fcp)).Fstrict != 0 {
 						Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-							ts+33668,
+							ts+33810,
 							libc.VaList(bp, (*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen, p_max_length, cblkno, (*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fprecno, bandno, (*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fresno,
 								(*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fcompno))
 						return DOPJ_FALSE
 					} else {
 						Xopj_event_msg(tls, p_manager, DEVT_WARNING,
-							ts+33668,
+							ts+33810,
 							libc.VaList(bp+56, (*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen, p_max_length, cblkno, (*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fprecno, bandno, (*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fresno,
 								(*Topj_pi_iterator_t2)(unsafe.Pointer(p_pi)).Fcompno))
 					}
 				}
 
-				opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33753, libc.VaList(bp+112, *(*TOPJ_UINT32)(unsafe.Pointer(p_data_read)),
+				opj_null_jas_fprintf(tls, libc.X__stderrp, ts+33895, libc.VaList(bp+112, *(*TOPJ_UINT32)(unsafe.Pointer(p_data_read)),
 					(*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen))
 				*(*TOPJ_UINT32)(unsafe.Pointer(p_data_read)) += (*Topj_tcd_seg_t)(unsafe.Pointer(l_seg)).Fnewlen
 
@@ -61436,7 +61903,7 @@ func opj_t2_init_seg(tls *libc.TLS, cblk uintptr, index TOPJ_UINT32, cblksty TOP
 
 // -----------------------------------------------------------------------
 
-// *
+//*
 // Create a new TCD handle
 func Xopj_tcd_create(tls *libc.TLS, p_is_decoder TOPJ_BOOL) uintptr { /* tcd.c:203:10: */
 	var l_tcd uintptr = uintptr(00)
@@ -61925,7 +62392,7 @@ func Xopj_tcd_init(tls *libc.TLS, p_tcd uintptr, p_image uintptr, p_cp uintptr, 
 	return DOPJ_TRUE
 }
 
-// *
+//*
 // Destroy a previously created TCD handle
 func Xopj_tcd_destroy(tls *libc.TLS, tcd uintptr) { /* tcd.c:676:6: */
 	if tcd != 0 {
@@ -62031,7 +62498,7 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 		(*Topj_image_t)(unsafe.Pointer(l_image)).Fx1))
 	// all those OPJ_UINT32 are casted to OPJ_INT32, let's do some sanity check
 	if (*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fx0 < 0 || (*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fx1 <= (*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fx0 {
-		Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33784, 0)
+		Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33926, 0)
 		return DOPJ_FALSE
 	}
 	l_ty0 = (*Topj_cp_t)(unsafe.Pointer(l_cp)).Fty0 + q*(*Topj_cp_t)(unsafe.Pointer(l_cp)).Ftdy // can't be greater than l_image->y1 so won't overflow
@@ -62040,13 +62507,13 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 		(*Topj_image_t)(unsafe.Pointer(l_image)).Fy1))
 	// all those OPJ_UINT32 are casted to OPJ_INT32, let's do some sanity check
 	if (*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fy0 < 0 || (*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fy1 <= (*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fy0 {
-		Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33822, 0)
+		Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33964, 0)
 		return DOPJ_FALSE
 	}
 
 	// testcase 1888.pdf.asan.35.988
 	if (*Topj_tccp_t)(unsafe.Pointer(l_tccp)).Fnumresolutions == TOPJ_UINT32(0) {
-		Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33860, 0)
+		Xopj_event_msg(tls, manager, DEVT_ERROR, ts+34002, 0)
 		return DOPJ_FALSE
 	}
 	//fprintf(stderr, "Tile border = %d,%d,%d,%d\n", l_tile->x0, l_tile->y0,l_tile->x1,l_tile->y1);
@@ -62079,13 +62546,13 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 
 			// issue 733, l_data_size == 0U, probably something wrong should be checked before getting here
 			if h > uint64(0) && w > libc.Uint64(18446744073709551615)/h {
-				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33899, 0)
+				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+34041, 0)
 				return DOPJ_FALSE
 			}
 			l_tile_data_size = w * h
 
 			if libc.Uint64(18446744073709551615)/uint64(unsafe.Sizeof(TOPJ_UINT32(0))) < l_tile_data_size {
-				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33899, 0)
+				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+34041, 0)
 				return DOPJ_FALSE
 			}
 			l_tile_data_size = l_tile_data_size * TOPJ_SIZE_T(unsafe.Sizeof(TOPJ_UINT32(0)))
@@ -62114,7 +62581,7 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 			var new_resolutions uintptr = Xopj_realloc(tls,
 				(*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tilec)).Fresolutions, uint64(l_data_size))
 			if !(new_resolutions != 0) {
-				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33940, 0)
+				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+34082, 0)
 				Xopj_free(tls, (*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tilec)).Fresolutions)
 				(*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tilec)).Fresolutions = uintptr(0)
 				(*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tilec)).Fresolutions_size = TOPJ_UINT32(0)
@@ -62160,7 +62627,7 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 				var tmp TOPJ_UINT32 = TOPJ_UINT32(opj_int_ceildivpow2(tls, (*Topj_tcd_resolution_t)(unsafe.Pointer(l_res)).Fx1,
 					TOPJ_INT32(l_pdx))) << l_pdx
 				if tmp > TOPJ_UINT32(2147483647) {
-					Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33980, 0)
+					Xopj_event_msg(tls, manager, DEVT_ERROR, ts+34122, 0)
 					return DOPJ_FALSE
 				}
 				l_br_prc_x_end = TOPJ_INT32(tmp)
@@ -62170,7 +62637,7 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 				var tmp TOPJ_UINT32 = TOPJ_UINT32(opj_int_ceildivpow2(tls, (*Topj_tcd_resolution_t)(unsafe.Pointer(l_res)).Fy1,
 					TOPJ_INT32(l_pdy))) << l_pdy
 				if tmp > TOPJ_UINT32(2147483647) {
-					Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33980, 0)
+					Xopj_event_msg(tls, manager, DEVT_ERROR, ts+34122, 0)
 					return DOPJ_FALSE
 				}
 				l_br_prc_y_end = TOPJ_INT32(tmp)
@@ -62193,13 +62660,13 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 			//fprintf(stderr, "\t\t\tres_pw=%d, res_ph=%d\n", l_res->pw, l_res->ph );
 
 			if (*Topj_tcd_resolution_t)(unsafe.Pointer(l_res)).Fpw != 0 && libc.Uint32(libc.Uint32FromInt32(-1))/(*Topj_tcd_resolution_t)(unsafe.Pointer(l_res)).Fpw < (*Topj_tcd_resolution_t)(unsafe.Pointer(l_res)).Fph {
-				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33899, 0)
+				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+34041, 0)
 				return DOPJ_FALSE
 			}
 			l_nb_precincts = (*Topj_tcd_resolution_t)(unsafe.Pointer(l_res)).Fpw * (*Topj_tcd_resolution_t)(unsafe.Pointer(l_res)).Fph
 
 			if libc.Uint32(libc.Uint32FromInt32(-1))/TOPJ_UINT32(unsafe.Sizeof(Topj_tcd_precinct_t{})) < l_nb_precincts {
-				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+33899, 0)
+				Xopj_event_msg(tls, manager, DEVT_ERROR, ts+34041, 0)
 				return DOPJ_FALSE
 			}
 			l_nb_precinct_size = l_nb_precincts * TOPJ_UINT32(unsafe.Sizeof(Topj_tcd_precinct_t{}))
@@ -62302,7 +62769,7 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 						uint64(l_nb_precinct_size))
 					if !(int32((*Topj_tcd_band_t)(unsafe.Pointer(l_band)).Fprecincts) != 0) {
 						Xopj_event_msg(tls, manager, DEVT_ERROR,
-							ts+33998, 0)
+							ts+34140, 0)
 						return DOPJ_FALSE
 					}
 					//fprintf(stderr, "\t\t\t\tAllocate precincts of a band (opj_tcd_precinct_t): %d\n",l_nb_precinct_size);
@@ -62314,7 +62781,7 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 						(*Topj_tcd_band_t)(unsafe.Pointer(l_band)).Fprecincts /*3 * */, uint64(l_nb_precinct_size))
 					if !(new_precincts != 0) {
 						Xopj_event_msg(tls, manager, DEVT_ERROR,
-							ts+33998, 0)
+							ts+34140, 0)
 						Xopj_free(tls, (*Topj_tcd_band_t)(unsafe.Pointer(l_band)).Fprecincts)
 						(*Topj_tcd_band_t)(unsafe.Pointer(l_band)).Fprecincts = uintptr(0)
 						(*Topj_tcd_band_t)(unsafe.Pointer(l_band)).Fprecincts_data_size = TOPJ_UINT32(0)
@@ -62367,7 +62834,7 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 					//fprintf(stderr, "\t\t\t\t precinct_cw = %d x recinct_ch = %d\n",l_current_precinct->cw, l_current_precinct->ch);
 					if libc.Uint32(libc.Uint32FromInt32(-1))/TOPJ_UINT32(sizeof_block) < l_nb_code_blocks {
 						Xopj_event_msg(tls, manager, DEVT_ERROR,
-							ts+34041, 0)
+							ts+34183, 0)
 						return DOPJ_FALSE
 					}
 					l_nb_code_blocks_size = l_nb_code_blocks * TOPJ_UINT32(sizeof_block)
@@ -62390,7 +62857,7 @@ func opj_tcd_init_tile(tls *libc.TLS, p_tcd uintptr, p_tile_no TOPJ_UINT32, isEn
 							*(*uintptr)(unsafe.Pointer(l_current_precinct + 24)) = uintptr(0)
 							(*Topj_tcd_precinct_t)(unsafe.Pointer(l_current_precinct)).Fblock_size = TOPJ_UINT32(0)
 							Xopj_event_msg(tls, manager, DEVT_ERROR,
-								ts+34088, 0)
+								ts+34230, 0)
 							return DOPJ_FALSE
 						}
 						*(*uintptr)(unsafe.Pointer(l_current_precinct + 24)) = new_blocks
@@ -62785,14 +63252,14 @@ func Xopj_tcd_decode_tile(tls *libc.TLS, p_tcd uintptr, win_x0 TOPJ_UINT32, win_
 			// issue 733, l_data_size == 0U, probably something wrong should be checked before getting here
 			if res_h > uint64(0) && res_w > libc.Uint64(18446744073709551615)/res_h {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+33899, 0)
+					ts+34041, 0)
 				return DOPJ_FALSE
 			}
 			l_data_size = res_w * res_h
 
 			if libc.Uint64(18446744073709551615)/uint64(unsafe.Sizeof(TOPJ_UINT32(0))) < l_data_size {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+33899, 0)
+					ts+34041, 0)
 				return DOPJ_FALSE
 			}
 			l_data_size = l_data_size * TOPJ_SIZE_T(unsafe.Sizeof(TOPJ_UINT32(0)))
@@ -62801,7 +63268,7 @@ func Xopj_tcd_decode_tile(tls *libc.TLS, p_tcd uintptr, win_x0 TOPJ_UINT32, win_
 
 			if !(Xopj_alloc_tile_component_data(tls, tilec) != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+33899, 0)
+					ts+34041, 0)
 				return DOPJ_FALSE
 			}
 		}
@@ -62837,7 +63304,7 @@ func Xopj_tcd_decode_tile(tls *libc.TLS, p_tcd uintptr, win_x0 TOPJ_UINT32, win_
 				// the tile coordinates do not intersect the area of interest
 				// Upper level logic should not even try to decode that tile
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+34146, 0)
+					ts+34288, 0)
 				return DOPJ_FALSE
 			}
 
@@ -62893,13 +63360,13 @@ func Xopj_tcd_decode_tile(tls *libc.TLS, p_tcd uintptr, win_x0 TOPJ_UINT32, win_
 			if w > uint64(0) && h > uint64(0) {
 				if w > libc.Uint64(18446744073709551615)/h {
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+33899, 0)
+						ts+34041, 0)
 					return DOPJ_FALSE
 				}
 				l_data_size = w * h
 				if l_data_size > libc.Uint64(18446744073709551615)/uint64(unsafe.Sizeof(TOPJ_INT32(0))) {
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+33899, 0)
+						ts+34041, 0)
 					return DOPJ_FALSE
 				}
 				l_data_size = l_data_size * TOPJ_SIZE_T(unsafe.Sizeof(TOPJ_INT32(0)))
@@ -62907,7 +63374,7 @@ func Xopj_tcd_decode_tile(tls *libc.TLS, p_tcd uintptr, win_x0 TOPJ_UINT32, win_
 				(*Topj_tcd_tilecomp_t)(unsafe.Pointer(tilec)).Fdata_win = Xopj_image_data_alloc(tls, l_data_size)
 				if (*Topj_tcd_tilecomp_t)(unsafe.Pointer(tilec)).Fdata_win == uintptr(0) {
 					Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-						ts+33899, 0)
+						ts+34041, 0)
 					return DOPJ_FALSE
 				}
 			}
@@ -63304,7 +63771,7 @@ func opj_tcd_mct_decode(tls *libc.TLS, p_tcd uintptr, p_manager uintptr) TOPJ_BO
 		if (*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fnumcomps >= TOPJ_UINT32(3) {
 			if (*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tile_comp)).Fminimum_num_resolutions != (*Topj_tcd_tilecomp_t)(unsafe.Pointer((*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fcomps+1*112)).Fminimum_num_resolutions || (*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tile_comp)).Fminimum_num_resolutions != (*Topj_tcd_tilecomp_t)(unsafe.Pointer((*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fcomps+2*112)).Fminimum_num_resolutions {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+34177, 0)
+					ts+34319, 0)
 				return DOPJ_FALSE
 			}
 		}
@@ -63314,7 +63781,7 @@ func opj_tcd_mct_decode(tls *libc.TLS, p_tcd uintptr, p_manager uintptr) TOPJ_BO
 			// testcase 1336.pdf.asan.47.376
 			if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fimage)).Fcomps)).Fresno_decoded != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fimage)).Fcomps+1*64)).Fresno_decoded || (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fimage)).Fcomps)).Fresno_decoded != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fimage)).Fcomps+2*64)).Fresno_decoded || TOPJ_SIZE_T((*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp1)).Fx1-(*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp1)).Fx0)*TOPJ_SIZE_T((*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp1)).Fy1-(*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp1)).Fy0) != l_samples || TOPJ_SIZE_T((*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp2)).Fx1-(*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp2)).Fx0)*TOPJ_SIZE_T((*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp2)).Fy1-(*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp2)).Fy0) != l_samples {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+34177, 0)
+					ts+34319, 0)
 				return DOPJ_FALSE
 			}
 		}
@@ -63328,7 +63795,7 @@ func opj_tcd_mct_decode(tls *libc.TLS, p_tcd uintptr, p_manager uintptr) TOPJ_BO
 			// testcase 1336.pdf.asan.47.376
 			if (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fimage)).Fcomps)).Fresno_decoded != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fimage)).Fcomps+1*64)).Fresno_decoded || (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fimage)).Fcomps)).Fresno_decoded != (*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer((*Topj_tcd_t)(unsafe.Pointer(p_tcd)).Fimage)).Fcomps+2*64)).Fresno_decoded || TOPJ_SIZE_T((*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp1)).Fwin_x1-(*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp1)).Fwin_x0)*TOPJ_SIZE_T((*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp1)).Fwin_y1-(*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp1)).Fwin_y0) != l_samples || TOPJ_SIZE_T((*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp2)).Fwin_x1-(*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp2)).Fwin_x0)*TOPJ_SIZE_T((*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp2)).Fwin_y1-(*Topj_tcd_resolution_t)(unsafe.Pointer(res_comp2)).Fwin_y0) != l_samples {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+34177, 0)
+					ts+34319, 0)
 				return DOPJ_FALSE
 			}
 		}
@@ -63400,7 +63867,7 @@ func opj_tcd_mct_decode(tls *libc.TLS, p_tcd uintptr, p_manager uintptr) TOPJ_BO
 		}
 	} else {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+34238,
+			ts+34380,
 			libc.VaList(bp, (*Topj_tcd_tile_t)(unsafe.Pointer(l_tile)).Fnumcomps))
 	}
 
@@ -63454,7 +63921,7 @@ __1:
 			l_current_ptr = (*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tile_comp)).Fdata
 
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!(l_height == TOPJ_UINT32(0) || Tsize_t(l_width+l_stride) <= (*Topj_tcd_tilecomp_t)(unsafe.Pointer(l_tile_comp)).Fdata_size/Tsize_t(l_height))), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__274)), ts+34312, 2238, ts+34337)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__274)), ts+34454, 2238, ts+34479)
 			} else {
 			} //MUPDF
 		}
@@ -63512,7 +63979,7 @@ __3:
 	return DOPJ_TRUE
 }
 
-var __func__274 = *(*[30]int8)(unsafe.Pointer(ts + 34410)) /* tcd.c:2198:1 */
+var __func__274 = *(*[30]int8)(unsafe.Pointer(ts + 34552)) /* tcd.c:2198:1 */
 
 // *
 // Deallocates the encoding data of the given precinct.
@@ -64098,7 +64565,7 @@ func Xopj_tgt_create(tls *libc.TLS, numleafsh TOPJ_UINT32, numleafsv TOPJ_UINT32
 
 	tree = Xopj_calloc(tls, uint64(1), uint64(unsafe.Sizeof(Topj_tgt_tree_t{})))
 	if !(tree != 0) {
-		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+34440, 0)
+		Xopj_event_msg(tls, p_manager, DEVT_ERROR, ts+34582, 0)
 		return uintptr(00)
 	}
 
@@ -64127,7 +64594,7 @@ func Xopj_tgt_create(tls *libc.TLS, numleafsh TOPJ_UINT32, numleafsv TOPJ_UINT32
 		uint64(unsafe.Sizeof(Topj_tgt_node_t{})))
 	if !(int32((*Topj_tgt_tree_t)(unsafe.Pointer(tree)).Fnodes) != 0) {
 		Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-			ts+34478, 0)
+			ts+34620, 0)
 		Xopj_free(tls, tree)
 		return uintptr(00)
 	}
@@ -64219,7 +64686,7 @@ func Xopj_tgt_init(tls *libc.TLS, p_tree uintptr, p_num_leafs_h TOPJ_UINT32, p_n
 				uint64(l_node_size))
 			if !(new_nodes != 0) {
 				Xopj_event_msg(tls, p_manager, DEVT_ERROR,
-					ts+34522, 0)
+					ts+34664, 0)
 				Xopj_tgt_destroy(tls, p_tree)
 				return uintptr(00)
 			}
@@ -64387,9 +64854,9 @@ func Xopj_tgt_decode(tls *libc.TLS, bio uintptr, tree uintptr, leafno TOPJ_UINT3
 
 //@}
 
-// * @name Thread local storage
-// @{
-// * Opaque type for a thread local storage
+//* @name Thread local storage
+//@{
+//* Opaque type for a thread local storage
 type Topj_tls_t = Sopj_tls_t /* thread.h:167:26 */
 
 //@}
@@ -64397,7 +64864,7 @@ type Topj_tls_t = Sopj_tls_t /* thread.h:167:26 */
 //* @name Thread pool
 //@{
 
-// * Opaque type for a thread pool
+//* Opaque type for a thread pool
 type Topj_thread_pool_t = Sopj_thread_pool_t /* thread.h:195:34 */
 
 func Xopj_has_thread_support(tls *libc.TLS) TOPJ_BOOL { /* thread.c:433:23: */
@@ -64610,7 +65077,7 @@ func opj_thread_pool_setup(tls *libc.TLS, tp uintptr, num_threads int32) TOPJ_BO
 	var bRet TOPJ_BOOL = DOPJ_TRUE
 
 	if libc.X__builtin_expect(tls, libc.BoolInt64(!(num_threads > 0)), int64(0)) != 0 {
-		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__283)), ts+34570, 689, ts+34598)
+		libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__283)), ts+34712, 689, ts+34740)
 	} else {
 	}
 
@@ -64673,7 +65140,7 @@ func opj_thread_pool_setup(tls *libc.TLS, tp uintptr, num_threads int32) TOPJ_BO
 	return bRet
 }
 
-var __func__283 = *(*[22]int8)(unsafe.Pointer(ts + 34614)) /* thread.c:685:1 */
+var __func__283 = *(*[22]int8)(unsafe.Pointer(ts + 34756)) /* thread.c:685:1 */
 
 //
 // void opj_waiting()
@@ -64718,7 +65185,7 @@ func opj_thread_pool_get_next_job(tls *libc.TLS, tp uintptr, worker_thread uintp
 			(*Topj_worker_thread_t)(unsafe.Pointer(worker_thread)).Fmarked_as_waiting = DOPJ_TRUE
 			(*Topj_thread_pool_t)(unsafe.Pointer(tp)).Fwaiting_worker_thread_count++
 			if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_thread_pool_t)(unsafe.Pointer(tp)).Fwaiting_worker_thread_count <= (*Topj_thread_pool_t)(unsafe.Pointer(tp)).Fworker_threads_count)), int64(0)) != 0 {
-				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__284)), ts+34570, 797, ts+34636)
+				libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__284)), ts+34712, 797, ts+34778)
 			} else {
 			}
 
@@ -64751,7 +65218,7 @@ func opj_thread_pool_get_next_job(tls *libc.TLS, tp uintptr, worker_thread uintp
 	return uintptr(0)
 }
 
-var __func__284 = *(*[29]int8)(unsafe.Pointer(ts + 34696)) /* thread.c:761:1 */
+var __func__284 = *(*[29]int8)(unsafe.Pointer(ts + 34838)) /* thread.c:761:1 */
 
 func Xopj_thread_pool_submit_job(tls *libc.TLS, tp uintptr, job_fn Topj_job_fn, user_data uintptr) TOPJ_BOOL { /* thread.c:827:10: */
 	var job uintptr
@@ -64799,7 +65266,7 @@ func Xopj_thread_pool_submit_job(tls *libc.TLS, tp uintptr, job_fn Topj_job_fn, 
 		worker_thread = (*Topj_worker_thread_list_t)(unsafe.Pointer((*Topj_thread_pool_t)(unsafe.Pointer(tp)).Fwaiting_worker_thread_list)).Fworker_thread
 
 		if libc.X__builtin_expect(tls, libc.BoolInt64(!((*Topj_worker_thread_t)(unsafe.Pointer(worker_thread)).Fmarked_as_waiting != 0)), int64(0)) != 0 {
-			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__285)), ts+34570, 873, ts+34725)
+			libc.X__assert_rtn(tls, uintptr(unsafe.Pointer(&__func__285)), ts+34712, 873, ts+34867)
 		} else {
 		}
 		(*Topj_worker_thread_t)(unsafe.Pointer(worker_thread)).Fmarked_as_waiting = DOPJ_FALSE
@@ -64822,7 +65289,7 @@ func Xopj_thread_pool_submit_job(tls *libc.TLS, tp uintptr, job_fn Topj_job_fn, 
 	return DOPJ_TRUE
 }
 
-var __func__285 = *(*[27]int8)(unsafe.Pointer(ts + 34758)) /* thread.c:830:1 */
+var __func__285 = *(*[27]int8)(unsafe.Pointer(ts + 34900)) /* thread.c:830:1 */
 
 func Xopj_thread_pool_wait_completion(tls *libc.TLS, tp uintptr, max_remaining_jobs int32) { /* thread.c:894:6: */
 	if (*Topj_thread_pool_t)(unsafe.Pointer(tp)).Fmutex == uintptr(0) {
@@ -65115,5 +65582,5 @@ func init() {
 	*(*uintptr)(unsafe.Pointer(uintptr(unsafe.Pointer(&mqc_states)) + 2248 /* .nlps */)) = uintptr(unsafe.Pointer(&mqc_states)) + 93*24                                     // mqc.c:155:34:
 }
 
-var ts1 = "%s:%d:color_sycc_to_rgb\n\tCAN NOT CONVERT\n\x00../src/bin/common/color.c\x00%s:%d:color_cmyk_to_rgb\n\tCAN NOT CONVERT\n\x00%s:%d:color_esycc_to_rgb\n\tCAN NOT CONVERT\n\x00../src/lib/openjp2/opj_intmath.h\x00b\x00opj_int_ceildiv\x00opj_uint_ceildiv\x00(temp >> 13) <= (OPJ_INT64)0x7FFFFFFF\x00(temp >> 13) >= (-(OPJ_INT64)0x7FFFFFFF - (OPJ_INT64)1)\x00opj_int_fix_mul\x00../src/lib/openjp2/bio.c\x00(n > 0U) && (n <= 32U)\x00opj_bio_write\x00(n > 0U)\x00opj_bio_read\x00../src/lib/openjp2/cio.c\x00p_nb_bytes > 0 && p_nb_bytes <= sizeof(OPJ_UINT32)\x00opj_write_bytes_BE\x00opj_write_bytes_LE\x00opj_read_bytes_BE\x00opj_read_bytes_LE\x00Stream reached its end !\n\x00Error on writing stream!\n\x00p_size >= 0\x00opj_stream_read_skip\x00Stream error!\n\x00p_stream->m_byte_offset >= 0\x00p_stream->m_user_data_length >= (OPJ_UINT64)p_stream->m_byte_offset\x00opj_stream_get_number_byte_left\x00opj_stream_skip\x00opj_stream_seek\x00../src/lib/openjp2/dwt.c\x00(((OPJ_SIZE_T)fw) & 0xf) == 0\x00opj_int_abs((OPJ_INT32)iters_c1 - (OPJ_INT32)iters_c2) <= 1\x00opj_dwt_encode_step1_combined\x00m + 1 == end\x00opj_dwt_encode_step2\x00dn + sn > 1\x00opj_dwt_encode_1_real\x00opj_v8dwt_encode_step2\x00ret\x00opj_dwt_interleave_partial_h\x00opj_dwt_interleave_partial_v\x00opj_dwt_decode_partial_tile\x00opj_v8dwt_interleave_partial_h\x00opj_v8dwt_interleave_partial_v\x00opj_v8dwt_decode_step2\x00(job->nb_rows % NB_ELTS_V8) == 0\x00opj_dwt97_decode_h_func\x00(job->nb_columns % NB_ELTS_V8) == 0\x00opj_dwt97_decode_v_func\x00opj_dwt_decode_partial_97\x00../src/lib/openjp2/function_list.c\x00p_manager != NULL\x00Not enough memory to add a new validation procedure\n\x00opj_procedure_list_add_procedure\x00rb\x00wb\x00ERROR -> failed to create the stream from buffer\n\x00ERROR -> opj_decompress: failed to setup the decoder\n\x00ERROR -> j2k_to_image: failed to read the header\n\x00ERROR -> opj_decompress: failed to set the decoded area\n\x00ERROR -> opj_decompress: failed to decode image!\n\x00../src/lib/openjp2/ht_dec.c\x00melp->unstuff == OPJ_FALSE || melp->data[0] <= 0x8F\x00mel_init\x00num_bits <= vlcp->bits\x00rev_advance\x00num_bits <= mrp->bits\x00rev_advance_mrp\x00msp->bits <= 32\x00frwd_read\x00msp->X == 0 || msp->X == 0xFF\x00frwd_init\x00num_bits <= msp->bits\x00frwd_advance\x00w <= 1024\x00h <= 1024\x00w * h <= 4096\x00opj_t1_allocate_buffers\x00We do not support ROI in decoding HT codeblocks\n\x00A malformed codeblock that has more than one coding pass, but zero length for 2nd and potentially the 3rd pass in an HT codeblock.\n\x00We do not support more than 3 coding passes in an HT codeblock; This codeblocks has %d passes.\n\x0032 bits are not enough to decode this codeblock, since the number of bitplane, %d, is larger than 30.\n\x00Malformed HT codeblock. Decoding this codeblock is stopped. There are %d zero bitplanes in %d bitplanes.\n\x00Malformed HT codeblock. When the number of zero planes bitplanes is equal to the number of bitplanes, only the cleanup pass makes sense, but we have %d passes in this codeblock. Therefore, only the cleanup pass will be decoded. This message will not be displayed again.\n\x00Malformed HT codeblock. Invalid codeblock length values.\n\x00Malformed HT codeblock. One of the following condition is not met: 2 <= Scup <= min(Lcup, 4079)\n\x00Malformed HT codeblock. Decoding this codeblock is stopped. U_q is larger than zero bitplanes + 1 \n\x00Malformed HT codeblock. VLC code produces significant samples outside the codeblock area.\n\x00Malformed HT codeblock. Decoding this codeblock is stopped. U_q islarger than bitplanes + 1 \n\x00dp[0] != 0\x00dp[stride] != 0\x00dp[2 * stride] != 0\x00dp[3 * stride] != 0\x00dp[0] == 0\x00dp[stride] == 0\x00dp[2 * stride] == 0\x00dp[3 * stride] == 0\x00opj_t1_ht_decode_cblk\x00../src/lib/openjp2/image.c\x00p_image_src != 00\x00p_image_dest != 00\x00opj_copy_image_header\x00../src/lib/openjp2/invert.c\x00nb_compo != 0\x00opj_lupSolve\x00CPRL\x00LRCP\x00PCRL\x00RLCP\x00RPCL\x00\x00\x00\x00\x00\x00../src/lib/openjp2/j2k.c\x00p_nb_pocs > 0\x00Not enough memory for checking the poc values.\n\x00Missing packets possible loss of data\n\x00opj_j2k_check_poc_val\x00tileno < (cp->tw * cp->th)\x00pino < (cp->tcps[tileno].numpocs + 1)\x00tcp != 00\x00l_current_poc != 0\x00strlen(prog) > 0\x00opj_j2k_get_num_tp\x00p_nb_tiles != 00\x00cp != 00\x00image != 00\x00p_j2k != 00\x00p_manager != 00\x00opj_j2k_calculate_tp\x00p_stream != 00\x00opj_j2k_write_soc\x00Start to read j2k main header (%lld).\n\x00Not enough memory to add mh marker\n\x00opj_j2k_read_soc\x00Not enough memory for the SIZ marker\n\x00opj_j2k_write_siz\x00p_header_data != 00\x00Error with SIZ marker size\n\x00Error with SIZ marker: number of component is illegal -> %d\n\x00Error with SIZ marker: number of component is not compatible with the remaining number of parameters ( %d vs %d)\n\x00Error with SIZ marker: negative or zero image size (%lld x %lld)\n\x00Error with SIZ marker: invalid tile size (tdx: %d, tdy: %d)\n\x00Error with SIZ marker: illegal tile offset\n\x00Error with SIZ marker: IHDR w(%u) h(%u) vs. SIZ w(%u) h(%u)\n\x00Not enough memory to take in charge SIZ marker\n\x00Despite JP2 BPC!=255, precision and/or sgnd values for comp[%d] is different than comp[0]:\n        [0] prec(%d) sgnd(%d) [%d] prec(%d) sgnd(%d)\n\x00Invalid values for comp = %d : dx=%u dy=%u (should be between 1 and 255 according to the JPEG2000 norm)\n\x00Invalid values for comp = %d : prec=%u (should be between 1 and 38 according to the JPEG2000 norm. OpenJpeg only supports up to 31)\n\x00Invalid number of tiles : %u x %u (maximum fixed by jpeg2000 norm is 65535 tiles)\n\x00opj_j2k_read_siz\x00Not enough memory to write the COM marker\n\x00opj_j2k_write_com\x00opj_j2k_read_com\x00Not enough memory to write COD marker\n\x00Error writing COD marker\n\x00opj_j2k_write_cod\x00Error reading COD marker\n\x00Unknown Scod value in COD marker\n\x00Unknown progression order in COD marker\n\x00Invalid number of layers in COD marker : %d not in range [1-65535]\n\x00Invalid multiple component transformation\n\x00opj_j2k_read_cod\x00Not enough memory to write COC marker\n\x00opj_j2k_write_coc\x00opj_j2k_compare_coc\x00opj_j2k_write_coc_in_memory\x00Error reading COC marker\n\x00Error reading COC marker (bad number of components)\n\x00opj_j2k_read_coc\x00Not enough memory to write QCD marker\n\x00Error writing QCD marker\n\x00opj_j2k_write_qcd\x00Error reading QCD marker\n\x00opj_j2k_read_qcd\x00Not enough memory to write QCC marker\n\x00opj_j2k_write_qcc\x00opj_j2k_write_qcc_in_memory\x00Error reading QCC marker\n\x00Invalid component number: %d, regarding the number of components %d\n\x00opj_j2k_read_qcc\x00Not enough memory to write POC marker\n\x00opj_j2k_write_poc\x00opj_j2k_write_poc_in_memory\x00Error reading POC marker\n\x00Too many POCs %d\n\x00opj_j2k_read_poc\x00Error reading CRG marker\n\x00opj_j2k_read_crg\x00Error reading TLM marker\n\x00opj_j2k_read_tlm\x00Error reading PLM marker\n\x00opj_j2k_read_plm\x00Error reading PLT marker\n\x00opj_j2k_read_plt\x00Error reading PPM marker\n\x00l_cp->ppm_markers_count == 0U\x00Not enough memory to read PPM marker\n\x00Zppm %u already read\n\x00opj_j2k_read_ppm\x00p_cp != 00\x00p_cp->ppm_buffer == NULL\x00Not enough bytes to read Nppm\n\x00Corrupted PPM markers\n\x00opj_j2k_merge_ppm\x00Error reading PPT marker\n\x00Error reading PPT marker: packet header have been previously found in the main header (PPM marker).\n\x00l_tcp->ppt_markers_count == 0U\x00Not enough memory to read PPT marker\n\x00Zppt %u already read\n\x00opj_j2k_read_ppt\x00p_tcp != 00\x00opj_j2k_merge_ppt() has already been called\n\x00opj_j2k_merge_ppt\x00A maximum of 10921 tile-parts are supported currently when writing TLM marker\n\x00Not enough memory to write TLM marker\n\x00opj_j2k_write_tlm\x00Not enough bytes in output buffer to write SOT marker\n\x00opj_j2k_write_sot\x00Error reading SOT marker\n\x00opj_j2k_get_sot_values\x00Invalid tile number %d\n\x00Invalid tile part index for tile number %d. Got %d, expected %d\n\x00Empty SOT marker detected: Psot=%d.\n\x00Psot value is not correct regards to the JPEG2000 norm: %d.\n\x00Psot value of the current tile-part is equal to zero, we assuming it is the last tile-part of the codestream.\n\x00In SOT marker, TPSot (%d) is not valid regards to the previous number of tile-part (%d), giving up\n\x00In SOT marker, TPSot (%d) is not valid regards to the current number of tile-part (%d), giving up\n\x00In SOT marker, TPSot (%d) is not valid regards to the current number of tile-part (header) (%d), giving up\n\x00p_j2k->m_specific_param.m_decoder.m_tile_ind_to_dec >= 0\x00p_j2k->cstr_index->tile_index != 00\x00Not enough memory to read SOT marker. Tile index allocation failed\n\x00opj_j2k_read_sot\x00More than 255 PLT markers would be needed for current tile-part !\n\x00Not enough bytes in output buffer to write SOD marker\n\x00Cannot encode tile: opj_tcd_marker_info_create() failed\n\x00Cannot encode tile\n\x00Cannot allocate memory\n\x00l_data_written_PLT <= p_j2k->m_specific_param.m_encoder.m_reserved_bytes_for_PLT\x00opj_j2k_write_sod\x00Tile part length size inconsistent with stream length\n\x00p_j2k->m_specific_param.m_decoder.m_sot_length > UINT_MAX - OPJ_COMMON_CBLK_DATA_EXTRA\x00*l_tile_len > UINT_MAX - OPJ_COMMON_CBLK_DATA_EXTRA - p_j2k->m_specific_param.m_decoder.m_sot_length\x00Not enough memory to decode tile\n\x00Not enough memory to add tl marker\n\x00opj_j2k_read_sod\x00opj_j2k_write_rgn\x00opj_j2k_write_eoc\x00Error reading RGN marker\n\x00bad component number in RGN (%d when there are only %d)\n\x00opj_j2k_read_rgn\x00Not enough memory to allocate m_encoded_tile_data. %u MB required\n\x00opj_j2k_update_rates\x00opj_j2k_get_end_header\x00opj_j2k_write_mct_data_group\x00opj_j2k_write_all_coc\x00opj_j2k_write_all_qcc\x00opj_j2k_write_regions\x00opj_j2k_write_epc\x00Unknown marker\n\x00Stream too short\n\x00Marker is not compliant with its position\n\x00opj_j2k_read_unk\x00Not enough memory to write MCT marker\n\x00opj_j2k_write_mct_record\x00Error reading MCT marker\n\x00Cannot take in charge mct data within multiple MCT records\n\x00Not enough memory to read MCT marker\n\x00Cannot take in charge multiple MCT markers\n\x00opj_j2k_read_mct\x00Not enough memory to write MCC marker\n\x00opj_j2k_write_mcc_record\x00Error reading MCC marker\n\x00Cannot take in charge multiple data spanning\n\x00Not enough memory to read MCC marker\n\x00Cannot take in charge multiple collections\n\x00Cannot take in charge collections other than array decorrelation\n\x00Cannot take in charge collections with indix shuffle\n\x00Cannot take in charge collections without same number of indixes\n\x00opj_j2k_read_mcc\x00Not enough memory to write MCO marker\n\x00opj_j2k_write_mco\x00Error reading MCO marker\n\x00Cannot take in charge multiple transformation stages.\n\x00opj_j2k_read_mco\x00opj_j2k_add_mct\x00Not enough memory to write CBD marker\n\x00opj_j2k_write_cbd\x00Crror reading CBD marker\n\x00opj_j2k_read_cbd\x00opj_j2k_read_cap\x00opj_j2k_read_cpf\x00OPJ_NUM_THREADS\x00ALL_CPUS\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\n1 single quality layer-> Number of layers forced to 1 (rather than %d)\n-> Rate of the last layer (%3.1f) will be used\x00JPEG 2000 Profile-3 (2k dc profile) requires:\nNumber of decomposition levels <= 5\n-> Number of decomposition levels forced to 5 (rather than %d)\n\x00JPEG 2000 Profile-4 (4k dc profile) requires:\nNumber of decomposition levels >= 1 && <= 6\n-> Number of decomposition levels forced to 1 (rather than %d)\n\x00JPEG 2000 Profile-4 (4k dc profile) requires:\nNumber of decomposition levels >= 1 && <= 6\n-> Number of decomposition levels forced to 6 (rather than %d)\n\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\nMaximum 1302083 compressed bytes @ 24fps\nAs no rate has been given, this limit will be used.\n\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\nMaximum 1302083 compressed bytes @ 24fps\n-> Specified rate exceeds this limit. Rate will be forced to 1302083 bytes.\n\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\nMaximum 1041666 compressed bytes @ 24fps\nAs no rate has been given, this limit will be used.\n\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\nMaximum 1041666 compressed bytes @ 24fps\n-> Specified rate exceeds this limit. Rate will be forced to 1041666 bytes.\n\x00JPEG 2000 Profile-3 (2k dc profile) requires:\n3 components-> Number of components of input image (%d) is not compliant\n-> Non-profile-3 codestream will be generated\n\x00signed\x00unsigned\x00JPEG 2000 Profile-3 (2k dc profile) requires:\nPrecision of each component shall be 12 bits unsigned-> At least component %d of input image (%d bits, %s) is not compliant\n-> Non-profile-3 codestream will be generated\n\x00JPEG 2000 Profile-3 (2k dc profile) requires:\nwidth <= 2048 and height <= 1080\n-> Input image size %d x %d is not compliant\n-> Non-profile-3 codestream will be generated\n\x00JPEG 2000 Profile-4 (4k dc profile) requires:\nwidth <= 4096 and height <= 2160\n-> Image size %d x %d is not compliant\n-> Non-profile-4 codestream will be generated\n\x00IMF profile require mainlevel <= 11.\n-> %d is thus not compliant\n-> Non-IMF codestream will be generated\n\x00sizeof(tabMaxSubLevelFromMainLevel) == (OPJ_IMF_MAINLEVEL_MAX + 1) * sizeof(tabMaxSubLevelFromMainLevel[0])\x00IMF profile require sublevel <= %d for mainlevel = %d.\n-> %d is thus not compliant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require at most 3 components.\n-> Number of components of input image (%d) is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require image origin to be at 0,0.\n-> %d,%d is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require tile origin to be at 0,0.\n-> %d,%d is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF 2K/4K/8K single tile profiles require tile to be greater or equal to image size.\n-> %d,%d is lesser than %d,%d\n-> Non-IMF codestream will be generated\n\x00IMF 2K_R/4K_R/8K_R single/multiple tile profiles require tile to be greater or equal to image size,\nor to be (1024,1024), or (2048,2048) for 4K_R/8K_R or (4096,4096) for 8K_R.\n-> %d,%d is non conformant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require precision of each component to b in [8-16] bits unsigned-> At least component %d of input image (%d bits, %s) is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require XRSiz1 == 1. Here it is set to %d.\n-> Non-IMF codestream will be generated\n\x00IMF profiles require XRSiz2 == 1 or 2. Here it is set to %d.\n-> Non-IMF codestream will be generated\n\x00IMF profiles require XRSiz%d to be the same as XRSiz2. Here it is set to %d instead of %d.\n-> Non-IMF codestream will be generated\n\x00IMF profiles require YRsiz == 1. Here it is set to %d for component %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K/2K_R profile require:\nwidth <= 2048 and height <= 1556\n-> Input image size %d x %d is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF 4K/4K_R profile require:\nwidth <= 4096 and height <= 3112\n-> Input image size %d x %d is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF 8K/8K_R profile require:\nwidth <= 8192 and height <= 6224\n-> Input image size %d x %d is not compliant\n-> Non-IMF codestream will be generated\n\x000\x00IMF profile forbid RGN / region of interest marker.\n-> Compression parameters specify a ROI\n-> Non-IMF codestream will be generated\n\x00IMF profile require code block size to be 32x32.\n-> Compression parameters set it to %dx%d.\n-> Non-IMF codestream will be generated\n\x00IMF profile require progression order to be CPRL.\n-> Compression parameters set it to %d.\n-> Non-IMF codestream will be generated\n\x00IMF profile forbid POC markers.\n-> Compression parameters set %d POC.\n-> Non-IMF codestream will be generated\n\x00IMF profile forbid mode switch in code block style.\n-> Compression parameters set code block style to %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K/4K/8K profiles require 9-7 Irreversible Transform.\n-> Compression parameters set it to reversible.\n-> Non-IMF codestream will be generated\n\x00IMF 2K/4K/8K profiles require 5-3 reversible Transform.\n-> Compression parameters set it to irreversible.\n-> Non-IMF codestream will be generated\n\x00IMF 2K/4K/8K profiles require 1 single quality layer.\n-> Number of layers is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K profile requires 1 <= NL <= 5:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K profile requires 1 <= NL <= 6:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 8K profile requires 1 <= NL <= 7:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K_R profile requires 1 <= NL <= 5 for XTsiz >= 2048:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K_R profile requires 1 <= NL <= 4 for XTsiz in [1024,2048[:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 6 for XTsiz >= 4096:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 5 for XTsiz in [2048,4096[:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 4 for XTsiz in [1024,2048[:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 7 for XTsiz >= 8192:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 6 for XTsiz in [4096,8192[:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF profiles require PPx = PPy = 7 for NLLL band, else 8.\n-> Supplied values are different from that.\n-> Non-IMF codestream will be generated\n\x00opj_j2k_is_imf_compliant\x00Invalid number of resolutions : %d not in range [1,%d]\n\x00Invalid value for cblockw_init: %d not a power of 2 in range [4,1024]\n\x00Invalid value for cblockh_init: %d not a power of 2 not in range [4,1024]\n\x00Invalid value for cblockw_init * cblockh_init: should be <= 4096\n\x00Deprecated fields cp_cinema or cp_rsiz are used\nPlease consider using only the rsiz field\nSee openjpeg.h documentation for more details\n\x00tcp_rates[%d]=%f (corrected as %f) should be strictly lesser than tcp_rates[%d]=%f (corrected as %f)\n\x00tcp_rates[%d]=%f (corrected as %f) should be strictly lesser than tcp_rates[%d]=%f\n\x00tcp_rates[%d]=%f should be strictly lesser than tcp_rates[%d]=%f (corrected as %f)\n\x00tcp_rates[%d]=%f should be strictly lesser than tcp_rates[%d]=%f\n\x00tcp_distoratio[%d]=%f should be strictly greater than tcp_distoratio[%d]=%f\n\x00The desired maximum codestream size has limited\nat least one of the desired quality layers\n\x00JPEG 2000 Scalable Digital Cinema profiles not yet supported\n\x00JPEG 2000 Long Term Storage profile not yet supported\n\x00JPEG 2000 Broadcast profiles not yet supported\n\x00JPEG 2000 Part-2 profile defined\nbut no Part-2 extension enabled.\nProfile set to NONE.\n\x00Unsupported Part-2 extension enabled\nProfile set to NONE.\n\x00Not enough memory to allocate copy of user encoding parameters matrix \n\x00Not enough memory to allocate copy of comment string\n\x00Created by OpenJPEG version \x00Not enough memory to allocate comment string\n\x00%s%s\x00Invalid tile width\n\x00Invalid tile height\n\x00Not enough memory to allocate tile coding parameters\n\x00Invalid compno0 for POC %d\n\x00Not enough memory to allocate tile component coding parameters\n\x00Not enough memory to allocate temp buffer\n\x00Not enough memory to allocate encoder MCT coding matrix \n\x00Not enough memory to allocate encoder MCT decoding matrix \n\x00Failed to inverse encoder MCT decoding matrix \n\x00Not enough memory to allocate encoder MCT norms \n\x00Failed to setup j2k mct encoding\n\x00Cannot perform MCT on components with different sizes. Disabling MCT.\n\x00tccp->numresolutions > 0\x00res_spec > 0\x00opj_j2k_setup_encoder\x00cstr_index != 00\x00opj_j2k_add_mhmarker\x00cstr_index->tile_index != 00\x00opj_j2k_add_tlmarker\x00opj_j2k_read_header\x00opj_j2k_setup_header_reading\x00opj_j2k_setup_decoding_validation\x00opj_j2k_mct_validation\x00opj_j2k_setup_mct_encoding\x00Number of resolutions is too high in comparison to the size of tiles\n\x00opj_j2k_encoding_validation\x00opj_j2k_decoding_validation\x00Expected a SOC marker \n\x00A marker ID was expected (0xff--) instead of %.8x\n\x00Unknown marker has been detected and generated error.\n\x00Invalid marker size\n\x00Not enough memory to read header\n\x00Marker handler function failed to read the marker segment\n\x00required SIZ marker not found in main header\n\x00required COD marker not found in main header\n\x00required QCD marker not found in main header\n\x00Failed to merge PPM data\n\x00Main header has been correctly decoded.\n\x00opj_j2k_read_header_procedure\x00p_procedure_list != 00\x00opj_j2k_exec\x00Cannot decode tile, memory error\n\x00opj_j2k_copy_default_tcp_and_create_tcd\x00Inconsistent marker size\n\x00Marker size inconsistent with stream length\n\x00Not sure how that happened.\n\x00Fail to read the current marker segment (%#x)\n\x00opj_j2k_apply_nb_tile_parts_correction error\n\x00Non conformant codestream TPsot==TNsot.\n\x00Tile %u has TPsot == 0 and TNsot == 0, but no other tile-parts were found. EOC is also missing.\n\x00Failed to merge PPT data\n\x00Header of tile %d / %d has been read.\n\x00opj_j2k_read_tile_header\x00Failed to decode.\n\x00Stream does not end with EOC\n\x00Stream too short, expected SOT\n\x00opj_j2k_decode_tile\x00res_x0 >= 0\x00res_x1 >= 0\x00opj_j2k_update_image_data\x00Image coordinates above INT_MAX are not supported\n\x00Size x of the decoded component image is incorrect (comp[%d].w=%d).\n\x00Size y of the decoded component image is incorrect (comp[%d].h=%d).\n\x00opj_read_header() should be called before opj_set_decoded_components().\n\x00Invalid component index: %u\n\x00Component index %u used several times\n\x00Need to decode the main header before begin to decode the remaining codestream.\n\x00No decoded area parameters, set the decoded area to the whole image\n\x00Left position of the decoded area (region_x0=%d) should be >= 0.\n\x00Left position of the decoded area (region_x0=%d) is outside the image area (Xsiz=%d).\n\x00Left position of the decoded area (region_x0=%d) is outside the image area (XOsiz=%d).\n\x00Up position of the decoded area (region_y0=%d) should be >= 0.\n\x00Up position of the decoded area (region_y0=%d) is outside the image area (Ysiz=%d).\n\x00Up position of the decoded area (region_y0=%d) is outside the image area (YOsiz=%d).\n\x00Right position of the decoded area (region_x1=%d) should be > 0.\n\x00Right position of the decoded area (region_x1=%d) is outside the image area (XOsiz=%d).\n\x00Right position of the decoded area (region_x1=%d) is outside the image area (Xsiz=%d).\n\x00Bottom position of the decoded area (region_y1=%d) should be > 0.\n\x00Bottom position of the decoded area (region_y1=%d) is outside the image area (YOsiz=%d).\n\x00Bottom position of the decoded area (region_y1=%d) is outside the image area (Ysiz=%d).\n\x00Setting decoding area to %d,%d,%d,%d\n\x00p_tile_no < (l_cp->tw * l_cp->th)\x00p_comp_no < p_j2k->m_private_image->numcomps\x00opj_j2k_get_SPCod_SPCoc_size\x00opj_j2k_compare_SPCod_SPCoc\x00p_header_size != 00\x00p_data != 00\x00p_comp_no < (p_j2k->m_private_image->numcomps)\x00Error writing SPCod SPCoc element\n\x00opj_j2k_write_SPCod_SPCoc\x00compno < p_j2k->m_private_image->numcomps\x00Error reading SPCod SPCoc element\n\x00Invalid value for numresolutions : %d, max value is set in openjpeg.h at %d\n\x00Error decoding component %d.\nThe number of resolutions to remove (%d) is greater or equal than the number of resolutions of this component (%d)\nModify the cp_reduce parameter.\n\n\x00Error reading SPCod SPCoc element, Invalid cblkw/cblkh combination\n\x00Error reading SPCod SPCoc element. Unsupported Mixed HT code-block style found\n\x00Error reading SPCod SPCoc element, Invalid transformation found\n\x00Invalid precinct size\n\x00opj_j2k_read_SPCod_SPCoc\x00opj_j2k_copy_tile_component_parameters\x00p_tile_no < l_cp->tw * l_cp->th\x00opj_j2k_get_SQcd_SQcc_size\x00opj_j2k_compare_SQcd_SQcc\x00Error writing SQcd SQcc element\n\x00opj_j2k_write_SQcd_SQcc\x00Error reading SQcd or SQcc element\n\x00While reading CCP_QNTSTY element inside QCD or QCC marker segment, number of subbands (%d) is greater to OPJ_J2K_MAXBANDS (%d). So we limit the number of elements stored to OPJ_J2K_MAXBANDS (%d) and skip the rest. \n\x00opj_j2k_read_SQcd_SQcc\x00opj_j2k_copy_tile_quantization_parameters\x00\t default tile {\n\x00\t\t csty=%#x\n\x00\t\t prg=%#x\n\x00\t\t numlayers=%d\n\x00\t\t mct=%x\n\x00\t\t comp %d {\n\x00\t\t\t csty=%#x\n\x00\t\t\t numresolutions=%d\n\x00\t\t\t cblkw=2^%d\n\x00\t\t\t cblkh=2^%d\n\x00\t\t\t cblksty=%#x\n\x00\t\t\t qmfbid=%d\n\x00\t\t\t preccintsize (w,h)=\x00(%d,%d) \x00\n\x00\t\t\t qntsty=%d\n\x00\t\t\t numgbits=%d\n\x00\t\t\t stepsizes (m,e)=\x00\t\t\t roishift=%d\n\x00\t\t }\n\x00\t }\n\x00Wrong flag\n\x00Codestream index from main header: {\n\x00\t Main header start position=%lli\n\t Main header end position=%lli\n\x00\t Marker list: {\n\x00\t\t type=%#x, pos=%lli, len=%d\n\x00\t Tile index: {\n\x00\t\t nb of tile-part in tile [%d]=%d\n\x00\t\t\t tile-part[%d]: star_pos=%lli, end_header=%lli, end_pos=%lli.\n\x00}\n\x00Codestream info from main header: {\n\x00\t tx0=%d, ty0=%d\n\x00\t tdx=%d, tdy=%d\n\x00\t tw=%d, th=%d\n\x00[DEV] Dump an image_header struct {\n\x00Image info {\n\x00%s x0=%d, y0=%d\n\x00%s x1=%d, y1=%d\n\x00%s numcomps=%d\n\x00%s\t component %d {\n\x00%s}\n\x00[DEV] Dump an image_comp_header struct {\n\x00%s dx=%d, dy=%d\n\x00%s prec=%d\n\x00%s sgnd=%d\n\x00Failed to decode component %d\n\x00Failed to decode all used components\n\x00Failed to decode tile 1/1\n\x00Failed to decode tile %d/%d\n\x00Tile %d/%d has been decoded.\n\x00Image data has been updated with tile %d.\n\n\x00opj_j2k_setup_decoding\x00Problem with seek function\n\x00Tile read, decoded and updated is not the desired one (%d vs %d).\n\x00opj_j2k_setup_decoding_tile\x00p_j2k->m_output_image->comps[compno].data == NULL\x00opj_j2k_move_data_from_codec_to_output_image\x00We need an image previously created.\n\x00Image has less components than codestream.\n\x00Tile index provided by the user is incorrect %d (max = %d) \n\x00Resolution factor is greater than the maximum resolution in the component.\n\x00PLT=\x00PLT=YES\x00PLT=NO\x00Invalid value for option: %s.\n\x00TLM=\x00TLM=YES\x00TLM=NO\x00GUARD_BITS=\x00Invalid value for option: %s. Should be in [0,7]\n\x00Invalid option: %s.\n\x00Error allocating tile component data.\x00Not enough memory to encode all tiles\n\x00Size mismatch between tile data and sent data.\x00opj_j2k_encode\x00Failed to allocate image header.\x00opj_j2k_start_compress\x00The given tile index does not match.\x00tile number %d / %d\n\x00p_j2k->m_specific_param.m_encoder.m_encoded_tile_data\x00opj_j2k_post_write_tile\x00opj_j2k_setup_end_compress\x00opj_j2k_setup_encoding_validation\x00opj_j2k_setup_header_writing\x00opj_j2k_write_updated_tlm\x00opj_j2k_end_encoding\x00opj_j2k_destroy_header_memory\x00opj_j2k_init_info\x00Not enough memory to create Tile Coder\n\x00opj_j2k_create_tcd\x00Error while opj_j2k_pre_write_tile with tile index = %d\n\x00Error while opj_j2k_post_write_tile with tile index = %d\n\x00../src/lib/openjp2/jp2.c\x00cio != 00\x00box != 00\x00p_number_bytes_read != 00\x00Cannot handle box sizes higher than 2^32\n\x00(OPJ_OFF_T)box->length == bleft + 8\x00opj_jp2_read_boxhdr\x00p_image_header_data != 00\x00jp2 != 00\x00Ignoring ihdr box. First ihdr box already read\n\x00Bad image header box (bad size)\n\x00Wrong values for: w(%d) h(%d) numcomps(%d) (ihdr)\n\x00Invalid number of components (ihdr)\n\x00Not enough memory to handle image header (ihdr)\n\x00JP2 IHDR box: compression type indicate that the file is not a conforming JP2 file (%d) \n\x00opj_jp2_read_ihdr\x00p_nb_bytes_written != 00\x00opj_jp2_write_ihdr\x00opj_jp2_write_bpcc\x00p_bpc_header_data != 00\x00A BPCC header box is available although BPC given by the IHDR box (%d) indicate components bit depth is constant\n\x00Bad BPCC header box (bad size)\n\x00opj_jp2_read_bpcc\x00jp2->color.jp2_cdef != 00\x00jp2->color.jp2_cdef->info != 00\x00jp2->color.jp2_cdef->n > 0U\x00opj_jp2_write_cdef\x00jp2->meth == 1 || jp2->meth == 2\x00jp2->color.icc_profile_len\x00opj_jp2_write_colr\x00Invalid component index %d (>= %d).\n\x00Incomplete channel definitions.\n\x00Unexpected OOM.\n\x00Invalid value for cmap[%d].mtyp = %d.\n\x00Invalid component/palette index for direct mapping %d.\n\x00Component %d is mapped twice.\n\x00Direct use at #%d however pcol=%d.\n\x00Implementation limitation: for palette mapping, pcol[%d] should be equal to %d, but is equal to %d.\n\x00Component %d doesn't have a mapping.\n\x00Component mapping seems wrong. Trying to correct.\n\x00image->comps[%d].data == NULL in opj_jp2_apply_pclr().\n\x00Memory allocation failure in opj_jp2_apply_pclr().\n\x00pcol == 0\x00i == pcol\x00src\x00dst\x00opj_jp2_apply_pclr\x00p_pclr_header_data != 00\x00Invalid PCLR box. Reports %d entries\n\x00Invalid PCLR box. Reports 0 palette columns\n\x00opj_jp2_read_pclr\x00p_cmap_header_data != 00\x00Need to read a PCLR box before the CMAP box.\n\x00Only one CMAP box is allowed.\n\x00Insufficient data for CMAP box.\n\x00opj_jp2_read_cmap\x00opj_jp2_apply_cdef: cn=%d, numcomps=%d\n\x00opj_jp2_apply_cdef: acn=%d, numcomps=%d\n\x00p_cdef_header_data != 00\x00Insufficient data for CDEF box.\n\x00Number of channel description is equal to zero in CDEF box.\n\x00opj_jp2_read_cdef\x00p_colr_header_data != 00\x00Bad COLR header box (bad size)\n\x00A conforming JP2 reader shall ignore all Colour Specification boxes after the first, so we ignore this one.\n\x00Bad COLR header box (bad size: %d)\n\x00Not enough memory for cielab\n\x00Bad COLR header box (CIELab, bad size: %d)\n\x00COLR BOX meth value is not a regular value (%d), so we will ignore the entire Colour Specification box. \n\x00opj_jp2_read_colr\x00Failed to decode the codestream in the JP2 file\n\x00stream != 00\x00Not enough memory to hold JP2 Header data\n\x00Stream error while writing JP2 Header box\n\x00opj_jp2_write_jp2h\x00Not enough memory to handle ftyp data\n\x00Error while writing ftyp data to stream\n\x00opj_jp2_write_ftyp\x00opj_stream_has_seek(cio)\x00Failed to seek in the stream.\n\x00opj_jp2_write_jp2c\x00opj_jp2_write_jp\x00Invalid number of components specified while setting up JP2 encoder\n\x00Not enough memory when setup the JP2 encoder\n\x00Alpha channel specified but unknown enumcs. No cdef box will be created.\n\x00Alpha channel specified but not enough image components for an automatic cdef box creation.\n\x00Alpha channel position conflicts with color channel. No cdef box will be created.\n\x00Multiple alpha channels specified. No cdef box will be created.\n\x00Not enough memory to setup the JP2 encoder\n\x00opj_jp2_end_decompress\x00opj_jp2_end_compress\x00opj_jp2_setup_end_header_writing\x00opj_jp2_setup_end_header_reading\x00opj_jp2_default_validation\x00Not enough memory to handle jpeg2000 file header\n\x00bad placed jpeg codestream\n\x00Cannot handle box of undefined sizes\n\x00invalid box size %d (%x)\n\x00Found a misplaced '%c%c%c%c' box outside jp2h box\n\x00JPEG2000 Header box not read yet, '%c%c%c%c' box will be ignored\n\x00Problem with skipping JPEG2000 box, stream error\n\x00Invalid box size %d for box '%c%c%c%c'. Need %d bytes, %d bytes remaining \n\x00Not enough memory to handle jpeg2000 box\n\x00Problem with reading JPEG2000 box, stream error\n\x00Malformed JP2 file format: first box must be JPEG 2000 signature box\n\x00Malformed JP2 file format: second box must be file type box\n\x00opj_jp2_read_header_procedure\x00opj_jp2_exec\x00opj_jp2_start_compress\x00The signature box must be the first box in the file.\n\x00Error with JP signature Box size\n\x00Error with JP Signature : bad magic number\n\x00opj_jp2_read_jp\x00The ftyp box must be the second box in the file.\n\x00Error with FTYP signature Box size\n\x00Not enough memory with FTYP Box\n\x00opj_jp2_read_ftyp\x00opj_jp2_skip_jp2c\x00opj_jpip_skip_iptr\x00The  box must be the first box in the file.\n\x00Stream error while reading JP2 Header box\n\x00Stream error while reading JP2 Header box: box length is inconsistent.\n\x00Stream error while reading JP2 Header box: no 'ihdr' box.\n\x00opj_jp2_read_jp2h\x00Cannot handle box of less than 8 bytes\n\x00Cannot handle XL box of less than 16 bytes\n\x00Box length is inconsistent.\n\x00opj_jp2_read_boxhdr_char\x00JP2H box missing. Required.\n\x00IHDR box_missing. Required.\n\x00opj_jp2_read_header\x00opj_jp2_setup_encoding_validation\x00opj_jp2_setup_decoding_validation\x00opj_jp2_setup_header_writing\x00opj_jp2_setup_header_reading\x00JP2 box which are after the codestream will not be read by this function.\n\x00p_jp2 != 00\x00jp2_dump\x00../src/lib/openjp2/mqc.c\x00*(mqc->bp) != 0xff\x00opj_mqc_init_enc\x00mqc->bp >= mqc->start\x00mqc->bp[-1] != 0xff\x00opj_mqc_bypass_init_enc\x00!erterm\x00opj_mqc_bypass_flush_enc\x00mqc->bp >= mqc->start - 1\x00*mqc->bp != 0xff\x00opj_mqc_restart_init_enc\x00extra_writable_bytes >= OPJ_COMMON_CBLK_DATA_EXTRA\x00opj_mqc_init_dec_common\x00opj_mqc_byteout\x002.5.0\x00Codec provided to the opj_setup_decoder function is not a decompressor handler.\n\x00Codec provided to the opj_decoder_set_strict_mode function is not a decompressor handler.\n\x00Codec provided to the opj_read_header function is not a decompressor handler.\n\x00Codec provided to the opj_set_decoded_components function is not a decompressor handler.\n\x00apply_color_transforms = OPJ_TRUE is not supported.\n\x00[INFO] %s\x00is not decompressor\x00../src/lib/openjp2/opj_malloc.c\x00(alignment != 0U) && ((alignment & (alignment - 1U)) == 0U)\x00alignment >= sizeof(void*)\x00alignment <= (SIZE_MAX - sizeof(void *))\x00opj_aligned_alloc_n\x00opj_aligned_realloc_n\x00opj_pi_next_lrcp(): invalid compno0/compno1\n\x00Invalid access to pi->include\x00opj_pi_next_rlcp(): invalid compno0/compno1\n\x00opj_pi_next_rpcl(): invalid compno0/compno1\n\x00opj_pi_next_pcrl(): invalid compno0/compno1\n\x00opj_pi_next_cprl(): invalid compno0/compno1\n\x00../src/lib/openjp2/pi.c\x00p_image != 00\x00p_tileno < p_cp->tw * p_cp->th\x00opj_get_encoding_parameters\x00tileno < p_cp->tw * p_cp->th\x00opj_get_all_encoding_parameters\x00tileno < cp->tw * cp->th\x00opj_pi_create\x00opj_pi_update_encode_poc_and_final\x00opj_pi_update_encode_not_poc\x00p_pi != 00\x00opj_pi_update_decode_poc\x00opj_pi_update_decode_not_poc\x00p_tile_no < p_cp->tw * p_cp->th\x00opj_pi_create_decode\x00opj_get_encoding_packet_count\x00opj_pi_initialise_encode\x00opj_pi_update_encoding_parameters\x00../src/lib/openjp2/t1.c\x00Cannot allocate cblk->decoded_data\n\x00Cannot allocate Tier 1 handle\n\x00Unable to set t1 handle as TLS\n\x00(cblk->decoded_data != NULL) || (tilec->data != NULL)\x00opj_t1_clbl_decode_processor\x00opj_t1_decode_cblk(): unsupported bpno_plus_one = %d >= 31\n\x00PTERM check failure: %d remaining bytes in code block (%d used / %d)\n\x00PTERM check failure: %d synthetized 0xFF markers read\n\x00pass->rate > 0\x00opj_t1_encode_cblk\x00../src/lib/openjp2/t2.c\x00p_marker_info->packet_count == 0\x00p_marker_info->p_packet_size == NULL\x00opj_t2_encode_packets\x00packet offset=00000166 prg=%d cmptno=%02d rlvlno=%02d prcno=%03d lyrno=%02d\n\n\x00opj_t2_encode_packet(): only %u bytes remaining in output buffer. %u needed.\n\x00opj_t2_encode_packet(): accessing precno=%u >= %u\n\x00c >= dest\x00opj_t2_encode_packet\x00Invalid precinct\n\x00Not enough space for expected SOP marker\n\x00Expected SOP marker\n\x00present=%d \n\x00Not enough space for expected EPH marker\n\x00Expected EPH marker\n\x00included=%d \n\x00Invalid bit number %d in opj_t2_read_packet_header()\n\x00included=%d numnewpasses=%d increment=%d len=%d \n\x00hdrlen=%d \n\x00packet body\n\x00read: segment too long (%d) with max (%d) for codeblock %d (p=%d, b=%d, r=%d, c=%d)\n\x00cannot allocate opj_tcd_seg_data_chunk_t* array\x00skip: segment too long (%d) with max (%d) for codeblock %d (p=%d, b=%d, r=%d, c=%d)\n\x00p_data_read (%d) newlen (%d) \n\x00Tile X coordinates are not supported\n\x00Tile Y coordinates are not supported\n\x00tiles require at least one resolution\n\x00Size of tile data exceeds system limits\n\x00Not enough memory for tile resolutions\n\x00Integer overflow\n\x00Not enough memory to handle band precints\n\x00Size of code block data exceeds system limits\n\x00Not enough memory for current precinct codeblock element\n\x00Invalid tilec->win_xxx values\n\x00Tiles don't all have the same dimension. Skip the MCT step.\n\x00Number of components (%d) is inconsistent with a MCT. Skip the MCT step.\n\x00../src/lib/openjp2/tcd.c\x00l_height == 0 || l_width + l_stride <= l_tile_comp->data_size / l_height\x00opj_tcd_dc_level_shift_decode\x00Not enough memory to create Tag-tree\n\x00Not enough memory to create Tag-tree nodes\n\x00Not enough memory to reinitialize the tag tree\n\x00../src/lib/openjp2/thread.c\x00num_threads > 0\x00opj_thread_pool_setup\x00tp->waiting_worker_thread_count <= tp->worker_threads_count\x00opj_thread_pool_get_next_job\x00worker_thread->marked_as_waiting\x00opj_thread_pool_submit_job\x00"
+var ts1 = "%s:%d:color_sycc_to_rgb\n\tCAN NOT CONVERT\n\x00../src/bin/common/color.c\x00%s:%d:color_cmyk_to_rgb\n\tCAN NOT CONVERT\n\x00%s:%d:color_esycc_to_rgb\n\tCAN NOT CONVERT\n\x00../src/lib/openjp2/opj_intmath.h\x00b\x00opj_int_ceildiv\x00opj_uint_ceildiv\x00(temp >> 13) <= (OPJ_INT64)0x7FFFFFFF\x00(temp >> 13) >= (-(OPJ_INT64)0x7FFFFFFF - (OPJ_INT64)1)\x00opj_int_fix_mul\x00../src/lib/openjp2/bio.c\x00(n > 0U) && (n <= 32U)\x00opj_bio_write\x00(n > 0U)\x00opj_bio_read\x00../src/lib/openjp2/cio.c\x00p_nb_bytes > 0 && p_nb_bytes <= sizeof(OPJ_UINT32)\x00opj_write_bytes_BE\x00opj_write_bytes_LE\x00opj_read_bytes_BE\x00opj_read_bytes_LE\x00Stream reached its end !\n\x00Error on writing stream!\n\x00p_size >= 0\x00opj_stream_read_skip\x00Stream error!\n\x00p_stream->m_byte_offset >= 0\x00p_stream->m_user_data_length >= (OPJ_UINT64)p_stream->m_byte_offset\x00opj_stream_get_number_byte_left\x00opj_stream_skip\x00opj_stream_seek\x00../src/lib/openjp2/dwt.c\x00(((OPJ_SIZE_T)fw) & 0xf) == 0\x00opj_int_abs((OPJ_INT32)iters_c1 - (OPJ_INT32)iters_c2) <= 1\x00opj_dwt_encode_step1_combined\x00m + 1 == end\x00opj_dwt_encode_step2\x00dn + sn > 1\x00opj_dwt_encode_1_real\x00opj_v8dwt_encode_step2\x00ret\x00opj_dwt_interleave_partial_h\x00opj_dwt_interleave_partial_v\x00opj_dwt_decode_partial_tile\x00opj_v8dwt_interleave_partial_h\x00opj_v8dwt_interleave_partial_v\x00opj_v8dwt_decode_step2\x00(job->nb_rows % NB_ELTS_V8) == 0\x00opj_dwt97_decode_h_func\x00(job->nb_columns % NB_ELTS_V8) == 0\x00opj_dwt97_decode_v_func\x00opj_dwt_decode_partial_97\x00../src/lib/openjp2/function_list.c\x00p_manager != NULL\x00Not enough memory to add a new validation procedure\n\x00opj_procedure_list_add_procedure\x00ERROR -> failed to create the stream from buffer\n\x00Impossible happen\x00ERROR -> opj_decompress: failed to setup the decoder\n\x00ERROR -> j2k_to_image: failed to read the header\n\x00ERROR -> opj_decompress: failed to set the decoded area\n\x00ERROR -> opj_decompress: failed to decode image!\n\x00\x00\x00\x00\fjP  \r\n\x87\n\x00J2K start like JPEG-2000 compressed image data instead of codestream\x00failed to create image: opj_image_create\n\x00../src/lib/openjp2/ht_dec.c\x00melp->unstuff == OPJ_FALSE || melp->data[0] <= 0x8F\x00mel_init\x00num_bits <= vlcp->bits\x00rev_advance\x00num_bits <= mrp->bits\x00rev_advance_mrp\x00msp->bits <= 32\x00frwd_read\x00msp->X == 0 || msp->X == 0xFF\x00frwd_init\x00num_bits <= msp->bits\x00frwd_advance\x00w <= 1024\x00h <= 1024\x00w * h <= 4096\x00opj_t1_allocate_buffers\x00We do not support ROI in decoding HT codeblocks\n\x00A malformed codeblock that has more than one coding pass, but zero length for 2nd and potentially the 3rd pass in an HT codeblock.\n\x00We do not support more than 3 coding passes in an HT codeblock; This codeblocks has %d passes.\n\x0032 bits are not enough to decode this codeblock, since the number of bitplane, %d, is larger than 30.\n\x00Malformed HT codeblock. Decoding this codeblock is stopped. There are %d zero bitplanes in %d bitplanes.\n\x00Malformed HT codeblock. When the number of zero planes bitplanes is equal to the number of bitplanes, only the cleanup pass makes sense, but we have %d passes in this codeblock. Therefore, only the cleanup pass will be decoded. This message will not be displayed again.\n\x00Malformed HT codeblock. Invalid codeblock length values.\n\x00Malformed HT codeblock. One of the following condition is not met: 2 <= Scup <= min(Lcup, 4079)\n\x00Malformed HT codeblock. Decoding this codeblock is stopped. U_q is larger than zero bitplanes + 1 \n\x00Malformed HT codeblock. VLC code produces significant samples outside the codeblock area.\n\x00Malformed HT codeblock. Decoding this codeblock is stopped. U_q islarger than bitplanes + 1 \n\x00dp[0] != 0\x00dp[stride] != 0\x00dp[2 * stride] != 0\x00dp[3 * stride] != 0\x00dp[0] == 0\x00dp[stride] == 0\x00dp[2 * stride] == 0\x00dp[3 * stride] == 0\x00opj_t1_ht_decode_cblk\x00../src/lib/openjp2/image.c\x00p_image_src != 00\x00p_image_dest != 00\x00opj_copy_image_header\x00../src/lib/openjp2/invert.c\x00nb_compo != 0\x00opj_lupSolve\x00CPRL\x00LRCP\x00PCRL\x00RLCP\x00RPCL\x00\x00\x00\x00\x00\x00../src/lib/openjp2/j2k.c\x00p_nb_pocs > 0\x00Not enough memory for checking the poc values.\n\x00Missing packets possible loss of data\n\x00opj_j2k_check_poc_val\x00tileno < (cp->tw * cp->th)\x00pino < (cp->tcps[tileno].numpocs + 1)\x00tcp != 00\x00l_current_poc != 0\x00strlen(prog) > 0\x00opj_j2k_get_num_tp\x00p_nb_tiles != 00\x00cp != 00\x00image != 00\x00p_j2k != 00\x00p_manager != 00\x00opj_j2k_calculate_tp\x00p_stream != 00\x00opj_j2k_write_soc\x00Start to read j2k main header (%lld).\n\x00Not enough memory to add mh marker\n\x00opj_j2k_read_soc\x00Not enough memory for the SIZ marker\n\x00opj_j2k_write_siz\x00p_header_data != 00\x00Error with SIZ marker size\n\x00Error with SIZ marker: number of component is illegal -> %d\n\x00Error with SIZ marker: number of component is not compatible with the remaining number of parameters ( %d vs %d)\n\x00Error with SIZ marker: negative or zero image size (%lld x %lld)\n\x00Error with SIZ marker: invalid tile size (tdx: %d, tdy: %d)\n\x00Error with SIZ marker: illegal tile offset\n\x00Error with SIZ marker: IHDR w(%u) h(%u) vs. SIZ w(%u) h(%u)\n\x00Not enough memory to take in charge SIZ marker\n\x00Despite JP2 BPC!=255, precision and/or sgnd values for comp[%d] is different than comp[0]:\n        [0] prec(%d) sgnd(%d) [%d] prec(%d) sgnd(%d)\n\x00Invalid values for comp = %d : dx=%u dy=%u (should be between 1 and 255 according to the JPEG2000 norm)\n\x00Invalid values for comp = %d : prec=%u (should be between 1 and 38 according to the JPEG2000 norm. OpenJpeg only supports up to 31)\n\x00Invalid number of tiles : %u x %u (maximum fixed by jpeg2000 norm is 65535 tiles)\n\x00opj_j2k_read_siz\x00Not enough memory to write the COM marker\n\x00opj_j2k_write_com\x00opj_j2k_read_com\x00Not enough memory to write COD marker\n\x00Error writing COD marker\n\x00opj_j2k_write_cod\x00Error reading COD marker\n\x00Unknown Scod value in COD marker\n\x00Unknown progression order in COD marker\n\x00Invalid number of layers in COD marker : %d not in range [1-65535]\n\x00Invalid multiple component transformation\n\x00opj_j2k_read_cod\x00Not enough memory to write COC marker\n\x00opj_j2k_write_coc\x00opj_j2k_compare_coc\x00opj_j2k_write_coc_in_memory\x00Error reading COC marker\n\x00Error reading COC marker (bad number of components)\n\x00opj_j2k_read_coc\x00Not enough memory to write QCD marker\n\x00Error writing QCD marker\n\x00opj_j2k_write_qcd\x00Error reading QCD marker\n\x00opj_j2k_read_qcd\x00Not enough memory to write QCC marker\n\x00opj_j2k_write_qcc\x00opj_j2k_write_qcc_in_memory\x00Error reading QCC marker\n\x00Invalid component number: %d, regarding the number of components %d\n\x00opj_j2k_read_qcc\x00Not enough memory to write POC marker\n\x00opj_j2k_write_poc\x00opj_j2k_write_poc_in_memory\x00Error reading POC marker\n\x00Too many POCs %d\n\x00opj_j2k_read_poc\x00Error reading CRG marker\n\x00opj_j2k_read_crg\x00Error reading TLM marker\n\x00opj_j2k_read_tlm\x00Error reading PLM marker\n\x00opj_j2k_read_plm\x00Error reading PLT marker\n\x00opj_j2k_read_plt\x00Error reading PPM marker\n\x00l_cp->ppm_markers_count == 0U\x00Not enough memory to read PPM marker\n\x00Zppm %u already read\n\x00opj_j2k_read_ppm\x00p_cp != 00\x00p_cp->ppm_buffer == NULL\x00Not enough bytes to read Nppm\n\x00Corrupted PPM markers\n\x00opj_j2k_merge_ppm\x00Error reading PPT marker\n\x00Error reading PPT marker: packet header have been previously found in the main header (PPM marker).\n\x00l_tcp->ppt_markers_count == 0U\x00Not enough memory to read PPT marker\n\x00Zppt %u already read\n\x00opj_j2k_read_ppt\x00p_tcp != 00\x00opj_j2k_merge_ppt() has already been called\n\x00opj_j2k_merge_ppt\x00A maximum of 10921 tile-parts are supported currently when writing TLM marker\n\x00Not enough memory to write TLM marker\n\x00opj_j2k_write_tlm\x00Not enough bytes in output buffer to write SOT marker\n\x00opj_j2k_write_sot\x00Error reading SOT marker\n\x00opj_j2k_get_sot_values\x00Invalid tile number %d\n\x00Invalid tile part index for tile number %d. Got %d, expected %d\n\x00Empty SOT marker detected: Psot=%d.\n\x00Psot value is not correct regards to the JPEG2000 norm: %d.\n\x00Psot value of the current tile-part is equal to zero, we assuming it is the last tile-part of the codestream.\n\x00In SOT marker, TPSot (%d) is not valid regards to the previous number of tile-part (%d), giving up\n\x00In SOT marker, TPSot (%d) is not valid regards to the current number of tile-part (%d), giving up\n\x00In SOT marker, TPSot (%d) is not valid regards to the current number of tile-part (header) (%d), giving up\n\x00p_j2k->m_specific_param.m_decoder.m_tile_ind_to_dec >= 0\x00p_j2k->cstr_index->tile_index != 00\x00Not enough memory to read SOT marker. Tile index allocation failed\n\x00opj_j2k_read_sot\x00More than 255 PLT markers would be needed for current tile-part !\n\x00Not enough bytes in output buffer to write SOD marker\n\x00Cannot encode tile: opj_tcd_marker_info_create() failed\n\x00Cannot encode tile\n\x00Cannot allocate memory\n\x00l_data_written_PLT <= p_j2k->m_specific_param.m_encoder.m_reserved_bytes_for_PLT\x00opj_j2k_write_sod\x00Tile part length size inconsistent with stream length\n\x00p_j2k->m_specific_param.m_decoder.m_sot_length > UINT_MAX - OPJ_COMMON_CBLK_DATA_EXTRA\x00*l_tile_len > UINT_MAX - OPJ_COMMON_CBLK_DATA_EXTRA - p_j2k->m_specific_param.m_decoder.m_sot_length\x00Not enough memory to decode tile\n\x00Not enough memory to add tl marker\n\x00opj_j2k_read_sod\x00opj_j2k_write_rgn\x00opj_j2k_write_eoc\x00Error reading RGN marker\n\x00bad component number in RGN (%d when there are only %d)\n\x00opj_j2k_read_rgn\x00Not enough memory to allocate m_encoded_tile_data. %u MB required\n\x00opj_j2k_update_rates\x00opj_j2k_get_end_header\x00opj_j2k_write_mct_data_group\x00opj_j2k_write_all_coc\x00opj_j2k_write_all_qcc\x00opj_j2k_write_regions\x00opj_j2k_write_epc\x00Unknown marker\n\x00Stream too short\n\x00Marker is not compliant with its position\n\x00opj_j2k_read_unk\x00Not enough memory to write MCT marker\n\x00opj_j2k_write_mct_record\x00Error reading MCT marker\n\x00Cannot take in charge mct data within multiple MCT records\n\x00Not enough memory to read MCT marker\n\x00Cannot take in charge multiple MCT markers\n\x00opj_j2k_read_mct\x00Not enough memory to write MCC marker\n\x00opj_j2k_write_mcc_record\x00Error reading MCC marker\n\x00Cannot take in charge multiple data spanning\n\x00Not enough memory to read MCC marker\n\x00Cannot take in charge multiple collections\n\x00Cannot take in charge collections other than array decorrelation\n\x00Cannot take in charge collections with indix shuffle\n\x00Cannot take in charge collections without same number of indixes\n\x00opj_j2k_read_mcc\x00Not enough memory to write MCO marker\n\x00opj_j2k_write_mco\x00Error reading MCO marker\n\x00Cannot take in charge multiple transformation stages.\n\x00opj_j2k_read_mco\x00opj_j2k_add_mct\x00Not enough memory to write CBD marker\n\x00opj_j2k_write_cbd\x00Crror reading CBD marker\n\x00opj_j2k_read_cbd\x00opj_j2k_read_cap\x00opj_j2k_read_cpf\x00OPJ_NUM_THREADS\x00ALL_CPUS\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\n1 single quality layer-> Number of layers forced to 1 (rather than %d)\n-> Rate of the last layer (%3.1f) will be used\x00JPEG 2000 Profile-3 (2k dc profile) requires:\nNumber of decomposition levels <= 5\n-> Number of decomposition levels forced to 5 (rather than %d)\n\x00JPEG 2000 Profile-4 (4k dc profile) requires:\nNumber of decomposition levels >= 1 && <= 6\n-> Number of decomposition levels forced to 1 (rather than %d)\n\x00JPEG 2000 Profile-4 (4k dc profile) requires:\nNumber of decomposition levels >= 1 && <= 6\n-> Number of decomposition levels forced to 6 (rather than %d)\n\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\nMaximum 1302083 compressed bytes @ 24fps\nAs no rate has been given, this limit will be used.\n\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\nMaximum 1302083 compressed bytes @ 24fps\n-> Specified rate exceeds this limit. Rate will be forced to 1302083 bytes.\n\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\nMaximum 1041666 compressed bytes @ 24fps\nAs no rate has been given, this limit will be used.\n\x00JPEG 2000 Profile-3 and 4 (2k/4k dc profile) requires:\nMaximum 1041666 compressed bytes @ 24fps\n-> Specified rate exceeds this limit. Rate will be forced to 1041666 bytes.\n\x00JPEG 2000 Profile-3 (2k dc profile) requires:\n3 components-> Number of components of input image (%d) is not compliant\n-> Non-profile-3 codestream will be generated\n\x00signed\x00unsigned\x00JPEG 2000 Profile-3 (2k dc profile) requires:\nPrecision of each component shall be 12 bits unsigned-> At least component %d of input image (%d bits, %s) is not compliant\n-> Non-profile-3 codestream will be generated\n\x00JPEG 2000 Profile-3 (2k dc profile) requires:\nwidth <= 2048 and height <= 1080\n-> Input image size %d x %d is not compliant\n-> Non-profile-3 codestream will be generated\n\x00JPEG 2000 Profile-4 (4k dc profile) requires:\nwidth <= 4096 and height <= 2160\n-> Image size %d x %d is not compliant\n-> Non-profile-4 codestream will be generated\n\x00IMF profile require mainlevel <= 11.\n-> %d is thus not compliant\n-> Non-IMF codestream will be generated\n\x00sizeof(tabMaxSubLevelFromMainLevel) == (OPJ_IMF_MAINLEVEL_MAX + 1) * sizeof(tabMaxSubLevelFromMainLevel[0])\x00IMF profile require sublevel <= %d for mainlevel = %d.\n-> %d is thus not compliant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require at most 3 components.\n-> Number of components of input image (%d) is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require image origin to be at 0,0.\n-> %d,%d is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require tile origin to be at 0,0.\n-> %d,%d is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF 2K/4K/8K single tile profiles require tile to be greater or equal to image size.\n-> %d,%d is lesser than %d,%d\n-> Non-IMF codestream will be generated\n\x00IMF 2K_R/4K_R/8K_R single/multiple tile profiles require tile to be greater or equal to image size,\nor to be (1024,1024), or (2048,2048) for 4K_R/8K_R or (4096,4096) for 8K_R.\n-> %d,%d is non conformant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require precision of each component to b in [8-16] bits unsigned-> At least component %d of input image (%d bits, %s) is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF profiles require XRSiz1 == 1. Here it is set to %d.\n-> Non-IMF codestream will be generated\n\x00IMF profiles require XRSiz2 == 1 or 2. Here it is set to %d.\n-> Non-IMF codestream will be generated\n\x00IMF profiles require XRSiz%d to be the same as XRSiz2. Here it is set to %d instead of %d.\n-> Non-IMF codestream will be generated\n\x00IMF profiles require YRsiz == 1. Here it is set to %d for component %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K/2K_R profile require:\nwidth <= 2048 and height <= 1556\n-> Input image size %d x %d is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF 4K/4K_R profile require:\nwidth <= 4096 and height <= 3112\n-> Input image size %d x %d is not compliant\n-> Non-IMF codestream will be generated\n\x00IMF 8K/8K_R profile require:\nwidth <= 8192 and height <= 6224\n-> Input image size %d x %d is not compliant\n-> Non-IMF codestream will be generated\n\x000\x00IMF profile forbid RGN / region of interest marker.\n-> Compression parameters specify a ROI\n-> Non-IMF codestream will be generated\n\x00IMF profile require code block size to be 32x32.\n-> Compression parameters set it to %dx%d.\n-> Non-IMF codestream will be generated\n\x00IMF profile require progression order to be CPRL.\n-> Compression parameters set it to %d.\n-> Non-IMF codestream will be generated\n\x00IMF profile forbid POC markers.\n-> Compression parameters set %d POC.\n-> Non-IMF codestream will be generated\n\x00IMF profile forbid mode switch in code block style.\n-> Compression parameters set code block style to %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K/4K/8K profiles require 9-7 Irreversible Transform.\n-> Compression parameters set it to reversible.\n-> Non-IMF codestream will be generated\n\x00IMF 2K/4K/8K profiles require 5-3 reversible Transform.\n-> Compression parameters set it to irreversible.\n-> Non-IMF codestream will be generated\n\x00IMF 2K/4K/8K profiles require 1 single quality layer.\n-> Number of layers is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K profile requires 1 <= NL <= 5:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K profile requires 1 <= NL <= 6:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 8K profile requires 1 <= NL <= 7:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K_R profile requires 1 <= NL <= 5 for XTsiz >= 2048:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 2K_R profile requires 1 <= NL <= 4 for XTsiz in [1024,2048[:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 6 for XTsiz >= 4096:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 5 for XTsiz in [2048,4096[:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 4 for XTsiz in [1024,2048[:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 7 for XTsiz >= 8192:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF 4K_R profile requires 1 <= NL <= 6 for XTsiz in [4096,8192[:\n-> Number of decomposition levels is %d.\n-> Non-IMF codestream will be generated\n\x00IMF profiles require PPx = PPy = 7 for NLLL band, else 8.\n-> Supplied values are different from that.\n-> Non-IMF codestream will be generated\n\x00opj_j2k_is_imf_compliant\x00Invalid number of resolutions : %d not in range [1,%d]\n\x00Invalid value for cblockw_init: %d not a power of 2 in range [4,1024]\n\x00Invalid value for cblockh_init: %d not a power of 2 not in range [4,1024]\n\x00Invalid value for cblockw_init * cblockh_init: should be <= 4096\n\x00Deprecated fields cp_cinema or cp_rsiz are used\nPlease consider using only the rsiz field\nSee openjpeg.h documentation for more details\n\x00tcp_rates[%d]=%f (corrected as %f) should be strictly lesser than tcp_rates[%d]=%f (corrected as %f)\n\x00tcp_rates[%d]=%f (corrected as %f) should be strictly lesser than tcp_rates[%d]=%f\n\x00tcp_rates[%d]=%f should be strictly lesser than tcp_rates[%d]=%f (corrected as %f)\n\x00tcp_rates[%d]=%f should be strictly lesser than tcp_rates[%d]=%f\n\x00tcp_distoratio[%d]=%f should be strictly greater than tcp_distoratio[%d]=%f\n\x00The desired maximum codestream size has limited\nat least one of the desired quality layers\n\x00JPEG 2000 Scalable Digital Cinema profiles not yet supported\n\x00JPEG 2000 Long Term Storage profile not yet supported\n\x00JPEG 2000 Broadcast profiles not yet supported\n\x00JPEG 2000 Part-2 profile defined\nbut no Part-2 extension enabled.\nProfile set to NONE.\n\x00Unsupported Part-2 extension enabled\nProfile set to NONE.\n\x00Not enough memory to allocate copy of user encoding parameters matrix \n\x00Not enough memory to allocate copy of comment string\n\x00Created by OpenJPEG version \x00Not enough memory to allocate comment string\n\x00%s%s\x00Invalid tile width\n\x00Invalid tile height\n\x00Not enough memory to allocate tile coding parameters\n\x00Invalid compno0 for POC %d\n\x00Not enough memory to allocate tile component coding parameters\n\x00Not enough memory to allocate temp buffer\n\x00Not enough memory to allocate encoder MCT coding matrix \n\x00Not enough memory to allocate encoder MCT decoding matrix \n\x00Failed to inverse encoder MCT decoding matrix \n\x00Not enough memory to allocate encoder MCT norms \n\x00Failed to setup j2k mct encoding\n\x00Cannot perform MCT on components with different sizes. Disabling MCT.\n\x00tccp->numresolutions > 0\x00res_spec > 0\x00opj_j2k_setup_encoder\x00cstr_index != 00\x00opj_j2k_add_mhmarker\x00cstr_index->tile_index != 00\x00opj_j2k_add_tlmarker\x00opj_j2k_read_header\x00opj_j2k_setup_header_reading\x00opj_j2k_setup_decoding_validation\x00opj_j2k_mct_validation\x00opj_j2k_setup_mct_encoding\x00Number of resolutions is too high in comparison to the size of tiles\n\x00opj_j2k_encoding_validation\x00opj_j2k_decoding_validation\x00Expected a SOC marker \n\x00A marker ID was expected (0xff--) instead of %.8x\n\x00Unknown marker has been detected and generated error.\n\x00Invalid marker size\n\x00Not enough memory to read header\n\x00Marker handler function failed to read the marker segment\n\x00required SIZ marker not found in main header\n\x00required COD marker not found in main header\n\x00required QCD marker not found in main header\n\x00Failed to merge PPM data\n\x00Main header has been correctly decoded.\n\x00opj_j2k_read_header_procedure\x00p_procedure_list != 00\x00opj_j2k_exec\x00Cannot decode tile, memory error\n\x00opj_j2k_copy_default_tcp_and_create_tcd\x00Inconsistent marker size\n\x00Marker size inconsistent with stream length\n\x00Not sure how that happened.\n\x00Fail to read the current marker segment (%#x)\n\x00opj_j2k_apply_nb_tile_parts_correction error\n\x00Non conformant codestream TPsot==TNsot.\n\x00Tile %u has TPsot == 0 and TNsot == 0, but no other tile-parts were found. EOC is also missing.\n\x00Failed to merge PPT data\n\x00Header of tile %d / %d has been read.\n\x00opj_j2k_read_tile_header\x00Failed to decode.\n\x00Stream does not end with EOC\n\x00Stream too short, expected SOT\n\x00opj_j2k_decode_tile\x00res_x0 >= 0\x00res_x1 >= 0\x00opj_j2k_update_image_data\x00Image coordinates above INT_MAX are not supported\n\x00Size x of the decoded component image is incorrect (comp[%d].w=%d).\n\x00Size y of the decoded component image is incorrect (comp[%d].h=%d).\n\x00opj_read_header() should be called before opj_set_decoded_components().\n\x00Invalid component index: %u\n\x00Component index %u used several times\n\x00Need to decode the main header before begin to decode the remaining codestream.\n\x00No decoded area parameters, set the decoded area to the whole image\n\x00Left position of the decoded area (region_x0=%d) should be >= 0.\n\x00Left position of the decoded area (region_x0=%d) is outside the image area (Xsiz=%d).\n\x00Left position of the decoded area (region_x0=%d) is outside the image area (XOsiz=%d).\n\x00Up position of the decoded area (region_y0=%d) should be >= 0.\n\x00Up position of the decoded area (region_y0=%d) is outside the image area (Ysiz=%d).\n\x00Up position of the decoded area (region_y0=%d) is outside the image area (YOsiz=%d).\n\x00Right position of the decoded area (region_x1=%d) should be > 0.\n\x00Right position of the decoded area (region_x1=%d) is outside the image area (XOsiz=%d).\n\x00Right position of the decoded area (region_x1=%d) is outside the image area (Xsiz=%d).\n\x00Bottom position of the decoded area (region_y1=%d) should be > 0.\n\x00Bottom position of the decoded area (region_y1=%d) is outside the image area (YOsiz=%d).\n\x00Bottom position of the decoded area (region_y1=%d) is outside the image area (Ysiz=%d).\n\x00Setting decoding area to %d,%d,%d,%d\n\x00p_tile_no < (l_cp->tw * l_cp->th)\x00p_comp_no < p_j2k->m_private_image->numcomps\x00opj_j2k_get_SPCod_SPCoc_size\x00opj_j2k_compare_SPCod_SPCoc\x00p_header_size != 00\x00p_data != 00\x00p_comp_no < (p_j2k->m_private_image->numcomps)\x00Error writing SPCod SPCoc element\n\x00opj_j2k_write_SPCod_SPCoc\x00compno < p_j2k->m_private_image->numcomps\x00Error reading SPCod SPCoc element\n\x00Invalid value for numresolutions : %d, max value is set in openjpeg.h at %d\n\x00Error decoding component %d.\nThe number of resolutions to remove (%d) is greater or equal than the number of resolutions of this component (%d)\nModify the cp_reduce parameter.\n\n\x00Error reading SPCod SPCoc element, Invalid cblkw/cblkh combination\n\x00Error reading SPCod SPCoc element. Unsupported Mixed HT code-block style found\n\x00Error reading SPCod SPCoc element, Invalid transformation found\n\x00Invalid precinct size\n\x00opj_j2k_read_SPCod_SPCoc\x00opj_j2k_copy_tile_component_parameters\x00p_tile_no < l_cp->tw * l_cp->th\x00opj_j2k_get_SQcd_SQcc_size\x00opj_j2k_compare_SQcd_SQcc\x00Error writing SQcd SQcc element\n\x00opj_j2k_write_SQcd_SQcc\x00Error reading SQcd or SQcc element\n\x00While reading CCP_QNTSTY element inside QCD or QCC marker segment, number of subbands (%d) is greater to OPJ_J2K_MAXBANDS (%d). So we limit the number of elements stored to OPJ_J2K_MAXBANDS (%d) and skip the rest. \n\x00opj_j2k_read_SQcd_SQcc\x00opj_j2k_copy_tile_quantization_parameters\x00\t default tile {\n\x00\t\t csty=%#x\n\x00\t\t prg=%#x\n\x00\t\t numlayers=%d\n\x00\t\t mct=%x\n\x00\t\t comp %d {\n\x00\t\t\t csty=%#x\n\x00\t\t\t numresolutions=%d\n\x00\t\t\t cblkw=2^%d\n\x00\t\t\t cblkh=2^%d\n\x00\t\t\t cblksty=%#x\n\x00\t\t\t qmfbid=%d\n\x00\t\t\t preccintsize (w,h)=\x00(%d,%d) \x00\n\x00\t\t\t qntsty=%d\n\x00\t\t\t numgbits=%d\n\x00\t\t\t stepsizes (m,e)=\x00\t\t\t roishift=%d\n\x00\t\t }\n\x00\t }\n\x00Wrong flag\n\x00Codestream index from main header: {\n\x00\t Main header start position=%lli\n\t Main header end position=%lli\n\x00\t Marker list: {\n\x00\t\t type=%#x, pos=%lli, len=%d\n\x00\t Tile index: {\n\x00\t\t nb of tile-part in tile [%d]=%d\n\x00\t\t\t tile-part[%d]: star_pos=%lli, end_header=%lli, end_pos=%lli.\n\x00}\n\x00Codestream info from main header: {\n\x00\t tx0=%d, ty0=%d\n\x00\t tdx=%d, tdy=%d\n\x00\t tw=%d, th=%d\n\x00[DEV] Dump an image_header struct {\n\x00Image info {\n\x00%s x0=%d, y0=%d\n\x00%s x1=%d, y1=%d\n\x00%s numcomps=%d\n\x00%s\t component %d {\n\x00%s}\n\x00[DEV] Dump an image_comp_header struct {\n\x00%s dx=%d, dy=%d\n\x00%s prec=%d\n\x00%s sgnd=%d\n\x00Failed to decode component %d\n\x00Failed to decode all used components\n\x00Failed to decode tile 1/1\n\x00Failed to decode tile %d/%d\n\x00Tile %d/%d has been decoded.\n\x00Image data has been updated with tile %d.\n\n\x00opj_j2k_setup_decoding\x00Problem with seek function\n\x00Tile read, decoded and updated is not the desired one (%d vs %d).\n\x00opj_j2k_setup_decoding_tile\x00p_j2k->m_output_image->comps[compno].data == NULL\x00opj_j2k_move_data_from_codec_to_output_image\x00We need an image previously created.\n\x00Image has less components than codestream.\n\x00Tile index provided by the user is incorrect %d (max = %d) \n\x00Resolution factor is greater than the maximum resolution in the component.\n\x00PLT=\x00PLT=YES\x00PLT=NO\x00Invalid value for option: %s.\n\x00TLM=\x00TLM=YES\x00TLM=NO\x00GUARD_BITS=\x00Invalid value for option: %s. Should be in [0,7]\n\x00Invalid option: %s.\n\x00Error allocating tile component data.\x00Not enough memory to encode all tiles\n\x00Size mismatch between tile data and sent data.\x00opj_j2k_encode\x00Failed to allocate image header.\x00opj_j2k_start_compress\x00The given tile index does not match.\x00tile number %d / %d\n\x00p_j2k->m_specific_param.m_encoder.m_encoded_tile_data\x00opj_j2k_post_write_tile\x00opj_j2k_setup_end_compress\x00opj_j2k_setup_encoding_validation\x00opj_j2k_setup_header_writing\x00opj_j2k_write_updated_tlm\x00opj_j2k_end_encoding\x00opj_j2k_destroy_header_memory\x00opj_j2k_init_info\x00Not enough memory to create Tile Coder\n\x00opj_j2k_create_tcd\x00Error while opj_j2k_pre_write_tile with tile index = %d\n\x00Error while opj_j2k_post_write_tile with tile index = %d\n\x00../src/lib/openjp2/jp2.c\x00cio != 00\x00box != 00\x00p_number_bytes_read != 00\x00Cannot handle box sizes higher than 2^32\n\x00(OPJ_OFF_T)box->length == bleft + 8\x00opj_jp2_read_boxhdr\x00p_image_header_data != 00\x00jp2 != 00\x00Ignoring ihdr box. First ihdr box already read\n\x00Bad image header box (bad size)\n\x00Wrong values for: w(%d) h(%d) numcomps(%d) (ihdr)\n\x00Invalid number of components (ihdr)\n\x00Not enough memory to handle image header (ihdr)\n\x00JP2 IHDR box: compression type indicate that the file is not a conforming JP2 file (%d) \n\x00opj_jp2_read_ihdr\x00p_nb_bytes_written != 00\x00opj_jp2_write_ihdr\x00opj_jp2_write_bpcc\x00p_bpc_header_data != 00\x00A BPCC header box is available although BPC given by the IHDR box (%d) indicate components bit depth is constant\n\x00Bad BPCC header box (bad size)\n\x00opj_jp2_read_bpcc\x00jp2->color.jp2_cdef != 00\x00jp2->color.jp2_cdef->info != 00\x00jp2->color.jp2_cdef->n > 0U\x00opj_jp2_write_cdef\x00jp2->meth == 1 || jp2->meth == 2\x00jp2->color.icc_profile_len\x00opj_jp2_write_colr\x00Invalid component index %d (>= %d).\n\x00Incomplete channel definitions.\n\x00Unexpected OOM.\n\x00Invalid value for cmap[%d].mtyp = %d.\n\x00Invalid component/palette index for direct mapping %d.\n\x00Component %d is mapped twice.\n\x00Direct use at #%d however pcol=%d.\n\x00Implementation limitation: for palette mapping, pcol[%d] should be equal to %d, but is equal to %d.\n\x00Component %d doesn't have a mapping.\n\x00Component mapping seems wrong. Trying to correct.\n\x00image->comps[%d].data == NULL in opj_jp2_apply_pclr().\n\x00Memory allocation failure in opj_jp2_apply_pclr().\n\x00pcol == 0\x00i == pcol\x00src\x00dst\x00opj_jp2_apply_pclr\x00p_pclr_header_data != 00\x00Invalid PCLR box. Reports %d entries\n\x00Invalid PCLR box. Reports 0 palette columns\n\x00opj_jp2_read_pclr\x00p_cmap_header_data != 00\x00Need to read a PCLR box before the CMAP box.\n\x00Only one CMAP box is allowed.\n\x00Insufficient data for CMAP box.\n\x00opj_jp2_read_cmap\x00opj_jp2_apply_cdef: cn=%d, numcomps=%d\n\x00opj_jp2_apply_cdef: acn=%d, numcomps=%d\n\x00p_cdef_header_data != 00\x00Insufficient data for CDEF box.\n\x00Number of channel description is equal to zero in CDEF box.\n\x00opj_jp2_read_cdef\x00p_colr_header_data != 00\x00Bad COLR header box (bad size)\n\x00A conforming JP2 reader shall ignore all Colour Specification boxes after the first, so we ignore this one.\n\x00Bad COLR header box (bad size: %d)\n\x00Not enough memory for cielab\n\x00Bad COLR header box (CIELab, bad size: %d)\n\x00COLR BOX meth value is not a regular value (%d), so we will ignore the entire Colour Specification box. \n\x00opj_jp2_read_colr\x00Failed to decode the codestream in the JP2 file\n\x00stream != 00\x00Not enough memory to hold JP2 Header data\n\x00Stream error while writing JP2 Header box\n\x00opj_jp2_write_jp2h\x00Not enough memory to handle ftyp data\n\x00Error while writing ftyp data to stream\n\x00opj_jp2_write_ftyp\x00opj_stream_has_seek(cio)\x00Failed to seek in the stream.\n\x00opj_jp2_write_jp2c\x00opj_jp2_write_jp\x00Invalid number of components specified while setting up JP2 encoder\n\x00Not enough memory when setup the JP2 encoder\n\x00Alpha channel specified but unknown enumcs. No cdef box will be created.\n\x00Alpha channel specified but not enough image components for an automatic cdef box creation.\n\x00Alpha channel position conflicts with color channel. No cdef box will be created.\n\x00Multiple alpha channels specified. No cdef box will be created.\n\x00Not enough memory to setup the JP2 encoder\n\x00opj_jp2_end_decompress\x00opj_jp2_end_compress\x00opj_jp2_setup_end_header_writing\x00opj_jp2_setup_end_header_reading\x00opj_jp2_default_validation\x00Not enough memory to handle jpeg2000 file header\n\x00bad placed jpeg codestream\n\x00Cannot handle box of undefined sizes\n\x00invalid box size %d (%x)\n\x00Found a misplaced '%c%c%c%c' box outside jp2h box\n\x00JPEG2000 Header box not read yet, '%c%c%c%c' box will be ignored\n\x00Problem with skipping JPEG2000 box, stream error\n\x00Invalid box size %d for box '%c%c%c%c'. Need %d bytes, %d bytes remaining \n\x00Not enough memory to handle jpeg2000 box\n\x00Problem with reading JPEG2000 box, stream error\n\x00Malformed JP2 file format: first box must be JPEG 2000 signature box\n\x00Malformed JP2 file format: second box must be file type box\n\x00opj_jp2_read_header_procedure\x00opj_jp2_exec\x00opj_jp2_start_compress\x00The signature box must be the first box in the file.\n\x00Error with JP signature Box size\n\x00Error with JP Signature : bad magic number\n\x00opj_jp2_read_jp\x00The ftyp box must be the second box in the file.\n\x00Error with FTYP signature Box size\n\x00Not enough memory with FTYP Box\n\x00opj_jp2_read_ftyp\x00opj_jp2_skip_jp2c\x00opj_jpip_skip_iptr\x00The  box must be the first box in the file.\n\x00Stream error while reading JP2 Header box\n\x00Stream error while reading JP2 Header box: box length is inconsistent.\n\x00Stream error while reading JP2 Header box: no 'ihdr' box.\n\x00opj_jp2_read_jp2h\x00Cannot handle box of less than 8 bytes\n\x00Cannot handle XL box of less than 16 bytes\n\x00Box length is inconsistent.\n\x00opj_jp2_read_boxhdr_char\x00JP2H box missing. Required.\n\x00IHDR box_missing. Required.\n\x00opj_jp2_read_header\x00opj_jp2_setup_encoding_validation\x00opj_jp2_setup_decoding_validation\x00opj_jp2_setup_header_writing\x00opj_jp2_setup_header_reading\x00JP2 box which are after the codestream will not be read by this function.\n\x00p_jp2 != 00\x00jp2_dump\x00../src/lib/openjp2/mqc.c\x00*(mqc->bp) != 0xff\x00opj_mqc_init_enc\x00mqc->bp >= mqc->start\x00mqc->bp[-1] != 0xff\x00opj_mqc_bypass_init_enc\x00!erterm\x00opj_mqc_bypass_flush_enc\x00mqc->bp >= mqc->start - 1\x00*mqc->bp != 0xff\x00opj_mqc_restart_init_enc\x00extra_writable_bytes >= OPJ_COMMON_CBLK_DATA_EXTRA\x00opj_mqc_init_dec_common\x00opj_mqc_byteout\x002.5.0\x00Codec provided to the opj_setup_decoder function is not a decompressor handler.\n\x00Codec provided to the opj_decoder_set_strict_mode function is not a decompressor handler.\n\x00Codec provided to the opj_read_header function is not a decompressor handler.\n\x00Codec provided to the opj_set_decoded_components function is not a decompressor handler.\n\x00apply_color_transforms = OPJ_TRUE is not supported.\n\x00[INFO] %s\x00is not decompressor\x00rb\x00wb\x00../src/lib/openjp2/opj_malloc.c\x00(alignment != 0U) && ((alignment & (alignment - 1U)) == 0U)\x00alignment >= sizeof(void*)\x00alignment <= (SIZE_MAX - sizeof(void *))\x00opj_aligned_alloc_n\x00opj_aligned_realloc_n\x00opj_pi_next_lrcp(): invalid compno0/compno1\n\x00Invalid access to pi->include\x00opj_pi_next_rlcp(): invalid compno0/compno1\n\x00opj_pi_next_rpcl(): invalid compno0/compno1\n\x00opj_pi_next_pcrl(): invalid compno0/compno1\n\x00opj_pi_next_cprl(): invalid compno0/compno1\n\x00../src/lib/openjp2/pi.c\x00p_image != 00\x00p_tileno < p_cp->tw * p_cp->th\x00opj_get_encoding_parameters\x00tileno < p_cp->tw * p_cp->th\x00opj_get_all_encoding_parameters\x00tileno < cp->tw * cp->th\x00opj_pi_create\x00opj_pi_update_encode_poc_and_final\x00opj_pi_update_encode_not_poc\x00p_pi != 00\x00opj_pi_update_decode_poc\x00opj_pi_update_decode_not_poc\x00p_tile_no < p_cp->tw * p_cp->th\x00opj_pi_create_decode\x00opj_get_encoding_packet_count\x00opj_pi_initialise_encode\x00opj_pi_update_encoding_parameters\x00../src/lib/openjp2/t1.c\x00Cannot allocate cblk->decoded_data\n\x00Cannot allocate Tier 1 handle\n\x00Unable to set t1 handle as TLS\n\x00(cblk->decoded_data != NULL) || (tilec->data != NULL)\x00opj_t1_clbl_decode_processor\x00opj_t1_decode_cblk(): unsupported bpno_plus_one = %d >= 31\n\x00PTERM check failure: %d remaining bytes in code block (%d used / %d)\n\x00PTERM check failure: %d synthetized 0xFF markers read\n\x00pass->rate > 0\x00opj_t1_encode_cblk\x00../src/lib/openjp2/t2.c\x00p_marker_info->packet_count == 0\x00p_marker_info->p_packet_size == NULL\x00opj_t2_encode_packets\x00packet offset=00000166 prg=%d cmptno=%02d rlvlno=%02d prcno=%03d lyrno=%02d\n\n\x00opj_t2_encode_packet(): only %u bytes remaining in output buffer. %u needed.\n\x00opj_t2_encode_packet(): accessing precno=%u >= %u\n\x00c >= dest\x00opj_t2_encode_packet\x00Invalid precinct\n\x00Not enough space for expected SOP marker\n\x00Expected SOP marker\n\x00present=%d \n\x00Not enough space for expected EPH marker\n\x00Expected EPH marker\n\x00included=%d \n\x00Invalid bit number %d in opj_t2_read_packet_header()\n\x00included=%d numnewpasses=%d increment=%d len=%d \n\x00hdrlen=%d \n\x00packet body\n\x00read: segment too long (%d) with max (%d) for codeblock %d (p=%d, b=%d, r=%d, c=%d)\n\x00cannot allocate opj_tcd_seg_data_chunk_t* array\x00skip: segment too long (%d) with max (%d) for codeblock %d (p=%d, b=%d, r=%d, c=%d)\n\x00p_data_read (%d) newlen (%d) \n\x00Tile X coordinates are not supported\n\x00Tile Y coordinates are not supported\n\x00tiles require at least one resolution\n\x00Size of tile data exceeds system limits\n\x00Not enough memory for tile resolutions\n\x00Integer overflow\n\x00Not enough memory to handle band precints\n\x00Size of code block data exceeds system limits\n\x00Not enough memory for current precinct codeblock element\n\x00Invalid tilec->win_xxx values\n\x00Tiles don't all have the same dimension. Skip the MCT step.\n\x00Number of components (%d) is inconsistent with a MCT. Skip the MCT step.\n\x00../src/lib/openjp2/tcd.c\x00l_height == 0 || l_width + l_stride <= l_tile_comp->data_size / l_height\x00opj_tcd_dc_level_shift_decode\x00Not enough memory to create Tag-tree\n\x00Not enough memory to create Tag-tree nodes\n\x00Not enough memory to reinitialize the tag tree\n\x00../src/lib/openjp2/thread.c\x00num_threads > 0\x00opj_thread_pool_setup\x00tp->waiting_worker_thread_count <= tp->worker_threads_count\x00opj_thread_pool_get_next_job\x00worker_thread->marked_as_waiting\x00opj_thread_pool_submit_job\x00"
 var ts = (*reflect.StringHeader)(unsafe.Pointer(&ts1)).Data
