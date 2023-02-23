@@ -20,8 +20,8 @@ type testify struct {
 func TestMonoDecompresing(t *testing.T) {
 	for _, test := range []testify{
 		{
-			in:       "a1_mono.j2c",
-			out:      "a1_mono.ppm",
+			in:       "testdata/a1_mono.j2c",
+			out:      "testdata/a1_mono.ppm",
 			w:        303,
 			h:        179,
 			prec:     8,
