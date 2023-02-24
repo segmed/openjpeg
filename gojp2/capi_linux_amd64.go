@@ -3,6 +3,7 @@
 package gojp2
 
 var CAPI = map[string]struct{}{
+	"bytestoimage":                            {},
 	"color_cmyk_to_rgb":                       {},
 	"color_esycc_to_rgb":                      {},
 	"color_sycc_to_rgb":                       {},
