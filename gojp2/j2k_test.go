@@ -15,6 +15,7 @@ type testify struct {
 	in                   string
 	out                  string
 	w, h, prec, numcomps int32
+	expectedFailed       bool
 }
 
 func TestMonoDecompresing(t *testing.T) {
@@ -27,14 +28,23 @@ func TestMonoDecompresing(t *testing.T) {
 			prec:     8,
 			numcomps: 1,
 		},
+		{
+			in:             "testdata/1.raw",
+			out:            "testdata/a1_mono.ppm",
+			w:              2262,
+			h:              2753,
+			prec:           16,
+			numcomps:       1,
+			expectedFailed: true,
+		},
 	} {
 		t.Run("decompress "+test.in, func(t *testing.T) {
-			assertJ2KDecompressing(t, test.in, test.out)
+			assertJ2KDecompressing(t, test.expectedFailed, test.in, test.out)
 		})
 	}
 }
 
-func assertJ2KDecompressing(t *testing.T, in, out string) {
+func assertJ2KDecompressing(t *testing.T, expectedFailed bool, in, out string) {
 	tls := libc.NewTLS()
 	defer tls.Close()
 	input, err := os.ReadFile(in)
@@ -45,6 +55,9 @@ func assertJ2KDecompressing(t *testing.T, in, out string) {
 	}
 	var ncomp = (*Topj_image_t)(unsafe.Pointer(opjImage)).Fnumcomps
 	require.EqualValues(t, 1, ncomp) //mono image
+	if expectedFailed {
+		t.Skip("skipped")
+	}
 	wr := int((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(opjImage)).Fcomps)).Fw)
 	hr := int((*Topj_image_comp_t)(unsafe.Pointer((*Topj_image_t)(unsafe.Pointer(opjImage)).Fcomps)).Fh)
 	assert.NotZero(t, wr)
