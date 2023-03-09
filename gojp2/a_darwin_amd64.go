@@ -852,7 +852,7 @@ const (
 	DOPJ_BOX_SIZE                               = 1024                                   // jp2.c:45:1:
 )
 
-const ( /* helper.c:104:1: */
+const ( /* helper.c:94:1: */
 	OPJ_PREC_MODE_CLIP  = 0
 	OPJ_PREC_MODE_SCALE = 1
 )
@@ -18426,9 +18426,6 @@ func Xopj_seek_from_memory(tls *libc.TLS, p_nb_bytes TOPJ_OFF_T, p_file uintptr)
 }
 
 func Xopj_stream_create_buffer_stream(tls *libc.TLS, buf uintptr, buf_size TOPJ_SIZE_T, p_size TOPJ_SIZE_T, p_is_read_stream TOPJ_BOOL) uintptr { /* helper.c:63:13: */
-	bp := tls.Alloc(24)
-	defer tls.Free(24)
-
 	var l_stream uintptr = uintptr(00)
 
 	if !(buf != 0) {
@@ -18439,44 +18436,26 @@ func Xopj_stream_create_buffer_stream(tls *libc.TLS, buf uintptr, buf_size TOPJ_
 	if !(l_stream != 0) {
 		return uintptr(0)
 	}
-	// var mysrc Smyfile at bp, 24
 
-	var fsrc uintptr = bp /* &mysrc */
-	(*Smyfile)(unsafe.Pointer(fsrc)).Fmem = libc.AssignPtrUintptr(fsrc+8, buf)
-	(*Smyfile)(unsafe.Pointer(fsrc)).Flen = buf_size //inputlength;
-
-	Xopj_stream_set_user_data(tls, l_stream, fsrc, uintptr(0))
+	Xopj_stream_set_user_data(tls, l_stream, uintptr(0), uintptr(0))
 	Xopj_stream_set_user_data_length(tls, l_stream, uint64(buf_size))
-	// opj_stream_set_current_data(l_stream, buf, buf_size);
-
-	Xopj_stream_set_read_function(tls, l_stream, *(*uintptr)(unsafe.Pointer(&struct {
-		f func(*libc.TLS, uintptr, TOPJ_SIZE_T, uintptr) TOPJ_SIZE_T
-	}{Xopj_read_from_memory})))
-	Xopj_stream_set_write_function(tls, l_stream, *(*uintptr)(unsafe.Pointer(&struct {
-		f func(*libc.TLS, uintptr, TOPJ_SIZE_T, uintptr) TOPJ_SIZE_T
-	}{Xopj_write_from_memory})))
-	Xopj_stream_set_skip_function(tls, l_stream, *(*uintptr)(unsafe.Pointer(&struct {
-		f func(*libc.TLS, TOPJ_OFF_T, uintptr) TOPJ_OFF_T
-	}{Xopj_skip_from_memory})))
-	Xopj_stream_set_seek_function(tls, l_stream, *(*uintptr)(unsafe.Pointer(&struct {
-		f func(*libc.TLS, TOPJ_OFF_T, uintptr) TOPJ_BOOL
-	}{Xopj_seek_from_memory})))
+	Xopj_stream_set_current_data(tls, l_stream, buf, buf_size)
 	return l_stream
 }
 
-func Xopj_stream_create_default_buffer_stream(tls *libc.TLS, buf uintptr, buf_size TOPJ_SIZE_T, p_is_read_stream TOPJ_BOOL) uintptr { /* helper.c:96:13: */
+func Xopj_stream_create_default_buffer_stream(tls *libc.TLS, buf uintptr, buf_size TOPJ_SIZE_T, p_is_read_stream TOPJ_BOOL) uintptr { /* helper.c:86:13: */
 	return Xopj_stream_create_buffer_stream(tls, buf, buf_size, uint64(DOPJ_J2K_STREAM_CHUNK_SIZE),
 		p_is_read_stream)
 }
 
-type Topj_precision_mode = uint32 /* helper.c:107:3 */
+type Topj_precision_mode = uint32 /* helper.c:97:3 */
 
 type Sopj_prec = struct {
 	Fprec TOPJ_UINT32
 	Fmode Topj_precision_mode
-} /* helper.c:109:9 */
+} /* helper.c:99:9 */
 
-type Topj_precision = Sopj_prec /* helper.c:112:3 */
+type Topj_precision = Sopj_prec /* helper.c:102:3 */
 
 type Sopj_decompress_params = struct {
 	Fcore              Topj_dparameters_t
@@ -18502,11 +18481,11 @@ type Sopj_decompress_params = struct {
 	Fallow_partial     int32
 	Fnumcomps          TOPJ_UINT32
 	Fcomps_indices     uintptr
-} /* helper.c:114:9 */
+} /* helper.c:104:9 */
 
-type Topj_decompress_parameters = Sopj_decompress_params /* helper.c:164:3 */
+type Topj_decompress_parameters = Sopj_decompress_params /* helper.c:154:3 */
 
-func set_default_parameters(tls *libc.TLS, parameters uintptr) { /* helper.c:166:13: */
+func set_default_parameters(tls *libc.TLS, parameters uintptr) { /* helper.c:156:13: */
 	if parameters != 0 {
 		libc.X__builtin___memset_chk(tls, parameters, 0, uint64(unsafe.Sizeof(Topj_decompress_parameters{})), libc.X__builtin_object_size(tls, parameters, 0))
 
@@ -18519,7 +18498,7 @@ func set_default_parameters(tls *libc.TLS, parameters uintptr) { /* helper.c:166
 	}
 }
 
-func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format int32, cod_format int32) uintptr { /* helper.c:180:12: */
+func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format int32, cod_format int32) uintptr { /* helper.c:170:12: */
 	bp := tls.Alloc(20632)
 	defer tls.Free(20632)
 
@@ -18610,7 +18589,7 @@ func Xopj_decompress(tls *libc.TLS, buf uintptr, buf_size Tsize_t, decod_format 
 	return *(*uintptr)(unsafe.Pointer(bp + 20624 /* image */))
 }
 
-func Xdecode_j2k(tls *libc.TLS, buf uintptr, buf_size Tsize_t) uintptr { /* helper.c:276:12: */
+func Xdecode_j2k(tls *libc.TLS, buf uintptr, buf_size Tsize_t) uintptr { /* helper.c:266:12: */
 	bp := tls.Alloc(13)
 	defer tls.Free(13)
 
@@ -18644,7 +18623,7 @@ func Xdecode_j2k(tls *libc.TLS, buf uintptr, buf_size Tsize_t) uintptr { /* help
 }
 
 // Encode RGB bytes array to an OPJ_IMAGE
-func Xbytestoimage(tls *libc.TLS, buf uintptr, w int32, h int32, prec int32, numcomps int32) uintptr { /* helper.c:316:12: */
+func Xbytestoimage(tls *libc.TLS, buf uintptr, w int32, h int32, prec int32, numcomps int32) uintptr { /* helper.c:306:12: */
 	bp := tls.Alloc(18864)
 	defer tls.Free(18864)
 
